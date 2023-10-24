@@ -15,4 +15,4 @@ This is the final project for the first term in CS202
 
 After the grading time we will open this project and you can freely enjoy everything.
 
-Instruction for running the app: ...
+Instruction for running the app: [Link](https://youtu.be/LHs66UzE8W0)

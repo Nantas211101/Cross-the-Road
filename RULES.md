@@ -5,7 +5,11 @@
 3. [Variables must have sensible names](https://www.youtube.com/watch?v=-J3wNP6u5YU), however, there are exceptions on variables in `for-loop` and ubiquitious names, such as tmp, cnt, cur.
 4. [Don't comment too much](https://www.youtube.com/watch?v=Bf7vDBBOBUA), try to write codes that make sense instead.
 5. Use [#pragma once](https://en.wikipedia.org/wiki/Pragma_once) instead of [`#include` guard](https://en.wikipedia.org/wiki/Include_guard) for **all header files**. In terms of the definition of `class`, please do not implement functions in header file, except for `the constructor and destructor`.
-
+6. Remember to create **include** folder, **res** folder and **src** folder, **template** folder which:
+    + `include` folder will hold all the **.hpp** file
+    + `res` folder will hold all the **resource** (.png, font, ...)
+    + `src` folder will hold all the **.cpp** file
+    + `template` folder will holl all the **.inl** file
 ---
 
 # Github rules
