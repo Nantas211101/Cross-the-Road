@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 3.21)
-project(Cross_the_road LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16)
+project(CMakeSFMLProject LANGUAGES CXX)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -8,15 +9,23 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-file(GLOB SRCS CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/*.cpp)
+file(GLOB SRCS CONFIGURE_DEPENDS 
+    ${CMAKE_SOURCE_DIR}/src/*.cpp 
+)
 
-add_executable(Cross_the_road ${SRCS})
-target_include_directories(Cross_the_road PRIVATE ./include)
-target_link_libraries(Cross_the_road PRIVATE sfml-graphics sfml-window sfml-system)
-target_compile_features(Cross_the_road PRIVATE cxx_std_17)
-if (WIN32 AND BUILD_SHARED_LIBS)
-    add_custom_command(TARGET Cross_the_road POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Cross_the_road> $<TARGET_FILE_DIR:Cross_the_road> COMMAND_EXPAND_LISTS)
+add_executable(game ${SRCS})
+target_link_libraries(game PRIVATE sfml-graphics sfml-window sfml-system)
+target_compile_features(game PRIVATE cxx_std_17)
+target_include_directories(game PRIVATE 
+    ${CMAKE_SOURCE_DIR}/include/
+)
+
+if(WIN32)
+    add_custom_command(
+        TARGET game
+        COMMENT "Copy OpenAL DLL"
+        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:game>
+        VERBATIM)
 endif()
 
-install(TARGETS Cross_the_road)
+install(TARGETS game)
