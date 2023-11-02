@@ -12,6 +12,7 @@ namespace Textures {
 		Eagle,
 		Raptor,
 		Desert,
+		Log
 	};
 }
 
