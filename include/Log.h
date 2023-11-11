@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "DataTable.h"
 #include "TextureHolder.h"
@@ -15,12 +15,14 @@ class Log : public Entity {
 
     public:
         Log(Type type, const TextureHolder& Texture);
-
-    private:
-        Type type;
-        sf::Sprite sprite;
+        virtual sf::FloatRect getBoundingRect() const;
+        sf::FloatRect* getDangerBound() const;
 
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
+ 
+    private:
+        Type type;
+        sf::Sprite sprite;
 };

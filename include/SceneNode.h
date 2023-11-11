@@ -1,10 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <memory>
-#include <vector>
 
-class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable {
+#include <vector>
+#include <memory>
+
+
+class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
+{
 	public:
 		typedef std::unique_ptr<SceneNode> Ptr;
 
@@ -26,9 +29,11 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 		void					updateChildren(sf::Time dt);
 
 		virtual void			draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void 					drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) const;
 		virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 		void					drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
 
+		virtual sf::FloatRect 	getBoundingRect() const;
 
 	private:
 		std::vector<Ptr>		mChildren;

@@ -9,9 +9,10 @@ struct LogData {
 	Textures::ID texture;
 };
 
-struct CrocodileData {
-    float speed;
+struct LaneData {
+	float speed;
 	Textures::ID texture;
 };
 
 std::vector<LogData> initializeLogData();
+std::vector<LaneData> initalizeLaneData();

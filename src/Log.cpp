@@ -20,3 +20,21 @@ void Log::updateCurrent(sf::Time dt) {
     this->setVelocity(Table[type].speed, 0);
     Entity::updateCurrent(dt);
 }
+
+sf::FloatRect Log::getBoundingRect() const {
+    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+}
+
+sf::FloatRect* Log::getDangerBound() const {
+	sf::FloatRect tmp = getBoundingRect();
+    sf::FloatRect* pBound = new sf::FloatRect(tmp);
+    if(type == Log::Log1) {
+        delete pBound;
+        return nullptr;
+    }
+    tmp.top += 20;
+    tmp.left += 20;
+    tmp.width /= 6;
+    tmp.height /= 1.7;
+    return pBound;
+}
