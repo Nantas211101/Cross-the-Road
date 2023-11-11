@@ -7,15 +7,22 @@
 #include <cassert>
 #include <SFML/Graphics.hpp>
 
-namespace Textures {
-	enum ID {
+namespace Textures
+{
+	enum ID
+	{
 		Eagle,
 		Raptor,
 		Desert,
+		Log,
+		Ground,
+		Road,
+		River
 	};
 }
 
-class TextureHolder {
+class TextureHolder
+{
 	public:
 		void load(Textures::ID id, const std::string& filename);
 		sf::Texture& get(Textures::ID id);
