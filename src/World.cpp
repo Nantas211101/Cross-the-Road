@@ -40,6 +40,7 @@ void World::loadTextures()
 	mTextures.load(Textures::Desert, "../../Media/Textures/Desert.png");
 	mTextures.load(Textures::Log, "../../Media/Textures/Log.png");
 	mTextures.load(Textures::River, "../../Media/Textures/River.png");
+	mTextures.load(Textures::Grass, "../../Media/Textures/Grass.png");
 }
 
 void World::buildScene()
@@ -71,6 +72,13 @@ void World::buildScene()
 	river->setPosition(sf::Vector2f(-100.f, 40.f));
 	mSceneLayers[Title]->attachChild(std::move(river));
 
+	sf::Texture& texture2 =  mTextures.get(Textures::Grass);
+	texture2.setRepeated(true);
+
+	sf::IntRect textureRect2(0, 0, 2000, 100);
+	std::unique_ptr<Lane> grass(new Grass(mTextures, textureRect2));
+	grass->setPosition(sf::Vector2f(-100.f, 200.f));
+	mSceneLayers[Title]->attachChild(std::move(grass));
 	// sf::Texture& texture1 = mTextures.get(Textures::River);
 	// sf::IntRect textureRect1(0, 0, 1000, 100);
 	// texture1.setRepeated(true);

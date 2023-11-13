@@ -1,6 +1,6 @@
 #include "../include/Lane.h"
 
-Lane::Lane() : type(Lane::River), numOfLane(3) {}
+Lane::Lane() : type(Lane::River), numOfLane(4) {}
 
 void Lane::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     return;

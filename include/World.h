@@ -6,7 +6,7 @@
 #include "Log.h"
 #include "Lane.h"
 #include "River.h"
-
+#include "Grass.h"
 #include <SFML/Graphics.hpp>
 
 #include <array>

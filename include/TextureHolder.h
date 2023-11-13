@@ -17,7 +17,8 @@ namespace Textures
 		Log,
 		Ground,
 		Road,
-		River
+		River,
+		Grass
 	};
 }
 

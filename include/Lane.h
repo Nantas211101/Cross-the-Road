@@ -9,6 +9,7 @@ class Lane : public Entity {
             Ground,
             Road,
             River,
+            Grass,
             TypeCount
         };
 

@@ -23,5 +23,8 @@ std::vector<LaneData> initializeLaneData() {
 
     data[Lane::River].speed = 20.f;
     data[Lane::River].texture = Textures::River;
+
+    data[Lane::Grass].speed = 20.f;
+    data[Lane::Grass].texture = Textures::Grass;
     return data;
 }
