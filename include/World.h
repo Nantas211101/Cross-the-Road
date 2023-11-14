@@ -9,8 +9,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <memory>
 #include <array>
-
+#include <iostream>
 
 // Forward declaration
 namespace sf
@@ -35,18 +36,8 @@ class World : private sf::NonCopyable
 		{
 			Background,
 			Title,
+			AboveTitle,
 			LayerCount
-		};
-		struct SpawnPoint {
-			SpawnPoint(Log::Type type, float x, float y)
-			: type(type)
-			, x(x)
-			, y(y)
-			{}
-
-			Log::Type type;
-			float x;
-			float y;
 		};
 
 	private:
@@ -61,5 +52,5 @@ class World : private sf::NonCopyable
 		sf::Vector2f						mSpawnPosition;
 		float								mScrollSpeed;
 
-		std::vector<SpawnPoint>				mEnemySpawnPoints;
+		std::vector<Lane*>	rivers;
 };

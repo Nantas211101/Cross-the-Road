@@ -4,9 +4,9 @@
 
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
-    data[Log::Log1].speed = 40.f;
+    data[Log::Log1].speed = 50.f;
     data[Log::Log1].texture = Textures::Log;
-    data[Log::Log1].scaling = sf::Vector2f(0.4, 0.4);
+    data[Log::Log1].scaling = sf::Vector2f(0.2, 0.2);
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
@@ -21,7 +21,7 @@ std::vector<LaneData> initializeLaneData() {
     data[Lane::Road].speed = 0;
     data[Lane::Road].texture = Textures::Road;
 
-    data[Lane::River].speed = 20.f;
+    data[Lane::River].speed = 50.f;
     data[Lane::River].texture = Textures::River;
     return data;
 }

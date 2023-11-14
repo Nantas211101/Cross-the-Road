@@ -15,4 +15,4 @@ struct LaneData {
 };
 
 std::vector<LogData> initializeLogData();
-std::vector<LaneData> initalizeLaneData();
+std::vector<LaneData> initializeLaneData();

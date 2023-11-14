@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "DataTable.h"
 #include "TextureHolder.h"
+#include <iostream>
 
 class Log : public Entity {
     public:

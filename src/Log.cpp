@@ -17,7 +17,6 @@ void Log::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Log::updateCurrent(sf::Time dt) {
-    this->setVelocity(Table[type].speed, 0);
     Entity::updateCurrent(dt);
 }
 
@@ -32,6 +31,7 @@ sf::FloatRect* Log::getDangerBound() const {
         delete pBound;
         return nullptr;
     }
+    // danger bound of crocodile
     tmp.top += 20;
     tmp.left += 20;
     tmp.width /= 6;
