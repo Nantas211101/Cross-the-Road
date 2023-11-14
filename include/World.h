@@ -8,7 +8,7 @@
 #include "River.h"
 #include "Grass.h"
 #include <SFML/Graphics.hpp>
-
+#include "Tree.h"
 #include <array>
 
 

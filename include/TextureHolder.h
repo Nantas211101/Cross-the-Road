@@ -18,7 +18,8 @@ namespace Textures
 		Ground,
 		Road,
 		River,
-		Grass
+		Grass,
+		Tree
 	};
 }
 
