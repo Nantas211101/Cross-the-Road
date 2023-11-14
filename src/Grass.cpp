@@ -29,17 +29,17 @@ void Grass::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 void Grass::updateCurrent(sf::Time dt) {
-    this->setVelocity(0, 0);
+    // this->setVelocity(0, 0);
     Entity::updateCurrent(dt);
 }
 
 void Grass::buildtree() {
-    int speedSameLane = 50 + rand() % 50;
-    for(int j = 0; j < 10; j++) {
+    int numTrees = 5 + rand() % 9;
+    for(int j = 0; j < numTrees; j++) {
         std::unique_ptr<Tree> tree(new Tree(textureHolder));
         Trees.push_back(tree.get());
-        int randNum = rand() % 50;
-        tree->setPosition(pos.x + 300 * j - 4 * randNum, pos.y + 25);
+        int randNum = rand() % 10;
+        tree->setPosition( randNum * 192 + tree->getBoundingRect().width/2 , pos.y );
         this->attachChild(std::move(tree));
     }
 }

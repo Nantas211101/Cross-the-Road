@@ -1,5 +1,4 @@
 #include "../include/SceneNode.h"
-#include "../include/SceneNode.h"
 
 #include <algorithm>
 #include <cassert>
@@ -17,6 +16,13 @@ void SceneNode::attachChild(Ptr child)
 	mChildren.push_back(std::move(child));
 }
 
+void SceneNode::attachChild(std::vector<Ptr> children) {
+	for(int i = 0; i < children.size(); i++) {
+		children[i]->mParent = this;
+		mChildren.push_back(std::move(children[i]));
+	}
+}
+
 SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
 {
 	auto found = std::find_if(mChildren.begin(), mChildren.end(), [&] (Ptr& p) { return p.get() == &node; });
@@ -25,6 +31,17 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
 	Ptr result = std::move(*found);
 	result->mParent = nullptr;
 	mChildren.erase(found);
+	return result;
+}
+
+std::vector<SceneNode::Ptr> SceneNode::detachChild() {
+	std::vector<Ptr> result;
+	for(int i = mChildren.size() - 1; i >= 0; i--) {
+		Ptr child = std::move(mChildren[i]);
+		child->mParent = nullptr;
+		mChildren.erase(mChildren.begin() + i);
+		result.push_back(std::move(child));
+	}
 	return result;
 }
 

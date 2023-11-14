@@ -6,7 +6,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 Game::Game()
-: mWindow(sf::VideoMode(640, 480), "World", sf::Style::Close)
+: mWindow(sf::VideoMode(1920, 1080), "World", sf::Style::Close)
 , mWorld(mWindow)
 , mFont()
 , mStatisticsText()
