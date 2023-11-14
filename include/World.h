@@ -35,6 +35,7 @@ class World : private sf::NonCopyable
 		{
 			Background,
 			Title,
+			AboveTitle,
 			LayerCount
 		};
 		struct SpawnPoint {
@@ -62,4 +63,5 @@ class World : private sf::NonCopyable
 		float								mScrollSpeed;
 
 		std::vector<SpawnPoint>				mEnemySpawnPoints;
+		std::vector<Lane*> 					Grasses;
 };
