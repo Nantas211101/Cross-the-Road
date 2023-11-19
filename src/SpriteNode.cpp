@@ -1,4 +1,4 @@
-#include "../include/SpriteNode.h"
+#include <SpriteNode.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 

@@ -18,6 +18,7 @@ target_link_libraries(game PRIVATE sfml-graphics sfml-window sfml-system)
 target_compile_features(game PRIVATE cxx_std_17)
 target_include_directories(game PRIVATE 
     ${CMAKE_SOURCE_DIR}/include/
+    ${CMAKE_SOURCE_DIR}/template/
 )
 
 if(WIN32)
