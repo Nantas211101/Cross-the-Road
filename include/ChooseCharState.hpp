@@ -5,6 +5,7 @@
 #include <SceneNode.hpp>
 #include <MainChar.hpp>
 #include "GUI_Container.hpp"
+#include "GUI_ContainerSET.hpp"
 
 #include <array>
 
@@ -57,6 +58,8 @@ private:
     sf::Keyboard::Key 					isChangeKey;
 
     bool isFocus;
+    std::string name;
 
     GUI::Container mGUIContainer;
+    GUI::ContainerSet mGUIContainerSet;
 };

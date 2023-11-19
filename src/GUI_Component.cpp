@@ -6,6 +6,7 @@ namespace GUI
 Component::Component()
 : mIsSelected(false)
 , mIsActive(false)
+, id(Components::Button)
 {
 
 }
@@ -57,6 +58,14 @@ bool Component::contain(sf::Vector2i mouse_pos, sf::FloatRect bounds) const{
     bounds.left = cur_pos.x - bounds.width / 2;
     bounds.top = cur_pos.y - bounds.height / 2; // because center origin, we need this to contain right
     return bounds.contains(sf::Vector2f(mouse_pos));
+}
+
+void Component::setTypeOfButton(Components::ID id){
+	this->id = id;
+}
+
+Components::ID Component::getTypeOfButton(){
+	return this->id;
 }
 
 }

@@ -2,7 +2,8 @@
 
 #include "State.hpp"
 #include "Player.hpp"
-#include "GUI_Container.hpp"
+// #include "GUI_Container.hpp"
+#include "GUI_ContainerSET.hpp"
 #include "GUI_Button.hpp"
 #include "GUI_Label.hpp"
 
@@ -30,7 +31,7 @@ class SettingsState : public State
 	private:
         sf::RectangleShape                                  mBackground;
 		sf::Sprite											mBackgroundSprite;
-		GUI::Container										mGUIContainer;
+		GUI::ContainerSet									mGUIContainer;
 		std::array<GUI::Button::Ptr, Player::ActionCount>	mBindingButtons;
 		std::array<GUI::Label::Ptr, Player::ActionCount> 	mBindingLabels;
         std::vector<sf::Text> textHold;

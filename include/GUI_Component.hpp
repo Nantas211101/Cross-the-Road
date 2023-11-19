@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "ComponentIdentifiers.hpp"
 
 namespace GUI
 { // put in the namespace to prevent the conflix of the component
@@ -30,10 +31,13 @@ public:
     virtual void handleEvent(const sf::Event& event) = 0;
     virtual void handleRealTimeInput(const sf::RenderWindow& window);
     bool contain(sf::Vector2i mouse_pos, sf::FloatRect bounds) const;
+    void setTypeOfButton(Components::ID id);
+    Components::ID getTypeOfButton();
 
 private:
     bool mIsSelected;
     bool mIsActive;
+    Components::ID id;
 };
 
 }

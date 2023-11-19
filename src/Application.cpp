@@ -20,6 +20,7 @@ const std::string Path_LeftButton = "Media/Textures/Left.png";
 const std::string Path_Normal = "Media/Textures/ButtonNormal.png";
 const std::string Path_Pressed = "Media/Textures/ButtonPressed.png";
 const std::string Path_Selected = "Media/Textures/ButtonSelected.png";
+const std::string Path_InputButton = "Media/Textures/purpleInputBox.png";
 
 // Application quite similar to the Game.cpp
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 120.f);
@@ -130,4 +131,5 @@ void Application::loadResources(){
     mTextures.load(Textures::ButtonNormal, Path_Normal);
     mTextures.load(Textures::ButtonPressed, Path_Pressed);
     mTextures.load(Textures::ButtonSelected, Path_Selected);
+    mTextures.load(Textures::InputButton1, Path_InputButton);
 }

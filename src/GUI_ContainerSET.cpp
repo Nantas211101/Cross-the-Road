@@ -1,11 +1,11 @@
-#include "GUI_Container.hpp"
+#include "GUI_ContainerSET.hpp"
 
 #include <iostream>
 
 namespace GUI
 {
 
-Container::Container()
+ContainerSet::ContainerSet()
 : mChildren()
 , mSelectedChild(-1)
 , mActivateChild(-1)
@@ -16,36 +16,29 @@ Container::Container()
 
 }
 
-void Container::pack(Component::Ptr component)
+void ContainerSet::pack(Component::Ptr component)
 {
     mChildren.push_back(component);
     // if (!hasSelection() && component->isSelectable())
     // select(mChildren.size() - 1);
 }
 
-bool Container::isSelectable() const
+bool ContainerSet::isSelectable() const
 {
 	return false;
 }
 
-bool Container::isContain(const sf::RenderWindow& window) const 
+bool ContainerSet::isContain(const sf::RenderWindow& window) const 
 {
 	return false;
 }
 
-void Container::handleEvent(const sf::Event& event)
+void ContainerSet::handleEvent(const sf::Event& event)
 {
     // If we have selected and activated a child then give it events
-
 	if (hasSelection() && mChildren[mSelectedChild]->isActive())
 	{
-		if(event.key.code == sf::Keyboard::Return){ // special case when press enter of InputButton
-			if(hasActivate())
-				deactivate();
-		}
-		else{
-			mChildren[mSelectedChild]->handleEvent(event);
-		}
+		mChildren[mSelectedChild]->handleEvent(event);
 	}
 	else if (event.type == sf::Event::KeyReleased)
 	{
@@ -61,16 +54,14 @@ void Container::handleEvent(const sf::Event& event)
 		}
 		else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
 		{
-			if (hasSelection()){
+			if (hasSelection())
 				mChildren[mSelectedChild]->activate();
-				mActivateChild = mSelectedChild;
-			}
 		}
 	}
 	isJustStart = 0;
 }
 
-void Container::handleRealTimeInput(const sf::RenderWindow& window){
+void ContainerSet::handleRealTimeInput(const sf::RenderWindow& window){
 	int indexContain = -1;
 	for(int i = 0; i < mChildren.size(); ++i)
 		if(mChildren[i]->isSelectable() && mChildren[i]->isContain(window))
@@ -85,38 +76,36 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 	}
 	else{ 
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && hasSelection())
-			deactivate();
-		if(isSelectByMouse && !hasActivate())
+			deselect();
+		if(isSelectByMouse)
 			deselect();
 	}
 	
-	if(hasSelection() && mChildren[mSelectedChild]->isContain(window) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+	if(hasSelection() && mChildren[mSelectedChild]->isContain(window) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		mChildren[mSelectedChild]->activate();
-		mActivateChild = mSelectedChild;
-	}
 
 	preMousePos = curPos;
 	isJustStart = 0;
 }
 
-void Container::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void ContainerSet::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
 	for(const Component::Ptr& child : mChildren)
 		target.draw(*child, states);
 }
 
-bool Container::hasSelection() const
+bool ContainerSet::hasSelection() const
 {
 	return mSelectedChild >= 0;
 }
 
-bool Container::hasActivate() const
+bool ContainerSet::hasActivate() const
 {
 	return mActivateChild >= 0;
 }
 
-void Container::activate(std::size_t index)
+void ContainerSet::activate(std::size_t index)
 {
 	if(mChildren[index]->isSelectable()){
 		if(hasActivate())
@@ -132,22 +121,8 @@ void Container::activate(std::size_t index)
 	}
 }
 
-void Container::deactivate()
+void ContainerSet::select(std::size_t index)
 {
-	if(hasActivate())
-		mChildren[mActivateChild]->deactivate();
-	
-	if(hasSelection())
-		mChildren[mSelectedChild]->deselect();
-	
-	mSelectedChild = -1;
-	mActivateChild = -1;
-}
-
-void Container::select(std::size_t index)
-{
-	if(hasActivate())
-		return;
 	if(mChildren[index]->isSelectable()){
 		if(hasSelection())
 			mChildren[mSelectedChild]->deselect();
@@ -156,7 +131,7 @@ void Container::select(std::size_t index)
 	}
 }
 
-void Container::deselect()
+void ContainerSet::deselect()
 {
 	if(hasSelection()){
 		mChildren[mSelectedChild]->deselect();
@@ -164,10 +139,8 @@ void Container::deselect()
 	}
 }
 
-void Container::selectNext()
+void ContainerSet::selectNext()
 {
-	if(hasActivate())
-		return;
 	if(!hasSelection()){
 		for(int index = 0; index < mChildren.size(); ++index)
 			if(mChildren[index]->isSelectable()){
@@ -183,10 +156,8 @@ void Container::selectNext()
 	select(next);
 }
 
-void Container::selectPrev()
+void ContainerSet::selectPrev()
 {
-	if(hasActivate())
-		return;
 	if(!hasSelection()){
 		for(int index = mChildren.size() - 1; index >= 0; --index)
 			if(mChildren[index]->isSelectable()){

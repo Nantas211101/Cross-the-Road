@@ -10,13 +10,13 @@
 namespace GUI
 {
 
-class Container : public Component{
+class ContainerSet : public Component{
 
 public:
-    typedef std::shared_ptr<Container> Ptr;
+    typedef std::shared_ptr<ContainerSet> Ptr;
 
 public:
-    Container();
+    ContainerSet();
     void pack(Component::Ptr component);
     virtual bool isSelectable() const;
     virtual bool isContain(const sf::RenderWindow& window) const;
@@ -29,7 +29,6 @@ private:
     auto hasSelection() const -> bool;
     auto hasActivate() const -> bool;
     void activate(std::size_t index);
-    void deactivate();
     void select(std::size_t index);
     void deselect();
     void selectNext();

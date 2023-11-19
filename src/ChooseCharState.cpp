@@ -3,6 +3,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "TextureManipulate.hpp"
 #include "GUI_Button.hpp"
+#include "GUI_InputButton.hpp"
 #include "SpriteNode.hpp"
 
 #include <memory>
@@ -24,13 +25,14 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 , isChange(false)
 , isFocus(true)
 , mGUIContainer()
+, mGUIContainerSet()
 {
     sf::Vector2f pos = context.window->getView().getSize();
     mText.setFont(context.fonts->get(Fonts::Main));
     mText.setString("Choose your character");
     mText.setCharacterSize(75);
     setCenterOrigin(mText);
-    mText.setPosition({pos.x / 2.f, 100.f});
+    mText.setPosition({pos.x / 2.f, 50.f});
 	
 	auto rightButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::RightButton);
 	rightButton->centerOrigin();
@@ -67,9 +69,30 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 		}
 	});
 
-	mGUIContainer.pack(rightButton);
-	mGUIContainer.pack(leftButton);
-	mGUIContainer.pack(chooseButton);
+	auto inputNameButton = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures);
+	inputNameButton->centerOrigin();
+	// inputNameButton->setColor(sf::Color::Cyan);
+	inputNameButton->setPosition(mSpawnPosition.x, 200.f);
+	inputNameButton->setText("Your Name");
+	inputNameButton->setScale(0.5, 0.5);
+	inputNameButton->setToggle(true);
+
+	inputNameButton->setCallback([this, context](std::string st){
+		// if(!isMove)
+		// {	
+			// context.player->setTextureID(this->mPlayer->getTextureID());
+			// requestStackPop();
+			// requestStackPush(States::Game);
+		name = st;
+			// std::cerr << "Hello\n";
+		// }
+	});
+	// std::cerr << name;
+
+	mGUIContainerSet.pack(rightButton);
+	mGUIContainerSet.pack(leftButton);
+	mGUIContainerSet.pack(chooseButton);
+	mGUIContainer.pack(inputNameButton);
     buildScene();
 }
 
@@ -104,6 +127,7 @@ void ChooseCharState::draw(){
     sf::RenderWindow &mWindow = *getContext().window;
     mWindow.draw(mSceneGraph);
 	mWindow.draw(mGUIContainer);
+	mWindow.draw(mGUIContainerSet);
     mWindow.draw(mText);
 }
 
@@ -126,6 +150,9 @@ bool ChooseCharState::handleEvent(const sf::Event &event){
 	sf::RenderWindow &mWindow = *getContext().window;
 	mGUIContainer.handleRealTimeInput(mWindow);
 	mGUIContainer.handleEvent(event);
+
+	mGUIContainerSet.handleRealTimeInput(mWindow);
+	mGUIContainerSet.handleEvent(event);
     return true;
 }
 

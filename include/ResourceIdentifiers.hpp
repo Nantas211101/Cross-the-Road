@@ -15,6 +15,7 @@ namespace Textures{
         ButtonNormal,
         ButtonPressed,
         ButtonSelected,
+        InputButton1,
 };
 }
 
