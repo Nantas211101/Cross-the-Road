@@ -12,6 +12,7 @@
 #include <memory>
 #include <array>
 #include <iostream>
+#include <cmath>
 
 // Forward declaration
 namespace sf
@@ -39,6 +40,9 @@ class World : private sf::NonCopyable
 			AboveTitle,
 			LayerCount
 		};
+		struct Data {
+			const sf::Vector2f screenVelocity = sf::Vector2f(0.f, -50.f);
+		};
 
 	private:
 		sf::RenderWindow&					mWindow;
@@ -50,7 +54,7 @@ class World : private sf::NonCopyable
 
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
-		float								mScrollSpeed;
 
 		std::vector<Lane*>	rivers;
+		const Data data;
 };

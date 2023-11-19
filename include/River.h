@@ -5,6 +5,7 @@
 #include "DataTable.h"
 #include "SpriteNode.h"
 #include <vector>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 
 class River : public Lane {
@@ -19,7 +20,10 @@ class River : public Lane {
     private:
         sf::Sprite sprite;
         std::vector<Log*> riverLog;
-        sf::Time timeSinceLastLog;
-        sf::Vector2f pos;
+        const int numOfLog = 10;
+        int lastLogIndex;
+        int firstLogIndex;
+        sf::Vector2f startPos;
+
         TextureHolder textureHolder;
 };

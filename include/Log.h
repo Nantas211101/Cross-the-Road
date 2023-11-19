@@ -10,6 +10,8 @@ class Log : public Entity {
     public:
         enum Type{
             Log1,
+            Log2,
+            Log3,
             Crocodile,
             TypeCount
         };
@@ -18,6 +20,7 @@ class Log : public Entity {
         Log(Type type, const TextureHolder& Texture);
         virtual sf::FloatRect getBoundingRect() const;
         sf::FloatRect* getDangerBound() const;
+        Type getType();
 
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -1,24 +1,22 @@
 #include "../include/River.h"
 
 namespace {
-    const std::vector<LaneData> Table = initializeLaneData();
+    const std::vector<LogData> TableLog = initializeLogData();
 }
 // 50: width each lane
 
 void River::loadTexture() {
     textureHolder.load(Textures::Log, "../../Media/Textures/Log.png");
-    textureHolder.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
+    //textureHolder.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
 }
 
 River::River(sf::Vector2f spawnPos, const TextureHolder& texture) 
 : Lane()
 , riverLog()
-, timeSinceLastLog(sf::Time::Zero)
-, pos(spawnPos) {
+, startPos(spawnPos) {
     sprite.setTexture(texture.get(Textures::River));
-    sf::IntRect textureRect(0, 0, 15000, 50);
+    sf::IntRect textureRect(0, 0, 3000, 150);
     sprite.setTextureRect(textureRect);
-
     loadTexture();
     buildLog();
 }
@@ -29,25 +27,46 @@ void River::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 
 void River::updateCurrent(sf::Time dt) {
     Entity::updateCurrent(dt);
-    //timeSinceLastLog += dt;
-    // if(timeSinceLastLog >= sf::seconds(5)) {
-    //     std::unique_ptr<Log> createLog(new Log(Log::Log1, textureHolder));
-    //     riverLog.push_back(createLog.get());
-    //     createLog->setPosition(sf::Vector2f(pos.x, pos.y));
-    // }
+
+    if(!this->isReverse() && riverLog[firstLogIndex]->getPosition().x >= 0) {
+        riverLog[lastLogIndex]->setPosition(-TableLog[riverLog[lastLogIndex]->getType()].distanceBetweenLog, startPos.y + 25);
+        firstLogIndex = lastLogIndex;
+        lastLogIndex = (lastLogIndex + numOfLog - 1) % numOfLog;
+    }
+    if(this->isReverse() && riverLog[lastLogIndex]->getPosition().x <= 2500) {
+        riverLog[firstLogIndex]->setPosition(TableLog[riverLog[firstLogIndex]->getType()].distanceBetweenLog + 2500, startPos.y + 25);
+        lastLogIndex = firstLogIndex;
+        firstLogIndex = (firstLogIndex + 1) % numOfLog;
+    }
 }
 
 void River::buildLog() {
-    int speedSameLane = 50 + rand() % 50;
-    for(int j = 0; j < 10; j++) {
-        std::unique_ptr<Log> log(new Log(Log::Log1, textureHolder));
-        riverLog.push_back(log.get());
+    int distance = 0;
+    int randomKindLog = 1 + rand() % 3;
+    Log::Type kind;
+    switch(randomKindLog) {
+    case 1:
+        kind = Log::Log1;
+        break;
+    case 2:
+        kind = Log::Log2;
+        break;
+    case 3:
+        kind = Log::Log3;
+        break;
+    }
+    int randSpawnPos = rand() % 200;
+    for(int j = 0; j < numOfLog; j++) {
+        std::unique_ptr<Log> log(new Log(kind, textureHolder));
         if(!this->isReverse())
-            log->setVelocity(1.0 * speedSameLane, 0);
+            log->setVelocity(1.0 * TableLog[kind].speed, 0);
         else
-            log->setVelocity(-1.0 * speedSameLane, 0);
-        int randNum = rand() % 50;
-        log->setPosition(pos.x + 300 * j - 4 * randNum, pos.y + 25);
+            log->setVelocity(-1.0 * TableLog[kind].speed, 0);
+        log->setPosition(startPos.x + randSpawnPos + distance, startPos.y + 25);
+        distance += TableLog[kind].distanceBetweenLog;
+        riverLog.push_back(log.get());
         this->attachChild(std::move(log));
     }
+    lastLogIndex = numOfLog - 1;
+    firstLogIndex = 0;
 }

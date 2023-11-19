@@ -8,9 +8,8 @@ World::World(sf::RenderWindow& window)
 , mTextures() 
 , mSceneGraph()
 , mSceneLayers()
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 2000, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
-, mScrollSpeed(-50.f)
 {
 	loadTextures();
 	buildScene();
@@ -22,13 +21,7 @@ World::World(sf::RenderWindow& window)
 void World::update(sf::Time dt)
 {
 	// Scroll the world
-	mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
-	for(int i = 0; i < rivers.size(); i++) {
-		sf::Vector2f pos = rivers[i]->getPosition();
-		if(pos.x >= 0) {
-			rivers[i]->setPosition(-224.f * 2, pos.y);
-		}
-	}
+	mWorldView.move(data.screenVelocity * dt.asSeconds());
 	// Apply movements
 	mSceneGraph.update(dt);
 }
@@ -70,21 +63,17 @@ void World::buildScene()
 	texture1.setRepeated(true);
 
 	sf::Vector2f spawnPos;
-	spawnPos.x = -224 * 2;
+	spawnPos.x = -500; // < 0
 	spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
 	while(spawnPos.y > mWorldBounds.top) {
 		spawnPos.y -= 100.f;
 		//random number of lanes:
-		int numOfLane = 2 + rand() % 3;
+		int numOfLane = 1 + rand() % 3;
 		for(int i = 0; i < numOfLane; i++) {
 			std::unique_ptr<Lane> river(new River(spawnPos, mTextures));
 			rivers.push_back(river.get());
 			river->setPosition(spawnPos);
-			if(!river->isReverse())
-				river->setVelocity(100.f, 0.f);
-			else
-				river->setVelocity(-100.f, 0.f);
-			spawnPos.y -= 50;
+			spawnPos.y -= 150;
 			mSceneLayers[AboveTitle]->attachChild(river->detachChild());
 			mSceneLayers[Title]->attachChild(std::move(river));
 		}

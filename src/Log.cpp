@@ -7,9 +7,11 @@ namespace {
 Log::Log(Type type, const TextureHolder& texture) 
 : type(type)
 , sprite(texture.get(Table[type].texture)) {
-    sf::FloatRect bounds = sprite.getLocalBounds();
-	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.scale(Table[type].scaling);
+}
+
+Log::Type Log::getType() {
+    return type;
 }
 
 void Log::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -27,7 +29,7 @@ sf::FloatRect Log::getBoundingRect() const {
 sf::FloatRect* Log::getDangerBound() const {
 	sf::FloatRect tmp = getBoundingRect();
     sf::FloatRect* pBound = new sf::FloatRect(tmp);
-    if(type == Log::Log1) {
+    if(type != Log::Crocodile) {
         delete pBound;
         return nullptr;
     }

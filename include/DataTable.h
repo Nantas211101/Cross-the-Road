@@ -4,15 +4,10 @@
 #include <vector>
 
 struct LogData {
+	float speed;
+	int distanceBetweenLog;
+	Textures::ID texture;
 	sf::Vector2f scaling;
-	float speed;
-	Textures::ID texture;
-};
-
-struct LaneData {
-	float speed;
-	Textures::ID texture;
 };
 
 std::vector<LogData> initializeLogData();
-std::vector<LaneData> initializeLaneData();
