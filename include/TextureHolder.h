@@ -14,10 +14,17 @@ namespace Textures
 		Eagle,
 		Raptor,
 		Desert,
+		
+		River,
 		Log,
 		Ground,
+
 		Road,
-		River
+		Elephant,
+		Bird, 
+        Buffalo,
+        Hippo,
+        Rhinoceros
 	};
 }
 

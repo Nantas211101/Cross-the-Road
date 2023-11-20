@@ -36,6 +36,7 @@ void World::loadTextures()
 {
 	mTextures.load(Textures::Desert, "../../Media/Textures/Desert.png");
 	mTextures.load(Textures::River, "../../Media/Textures/River.png");
+	mTextures.load(Textures::Road, "../../Media/Textures/Road.png");
 }
 
 void World::buildScene()
@@ -62,6 +63,26 @@ void World::buildScene()
 	sf::Texture& texture1 =  mTextures.get(Textures::River);
 	texture1.setRepeated(true);
 
+	// sf::Vector2f spawnPos;
+	// spawnPos.x = -500; // < 0
+	// spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
+	// while(spawnPos.y > mWorldBounds.top) {
+	// 	spawnPos.y -= 100.f;
+	// 	//random number of lanes:
+	// 	int numOfLane = 1 + rand() % 3;
+	// 	for(int i = 0; i < numOfLane; i++) {
+	// 		std::unique_ptr<Lane> river(new River(spawnPos, mTextures));
+	// 		rivers.push_back(river.get());
+	// 		river->setPosition(spawnPos);
+	// 		spawnPos.y -= 150;
+	// 		mSceneLayers[AboveTitle]->attachChild(river->detachChild());
+	// 		mSceneLayers[Title]->attachChild(std::move(river));
+	// 	}
+	// }
+
+	sf::Texture& textureRoad =  mTextures.get(Textures::Road);
+	textureRoad.setRepeated(true);
+
 	sf::Vector2f spawnPos;
 	spawnPos.x = -500; // < 0
 	spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
@@ -70,12 +91,12 @@ void World::buildScene()
 		//random number of lanes:
 		int numOfLane = 1 + rand() % 3;
 		for(int i = 0; i < numOfLane; i++) {
-			std::unique_ptr<Lane> river(new River(spawnPos, mTextures));
-			rivers.push_back(river.get());
-			river->setPosition(spawnPos);
+			std::unique_ptr<Lane> road(new Road(spawnPos, mTextures));
+			lanes.push_back(road.get());
+			road->setPosition(spawnPos);
 			spawnPos.y -= 150;
-			mSceneLayers[AboveTitle]->attachChild(river->detachChild());
-			mSceneLayers[Title]->attachChild(std::move(river));
+			mSceneLayers[AboveTitle]->attachChild(road->detachChild());
+			mSceneLayers[Title]->attachChild(std::move(road));
 		}
 	}
 }

@@ -9,5 +9,12 @@ struct LogData {
 	Textures::ID texture;
 	sf::Vector2f scaling;
 };
+struct AnimalData {
+	float speed;
+	int distanceBetweenAnimal;
+	Textures::ID texture;
+	sf::Vector2f scaling;
+};
 
 std::vector<LogData> initializeLogData();
+std::vector<AnimalData> initializeAnimalData();

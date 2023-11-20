@@ -1,6 +1,7 @@
 #include "../include/DataTable.h"
+#include "../include/Animal.h"
 #include "../include/Log.h"
-#include "../include/Lane.h"
+#include "TextureHolder.h"
 
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
@@ -21,5 +22,26 @@ std::vector<LogData> initializeLogData() {
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
+    return data;
+}
+std::vector<AnimalData> initializeAnimalData(){
+    std::vector<AnimalData> data(Animal::TypeCount);
+    data[Animal::Elephant].speed = 200.f;
+    data[Animal::Elephant].distanceBetweenAnimal = 600;
+    data[Animal::Elephant].texture = Textures::Elephant;
+    data[Animal::Elephant].scaling = sf::Vector2f(0.4, 0.4);
+    
+
+    data[Animal::Bird].speed = 400.f;
+    data[Animal::Bird].distanceBetweenAnimal = 800;
+    data[Animal::Bird].texture = Textures::Bird;
+    data[Animal::Bird].scaling = sf::Vector2f(0.4, 0.4);
+
+
+    data[Animal::Rhinoceros].speed = 100.f;
+    data[Animal::Rhinoceros].distanceBetweenAnimal = 400;
+    data[Animal::Rhinoceros].texture = Textures::Rhinoceros;
+    data[Animal::Rhinoceros].scaling = sf::Vector2f(-0.45, 0.45);
+
     return data;
 }
