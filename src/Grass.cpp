@@ -12,15 +12,18 @@ Grass::Grass(const TextureHolder& texture, const sf::IntRect& textureRect)
 : sprite(texture.get(Textures::Grass), textureRect)
 {}
 
-Grass::Grass(sf::Vector2f spawnPos, const TextureHolder& texture) 
+ Grass::Grass(sf::Vector2f spawnPos, const TextureHolder& texture,std::vector<std::vector<bool>>& ContainTree,int yGrid)
 : Lane()
 , Trees()
 , timeSinceTree(sf::Time::Zero)
+, ContainTree(ContainTree)
+, yGrid(yGrid)
+, isPass(ContainTree[0].size(), std::vector<bool>(ContainTree.size(), false))
 , pos(spawnPos) {
     sprite.setTexture(texture.get(Textures::Grass));
-    sf::IntRect textureRect(0, 0, 15000, 50);
+    sf::IntRect textureRect(0, 0, 15000, 100);
     sprite.setTextureRect(textureRect);
-
+    
     loadTexture();
     buildtree();
 }
@@ -33,13 +36,45 @@ void Grass::updateCurrent(sf::Time dt) {
     Entity::updateCurrent(dt);
 }
 
+// bool Grass::checkPass(int x,int y){
+
+    
+//     if(x>=0 && x < ContainTree[0].size() && y >=0 && y < ContainTree.size()&& ContainTree[x][y]==false && isPass[x][y]==false){
+//         if(y== ContainTree.size()-1&& ContainTree[x][y]==false) 
+//             return true;
+//         isPass[x][y]=true;
+//         return checkPass(x+1,y)|| checkPass(x,y-1)|| checkPass(x,y+1);
+//     }
+//     return false;
+// }
+
+// bool Grass::checkValidPosition(int x,int y){
+//    ContainTree[x][y]=true;
+//    for(int i=0 ; i < ContainTree[0].size();i++){
+//         if(checkPass(0,i)) return true;
+//         for (int k = 0; k < ContainTree.size(); k++) {
+//             for (int j = 0; j < ContainTree[k].size(); j++) {
+//                 isPass[k][j] = false;
+//         }
+//     }
+//    }
+//    ContainTree[x][y]=false;
+//    return false;
+// }
+
 void Grass::buildtree() {
-    int numTrees = 5 + rand() % 9;
+    int numTrees = 3 + rand() % 2;
     for(int j = 0; j < numTrees; j++) {
         std::unique_ptr<Tree> tree(new Tree(textureHolder));
         Trees.push_back(tree.get());
         int randNum = rand() % 10;
+        // if(j > 0){
+        //     while(!checkValidPosition(yGrid,randNum)){
+        //      randNum = rand() % 10;
+        //     }
+        // }
         tree->setPosition( randNum * 192 + tree->getBoundingRect().width/2 , pos.y );
         this->attachChild(std::move(tree));
     }
 }
+

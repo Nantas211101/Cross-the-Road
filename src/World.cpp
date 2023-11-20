@@ -77,16 +77,18 @@ void World::buildScene()
 	while(spawnPos.y > mWorldBounds.top) {
 		spawnPos.y -= 100.f;
 		//random number of lanes:
-		int numOfLane = 2 + rand() % 3;
+		int numOfLane = 1 + rand() % 3;
+		//create vector 2d to represent obstacle in grass
+		std::vector<std::vector<bool>> ContainTree(numOfLane, std::vector<bool>(10, false));
 		for(int i = 0; i < numOfLane; i++) {
-			std::unique_ptr<Lane> grass(new Grass(spawnPos, mTextures));
+			std::unique_ptr<Lane> grass(new Grass(spawnPos, mTextures,ContainTree,i));
 			Grasses.push_back(grass.get());
 			grass->setPosition(spawnPos);
 			// if(!river->isReverse())
 			// 	river->setVelocity(100.f, 0.f);
 			// else
 			// 	river->setVelocity(-100.f, 0.f);
-			spawnPos.y -= 50;
+			spawnPos.y -= 100;
 			mSceneLayers[AboveTitle]->attachChild(grass->detachChild());
 			mSceneLayers[Title]->attachChild(std::move(grass));
 		}
