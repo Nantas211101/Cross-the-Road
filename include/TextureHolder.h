@@ -27,7 +27,8 @@ namespace Textures
 		Bird, 
         Buffalo,
         Hippo,
-        Rhinoceros
+        Rhinoceros,
+		Traffic
 	};
 }
 
