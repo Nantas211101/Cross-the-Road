@@ -14,6 +14,7 @@ void Road::loadTexture(){
     textureHolder.load(Textures::Green_Dragon, "../../Media/Textures/Green_Dragon.png");
     textureHolder.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Blue_Twin_Head_Dragon.png");
 
+    textureHolder.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
 }
 
 Road::Road(sf::Vector2f spawnPos, const TextureHolder& texture, bool checkLine)
@@ -27,6 +28,7 @@ Road::Road(sf::Vector2f spawnPos, const TextureHolder& texture, bool checkLine)
     sprite.setTextureRect(textureRect);
     loadTexture();
     generateAnimal();
+    buildTraffic();
 }
 
 void Road::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -97,4 +99,12 @@ void Road::generateAnimal(){
 
     lastAnimalIndex = numOfAnimal - 1;
     firstAnimalIndex = 0;
+}
+
+void Road::buildTraffic(){
+    int status=rand()%3;
+    std::unique_ptr<Traffic> traff(new Traffic(textureHolder,status));
+    traffic= traff.get();
+    traff->setPosition(startPos.x+600,startPos.y + 75);
+    this->attachChild(std::move(traff));
 }
