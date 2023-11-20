@@ -6,11 +6,14 @@
 #include "Log.h"
 #include "Lane.h"
 #include "River.h"
+#include "Road.h"
+#include "Animal.h"
 #include "Grass.h"
 #include <SFML/Graphics.hpp>
-#include "Tree.h"
-#include <array>
 
+#include <array>
+#include <iostream>
+#include <cmath>
 
 // Forward declaration
 namespace sf
@@ -38,16 +41,8 @@ class World : private sf::NonCopyable
 			AboveTitle,
 			LayerCount
 		};
-		struct SpawnPoint {
-			SpawnPoint(Log::Type type, float x, float y)
-			: type(type)
-			, x(x)
-			, y(y)
-			{}
-
-			Log::Type type;
-			float x;
-			float y;
+		struct Data {
+			const sf::Vector2f screenVelocity = sf::Vector2f(0.f, -50.f);
 		};
 
 	private:
@@ -60,8 +55,6 @@ class World : private sf::NonCopyable
 
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
-		float								mScrollSpeed;
-
-		std::vector<SpawnPoint>				mEnemySpawnPoints;
-		std::vector<Lane*> 					Grasses;
+		std::vector<Lane*> 					lanes;
+		const Data 							data;
 };

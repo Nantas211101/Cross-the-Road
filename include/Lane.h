@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Entity.h"
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
+#include <ctime>
 
 class Lane : public Entity {
     public:
@@ -15,12 +16,12 @@ class Lane : public Entity {
 
     public:
         Lane();
+        bool isReverse();
         
     private:
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-        virtual void updateCurrent(sf::Time dt);
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+        virtual void updateCurrent(sf::Time dt) = 0;
 
     private:
-        Type type;
-        int numOfLane;
+        bool reverse;
 };

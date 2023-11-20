@@ -6,12 +6,11 @@ World::World(sf::RenderWindow& window)
 : mWindow(window)
 , mWorldView(window.getDefaultView())
 , mTextures() 
-, Grasses()
+, lanes()
 , mSceneGraph()
 , mSceneLayers()
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 2000, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
-, mScrollSpeed(-50.f)
 {
 	loadTextures();
 	buildScene();
@@ -23,13 +22,7 @@ World::World(sf::RenderWindow& window)
 void World::update(sf::Time dt)
 {
 	// Scroll the world
-	mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
-	for(int i = 0; i < Grasses.size() ; i++) {
-		sf::Vector2f pos = Grasses[i]->getPosition();
-		if(pos.x >= 0) {
-			Grasses[i]->setPosition(-224.f * 2, pos.y);
-		}
-	}
+	mWorldView.move(data.screenVelocity * dt.asSeconds());
 	// Apply movements
 	mSceneGraph.update(dt);
 }
@@ -44,6 +37,7 @@ void World::loadTextures()
 {
 	mTextures.load(Textures::Desert, "../../Media/Textures/Desert.png");
 	mTextures.load(Textures::River, "../../Media/Textures/River.png");
+	mTextures.load(Textures::Road, "../../Media/Textures/Road.png");
 	mTextures.load(Textures::Grass, "../../Media/Textures/Grass.png");
 }
 
@@ -71,26 +65,40 @@ void World::buildScene()
 	sf::Texture& texture1 =  mTextures.get(Textures::Grass);
 	texture1.setRepeated(true);
 
+	// sf::Vector2f spawnPos;
+	// spawnPos.x = -500; // < 0
+	// spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
+	// while(spawnPos.y > mWorldBounds.top) {
+	// 	spawnPos.y -= 100.f;
+	// 	//random number of lanes:
+	// 	int numOfLane = 1 + rand() % 3;
+	// 	for(int i = 0; i < numOfLane; i++) {
+	// 		std::unique_ptr<Lane> river(new River(spawnPos, mTextures));
+	// 		rivers.push_back(river.get());
+	// 		river->setPosition(spawnPos);
+	// 		spawnPos.y -= 150;
+	// 		mSceneLayers[AboveTitle]->attachChild(river->detachChild());
+	// 		mSceneLayers[Title]->attachChild(std::move(river));
+	// 	}
+	// }
+
+	sf::Texture& textureRoad =  mTextures.get(Textures::Road);
+	textureRoad.setRepeated(true);
+
 	sf::Vector2f spawnPos;
-	spawnPos.x = -224 * 2;
+	spawnPos.x = -500; // < 0
 	spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
 	while(spawnPos.y > mWorldBounds.top) {
 		spawnPos.y -= 100.f;
 		//random number of lanes:
 		int numOfLane = 1 + rand() % 3;
-		//create vector 2d to represent obstacle in grass
-		std::vector<std::vector<bool>> ContainTree(numOfLane, std::vector<bool>(10, false));
 		for(int i = 0; i < numOfLane; i++) {
-			std::unique_ptr<Lane> grass(new Grass(spawnPos, mTextures,ContainTree,i));
-			Grasses.push_back(grass.get());
-			grass->setPosition(spawnPos);
-			// if(!river->isReverse())
-			// 	river->setVelocity(100.f, 0.f);
-			// else
-			// 	river->setVelocity(-100.f, 0.f);
-			spawnPos.y -= 100;
-			mSceneLayers[AboveTitle]->attachChild(grass->detachChild());
-			mSceneLayers[Title]->attachChild(std::move(grass));
+			std::unique_ptr<Lane> road(new Road(spawnPos, mTextures));
+			lanes.push_back(road.get());
+			road->setPosition(spawnPos);
+			spawnPos.y -= 150;
+			mSceneLayers[AboveTitle]->attachChild(road->detachChild());
+			mSceneLayers[Title]->attachChild(std::move(road));
 		}
 	}
 }

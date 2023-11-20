@@ -14,12 +14,20 @@ namespace Textures
 		Eagle,
 		Raptor,
 		Desert,
+		
+		River,
 		Log,
 		Ground,
-		Road,
-		River,
+
 		Grass,
-		Tree
+		Tree,
+		
+		Road,
+		Elephant,
+		Bird, 
+        Buffalo,
+        Hippo,
+        Rhinoceros
 	};
 }
 
@@ -28,7 +36,7 @@ class TextureHolder
 	public:
 		void load(Textures::ID id, const std::string& filename);
 		sf::Texture& get(Textures::ID id);
-		const sf::Texture&	get(Textures::ID id) const;
+		const sf::Texture& get(Textures::ID id) const;
 
 	private:
 		void insertResource(Textures::ID id, std::unique_ptr<sf::Texture> resource);

@@ -1,29 +1,31 @@
 #pragma once
 
 #include "Lane.h"
-#include "Log.h"
+#include "Entity.h"
 #include "DataTable.h"
+#include "SFML/System/Vector2.hpp"
+#include "TextureHolder.h"
 #include "SpriteNode.h"
+#include "Animal.h"
 #include <vector>
-#include <cmath>
 #include <SFML/Graphics.hpp>
 
-class River : public Lane {
+class Road : public Lane {
     public:
-        River(sf::Vector2f spawnPos, const TextureHolder& texture);
+        Road(sf::Vector2f spawnPos, const TextureHolder& texture);
+
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
         void loadTexture();
-        void buildLog();
-   
+        void generateAnimal();
     private:
-        std::vector<Log*> riverLog;
-        const int numOfLog = 10;
-        int lastLogIndex;
-        int firstLogIndex;
+        std::vector<Animal*> animals;
+        const int numOfAnimal = 10;
+        int lastAnimalIndex;
+        int firstAnimalIndex;
         sf::Vector2f startPos;
-        
+       
         sf::Sprite sprite;
         TextureHolder textureHolder;
 };
