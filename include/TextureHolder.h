@@ -19,6 +19,9 @@ namespace Textures
 		Log,
 		Ground,
 
+		Grass,
+		Tree,
+		
 		Road,
 		Elephant,
 		Bird, 

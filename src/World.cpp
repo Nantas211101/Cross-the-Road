@@ -6,6 +6,7 @@ World::World(sf::RenderWindow& window)
 : mWindow(window)
 , mWorldView(window.getDefaultView())
 , mTextures() 
+, lanes()
 , mSceneGraph()
 , mSceneLayers()
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 2000, mWorldView.getSize().y + 2000)
@@ -37,6 +38,7 @@ void World::loadTextures()
 	mTextures.load(Textures::Desert, "../../Media/Textures/Desert.png");
 	mTextures.load(Textures::River, "../../Media/Textures/River.png");
 	mTextures.load(Textures::Road, "../../Media/Textures/Road.png");
+	mTextures.load(Textures::Grass, "../../Media/Textures/Grass.png");
 }
 
 void World::buildScene()
@@ -60,7 +62,7 @@ void World::buildScene()
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
-	sf::Texture& texture1 =  mTextures.get(Textures::River);
+	sf::Texture& texture1 =  mTextures.get(Textures::Grass);
 	texture1.setRepeated(true);
 
 	// sf::Vector2f spawnPos;

@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "TextureHolder.h"
+#include "Lane.h"
 #include <vector>
 
 struct LogData {
@@ -16,5 +17,11 @@ struct AnimalData {
 	sf::Vector2f scaling;
 };
 
+struct LaneData {
+	float speed;
+	Textures::ID texture;
+};
+
 std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
+std::vector<LaneData> initalizeLaneData();

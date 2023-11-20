@@ -8,10 +8,9 @@
 #include "River.h"
 #include "Road.h"
 #include "Animal.h"
-
+#include "Grass.h"
 #include <SFML/Graphics.hpp>
 
-#include <memory>
 #include <array>
 #include <iostream>
 #include <cmath>
@@ -56,7 +55,6 @@ class World : private sf::NonCopyable
 
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
-
-		std::vector<Lane*>	lanes;
-		const Data data;
+		std::vector<Lane*> 					lanes;
+		const Data 							data;
 };
