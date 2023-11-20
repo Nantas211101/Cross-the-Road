@@ -1,7 +1,7 @@
 #include "../include/DataTable.h"
 #include "../include/Animal.h"
 #include "../include/Log.h"
-#include "TextureHolder.h"
+#include "../include/TextureHolder.h"
 
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
@@ -43,21 +43,5 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Rhinoceros].texture = Textures::Rhinoceros;
     data[Animal::Rhinoceros].scaling = sf::Vector2f(-0.45, 0.45);
 
-    return data;
-}
-
-std::vector<LaneData> initializeLaneData() {
-    std::vector<LaneData> data(Lane::TypeCount);
-    data[Lane::Ground].speed = 0;
-    data[Lane::Ground].texture = Textures::Ground;
-
-    data[Lane::Road].speed = 0;
-    data[Lane::Road].texture = Textures::Road;
-
-    data[Lane::River].speed = 20.f;
-    data[Lane::River].texture = Textures::River;
-
-    data[Lane::Grass].speed = 20.f;
-    data[Lane::Grass].texture = Textures::Grass;
     return data;
 }

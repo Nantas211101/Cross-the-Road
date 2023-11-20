@@ -52,39 +52,6 @@ void World::buildScene()
 		mSceneGraph.attachChild(std::move(layer));
 	}
 
-	// Prepare the tiled background
-	sf::Texture& texture = mTextures.get(Textures::Desert);
-	sf::IntRect textureRect(mWorldBounds);
-	texture.setRepeated(true);
-
-	// Add the background sprite to the scene
-	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
-	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
-
-	sf::Texture& texture1 =  mTextures.get(Textures::Grass);
-	texture1.setRepeated(true);
-
-	// sf::Vector2f spawnPos;
-	// spawnPos.x = -500; // < 0
-	// spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
-	// while(spawnPos.y > mWorldBounds.top) {
-	// 	spawnPos.y -= 100.f;
-	// 	//random number of lanes:
-	// 	int numOfLane = 1 + rand() % 3;
-	// 	for(int i = 0; i < numOfLane; i++) {
-	// 		std::unique_ptr<Lane> river(new River(spawnPos, mTextures));
-	// 		rivers.push_back(river.get());
-	// 		river->setPosition(spawnPos);
-	// 		spawnPos.y -= 150;
-	// 		mSceneLayers[AboveTitle]->attachChild(river->detachChild());
-	// 		mSceneLayers[Title]->attachChild(std::move(river));
-	// 	}
-	// }
-
-	sf::Texture& textureRoad =  mTextures.get(Textures::Road);
-	textureRoad.setRepeated(true);
-
 	sf::Vector2f spawnPos;
 	spawnPos.x = -500; // < 0
 	spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;

@@ -2,7 +2,6 @@
 
 #include "TextureHolder.h"
 #include "SceneNode.h"
-#include "SpriteNode.h"
 #include "Log.h"
 #include "Lane.h"
 #include "River.h"

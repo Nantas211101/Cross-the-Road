@@ -24,4 +24,3 @@ struct LaneData {
 
 std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
-std::vector<LaneData> initalizeLaneData();

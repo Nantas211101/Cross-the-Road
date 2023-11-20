@@ -5,7 +5,6 @@
 #include "DataTable.h"
 #include "SFML/System/Vector2.hpp"
 #include "TextureHolder.h"
-#include "SpriteNode.h"
 #include "Animal.h"
 #include <vector>
 #include <SFML/Graphics.hpp>

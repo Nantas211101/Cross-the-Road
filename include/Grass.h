@@ -4,7 +4,6 @@
 #include "DataTable.h"
 #include "TextureHolder.h"
 #include "Lane.h"
-#include "SpriteNode.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "Tree.h"
