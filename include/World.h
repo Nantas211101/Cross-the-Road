@@ -41,10 +41,6 @@ class World : private sf::NonCopyable
 			AboveTitle,
 			LayerCount
 		};
-		struct Data {
-			const sf::Vector2f screenVelocity = sf::Vector2f(0.f, -50.f);
-		};
-
 	private:
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
@@ -56,5 +52,4 @@ class World : private sf::NonCopyable
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
 		std::vector<Lane*> 					lanes;
-		const Data 							data;
 };

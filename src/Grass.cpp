@@ -12,16 +12,13 @@ Grass::Grass(const TextureHolder& texture, const sf::IntRect& textureRect)
 : sprite(texture.get(Textures::Grass), textureRect)
 {}
 
- Grass::Grass(sf::Vector2f spawnPos, const TextureHolder& texture,std::vector<std::vector<bool>>& ContainTree,int yGrid)
+ Grass::Grass(sf::Vector2f spawnPos, const TextureHolder& texture)
 : Lane()
 , Trees()
 , timeSinceTree(sf::Time::Zero)
-, ContainTree(ContainTree)
-, yGrid(yGrid)
-, isPass(ContainTree[0].size(), std::vector<bool>(ContainTree.size(), false))
 , pos(spawnPos) {
     sprite.setTexture(texture.get(Textures::Grass));
-    sf::IntRect textureRect(0, 0, 15000, 100);
+    sf::IntRect textureRect(0, 0, 15000, 150);
     sprite.setTextureRect(textureRect);
     
     loadTexture();
@@ -73,7 +70,7 @@ void Grass::buildtree() {
         //      randNum = rand() % 10;
         //     }
         // }
-        tree->setPosition( randNum * 192 + tree->getBoundingRect().width/2 , pos.y );
+        tree->setPosition( randNum * 192 + tree->getBoundingRect().width/2 , pos.y + 50);
         this->attachChild(std::move(tree));
     }
 }

@@ -22,7 +22,7 @@ World::World(sf::RenderWindow& window)
 void World::update(sf::Time dt)
 {
 	// Scroll the world
-	mWorldView.move(data.screenVelocity * dt.asSeconds());
+	mWorldView.move(0, -100.f * dt.asSeconds());
 	// Apply movements
 	mSceneGraph.update(dt);
 }
@@ -89,16 +89,27 @@ void World::buildScene()
 	spawnPos.x = -500; // < 0
 	spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
 	while(spawnPos.y > mWorldBounds.top) {
-		spawnPos.y -= 100.f;
 		//random number of lanes:
 		int numOfLane = 1 + rand() % 3;
+		int randLaneKind = 1 + rand() % 3;
 		for(int i = 0; i < numOfLane; i++) {
-			std::unique_ptr<Lane> road(new Road(spawnPos, mTextures));
-			lanes.push_back(road.get());
-			road->setPosition(spawnPos);
+			std::unique_ptr<Lane> lane;
+			switch(randLaneKind) {
+			case 1:
+				lane = std::move(std::unique_ptr<Lane>(new Road(spawnPos, mTextures)));
+				break;
+			case 2:
+				lane = std::move(std::unique_ptr<Lane>(new River(spawnPos, mTextures)));
+				break;
+			case 3:
+				lane = std::move(std::unique_ptr<Lane>(new Grass(spawnPos, mTextures)));
+				break;
+			}
+			lanes.push_back(lane.get());
+			lane->setPosition(spawnPos);
 			spawnPos.y -= 150;
-			mSceneLayers[AboveTitle]->attachChild(road->detachChild());
-			mSceneLayers[Title]->attachChild(std::move(road));
+			mSceneLayers[AboveTitle]->attachChild(lane->detachChild());
+			mSceneLayers[Title]->attachChild(std::move(lane));
 		}
 	}
 }
