@@ -1,10 +1,11 @@
 #include "../include/Lane.h"
 
-Lane::Lane() : type(Lane::River), numOfLane(3) {}
-
-void Lane::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
-    return;
+Lane::Lane() {
+    //random 2 -> 5 lane
+    //numOfLane = 2 + rand() % 3;
+    reverse = rand() % 2;
 }
-void Lane::updateCurrent(sf::Time dt) {
-    return;
+
+bool Lane::isReverse() {
+    return reverse;
 }

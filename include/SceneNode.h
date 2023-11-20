@@ -16,8 +16,10 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 								SceneNode();
 
 		void					attachChild(Ptr child);
+		void					attachChild(std::vector<Ptr> children);
 		Ptr						detachChild(const SceneNode& node);
-		
+		std::vector<Ptr>		detachChild();
+
 		void					update(sf::Time dt);
 
 		sf::Vector2f			getWorldPosition() const;
