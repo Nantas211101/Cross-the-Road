@@ -24,10 +24,12 @@ namespace Textures
 		
 		Road,
 		Elephant,
-		Bird, 
-        Buffalo,
-        Hippo,
-        Rhinoceros
+		Bird,
+        Rhinoceros,
+		Small_Dragon,
+        Green_Dragon,
+        Red_Dragon,
+        Blue_Twin_Head_Dragon,
 	};
 }
 

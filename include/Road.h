@@ -8,6 +8,7 @@
 #include "Animal.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <random>
 
 class Road : public Lane {
     public:

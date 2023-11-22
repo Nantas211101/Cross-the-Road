@@ -10,6 +10,7 @@
 #include "Grass.h"
 #include <SFML/Graphics.hpp>
 
+#include <random>
 #include <array>
 #include <iostream>
 #include <cmath>

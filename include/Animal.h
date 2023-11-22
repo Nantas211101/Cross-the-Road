@@ -5,13 +5,18 @@
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include <SFML/Graphics.hpp>
+#include "Animation.h"
 
 class Animal:public Entity{
  public:
     enum Type{
         Elephant,
-        Bird, 
         Rhinoceros,
+
+        Small_Dragon,
+        Green_Dragon,
+        Red_Dragon,
+        Blue_Twin_Head_Dragon,
         //Buffalo,
         //Hippo,
        
@@ -26,5 +31,5 @@ class Animal:public Entity{
     void updateCurrent(sf::Time dt);
  private:
     Type type;
-    sf::Sprite sprite;
+    Animation sprite;
 };
