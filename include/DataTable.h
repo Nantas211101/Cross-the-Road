@@ -17,6 +17,13 @@ struct AnimalData {
 	sf::Vector2f scaling;
 };
 
+struct VehicleData {
+	float speed;
+	int distanceBetweenVehicle;
+	Textures::ID texture;
+	sf::Vector2f scaling;
+};
+
 struct LaneData {
 	float speed;
 	Textures::ID texture;
@@ -24,3 +31,4 @@ struct LaneData {
 
 std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
+std::vector<VehicleData> initializeVehicleData();

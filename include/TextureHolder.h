@@ -28,7 +28,9 @@ namespace Textures
         Buffalo,
         Hippo,
         Rhinoceros,
-		Traffic
+		Traffic,
+		Truck,
+		Car
 	};
 }
 

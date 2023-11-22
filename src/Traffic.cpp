@@ -3,17 +3,10 @@
 
 
 Traffic::Traffic(const TextureHolder& texture,int status) 
-: sprite(texture.get(Textures::Traffic)),sta(status) {
-    sf::FloatRect bounds = sprite.getLocalBounds();
+: sprite(texture.get(Textures::Traffic)),sta(status),timeCount(sf::Time::Zero),bounds(sprite.getLocalBounds()) {
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.scale(0.1f,0.1f);
-    if(sta==0){
-         sprite.setTextureRect(sf::IntRect(bounds.width/3 * 1, 0, bounds.width/3, bounds.height));
-    }else if(sta==1){
-        sprite.setTextureRect(sf::IntRect(bounds.width/3 * 2, 0, bounds.width/3, bounds.height));
-    }else{
-        sprite.setTextureRect(sf::IntRect(bounds.width/3 * 3, 0, bounds.width/3, bounds.height));
-    }
+    sprite.setTextureRect(sf::IntRect(bounds.width/3 * sta, 0, bounds.width/3, bounds.height));
 }
 
 void Traffic::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -21,24 +14,22 @@ void Traffic::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) con
 }
 
 void Traffic::updateCurrent(sf::Time dt) {
-    this->setVelocity(0, 0);
-    Entity::updateCurrent(dt);
+  
+    timeCount+= dt;
+
+    if(timeCount <= sf::seconds(redTime)){
+        sta = 0;
+    }else if(timeCount <= sf::seconds(redTime + yellowTime)){
+        sta = 1;
+    }else if(timeCount <= sf::seconds(redTime + yellowTime + greenTime)){
+        sta = 2;
+    }else{
+        sta = 0;
+        timeCount = sf::Time::Zero;
+    }
+    sprite.setTextureRect(sf::IntRect(bounds.width/3 * sta, 0, bounds.width/3, bounds.height));
 }
 
-sf::FloatRect Traffic::getBoundingRect() const {
-    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+int Traffic::getTrafficState(){
+    return sta;
 }
-
-// sf::FloatRect* Traffic::getDangerBound() const {
-// 	sf::FloatRect tmp = getBoundingRect();
-//     sf::FloatRect* pBound = new sf::FloatRect(tmp);
-//     if(type == Traffic::Traffic1) {
-//         delete pBound;
-//         return nullptr;
-//     }
-//     tmp.top += 20;
-//     tmp.left += 20;
-//     tmp.width /= 6;
-//     tmp.height /= 1.7;
-//     return pBound;
-// }
