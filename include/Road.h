@@ -6,6 +6,7 @@
 #include "SFML/System/Vector2.hpp"
 #include "TextureHolder.h"
 #include "Animal.h"
+#include "Vehicle.h"
 #include <vector>
 #include "Traffic.h"
 #include <SFML/Graphics.hpp>
@@ -19,14 +20,18 @@ class Road : public Lane {
         void updateCurrent(sf::Time dt);
         void loadTexture();
         void generateAnimal();
+        void generateVehicle();
         void buildTraffic();
     private:
         std::vector<Animal*> animals;
-        const int numOfAnimal = 10;
-        int lastAnimalIndex;
-        int firstAnimalIndex;
+        std::vector<Vehicle*> vehicles;
+        const int numOfObject = 10;
+        int lastObjectIndex;
+        int firstObjectIndex;
         sf::Vector2f startPos;
         Traffic* traffic;
         sf::Sprite sprite;
         TextureHolder textureHolder;
+        bool hasTraffic;
+        Vehicle::Type kind;
 };
