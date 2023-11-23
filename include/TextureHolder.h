@@ -23,6 +23,7 @@ namespace Textures
 		Tree,
 		
 		Road,
+		Road1,
 		Elephant,
 		Bird,
         Rhinoceros,

@@ -12,8 +12,7 @@
 
 class Road : public Lane {
     public:
-        Road(sf::Vector2f spawnPos, const TextureHolder& texture);
-
+        Road(sf::Vector2f spawnPos, const TextureHolder& texture, bool checkLine);
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);

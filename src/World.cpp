@@ -1,11 +1,13 @@
 #include "../include/World.h"
+#include "SFML/Graphics/Texture.hpp"
+#include "TextureHolder.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
 World::World(sf::RenderWindow& window)
 : mWindow(window)
 , mWorldView(window.getDefaultView())
-, mTextures() 
+, mTextures()
 , lanes()
 , mSceneGraph()
 , mSceneLayers()
@@ -38,6 +40,7 @@ void World::loadTextures()
 	mTextures.load(Textures::Desert, "../../Media/Textures/Desert.png");
 	mTextures.load(Textures::River, "../../Media/Textures/River.png");
 	mTextures.load(Textures::Road, "../../Media/Textures/Road.png");
+	mTextures.load(Textures::Road1, "../../Media/Textures/Road1.png");
 	mTextures.load(Textures::Grass, "../../Media/Textures/Grass.png");
 }
 
@@ -51,7 +54,8 @@ void World::buildScene()
 
 		mSceneGraph.attachChild(std::move(layer));
 	}
-
+	sf::Texture& roadTexture = mTextures.get(Textures::Road);
+	roadTexture.setRepeated(true);
 	sf::Vector2f spawnPos;
 	spawnPos.x = -500; // < 0
 	spawnPos.y = mWorldBounds.top + mWorldBounds.height + 500;
@@ -65,9 +69,12 @@ void World::buildScene()
 		//int randLaneKind = 1;
 		for(int i = 0; i < numOfLane; i++) {
 			std::unique_ptr<Lane> lane;
+			bool checkLine = 1;	
 			switch(randLaneKind) {
 			case 1:
-				lane = std::move(std::unique_ptr<Lane>(new Road(spawnPos, mTextures)));
+				if (numOfLane == 1 || i == numOfLane-1) checkLine = 0;
+				lane = std::move(std::unique_ptr<Lane>(new Road(spawnPos, mTextures, checkLine)));
+				//lane = std::move(std::unique_ptr<Lane>(new Road(spawnPos, mTextures)));
 				break;
 			case 2:
 				lane = std::move(std::unique_ptr<Lane>(new River(spawnPos, mTextures)));

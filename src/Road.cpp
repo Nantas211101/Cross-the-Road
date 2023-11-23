@@ -16,12 +16,13 @@ void Road::loadTexture(){
 
 }
 
-Road::Road(sf::Vector2f spawnPos, const TextureHolder& texture)
+Road::Road(sf::Vector2f spawnPos, const TextureHolder& texture, bool checkLine)
 : Lane()
 ,animals()
 , startPos(spawnPos) {
-    sprite.setTexture(texture.get(Textures::Road));
-    sf::IntRect textureRect(0, 0, 3000, 150);
+    if (checkLine == 0) sprite.setTexture(texture.get(Textures::Road));
+    else sprite.setTexture(texture.get(Textures::Road1));
+    sf::IntRect textureRect(0, 0, 3000, 152);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
     loadTexture();
