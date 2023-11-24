@@ -29,8 +29,8 @@ Road::Road(sf::Vector2f spawnPos, const TextureHolder& texture)
     sprite.setTextureRect(textureRect);
     loadTexture();
     if(hasTraffic){
-        generateVehicle();
         buildTraffic();
+        generateVehicle();
     }
     else {
         generateAnimal();
@@ -171,6 +171,11 @@ void Road::buildTraffic(){
     int status=rand()%3;
     std::unique_ptr<Traffic> traff(new Traffic(textureHolder,status));
     traffic= traff.get();
-    traff->setPosition(startPos.x+600,startPos.y + 75);
+    if(!this->isReverse()){
+        traff->setPosition(startPos.x+600,startPos.y + 75);
+    }else{
+         traff->setPosition(startPos.x+1900,startPos.y + 75);
+    }
+    
     this->attachChild(std::move(traff));
 }
