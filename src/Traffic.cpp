@@ -19,10 +19,10 @@ void Traffic::updateCurrent(sf::Time dt) {
 
     if(timeCount <= sf::seconds(redTime)){
         sta = 0;
-    }else if(timeCount <= sf::seconds(redTime + yellowTime)){
-        sta = 1;
-    }else if(timeCount <= sf::seconds(redTime + yellowTime + greenTime)){
+    }else if(timeCount <= sf::seconds(redTime + greenTime)){
         sta = 2;
+    }else if(timeCount <= sf::seconds(redTime + yellowTime + greenTime)){
+        sta = 1;
     }else{
         sta = 0;
         timeCount = sf::Time::Zero;
