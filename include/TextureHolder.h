@@ -33,11 +33,7 @@ namespace Textures
         Blue_Twin_Head_Dragon,
 		Traffic,
 		Truck,
-		Car,
-		Small_Dragon,
-        Green_Dragon,
-        Red_Dragon,
-        Blue_Twin_Head_Dragon,
+		Car
 	};
 }
 
