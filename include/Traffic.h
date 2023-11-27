@@ -19,7 +19,7 @@ class Traffic: public Entity{
         sf::Time timeCount;
         sf::Sprite sprite;
         sf::FloatRect bounds;
-        const float redTime = 2.0f;
-        const float yellowTime = 2.0f;
+        const float redTime = 1.0f;
+        const float yellowTime = 1.0f;
         const float greenTime = 3.0f;
 };

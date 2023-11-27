@@ -15,6 +15,16 @@ struct AnimalData {
 	int distanceBetweenAnimal;
 	Textures::ID texture;
 	sf::Vector2f scaling;
+	int pictureWidth;
+	int pictureHeight;
+	int numOfFrames;
+};
+
+struct VehicleData {
+	float speed;
+	int distanceBetweenVehicle;
+	Textures::ID texture;
+	sf::Vector2f scaling;
 };
 
 struct VehicleData {
