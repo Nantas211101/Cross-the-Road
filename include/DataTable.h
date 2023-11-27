@@ -27,6 +27,13 @@ struct VehicleData {
 	sf::Vector2f scaling;
 };
 
+struct VehicleData {
+	float speed;
+	int distanceBetweenVehicle;
+	Textures::ID texture;
+	sf::Vector2f scaling;
+};
+
 struct LaneData {
 	float speed;
 	Textures::ID texture;

@@ -16,7 +16,6 @@ void Road::loadTexture(){
     textureHolder.load(Textures::Red_Dragon, "../../Media/Textures/Red_Dragon.png");
     textureHolder.load(Textures::Green_Dragon, "../../Media/Textures/Green_Dragon.png");
     textureHolder.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Blue_Twin_Head_Dragon.png");
-
     textureHolder.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
     textureHolder.load(Textures::Truck, "../../Media/Textures/Truck.png");
     textureHolder.load(Textures::Car, "../../Media/Textures/Car.png");

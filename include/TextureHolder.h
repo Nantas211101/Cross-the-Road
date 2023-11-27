@@ -26,11 +26,12 @@ namespace Textures
 		Road1,
 		Elephant,
 		Bird,
-        Rhinoceros,
+    Rhinoceros,
 		Small_Dragon,
-        Green_Dragon,
-        Red_Dragon,
-        Blue_Twin_Head_Dragon,
+    Green_Dragon,
+    Red_Dragon,
+    Blue_Twin_Head_Dragon,
+
 		Traffic,
 		Truck,
 		Car
