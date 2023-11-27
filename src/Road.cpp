@@ -89,12 +89,12 @@ void Road::updateCurrent(sf::Time dt){
         }
     }else{
         if(!this->isReverse() && animals[firstObjectIndex]->getPosition().x >= 0) {
-            animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, startPos.y + 75);
+            animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, startPos.y);
             firstObjectIndex = lastObjectIndex;
             lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
         }
         if(this->isReverse() && animals[lastObjectIndex]->getPosition().x <= 2500) {
-            animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, startPos.y + 75);
+            animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, startPos.y);
             lastObjectIndex = firstObjectIndex;
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }
