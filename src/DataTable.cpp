@@ -93,19 +93,3 @@ std::vector<VehicleData> initializeVehicleData(){
 
     return data;
 }
-
-std::vector<VehicleData> initializeVehicleData(){
-      std::vector<VehicleData> data(Vehicle::TypeCount);
-    data[Vehicle::Truck].speed = 200.f;
-    data[Vehicle::Truck].distanceBetweenVehicle = 600;
-    data[Vehicle::Truck].texture = Textures::Truck;
-    data[Vehicle::Truck].scaling = sf::Vector2f(0.4, 0.4);
-    
-
-    data[Vehicle::Car].speed = 400.f;
-    data[Vehicle::Car].distanceBetweenVehicle = 800;
-    data[Vehicle::Car].texture = Textures::Car;
-    data[Vehicle::Car].scaling = sf::Vector2f(0.4, 0.4);
-
-    return data;
-}
