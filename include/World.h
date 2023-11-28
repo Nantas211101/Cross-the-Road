@@ -2,12 +2,7 @@
 
 #include "TextureHolder.h"
 #include "SceneNode.h"
-#include "Log.h"
-#include "Lane.h"
-#include "River.h"
-#include "Road.h"
-#include "Animal.h"
-#include "Grass.h"
+#include "LaneFactory.h"
 #include <SFML/Graphics.hpp>
 
 #include <random>
@@ -44,7 +39,7 @@ class World : private sf::NonCopyable
 	private:
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
-		TextureHolder						mTextures;
+		//TextureHolder						mTextures;
 
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;

@@ -1,7 +1,5 @@
 #include "Traffic.h"
 
-
-
 Traffic::Traffic(const TextureHolder& texture,int status) 
 : sprite(texture.get(Textures::Traffic)),sta(status),timeCount(sf::Time::Zero),bounds(sprite.getLocalBounds()) {
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);

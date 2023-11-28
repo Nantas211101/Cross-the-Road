@@ -12,7 +12,7 @@ class Grass : public Lane {
     public:
         Grass(const TextureHolder& texture);
         Grass(const TextureHolder& texture, const sf::IntRect& textureRect);
-        Grass(sf::Vector2f spawnPos, const TextureHolder& texture);
+        Grass(sf::Vector2f spawnPos);
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);

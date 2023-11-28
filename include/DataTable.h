@@ -1,8 +1,13 @@
 #pragma once
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include <vector>
+
 #include "TextureHolder.h"
 #include "Lane.h"
-#include <vector>
+#include "Animal.h"
+#include "Log.h"
+#include "TextureHolder.h"
+#include "Vehicle.h"
 
 struct LogData {
 	float speed;

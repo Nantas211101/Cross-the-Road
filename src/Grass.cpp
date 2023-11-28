@@ -2,6 +2,7 @@
 
 void Grass::loadTexture() {
     textureHolder.load(Textures::Tree, "../../Media/Textures/Tree.png");
+    textureHolder.load(Textures::Grass, "../../Media/Textures/Grass.png");
 }
 
 Grass::Grass(const TextureHolder& texture) 
@@ -12,16 +13,16 @@ Grass::Grass(const TextureHolder& texture, const sf::IntRect& textureRect)
 : sprite(texture.get(Textures::Grass), textureRect)
 {}
 
- Grass::Grass(sf::Vector2f spawnPos, const TextureHolder& texture)
+ Grass::Grass(sf::Vector2f spawnPos)
 : Lane()
 , Trees()
 , timeSinceTree(sf::Time::Zero)
 , pos(spawnPos) {
-    sprite.setTexture(texture.get(Textures::Grass));
+    loadTexture();
+    sprite.setTexture(textureHolder.get(Textures::Grass));
     sf::IntRect textureRect(0, 0, 15000, 150);
     sprite.setTextureRect(textureRect);
     
-    loadTexture();
     buildtree();
 }
 void Grass::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {

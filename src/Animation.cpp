@@ -1,9 +1,5 @@
 #include "../include/Animation.h"
 
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Texture.hpp>
-
-
 Animation::Animation()
 : mSprite()
 , mFrameSize()

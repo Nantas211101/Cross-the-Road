@@ -1,5 +1,4 @@
 #include "../include/Road.h"
-#include "TextureHolder.h"
 
 namespace {
     const std::vector<AnimalData> TableAnimal = initializeAnimalData();
@@ -10,6 +9,9 @@ namespace {
 // 50: width each lane
 
 void Road::loadTexture(){
+    textureHolder.load(Textures::Road, "../../Media/Textures/Road.png");
+	textureHolder.load(Textures::Road1, "../../Media/Textures/Road1.png");
+
     textureHolder.load(Textures::Elephant, "../../Media/Textures/Elephant.png");
     textureHolder.load(Textures::Rhinoceros, "../../Media/Textures/Rhinoceros.png");
     textureHolder.load(Textures::Small_Dragon, "../../Media/Textures/Small_Dragon.png");
@@ -21,17 +23,17 @@ void Road::loadTexture(){
     textureHolder.load(Textures::Car, "../../Media/Textures/Car.png");
 }
 
-Road::Road(sf::Vector2f spawnPos, const TextureHolder& texture, bool checkLine)
+Road::Road(sf::Vector2f spawnPos, bool checkLine)
 : Lane()
 ,animals()
 ,hasTraffic(rand()%2)
 , startPos(spawnPos) {
-    if (checkLine == 0) sprite.setTexture(texture.get(Textures::Road));
-    else sprite.setTexture(texture.get(Textures::Road1));
+    loadTexture();
+    if (checkLine == 0) sprite.setTexture(textureHolder.get(Textures::Road));
+    else sprite.setTexture(textureHolder.get(Textures::Road1));
     sf::IntRect textureRect(0, 0, 3000, 152);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
-    loadTexture();
     if(hasTraffic){
         buildTraffic();
         generateVehicle();

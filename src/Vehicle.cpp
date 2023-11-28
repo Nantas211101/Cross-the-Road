@@ -1,6 +1,4 @@
-#include "Vehicle.h"
-#include "DataTable.h"
-#include "TextureHolder.h"
+#include "../include/Vehicle.h"
 
 namespace{
     std::vector<VehicleData> Table = initializeVehicleData();  

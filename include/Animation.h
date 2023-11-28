@@ -1,8 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/System/Time.hpp>
-
+#include <SFML/Graphics.hpp>
 
 class Animation : public sf::Drawable, public sf::Transformable
 {

@@ -1,6 +1,4 @@
-#include "Animal.h"
-#include "DataTable.h"
-#include "TextureHolder.h"
+#include "../include/Animal.h"
 
 namespace{
     std::vector<AnimalData> Table = initializeAnimalData();  

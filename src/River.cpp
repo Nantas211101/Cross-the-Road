@@ -7,17 +7,18 @@ namespace {
 
 void River::loadTexture() {
     textureHolder.load(Textures::Log, "../../Media/Textures/Log.png");
+    textureHolder.load(Textures::River, "../../Media/Textures/River.png");
     //textureHolder.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
 }
 
-River::River(sf::Vector2f spawnPos, const TextureHolder& texture) 
+River::River(sf::Vector2f spawnPos) 
 : Lane()
 , riverLog()
 , startPos(spawnPos) {
-    sprite.setTexture(texture.get(Textures::River));
+    loadTexture();
+    sprite.setTexture(textureHolder.get(Textures::River));
     sf::IntRect textureRect(0, 0, 3000, 150);
     sprite.setTextureRect(textureRect);
-    loadTexture();
     buildLog();
 }
 

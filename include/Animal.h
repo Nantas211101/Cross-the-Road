@@ -6,6 +6,7 @@
 #include "SFML/Graphics/Texture.hpp"
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
+#include "TextureHolder.h"
 
 class Animal:public Entity{
  public:

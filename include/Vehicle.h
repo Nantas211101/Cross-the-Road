@@ -2,6 +2,7 @@
 #include <vector>
 #include "Entity.h"
 #include "DataTable.h"
+#include "TextureHolder.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include <SFML/Graphics.hpp>

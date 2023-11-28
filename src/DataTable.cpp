@@ -1,8 +1,5 @@
 #include "../include/DataTable.h"
-#include "../include/Animal.h"
-#include "../include/Log.h"
-#include "../include/TextureHolder.h"
-#include "../include/Vehicle.h"
+
 
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
