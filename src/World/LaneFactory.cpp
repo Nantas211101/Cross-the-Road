@@ -1,4 +1,4 @@
-#include "../include/LaneFactory.h"
+#include "../../include/World/LaneFactory.h"
 
 LaneFactory::LaneFactory(sf::Vector2f startPos) 
 : lanes()

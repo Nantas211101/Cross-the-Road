@@ -1,4 +1,4 @@
-#include "../include/Log.h"
+#include "../../include/World/Log.h"
 
 namespace {
     const std::vector<LogData> Table = initializeLogData();

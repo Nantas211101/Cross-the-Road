@@ -1,4 +1,4 @@
-#include "../include/SceneNode.h"
+#include "../../include/World/SceneNode.h"
 
 #include <algorithm>
 #include <cassert>

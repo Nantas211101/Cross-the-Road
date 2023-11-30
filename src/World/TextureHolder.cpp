@@ -1,4 +1,4 @@
-#include "../include/TextureHolder.h"
+#include "../../include/World/TextureHolder.h"
 
 void TextureHolder::load(Textures::ID id, const std::string& filename){
 	// Create and load resource

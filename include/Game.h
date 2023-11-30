@@ -1,6 +1,6 @@
 #pragma once
 
-#include "World.h"
+#include "World/World.h"
 #include <SFML/Graphics.hpp>
 
 class Game : private sf::NonCopyable
