@@ -77,7 +77,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures)
 , mSprite(textures.get(toTextureID(type)))
 {
     mSprite.scale(0.2, 0.2);
-    centerOrigin(mSprite);
+    //centerOrigin(mSprite);
 }
 
 void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -125,4 +125,8 @@ unsigned int MainChar::getCategory() const
 		default:
 			return Category::None;
 	}
+}
+
+sf::FloatRect MainChar::getBoundingRect() const {
+    return getWorldTransform().transformRect(mSprite.getGlobalBounds());
 }

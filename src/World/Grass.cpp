@@ -71,7 +71,7 @@ void Grass::buildtree() {
         //      randNum = rand() % 10;
         //     }
         // }
-        tree->setPosition( randNum * 192 + tree->getBoundingRect().width/2 , pos.y + 50);
+        tree->setPosition( randNum * 192 + tree->getBoundingRect().width/2 , pos.y + 75);
         this->attachChild(std::move(tree));
     }
 }

@@ -7,7 +7,7 @@ World::World(sf::RenderWindow& window)
 , lanes()
 , mSceneGraph()
 , mSceneLayers()
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x + 2500, mWorldView.getSize().y + 2000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 {
 	loadTextures();
@@ -37,8 +37,15 @@ void World::update(sf::Time dt)
 	mainChar->setVelocity(0.f, 0.f);
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
+	timeToNextInput += dt;
 	while (!mCommandQueue.isEmpty()){
-		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+		if(timeToNextInput > sf::seconds(0.5)) {
+			mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+			timeToNextInput = sf::Time::Zero;
+		}
+		else {
+			mCommandQueue.pop();
+		}
 	}
 	adaptPlayerVelocity();
 
@@ -88,7 +95,7 @@ void World::buildScene()
 	}
 	std::unique_ptr<MainChar> character(new MainChar(MainChar::Penguin, mTextures));
 	mainChar = character.get();
-	character->setPosition(mSpawnPosition);
+	character->setPosition(300, mSpawnPosition.y + 75);
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
 
@@ -96,7 +103,7 @@ void World::adaptPlayerPosition()
 {
 	// Keep player's position inside the screen bounds, at least borderDistance units from the border
 	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
-	const float borderDistance = 40.f;
+	const float borderDistance = 0.f;
 
 	sf::Vector2f position = mainChar->getPosition();
 	position.x = std::max(position.x, viewBounds.left + borderDistance);
@@ -116,5 +123,5 @@ void World::adaptPlayerVelocity()
 	sf::Vector2f velocityAfterAdapt = mainChar->getVelocity();
 
 	// Add scrolling velocity
-	//mainChar->accelerate(0.f, 100.f);
+	//mainChar->accelerate(0.f, 100.f);0
 }

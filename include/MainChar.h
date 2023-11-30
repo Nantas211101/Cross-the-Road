@@ -29,7 +29,7 @@ public:
     Type getTextureType();
     Textures::ID getTextureID();
 
-private:
+    sf::FloatRect getBoundingRect() const;
 
 private: 
     Type mType;
