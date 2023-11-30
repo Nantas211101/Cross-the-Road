@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <cassert>
 
-
 SceneNode::SceneNode()
 : mChildren()
 , mParent(nullptr)
@@ -113,6 +112,21 @@ sf::Transform SceneNode::getWorldTransform() const
 		transform = node->getTransform() * transform;
 
 	return transform;
+}
+
+auto SceneNode::getCategory() const -> unsigned int
+{
+    return Category::Scene;
+}
+
+void SceneNode::onCommand(const Command &command, sf::Time dt)
+{
+    if (command.category & getCategory()){
+        command.action(*this, dt);
+    }
+
+    for (Ptr &child : mChildren)
+        child->onCommand(command, dt);
 }
 
 sf::FloatRect SceneNode::getBoundingRect() const

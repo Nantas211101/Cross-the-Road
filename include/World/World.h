@@ -3,6 +3,8 @@
 #include "TextureHolder.h"
 #include "SceneNode.h"
 #include "LaneFactory.h"
+#include "../CommandQueue.h"
+#include "../MainChar.h"
 #include <SFML/Graphics.hpp>
 
 #include <random>
@@ -22,11 +24,13 @@ class World : private sf::NonCopyable
 		explicit							World(sf::RenderWindow& window);
 		void								update(sf::Time dt);
 		void								draw();
-
+		CommandQueue&						getCommandQueue();
 
 	private:
 		void								loadTextures();
 		void								buildScene();
+		void 								adaptPlayerPosition();
+		void 								adaptPlayerVelocity();
 		
 	private:
 		enum Layer
@@ -39,12 +43,14 @@ class World : private sf::NonCopyable
 	private:
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
-		//TextureHolder						mTextures;
+		TextureHolder						mTextures;
 
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
+		CommandQueue						mCommandQueue;
 
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
 		std::vector<Lane*> 					lanes;
+		MainChar*							mainChar;
 };

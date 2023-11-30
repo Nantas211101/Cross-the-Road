@@ -11,30 +11,36 @@ namespace Textures
 {
 	enum ID
 	{
-		Eagle,
-		Raptor,
-		Desert,
-		
+		// River
 		River,
 		Log,
 		Ground,
 
+		// Grass
 		Grass,
 		Tree,
 		
+		// Road
 		Road,
 		Road1,
 		Elephant,
 		Bird,
-    Rhinoceros,
+    	Rhinoceros,
 		Small_Dragon,
-    Green_Dragon,
-    Red_Dragon,
-    Blue_Twin_Head_Dragon,
+    	Green_Dragon,
+    	Red_Dragon,
+    	Blue_Twin_Head_Dragon,
 
 		Traffic,
 		Truck,
-		Car
+		Car,
+
+		// Player
+		Chicken,
+		Mallard,
+		Penguin,
+		Sheep,
+		none
 	};
 }
 
