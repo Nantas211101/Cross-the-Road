@@ -6,12 +6,14 @@
 class MainChar : public Entity{
 public:
     enum Type{
-        none,
         Chicken,
         Penguin,
         Sheep,
         Mallard,
+        TypeCount,
     };
+
+    static Textures::ID toTextureID(MainChar::Type type);
 
 private:
     Type numToID(int num);
@@ -25,10 +27,8 @@ public:
 
     virtual unsigned int getCategory() const;
 
-    Type getTextureType();
+    Type getMainCharType();
     Textures::ID getTextureID();
-
-private:
 
 private: 
     Type mType;

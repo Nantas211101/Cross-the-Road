@@ -7,7 +7,7 @@ GameState::GameState(StateStack& stack, Context context)
 , mWorld(*context.window)
 , mPlayer(*context.player)
 {
-    mWorld.setTextureID(mPlayer.getTextureID());
+	mWorld.initMainCharID(mPlayer.getMainCharID());
 }
 
 void GameState::draw()

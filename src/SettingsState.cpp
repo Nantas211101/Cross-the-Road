@@ -135,7 +135,8 @@ void SettingsState::addButtonLabel(Player::Action action, float y, const std::st
     tmp.setPosition({position.x + 300.f, position.y});
     tmp.setCharacterSize(25);
     // tmp.setFillColor(sf::Color::White);
-    tmp.setColor(sf::Color::White);
+	tmp.setFillColor(sf::Color::White);
+    // tmp.setColor(sf::Color::White);
     textHold.push_back(tmp);
 
 	// mBindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);

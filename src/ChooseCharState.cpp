@@ -63,36 +63,36 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	chooseButton->setCallback([this, context](){
 		if(!isMove)
 		{	
-			context.player->setTextureID(this->mPlayer->getTextureID());
+			context.player->setMainCharID(this->mPlayer->getMainCharType());
 			requestStackPop();
 			requestStackPush(States::Game);
 		}
 	});
 
-	auto inputNameButton = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures);
-	inputNameButton->centerOrigin();
-	// inputNameButton->setColor(sf::Color::Cyan);
-	inputNameButton->setPosition(mSpawnPosition.x, 200.f);
-	inputNameButton->setText("Your Name");
-	inputNameButton->setScale(0.5, 0.5);
-	inputNameButton->setToggle(true);
+	// auto inputNameButton = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures);
+	// inputNameButton->centerOrigin();
+	// // inputNameButton->setColor(sf::Color::Cyan);
+	// inputNameButton->setPosition(mSpawnPosition.x, 200.f);
+	// inputNameButton->setText("Your Name");
+	// inputNameButton->setScale(0.5, 0.5);
+	// inputNameButton->setToggle(true);
 
-	inputNameButton->setCallback([this, context](std::string st){
-		// if(!isMove)
-		// {	
-			// context.player->setTextureID(this->mPlayer->getTextureID());
-			// requestStackPop();
-			// requestStackPush(States::Game);
-		name = st;
-			// std::cerr << "Hello\n";
-		// }
-	});
+	// inputNameButton->setCallback([this, context](std::string st){
+	// 	// if(!isMove)
+	// 	// {	
+	// 		// context.player->setTextureID(this->mPlayer->getTextureID());
+	// 		// requestStackPop();
+	// 		// requestStackPush(States::Game);
+	// 	name = st;
+	// 		// std::cerr << "Hello\n";
+	// 	// }
+	// });
 	// std::cerr << name;
 
 	mGUIContainerSet.pack(rightButton);
 	mGUIContainerSet.pack(leftButton);
 	mGUIContainerSet.pack(chooseButton);
-	mGUIContainer.pack(inputNameButton);
+	// mGUIContainer.pack(inputNameButton);
     buildScene();
 }
 
@@ -164,7 +164,7 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 		if(key == sf::Keyboard::Left){
 			isChangeKey = key;
 			isChange = isMove = isPressing = 1;
-			std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getTextureType(), *getContext().textures));
+			std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getMainCharType(), *getContext().textures));
 			tmpPlayer = leader.get();
 			tmpPlayer->setPosition(0, mPlayer->getPosition().y);
 			tmpPlayer->setVelocity(0, 0);
@@ -175,7 +175,7 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 		if(key == sf::Keyboard::Right){
 			isChangeKey = key;
 			isChange = isMove = isPressing = 1;
-			std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getTextureType(), *getContext().textures));
+			std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getMainCharType(), *getContext().textures));
 			tmpPlayer = leader.get();
 			tmpPlayer->setPosition(mWorldBounds.width, mPlayer->getPosition().y);
 			tmpPlayer->setVelocity(0, 0);
@@ -200,7 +200,7 @@ void ChooseCharState::startRight(){
 	if(!isChange){
 		isChangeKey = sf::Keyboard::Right;
 		isChange = isMove = isPressing = 1;
-		std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getTextureType(), *getContext().textures));
+		std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getMainCharType(), *getContext().textures));
 		tmpPlayer = leader.get();
 		tmpPlayer->setPosition(mWorldBounds.width, mPlayer->getPosition().y);
 		tmpPlayer->setVelocity(0, 0);
@@ -218,7 +218,7 @@ void ChooseCharState::startLeft(){
 	if(!isChange){
 		isChangeKey = sf::Keyboard::Left;
 		isChange = isMove = isPressing = 1;
-		std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getTextureType(), *getContext().textures));
+		std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getMainCharType(), *getContext().textures));
 		tmpPlayer = leader.get();
 		tmpPlayer->setPosition(0, mPlayer->getPosition().y);
 		tmpPlayer->setVelocity(0, 0);

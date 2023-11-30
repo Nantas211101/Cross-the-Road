@@ -11,7 +11,9 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures)
 , mPressedTexture(textures.get(Textures::InputButton1))
 , mSprite()
 , mText("", fonts.get(Fonts::Main), 100)
+, mTextHidden("", fonts.get(Fonts::Main), 100)
 , mIsToggle(false)
+, hiddenFlag(false)
 {
 	mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -29,7 +31,9 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 , mPressedTexture(textures.get(id))
 , mSprite()
 , mText("", fonts.get(Fonts::Main), 100) 
+, mTextHidden("", fonts.get(Fonts::Main), 100)
 , mIsToggle(false)
+, hiddenFlag(false)
 {
     mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -38,6 +42,28 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 	mText.setFillColor(sf::Color::Yellow);
 	setCenterOrigin(mText);
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+}
+
+InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures, const std::string& text)
+: mCallback()
+, mNormalTexture(textures.get(Textures::InputButton1))
+, mSelectedTexture(textures.get(Textures::InputButton1))
+, mPressedTexture(textures.get(Textures::InputButton1))
+, mSprite()
+, mText(text, fonts.get(Fonts::Main), 100)
+, mTextHidden("", fonts.get(Fonts::Main), 100)
+, mIsToggle(false)
+, hiddenFlag(false)
+{
+	mSprite.setTexture(mNormalTexture);
+	sf::FloatRect bounds = mSprite.getGlobalBounds();
+	
+	mText.setFillColor(sf::Color(229, 218, 218));
+	setCenterOrigin(mText);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+
+	mTextHidden = mText;
+	// fillHiddenText(text);
 }
 
 void InputButton::setCallback(Callback callback)
@@ -68,6 +94,11 @@ void InputButton::setColor(sf::Color color)
 	mSprite.setColor(color);
 }
 
+void InputButton::setFlagHidden(bool flag)
+{
+	hiddenFlag = flag;
+}
+
 bool InputButton::isSelectable() const
 {
     return true;
@@ -86,6 +117,7 @@ void InputButton::select()
 	mSprite.setTexture(mSelectedTexture);
 	// mText.setFillColor(sf::Color::Red);
     mText.setFillColor(sf::Color(255, 186, 0));
+	mTextHidden.setFillColor(sf::Color(255, 186, 0));
 }
 
 void InputButton::deselect()
@@ -93,13 +125,13 @@ void InputButton::deselect()
 	Component::deselect();
 
 	mSprite.setTexture(mNormalTexture);
-	mText.setFillColor(sf::Color::Yellow);
+	mText.setFillColor(sf::Color(229, 218, 218));
+	mTextHidden.setFillColor(sf::Color(229, 218, 218));
 }
 
 void InputButton::activate()
 {
 	Component::activate();
-    // std::cerr << "activate Input button\n";
     // If we are toggle then we should show that the InputButton is pressed and thus "toggled".
 	if (mIsToggle){
         mText.setString("");
@@ -118,7 +150,6 @@ void InputButton::activate()
 void InputButton::deactivate()
 {
 	Component::deactivate();
-    // std::cerr << "deactivate Input button\n";
 
 	if (mIsToggle)
 	{
@@ -147,14 +178,28 @@ void InputButton::handleEvent(const sf::Event& event)
     }
     setText(currentText);
     if (mCallback)
-		mCallback(mText.getString());
+			mCallback(mText.getString());
+	fillHiddenText(currentText);
 }
 
 void InputButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
 	target.draw(mSprite, states);
-	target.draw(mText, states);
+	if(hiddenFlag)
+		target.draw(mTextHidden, states);
+	else
+		target.draw(mText, states);
+}
+
+void InputButton::fillHiddenText(const std::string &currentText)
+{
+	std::string hiddenText(currentText.size(), '*');
+	sf::FloatRect bounds = mSprite.getGlobalBounds();
+	mTextHidden.setString(hiddenText);
+	setCenterOrigin(mTextHidden);
+	mTextHidden.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mTextHidden.setFillColor(mText.getFillColor());
 }
 
 }

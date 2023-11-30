@@ -24,13 +24,15 @@ public:
 public:
     InputButton(const FontHolder& fonts, const TextureHolder& textures);
     InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id);
+    InputButton(const FontHolder& fonts, const TextureHolder& textures, const std::string& text);
     
     void setCallback(Callback callback);
     void setText(const std::string& text);
     void setToggle(bool flag);
     void centerOrigin(); // additional function
     void setColor(sf::Color color);
-    
+    void setFlagHidden(bool flag);
+
     virtual bool isSelectable() const;
     virtual bool isContain(const sf::RenderWindow& window) const;
     virtual void select();
@@ -40,11 +42,11 @@ public:
     virtual void deactivate();
 
     virtual void handleEvent(const sf::Event& event);
-
+    
 
 private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
+    void fillHiddenText(const std::string &currentText);
 
 private:
     Callback				mCallback;
@@ -53,7 +55,9 @@ private:
     const sf::Texture&		mPressedTexture;
     sf::Sprite				mSprite;
     sf::Text				mText;
+    sf::Text                mTextHidden;
     bool					mIsToggle;
+    bool                    hiddenFlag;
 };
 
 }

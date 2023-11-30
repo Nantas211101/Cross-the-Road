@@ -30,7 +30,7 @@ class World : private sf::NonCopyable
 		void								draw();
 		
 		CommandQueue&						getCommandQueue();
-		void 								setTextureID(Textures::ID id);
+		void 								initMainCharID(MainChar::Type id);
 
 	private:
 		void								loadTextures();
@@ -62,5 +62,6 @@ class World : private sf::NonCopyable
 		float								mScrollSpeed;
 		MainChar*							mPlayerAircraft;
 		SpriteNode* 						mBackGround;
+		MainChar::Type						mMainCharID;
 
 };

@@ -10,5 +10,6 @@ namespace States{
         Game,
         Settings,
         Pause,
+        Login,
     };
 }

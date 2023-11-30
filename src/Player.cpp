@@ -128,12 +128,12 @@ bool Player::isRealtimeAction(Action action)
 	}
 }
 
-void Player::setTextureID(Textures::ID id)
+void Player::setMainCharID(MainChar::Type id)
 {
-    textureID = id;
+    charID = id;
 }
 
-Textures::ID Player::getTextureID()
+MainChar::Type Player::getMainCharID()
 {
-    return textureID;
+    return charID;
 }

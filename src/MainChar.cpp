@@ -1,20 +1,27 @@
 #include "MainChar.hpp"
 #include "TextureManipulate.hpp"
+#include "DataTable.hpp"
 
-Textures::ID toTextureID(MainChar::Type type)
+namespace 
 {
-    switch (type)
-    {
-    case MainChar::Chicken:
-        return Textures::chicken;
-    case MainChar::Penguin:
-        return Textures::penguin;
-    case MainChar::Sheep:
-        return Textures::sheep;
-    case MainChar::Mallard:
-        return Textures::mallard;
-    }
-    return Textures::none;
+    const std::vector<CharData> Table = initializeCharData();
+}
+
+Textures::ID MainChar::toTextureID(MainChar::Type type)
+{
+    return Table[type].texture;
+    // switch (type)
+    // {
+    // case MainChar::Chicken:
+    //     return Textures::chicken;
+    // case MainChar::Penguin:
+    //     return Textures::penguin;
+    // case MainChar::Sheep:
+    //     return Textures::sheep;
+    // case MainChar::Mallard:
+    //     return Textures::mallard;
+    // }
+    // return Textures::none;
 }
 
 MainChar::Type toMainCharID(Textures::ID id)
@@ -30,7 +37,7 @@ MainChar::Type toMainCharID(Textures::ID id)
     case Textures::mallard:
         return MainChar::Mallard;
     }
-    return MainChar::none;
+    return MainChar::TypeCount;
 }
 MainChar::Type MainChar::numToID(int num){
     switch (num)
@@ -49,7 +56,7 @@ MainChar::Type MainChar::numToID(int num){
         default:
             break;
     }
-    return MainChar::none;
+    return MainChar::TypeCount;
 }
 
 int MainChar::IDToNum(Type type){
@@ -104,7 +111,7 @@ void MainChar::setTexture(Textures::ID id, const TextureHolder& textures)
 }
 
 
-auto MainChar::getTextureType() -> MainChar::Type{
+auto MainChar::getMainCharType() -> MainChar::Type{
     return mType;
 }
 

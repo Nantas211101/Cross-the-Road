@@ -42,6 +42,7 @@ private:
     bool isSelectByMouse;
     sf::Vector2i preMousePos;
     bool isJustStart;
+    sf::Time mTime;
 };
 
 }

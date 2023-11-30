@@ -30,6 +30,7 @@ public:
     virtual void deactivate();
     virtual void handleEvent(const sf::Event& event) = 0;
     virtual void handleRealTimeInput(const sf::RenderWindow& window);
+    virtual bool checkToggle();
     bool contain(sf::Vector2i mouse_pos, sf::FloatRect bounds) const;
     void setTypeOfButton(Components::ID id);
     Components::ID getTypeOfButton();

@@ -25,7 +25,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	playButton->setCallback([this] ()
 	{
 		requestStackPop();
-		requestStackPush(States::ChooseChar);
+		requestStackPush(States::Login);
 	});
 
 	// auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);

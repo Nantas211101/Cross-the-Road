@@ -74,9 +74,9 @@ CommandQueue& World::getCommandQueue()
 	return mCommandQueue;
 }
 
-void World::setTextureID(Textures::ID id)
+void World::initMainCharID(MainChar::Type id)
 {
-	mPlayerAircraft->setTexture(id, mTextures);
+	mPlayerAircraft->setTexture(MainChar::toTextureID(id), mTextures);
 }
 
 void World::loadTextures()

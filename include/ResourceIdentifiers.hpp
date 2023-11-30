@@ -16,6 +16,10 @@ namespace Textures{
         ButtonPressed,
         ButtonSelected,
         InputButton1,
+        LoginBG,
+        RegisterBG,
+        VisiblePassword,
+        InvisiblePassword,
 };
 }
 

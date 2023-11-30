@@ -24,13 +24,16 @@ public:
 public:
     Button(const FontHolder& fonts, const TextureHolder& textures);
     Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id);
+    Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id1, Textures::ID id2);
     
     void setCallback(Callback callback);
     void setText(const std::string& text);
     void setToggle(bool flag);
     void centerOrigin(); // additional function
     void setColor(sf::Color color);
+    void setToggleRelease(bool flag);
     
+    virtual bool checkToggle();
     virtual bool isSelectable() const;
     virtual bool isContain(const sf::RenderWindow& window) const;
     virtual void select();
@@ -54,6 +57,7 @@ private:
     sf::Sprite				mSprite;
     sf::Text				mText;
     bool					mIsToggle;
+    bool                    mIsToggleRelease;
 };
 
 }

@@ -1,0 +1,188 @@
+#include "LoginState.hpp"
+#include "Utility.hpp"
+#include "TextureManipulate.hpp"
+#include "GUI_InputButton.hpp"
+#include "GUI_Button.hpp"
+#include "GUI_Label.hpp"
+
+#include <fstream>
+
+const std::string Main_text = "Login to your account";
+const std::string Error_Wrong_Information = "Wrong username or password!\n Please try again!";
+const std::string Error_Account_Not_Exist = "Account does not exist!\n Please try again!";
+
+const std::string Path_SaveAccount = "Private/AccountSaving.txt";
+
+LoginState::LoginState(StateStack &stack, Context context)
+: State(stack, context)
+, mGUIContainer()
+, mBackground()
+, mText()
+, mTextUsername()
+, mTextPassword()
+, isFocus(true)
+{
+    sf::Vector2f pos = context.window->getView().getCenter();
+    mBackground.setTexture(context.textures->get(Textures::LoginBG));
+    mBackground.setPosition(0, 0);
+    mText.setFont(context.fonts->get(Fonts::Main));
+    mText.setString(Main_text);
+    mText.setCharacterSize(75);
+    setCenterOrigin(mText);
+    mText.setPosition({pos.x, 100.f});
+    mText.setFillColor(sf::Color::White);
+
+    auto username = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Username");
+    username->centerOrigin();
+    username->setScale(0.5, 0.5);
+    username->setPosition(pos.x, pos.y - 175.5);
+    username->setText("Username");
+    username->setToggle(true);
+    username->setColor(sf::Color(96, 130, 182, 200));
+    username->setCallback([this](std::string st){
+        mTextUsername = st;
+    });
+
+    auto password = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Password");
+    password->centerOrigin();
+    password->setScale(0.5, 0.5);
+    password->setPosition(pos.x, pos.y + 175.5);
+    password->setText("Password");
+    password->setToggle(true);
+    password->setColor(sf::Color(96, 130, 182, 200));
+    password->setFlagHidden(true);
+    password->setCallback([this](std::string st){
+        mTextPassword = st;
+    });
+
+    errorText.setFont(context.fonts->get(Fonts::Main));
+    errorText.setString(Error_Wrong_Information);
+    errorText.setCharacterSize(50);
+    setCenterOrigin(errorText);
+    errorText.setPosition(pos.x, pos.y + 225.f);
+    errorText.setFillColor(sf::Color::Red);
+
+    auto visibility = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
+    visibility->centerOrigin();
+    visibility->setPosition(pos.x + 400.f, pos.y + 175.5);
+    visibility->setToggle(true);
+    visibility->setToggleRelease(true);
+    visibility->setColor(sf::Color(96, 130, 182, 200)); 
+    visibility->setCallback([this, password](){
+        if(isFocus){
+            password->setFlagHidden(false);
+            isFocus = false;
+        }
+        else{
+            password->setFlagHidden(true);
+            isFocus = true;
+        }
+    });
+
+    // auto label = std::make_shared<GUI::Label>("", *context.fonts);
+    // label->setPosition(pos.x + 400.f, pos.y + 175.5);
+    // label->setColor(sf::Color::White);
+
+    auto Login = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    Login->centerOrigin();
+    Login->setScale(0.5, 0.5);
+    Login->setPosition(pos.x + 700.f, pos.y + 351.f);
+    Login->setText("Login");
+    Login->setToggle(true);
+    Login->setColor(sf::Color(96, 130, 182, 200));
+    Login->setCallback([this](){
+        // loginSolver();
+        requestStackPop();
+        requestStackPush(States::ChooseChar);
+    });
+
+    mGUIContainer.pack(username);
+    mGUIContainer.pack(password);
+    mGUIContainer.pack(Login);
+    mGUIContainer.pack(visibility);
+}
+
+void LoginState::draw()
+{
+    sf::RenderWindow& window = *getContext().window;
+    window.setView(window.getDefaultView());
+
+    window.draw(mBackground);
+    window.draw(mGUIContainer);
+    window.draw(mText);
+
+}
+
+bool LoginState::update(sf::Time dt)
+{
+    return false;
+}
+
+bool LoginState::handleEvent(const sf::Event &event)
+{
+    handleRealTimeInput();
+    mGUIContainer.handleEvent(event);
+    return false;
+}
+
+void LoginState::handleRealTimeInput()
+{
+    sf::RenderWindow &mWindow = *getContext().window;
+    mGUIContainer.handleRealTimeInput(mWindow);
+}
+
+void LoginState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
+{
+    return;
+}
+
+bool LoginState::hashCheck(std::string password, int* passwordHash)
+{
+    return 1;
+}
+
+void LoginState::setErrorText(std::string error)
+{
+    sf::Vector2f pos = errorText.getPosition();
+    errorText.setString(error);
+    setCenterOrigin(errorText);
+    errorText.setPosition(pos);
+}
+
+void LoginState::loginSolver()
+{
+    std::ifstream fi;
+    fi.open(Path_SaveAccount);
+    if(!fi.is_open()){
+        throw std::runtime_error("Cannot open file " + Path_SaveAccount);
+        return;
+    }
+    int UID;
+    std::string username;
+    int* passwordHash = new int[5];
+    int mask;
+    bool ok = 0;
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> mask){
+        if(username == mTextUsername){
+            ok = 1;
+            if(hashCheck(mTextPassword, passwordHash)){
+                std::cerr << "Login success" << std::endl;
+                setErrorText("Login success");
+                // Login success
+                return;
+            }
+            else{
+                // Wrong password
+                setErrorText(Error_Wrong_Information);
+                return;
+            }
+        }
+    }
+
+    if(!ok)
+        setErrorText(Error_Account_Not_Exist);
+
+    delete [] passwordHash;
+    fi.close();
+    return;
+}

@@ -7,9 +7,11 @@
 #include "PauseState.hpp"
 #include "GameState.hpp"
 #include "SettingsState.hpp"
+#include "LoginState.hpp"
 
 const std::string Path_TitleScreen = "Media/Textures/TitleScreen.jpg";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
+const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
 const std::string Path_ChooseCharScreen = "Media/Textures/bluebackground.jpg";
 const std::string Path_chickenMain = "Media/Textures/chicken.jpg";
 const std::string Path_penguinMain = "Media/Textures/Penguin.png";
@@ -21,6 +23,10 @@ const std::string Path_Normal = "Media/Textures/ButtonNormal.png";
 const std::string Path_Pressed = "Media/Textures/ButtonPressed.png";
 const std::string Path_Selected = "Media/Textures/ButtonSelected.png";
 const std::string Path_InputButton = "Media/Textures/purpleInputBox.png";
+const std::string Path_loginBG = "Media/Textures/LoginBG.jpg";
+const std::string Path_registerBG = "Media/Textures/RegisterBG.jpg";
+const std::string Path_VisiblePassword = "Media/Textures/visible.png";
+const std::string Path_InvisiblePassword = "Media/Textures/invisible.png";
 
 // Application quite similar to the Game.cpp
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 120.f);
@@ -57,6 +63,7 @@ void Application::registerStates(){
     mStateStack.registerState<PauseState>(States::Pause);
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<SettingsState>(States::Settings);
+    mStateStack.registerState<LoginState>(States::Login);
 }
 
 void Application::processInput(){
@@ -120,6 +127,7 @@ void Application::updateStatic(sf::Time elapsedTime){
 
 void Application::loadResources(){
     mFonts.load(Fonts::Main, Path_Font);
+    mFonts.load(Fonts::Label, Path_Input_Font);
     mTextures.load(Textures::TitleScreen, Path_TitleScreen);
     mTextures.load(Textures::ChooseCharScreen, Path_ChooseCharScreen);
     mTextures.load(Textures::chicken, Path_chickenMain);
@@ -132,4 +140,8 @@ void Application::loadResources(){
     mTextures.load(Textures::ButtonPressed, Path_Pressed);
     mTextures.load(Textures::ButtonSelected, Path_Selected);
     mTextures.load(Textures::InputButton1, Path_InputButton);
+    mTextures.load(Textures::LoginBG, Path_loginBG);
+    mTextures.load(Textures::RegisterBG, Path_registerBG);
+    mTextures.load(Textures::VisiblePassword, Path_VisiblePassword);
+    mTextures.load(Textures::InvisiblePassword, Path_InvisiblePassword);
 }

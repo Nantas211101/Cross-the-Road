@@ -50,6 +50,10 @@ void Component::handleRealTimeInput(const sf::RenderWindow& window){
 	// do nothing
 }
 
+bool Component::checkToggle(){
+	return false;
+}
+
 bool Component::contain(sf::Vector2i mouse_pos, sf::FloatRect bounds) const{
     sf::Vector2f cur_pos = getPosition();
 	bounds.width *= getScale().x;

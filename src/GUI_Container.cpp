@@ -82,6 +82,15 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 			select(indexContain);
 			isSelectByMouse = true;
 		}
+	
+		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left) && hasActivate()){ // The really chống chế to solve the problem with visibility button
+			if(mChildren[mActivateChild]->checkToggle()){
+				deactivate();
+				select(indexContain);
+				isJustStart = 0;
+			}
+		}
+
 	}
 	else{ 
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && hasSelection())

@@ -3,6 +3,7 @@
 #include "Command.hpp"
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
+#include "MainChar.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -31,8 +32,8 @@ public:
 
     void					assignKey(Action action, sf::Keyboard::Key key);
     sf::Keyboard::Key		getAssignedKey(Action action) const;
-    void                    setTextureID(Textures::ID id);
-    Textures::ID            getTextureID();
+    void                    setMainCharID(MainChar::Type charID);
+    MainChar::Type          getMainCharID();
 
 private:
     void					initializeActions();
@@ -42,5 +43,5 @@ private:
 private:
     std::map<sf::Keyboard::Key, Action>		mKeyBinding;
     std::map<Action, Command>				mActionBinding;
-    Textures::ID                            textureID;
+    MainChar::Type                          charID;
 };

@@ -12,12 +12,13 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures)
 , mSprite()
 , mText("", fonts.get(Fonts::Main), 100)
 , mIsToggle(false)
+, mIsToggleRelease(false)
 {
 	mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 
-	mText.setColor(sf::Color::Yellow);
+	mText.setFillColor(sf::Color::Yellow);
 	setCenterOrigin(mText);
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
 }
@@ -35,9 +36,22 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures:
 	// setCenterOrigin(mSprite);
     sf::FloatRect bounds = mSprite.getGlobalBounds();
 	
-	mText.setColor(sf::Color::Yellow);
+	mText.setFillColor(sf::Color::Yellow);
 	setCenterOrigin(mText);
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+}
+
+Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id1, Textures::ID id2)
+: mCallback()
+, mNormalTexture(textures.get(id1))
+, mSelectedTexture(textures.get(id1))
+, mPressedTexture(textures.get(id2))
+, mSprite()
+, mText("", fonts.get(Fonts::Main), 100)
+, mIsToggle(false)
+{
+	mSprite.setTexture(mNormalTexture);
+	sf::FloatRect bounds = mSprite.getGlobalBounds();
 }
 
 void Button::setCallback(Callback callback)
@@ -68,6 +82,24 @@ void Button::setColor(sf::Color color)
 	mSprite.setColor(color);
 }
 
+void Button::setToggleRelease(bool flag)
+{
+	mIsToggleRelease = flag;
+}
+
+bool Button::checkToggle()
+{
+	// Only do when release the button
+	if(mIsToggleRelease)
+	{
+		if(mCallback)
+			mCallback();
+		deactivate(); // To set back the texture
+		return true;
+	}
+	return false;
+}
+
 bool Button::isSelectable() const
 {
     return true;
@@ -84,7 +116,7 @@ void Button::select()
 {
 	Component::select();
 	mSprite.setTexture(mSelectedTexture);
-	mText.setColor(sf::Color::Red);
+	mText.setFillColor(sf::Color::Red);
 }
 
 void Button::deselect()
@@ -92,7 +124,7 @@ void Button::deselect()
 	Component::deselect();
 
 	mSprite.setTexture(mNormalTexture);
-	mText.setColor(sf::Color::Yellow);
+	mText.setFillColor(sf::Color::Yellow);
 }
 
 void Button::activate()
@@ -122,6 +154,9 @@ void Button::deactivate()
 			mSprite.setTexture(mSelectedTexture);
 		else
 			mSprite.setTexture(mNormalTexture);
+		// hel
+		// if (mIsToggleRelease && mCallback)
+		// 	mCallback();
 	}
 }
 
