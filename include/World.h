@@ -1,12 +1,13 @@
 #pragma once
 
-#include "TextureHolder.h"
 #include "SceneNode.h"
-#include "LaneFactory.h"
-#include "../CommandQueue.h"
-#include "../MainChar.h"
-#include <SFML/Graphics.hpp>
+#include "World/LaneFactory.h"
+#include "CommandQueue.h"
+#include "MainChar.h"
+#include "ResourceIdentifiers.h"
+#include "ResourceHolder.h"
 
+#include <SFML/Graphics.hpp>
 #include <random>
 #include <array>
 #include <iostream>
@@ -31,6 +32,7 @@ class World : private sf::NonCopyable
 		void								buildScene();
 		void 								adaptPlayerPosition();
 		void 								adaptPlayerVelocity();
+		void								handleCollisions();
 		
 	private:
 		enum Layer
@@ -44,6 +46,7 @@ class World : private sf::NonCopyable
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
 		TextureHolder						mTextures;
+		//FontHolder&							mFonts;
 
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;

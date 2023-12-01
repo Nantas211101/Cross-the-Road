@@ -1,4 +1,4 @@
-#include "../../include/World/Animation.h"
+#include "../include/Animation.h"
 
 Animation::Animation()
 : mSprite()

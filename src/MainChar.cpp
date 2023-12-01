@@ -76,7 +76,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures)
 : mType(type)
 , mSprite(textures.get(toTextureID(type)))
 {
-    mSprite.scale(0.2, 0.2);
+    mSprite.scale(0.15, 0.15);
     //centerOrigin(mSprite);
 }
 
@@ -110,6 +110,30 @@ auto MainChar::getTextureType() -> MainChar::Type{
 
 Textures::ID MainChar::getTextureID(){
     return toTextureID(mType);
+}
+
+int MainChar::getHitpoints() const {
+	return mHP;
+}
+
+void MainChar::heal(int points) {
+	assert(points > 0);
+
+	mHP += points;
+}
+
+void MainChar::damage(int points) {
+	assert(points > 0);
+
+	mHP -= points;
+}
+
+void MainChar::destroy() {
+	mHP = 0;
+}
+
+bool MainChar::isDestroyed() const {
+	return mHP <= 0;
 }
 
 unsigned int MainChar::getCategory() const

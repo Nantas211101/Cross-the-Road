@@ -2,15 +2,16 @@
 
 #include "Lane.h"
 #include "Entity.h"
-#include "DataTable.h"
-#include "SFML/System/Vector2.hpp"
-#include "TextureHolder.h"
+#include "../DataTable.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
 #include "Animal.h"
 #include "Vehicle.h"
-#include <vector>
 #include "Traffic.h"
-#include <SFML/Graphics.hpp>
+
+#include <vector>
 #include <random>
+#include <SFML/Graphics.hpp>
 
 class Road : public Lane {
     public:

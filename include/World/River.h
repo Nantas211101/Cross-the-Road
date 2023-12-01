@@ -2,7 +2,10 @@
 
 #include "Lane.h"
 #include "Log.h"
-#include "DataTable.h"
+#include "../DataTable.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
+
 #include <vector>
 #include <cmath>
 #include <SFML/Graphics.hpp>

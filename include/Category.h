@@ -7,5 +7,8 @@ namespace Category {
 		River   = 1 << 2,
 		Road    = 1 << 3,
 		Grass   = 1 << 4,
+		Tree	= 1 << 5,
+		Car		= 1 << 6,
+		Log		= 1 << 7
 	};
 }

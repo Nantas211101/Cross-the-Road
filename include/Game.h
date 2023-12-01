@@ -1,8 +1,9 @@
 #pragma once
 
-#include "World/World.h"
+#include "World.h"
 #include "Player.h"
 #include "CommandQueue.h"
+
 #include <SFML/Graphics.hpp>
 
 class Game : private sf::NonCopyable

@@ -2,12 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "TextureHolder.h"
-#include "Lane.h"
-#include "Animal.h"
-#include "Log.h"
-#include "TextureHolder.h"
-#include "Vehicle.h"
+#include "ResourceIdentifiers.h"
+#include "ResourceHolder.h"
+#include "World/Lane.h"
+#include "World/Animal.h"
+#include "World/Log.h"
+#include "ResourceIdentifiers.h"
+#include "World/Vehicle.h"
 
 struct LogData {
 	float speed;

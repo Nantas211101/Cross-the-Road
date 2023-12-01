@@ -1,10 +1,10 @@
 #pragma once
-#include <vector>
 #include "Entity.h"
-#include "DataTable.h"
-#include "TextureHolder.h"
-#include "SFML/Graphics/Sprite.hpp"
-#include "SFML/Graphics/Texture.hpp"
+#include "../DataTable.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
+
+#include <vector>
 #include <SFML/Graphics.hpp>
 
 class Vehicle:public Entity{

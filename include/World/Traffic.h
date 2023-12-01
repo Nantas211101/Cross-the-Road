@@ -1,8 +1,9 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Entity.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
 
-#include "TextureHolder.h"
+#include <SFML/Graphics.hpp>
 
 class Traffic: public Entity{
      public:

@@ -3,7 +3,9 @@
 #include "River.h"
 #include "Grass.h"
 #include "Road.h"
-#include "TextureHolder.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
+
 #include <vector>
 #include <memory>
 #include <SFML/Graphics.hpp>

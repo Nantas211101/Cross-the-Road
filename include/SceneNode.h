@@ -1,17 +1,18 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include "../Command.h"
-#include "../Category.h"
+#include "Command.h"
+#include "Category.h"
+#include "Utility.h"
 
 #include <vector>
 #include <memory>
-
+#include <set>
+#include <SFML/Graphics.hpp>
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable {
 	public:
 		typedef std::unique_ptr<SceneNode> Ptr;
-
+		typedef std::pair<SceneNode*, SceneNode*> Pair;
 
 	public:
 								SceneNode();
@@ -28,6 +29,13 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 		void 					onCommand(const Command& command, sf::Time dt);
     	virtual unsigned int 	getCategory() const;
 
+		void					checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs);
+		void					checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs);
+		void					removeWrecks();
+		virtual sf::FloatRect	getBoundingRect() const;
+		virtual bool			isMarkedForRemoval() const;
+		virtual bool			isDestroyed() const;
+
 	private:
 		virtual void			updateCurrent(sf::Time dt);
 		void					updateChildren(sf::Time dt);
@@ -37,9 +45,11 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 		virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 		void					drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
 
-		virtual sf::FloatRect 	getBoundingRect() const;
-
 	private:
 		std::vector<Ptr>		mChildren;
 		SceneNode*				mParent;
+		Category::Type			mDefaultCategory;
 };
+
+bool	collision(const SceneNode& lhs, const SceneNode& rhs);
+float	distance(const SceneNode& lhs, const SceneNode& rhs);

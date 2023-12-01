@@ -1,10 +1,11 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "Entity.h"
-#include "DataTable.h"
-#include "TextureHolder.h"
+#include "../DataTable.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 class Log : public Entity {
     public:

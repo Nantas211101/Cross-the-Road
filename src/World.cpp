@@ -1,4 +1,4 @@
-#include "../../include/World/World.h"
+#include "../include/World.h"
 
 World::World(sf::RenderWindow& window)
 : mWindow(window)
@@ -37,21 +37,71 @@ void World::update(sf::Time dt)
 	mainChar->setVelocity(0.f, 0.f);
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
-	timeToNextInput += dt;
+	// timeToNextInput += dt;
 	while (!mCommandQueue.isEmpty()){
-		if(timeToNextInput > sf::seconds(0.5)) {
+	// 	if(timeToNextInput > sf::seconds(0.3)) {
 			mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-			timeToNextInput = sf::Time::Zero;
-		}
-		else {
-			mCommandQueue.pop();
-		}
+	// 		timeToNextInput = sf::Time::Zero;
+	// 	}
+	// 	else {
+	// 		mCommandQueue.pop();
+	// 	}
 	}
 	adaptPlayerVelocity();
 
 	// Regular update step, adapt position (correct if outside view)
 	mSceneGraph.update(dt);
 	adaptPlayerPosition();
+}
+
+bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
+{
+	unsigned int category1 = colliders.first->getCategory();
+	unsigned int category2 = colliders.second->getCategory();
+
+	// Make sure first pair entry has category type1 and second has type2
+	if (type1 & category1 && type2 & category2)
+	{
+		return true;
+	}
+	else if (type1 & category2 && type2 & category1)
+	{
+		std::swap(colliders.first, colliders.second);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void World::handleCollisions()
+{
+	std::set<SceneNode::Pair> collisionPairs;
+	mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
+
+	for(SceneNode::Pair pair : collisionPairs)
+	{
+		if (matchesCategories(pair, Category::Player, Category::River))
+		{
+			auto& player = static_cast<MainChar&>(*pair.first);
+			auto& enemy = static_cast<River&>(*pair.second);
+
+			// Collision: Player damage = enemy's remaining HP
+			// player.damage(enemy.getHitpoints());
+			// enemy.destroy();
+		}
+
+		else if (matchesCategories(pair, Category::Player, Category::Car))
+		{
+			auto& player = static_cast<MainChar&>(*pair.first);
+			auto& car = static_cast<Vehicle&>(*pair.second);
+
+			// Apply pickup effect to player, destroy projectile
+			// pickup.apply(player);
+			// pickup.destroy();
+		}
+	}
 }
 
 void World::draw()
@@ -103,7 +153,7 @@ void World::adaptPlayerPosition()
 {
 	// Keep player's position inside the screen bounds, at least borderDistance units from the border
 	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
-	const float borderDistance = 0.f;
+	const float borderDistance = 20.f;
 
 	sf::Vector2f position = mainChar->getPosition();
 	position.x = std::max(position.x, viewBounds.left + borderDistance);

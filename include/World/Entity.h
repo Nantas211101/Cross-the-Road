@@ -1,6 +1,5 @@
 #pragma once
-#include "SceneNode.h"
-
+#include "../SceneNode.h"
 
 class Entity : public SceneNode
 {

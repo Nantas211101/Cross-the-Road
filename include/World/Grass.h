@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Entity.h"
-#include "DataTable.h"
-#include "TextureHolder.h"
+#include "../DataTable.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
 #include "Lane.h"
-#include <vector>
-#include <SFML/Graphics.hpp>
 #include "Tree.h"
+
+#include <SFML/Graphics.hpp>
+#include <vector>
 
 class Grass : public Lane {
     public:

@@ -1,12 +1,12 @@
 #pragma once
-#include <vector>
 #include "Entity.h"
-#include "DataTable.h"
-#include "SFML/Graphics/Sprite.hpp"
-#include "SFML/Graphics/Texture.hpp"
+#include "../DataTable.h"
+#include "../Animation.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
+
+#include <vector>
 #include <SFML/Graphics.hpp>
-#include "Animation.h"
-#include "TextureHolder.h"
 
 class Animal:public Entity{
  public:
