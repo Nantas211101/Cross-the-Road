@@ -15,7 +15,22 @@ public:
     virtual void draw();
     virtual bool update(sf::Time dt);
     virtual bool handleEvent(const sf::Event &event);
+
+private:
     virtual void handleRealTimeInput();
+    bool checkLegalUsername();
+    bool checkLegalPassword();
+    bool checkUsername();
+    bool checkPassword();
+
+    bool isPasswordValid(const std::string& st);
+
+    void setDefaultError();
+    void setErrorUsername(const std::string& st, bool isValid = false);
+    void setErrorPassword(const std::string& st, bool isValid = false);
+    void setErrorPasswordConfirm(const std::string& st, bool isValid = false);
+
+    void registerAccount();
 
 private:
     GUI::Container mGUIContainer;
@@ -23,7 +38,22 @@ private:
 
     sf::Text mText;
     sf::Text errorText;
+    sf::Text errorTextUsername;
+    sf::Text errorTextPassword;
+    sf::Text errorTextPasswordConfirm;
     std::string mTextUsername;
     std::string mTextPassword;
+    std::string mTextPasswordConfirm;
+
+    sf::Vector2f posErrorUsername;
+    sf::Vector2f posErrorPassword;
+    sf::Vector2f posErrorPasswordConfirm;
+
+    bool isChangeUsername;
+    bool isChangePassword;
+    bool isChangePasswordConfirm;
+
+    bool isFocusPassword;
+    bool isFocusPasswordConfirm;
 
 };

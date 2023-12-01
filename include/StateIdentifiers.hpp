@@ -11,5 +11,7 @@ namespace States{
         Settings,
         Pause,
         Login,
+        Register,
+        ConfirmRegister,
     };
 }

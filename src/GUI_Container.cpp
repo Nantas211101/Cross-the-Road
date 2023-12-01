@@ -101,7 +101,10 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 	
 	if(hasSelection() && mChildren[mSelectedChild]->isContain(window) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		mChildren[mSelectedChild]->activate();
-		mActivateChild = mSelectedChild;
+		if(mChildren[mSelectedChild]->isActive())
+			mActivateChild = mSelectedChild;
+		else 
+			mActivateChild = -1;
 	}
 
 	preMousePos = curPos;

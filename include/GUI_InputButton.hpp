@@ -23,7 +23,7 @@ public:
 
 public:
     InputButton(const FontHolder& fonts, const TextureHolder& textures);
-    InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id);
+    InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id, const std::string& text);
     InputButton(const FontHolder& fonts, const TextureHolder& textures, const std::string& text);
     
     void setCallback(Callback callback);

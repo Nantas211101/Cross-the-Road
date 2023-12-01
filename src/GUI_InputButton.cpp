@@ -24,7 +24,7 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures)
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
 }
 
-InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id)
+InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id, const std::string& text)
 : mCallback()
 , mNormalTexture(textures.get(id))
 , mSelectedTexture(textures.get(id))
@@ -39,7 +39,7 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 	// setCenterOrigin(mSprite);
     sf::FloatRect bounds = mSprite.getGlobalBounds();
 	
-	mText.setFillColor(sf::Color::Yellow);
+	mText.setFillColor(sf::Color(229, 218, 218));
 	setCenterOrigin(mText);
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
 }

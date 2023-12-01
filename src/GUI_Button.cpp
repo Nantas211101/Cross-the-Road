@@ -31,6 +31,7 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures:
 , mSprite()
 , mText("", fonts.get(Fonts::Main), 100) 
 , mIsToggle(false)
+, mIsToggleRelease(false)
 {
     mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -49,6 +50,7 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures:
 , mSprite()
 , mText("", fonts.get(Fonts::Main), 100)
 , mIsToggle(false)
+, mIsToggleRelease(false)
 {
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
@@ -59,10 +61,11 @@ void Button::setCallback(Callback callback)
 	mCallback = std::move(callback);
 }
 
-void Button::setText(const std::string& text)
+void Button::setText(const std::string& text, int size)
 {
     sf::FloatRect bounds = mSprite.getGlobalBounds();
 	mText.setString(text);
+	mText.setCharacterSize(size);
 	setCenterOrigin(mText);
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
 }

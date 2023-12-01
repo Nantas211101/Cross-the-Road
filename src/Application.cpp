@@ -8,6 +8,8 @@
 #include "GameState.hpp"
 #include "SettingsState.hpp"
 #include "LoginState.hpp"
+#include "RegisterState.hpp"
+#include "ConfirmRegisterState.hpp"
 
 const std::string Path_TitleScreen = "Media/Textures/TitleScreen.jpg";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
@@ -64,6 +66,8 @@ void Application::registerStates(){
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<SettingsState>(States::Settings);
     mStateStack.registerState<LoginState>(States::Login);
+    mStateStack.registerState<RegisterState>(States::Register);
+    mStateStack.registerState<ConfirmRegisterState>(States::ConfirmRegister);
 }
 
 void Application::processInput(){

@@ -27,7 +27,7 @@ public:
     Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id1, Textures::ID id2);
     
     void setCallback(Callback callback);
-    void setText(const std::string& text);
+    void setText(const std::string& text, int size = 100);
     void setToggle(bool flag);
     void centerOrigin(); // additional function
     void setColor(sf::Color color);

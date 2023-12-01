@@ -4,6 +4,7 @@
 #include "GUI_InputButton.hpp"
 #include "GUI_Button.hpp"
 #include "GUI_Label.hpp"
+#include "HashTable.hpp"
 
 #include <fstream>
 
@@ -11,13 +12,14 @@ const std::string Main_text = "Login to your account";
 const std::string Error_Wrong_Information = "Wrong username or password!\n Please try again!";
 const std::string Error_Account_Not_Exist = "Account does not exist!\n Please try again!";
 
-const std::string Path_SaveAccount = "Private/AccountSaving.txt";
+const std::string Path_SaveAccount = "PrivateInfo/AccountSaving.txt";
 
 LoginState::LoginState(StateStack &stack, Context context)
 : State(stack, context)
 , mGUIContainer()
 , mBackground()
-, mText()
+, mText(Main_text, context.fonts->get(Fonts::Main), 75)
+, errorText("", context.fonts->get(Fonts::Main), 50)
 , mTextUsername()
 , mTextPassword()
 , isFocus(true)
@@ -25,9 +27,6 @@ LoginState::LoginState(StateStack &stack, Context context)
     sf::Vector2f pos = context.window->getView().getCenter();
     mBackground.setTexture(context.textures->get(Textures::LoginBG));
     mBackground.setPosition(0, 0);
-    mText.setFont(context.fonts->get(Fonts::Main));
-    mText.setString(Main_text);
-    mText.setCharacterSize(75);
     setCenterOrigin(mText);
     mText.setPosition({pos.x, 100.f});
     mText.setFillColor(sf::Color::White);
@@ -35,7 +34,7 @@ LoginState::LoginState(StateStack &stack, Context context)
     auto username = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Username");
     username->centerOrigin();
     username->setScale(0.5, 0.5);
-    username->setPosition(pos.x, pos.y - 175.5);
+    username->setPosition(pos.x, pos.y - 150);
     username->setText("Username");
     username->setToggle(true);
     username->setColor(sf::Color(96, 130, 182, 200));
@@ -46,7 +45,7 @@ LoginState::LoginState(StateStack &stack, Context context)
     auto password = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Password");
     password->centerOrigin();
     password->setScale(0.5, 0.5);
-    password->setPosition(pos.x, pos.y + 175.5);
+    password->setPosition(pos.x, pos.y + 150);
     password->setText("Password");
     password->setToggle(true);
     password->setColor(sf::Color(96, 130, 182, 200));
@@ -55,11 +54,20 @@ LoginState::LoginState(StateStack &stack, Context context)
         mTextPassword = st;
     });
 
-    errorText.setFont(context.fonts->get(Fonts::Main));
-    errorText.setString(Error_Wrong_Information);
-    errorText.setCharacterSize(50);
+    auto registerButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    registerButton->centerOrigin();
+    registerButton->setScale(0.5, 0.5);
+    registerButton->setPosition(pos.x - 700.f, pos.y + 351.f);
+    registerButton->setText("Register");
+    // registerButton->setToggle(true);
+    registerButton->setColor(sf::Color(96, 130, 182, 200));
+    registerButton->setCallback([this](){
+        requestStackPop();
+        requestStackPush(States::Register);
+    });
+
     setCenterOrigin(errorText);
-    errorText.setPosition(pos.x, pos.y + 225.f);
+    errorText.setPosition(pos.x, pos.y + 300.f);
     errorText.setFillColor(sf::Color::Red);
 
     auto visibility = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
@@ -88,17 +96,17 @@ LoginState::LoginState(StateStack &stack, Context context)
     Login->setScale(0.5, 0.5);
     Login->setPosition(pos.x + 700.f, pos.y + 351.f);
     Login->setText("Login");
-    Login->setToggle(true);
     Login->setColor(sf::Color(96, 130, 182, 200));
     Login->setCallback([this](){
-        // loginSolver();
-        requestStackPop();
-        requestStackPush(States::ChooseChar);
+        loginSolver();
+        // requestStackPop();
+        // requestStackPush(States::ChooseChar);
     });
 
     mGUIContainer.pack(username);
     mGUIContainer.pack(password);
     mGUIContainer.pack(Login);
+    mGUIContainer.pack(registerButton);
     mGUIContainer.pack(visibility);
 }
 
@@ -107,10 +115,11 @@ void LoginState::draw()
     sf::RenderWindow& window = *getContext().window;
     window.setView(window.getDefaultView());
 
+
     window.draw(mBackground);
     window.draw(mGUIContainer);
     window.draw(mText);
-
+    window.draw(errorText);
 }
 
 bool LoginState::update(sf::Time dt)
@@ -151,10 +160,9 @@ void LoginState::setErrorText(std::string error)
 
 void LoginState::loginSolver()
 {
-    std::ifstream fi;
-    fi.open(Path_SaveAccount);
+    std::ifstream fi(Path_SaveAccount);
     if(!fi.is_open()){
-        throw std::runtime_error("Cannot open file " + Path_SaveAccount);
+        throw std::runtime_error("RegisterState::loginSolver - Cannot open file " + Path_SaveAccount);
         return;
     }
     int UID;
@@ -165,15 +173,21 @@ void LoginState::loginSolver()
     while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> mask){
         if(username == mTextUsername){
             ok = 1;
-            if(hashCheck(mTextPassword, passwordHash)){
+            if(checkPassword(mTextPassword, passwordHash)){
                 std::cerr << "Login success" << std::endl;
                 setErrorText("Login success");
+                delete [] passwordHash;
+                fi.close();
+                requestStackPop();
+                requestStackPush(States::ChooseChar);
                 // Login success
                 return;
             }
             else{
                 // Wrong password
                 setErrorText(Error_Wrong_Information);
+                delete [] passwordHash;
+                fi.close();
                 return;
             }
         }
