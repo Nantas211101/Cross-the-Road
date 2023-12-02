@@ -4,6 +4,7 @@
 #include "GUI_InputButton.hpp"
 #include "GUI_Button.hpp"
 #include "GUI_Label.hpp"
+#include "GUI_StateButton.hpp"
 #include "HashTable.hpp"
 
 #include <fstream>
@@ -70,11 +71,9 @@ LoginState::LoginState(StateStack &stack, Context context)
     errorText.setPosition(pos.x, pos.y + 300.f);
     errorText.setFillColor(sf::Color::Red);
 
-    auto visibility = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
+    auto visibility = std::make_shared<GUI::StateButton>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
     visibility->centerOrigin();
-    visibility->setPosition(pos.x + 400.f, pos.y + 175.5);
-    visibility->setToggle(true);
-    visibility->setToggleRelease(true);
+    visibility->setPosition(pos.x + 400.f, pos.y + 150.f);
     visibility->setColor(sf::Color(96, 130, 182, 200)); 
     visibility->setCallback([this, password](){
         if(isFocus){
@@ -174,7 +173,6 @@ void LoginState::loginSolver()
         if(username == mTextUsername){
             ok = 1;
             if(checkPassword(mTextPassword, passwordHash)){
-                std::cerr << "Login success" << std::endl;
                 setErrorText("Login success");
                 delete [] passwordHash;
                 fi.close();

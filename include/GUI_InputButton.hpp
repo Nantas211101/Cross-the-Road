@@ -58,6 +58,7 @@ private:
     sf::Text                mTextHidden;
     bool					mIsToggle;
     bool                    hiddenFlag;
+    bool                    isFirstClick;
 };
 
 }

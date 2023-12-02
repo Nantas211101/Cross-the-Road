@@ -37,7 +37,7 @@ void Container::handleEvent(const sf::Event& event)
 {
     // If we have selected and activated a child then give it events
 
-	if (hasSelection() && mChildren[mSelectedChild]->isActive())
+	if (hasActivate() && mChildren[mActivateChild]->isActive())
 	{
 		if(event.key.code == sf::Keyboard::Return){ // special case when press enter of InputButton
 			if(hasActivate())
@@ -54,18 +54,19 @@ void Container::handleEvent(const sf::Event& event)
 			isSelectByMouse = false;
 			selectPrev();
 		}
-		else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
+		else if (event.key.code == sf::Keyboard::Tab)
 		{
 			isSelectByMouse = false;
 			selectNext();
+			// activate(mSelectedChild);
 		}
-		else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
-		{
-			if (hasSelection()){
-				mChildren[mSelectedChild]->activate();
-				mActivateChild = mSelectedChild;
-			}
-		}
+		// else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
+		// {
+		// 	if (hasSelection()){
+		// 		mChildren[mSelectedChild]->activate();
+		// 		mActivateChild = mSelectedChild;
+		// 	}
+		// }
 	}
 	isJustStart = 0;
 }
@@ -82,14 +83,6 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 			select(indexContain);
 			isSelectByMouse = true;
 		}
-	
-		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left) && hasActivate()){ // The really chống chế to solve the problem with visibility button
-			if(mChildren[mActivateChild]->checkToggle()){
-				deactivate();
-				select(indexContain);
-				isJustStart = 0;
-			}
-		}
 
 	}
 	else{ 
@@ -100,11 +93,11 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 	}
 	
 	if(hasSelection() && mChildren[mSelectedChild]->isContain(window) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		mChildren[mSelectedChild]->activate();
-		if(mChildren[mSelectedChild]->isActive())
-			mActivateChild = mSelectedChild;
-		else 
-			mActivateChild = -1;
+		if(indexContain != mSelectedChild && hasActivate()){
+			deactivate();
+		}
+		select(indexContain);
+		activate(indexContain);
 	}
 
 	preMousePos = curPos;
@@ -158,8 +151,8 @@ void Container::deactivate()
 
 void Container::select(std::size_t index)
 {
-	if(hasActivate())
-		return;
+	// if(hasActivate())
+	// 	return;
 	if(mChildren[index]->isSelectable()){
 		if(hasSelection())
 			mChildren[mSelectedChild]->deselect();

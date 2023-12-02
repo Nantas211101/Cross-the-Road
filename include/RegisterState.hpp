@@ -25,7 +25,7 @@ private:
 
     bool isPasswordValid(const std::string& st);
 
-    void setDefaultError();
+    void setDefaultError(const std::string& st = "");
     void setErrorUsername(const std::string& st, bool isValid = false);
     void setErrorPassword(const std::string& st, bool isValid = false);
     void setErrorPasswordConfirm(const std::string& st, bool isValid = false);
@@ -55,5 +55,4 @@ private:
 
     bool isFocusPassword;
     bool isFocusPasswordConfirm;
-
 };

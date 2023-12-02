@@ -38,7 +38,6 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 	}));
 
 	mGUIContainer.pack(backButton);
-    std::cerr << "ss\n";
 }
 
 void SettingsState::draw()

@@ -3,6 +3,7 @@
 #include "TextureManipulate.hpp"
 #include "GUI_InputButton.hpp"
 #include "GUI_Button.hpp"
+#include "GUI_StateButton.hpp"
 #include "HashTable.hpp"
 #include "StateIdentifiers.hpp"
 
@@ -15,9 +16,10 @@ const std::string Main_text = "Register your account";
 const std::string Error_Username_Wrong_Size = "Username should be in [" + std::to_string(limitUsername.first) + ", " + std::to_string(limitUsername.second) + ']';
 const std::string Error_Password_Wrong_Size = "Password should be in [" + std::to_string(limitPassword.first) + ", " + std::to_string(limitPassword.second) + ']';
 const std::string Error_Password_Invalid = "Password should contain at least\n1 word, 1 Digit 1 Special Character!";
-const std::string Error_Username_Taken = "Username is already taken!\n Please try again!";
-const std::string Error_Password_Not_Match = "Password does not match!\n Please try again!";
+const std::string Error_Username_Taken = "Username is already taken!\nPlease try again!";
+const std::string Error_Password_Not_Match = "Password does not match!\nPlease try again!";
 
+const std::string Error_Information = "Please complete all the information!";
 
 const std::string Path_SaveAccount = "PrivateInfo/AccountSaving.txt";
 
@@ -64,7 +66,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         isChangeUsername = true;
     });
 
-    posErrorUsername = {pos.x + 470.f, pos.y - 250.f};
+    posErrorUsername = {pos.x, pos.y - 125.f};
 
     auto password = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Password");
     password->centerOrigin();
@@ -78,11 +80,9 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         isChangePassword = true;
     });
 
-    auto visibility1 = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
+    auto visibility1 = std::make_shared<GUI::StateButton>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
     visibility1->centerOrigin();
-    visibility1->setPosition(pos.x - 300.f, pos.y);
-    visibility1->setToggle(true);
-    visibility1->setToggleRelease(true);
+    visibility1->setPosition(pos.x + 300.f, pos.y);
     visibility1->setColor(sf::Color(96, 130, 182, 200));
     visibility1->setCallback([this, password](){
         if(isFocusPassword){
@@ -95,7 +95,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         }
     });
 
-    posErrorPassword = {pos.x + 470.f, pos.y};
+    posErrorPassword = {pos.x, pos.y + 125.f};
 
     auto passwordConfirm = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Confirm Password");
     passwordConfirm->centerOrigin();
@@ -109,11 +109,9 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         isChangePasswordConfirm = true;
     });
 
-    auto visibility2 = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
+    auto visibility2 = std::make_shared<GUI::StateButton>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
     visibility2->centerOrigin();
-    visibility2->setPosition(pos.x - 300.f, pos.y + 250.f);
-    visibility2->setToggle(true);
-    visibility2->setToggleRelease(true);
+    visibility2->setPosition(pos.x + 300.f, pos.y + 250.f);
     visibility2->setColor(sf::Color(96, 130, 182, 200));
     visibility2->setCallback([this, passwordConfirm](){
         if(isFocusPasswordConfirm){
@@ -126,7 +124,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         }
     });
 
-    posErrorPasswordConfirm = {pos.x + 470.f, pos.y + 250.f};
+    posErrorPasswordConfirm = {pos.x, pos.y + 375.f};
 
     errorText.setFillColor(sf::Color::Red);
 
@@ -138,7 +136,6 @@ RegisterState::RegisterState(StateStack &stack, Context context)
     registerButton->setColor(sf::Color(96, 130, 182, 200));
     registerButton->setCallback([this](){
         registerAccount();
-        std::cerr << "Register Account done\n";
     });
 
     auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
@@ -182,7 +179,6 @@ bool RegisterState::update(sf::Time dt)
 
 bool RegisterState::handleEvent(const sf::Event &event)
 {
-    // isChangeUsername = isChangePassword = isChangePasswordConfirm = false;
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
     return false;
@@ -191,21 +187,21 @@ bool RegisterState::handleEvent(const sf::Event &event)
 void RegisterState::handleRealTimeInput()
 {   
     mGUIContainer.handleRealTimeInput(*getContext().window);
+    bool isOK = true;
     if(isChangeUsername){
-        if(!checkLegalUsername())
-            return;
-        if(!checkUsername())
-            return;
+        if(!checkLegalUsername() || !checkUsername())
+            isOK = false;
     }
     if(isChangePassword){
         if(!checkLegalPassword())
-            return;
+            isOK = false;
     }
     if(isChangePasswordConfirm){
         if(!checkPassword())
-            return;
+            isOK = false;
     }
-    setDefaultError();
+    if(isOK)
+        setDefaultError();
 }
 
 bool RegisterState::checkLegalUsername()
@@ -261,7 +257,7 @@ bool RegisterState::checkUsername()
 
 bool RegisterState::checkPassword()
 {   
-    if(mTextPassword != mTextPasswordConfirm){
+    if(mTextPassword != mTextPasswordConfirm || mTextPasswordConfirm.empty()){
         setErrorPasswordConfirm(Error_Password_Not_Match);
         return false;
     }
@@ -286,15 +282,15 @@ bool RegisterState::isPasswordValid(const std::string& st)
     return (isUpper || isLower) && isDigit && isSpecial;
 }
 
-void RegisterState::setDefaultError()
+void RegisterState::setDefaultError(const std::string& st)
 {
     // setErrorUsername("");
     // setErrorPassword("");
     // setErrorPasswordConfirm("");
     sf::Vector2f pos = getContext().window->getView().getCenter();
-    errorText.setString("");
+    errorText.setString(st);
     centerOrigin(errorText);
-    errorText.setPosition(pos);
+    errorText.setPosition(pos.x, pos.y + 500.f);
 }
 
 void RegisterState::setErrorUsername(const std::string& st, bool isValid)
@@ -332,8 +328,13 @@ void RegisterState::setErrorPasswordConfirm(const std::string& st, bool isValid)
 
 void RegisterState::registerAccount()
 {
-    if(!checkLegalUsername() || !checkLegalPassword() || !checkUsername() || !checkPassword())
+    // isChangePassword = isChangePasswordConfirm = isChangeUsername = false;
+    bool isError = !checkUsername() | !checkLegalPassword() | !checkLegalUsername() | !checkPassword();
+
+    if(isError){
         return;
+    }
+
     std::ofstream fout(Path_SaveAccount, std::ios::app);
     if(!fout.is_open()){
         throw std::runtime_error("RegisterState::registerAccount - Cannot open file output" + Path_SaveAccount);
@@ -353,7 +354,7 @@ void RegisterState::registerAccount()
     while(fin >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> mask);
 
     convertStringToHash(mTextPassword, passwordHash);
-    fout << UID + 1 << "\n" << mTextUsername << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << 0 << "\n";
+    fout << UID + 1 << "\n" << mTextUsername << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << 1 << "\n";
     
     fout.close();
     fin.close();

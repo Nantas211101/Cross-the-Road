@@ -84,10 +84,8 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	// 		// requestStackPop();
 	// 		// requestStackPush(States::Game);
 	// 	name = st;
-	// 		// std::cerr << "Hello\n";
 	// 	// }
 	// });
-	// std::cerr << name;
 
 	mGUIContainerSet.pack(rightButton);
 	mGUIContainerSet.pack(leftButton);

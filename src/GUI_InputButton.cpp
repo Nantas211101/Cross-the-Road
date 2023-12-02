@@ -10,10 +10,11 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures)
 , mSelectedTexture(textures.get(Textures::InputButton1))
 , mPressedTexture(textures.get(Textures::InputButton1))
 , mSprite()
-, mText("", fonts.get(Fonts::Main), 100)
-, mTextHidden("", fonts.get(Fonts::Main), 100)
+, mText("", fonts.get(Fonts::Label), 100)
+, mTextHidden("", fonts.get(Fonts::Label), 100)
 , mIsToggle(false)
 , hiddenFlag(false)
+, isFirstClick(true)
 {
 	mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -30,10 +31,11 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 , mSelectedTexture(textures.get(id))
 , mPressedTexture(textures.get(id))
 , mSprite()
-, mText("", fonts.get(Fonts::Main), 100) 
-, mTextHidden("", fonts.get(Fonts::Main), 100)
+, mText("", fonts.get(Fonts::Label), 100) 
+, mTextHidden("", fonts.get(Fonts::Label), 100)
 , mIsToggle(false)
 , hiddenFlag(false)
+, isFirstClick(true)
 {
     mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -50,10 +52,11 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 , mSelectedTexture(textures.get(Textures::InputButton1))
 , mPressedTexture(textures.get(Textures::InputButton1))
 , mSprite()
-, mText(text, fonts.get(Fonts::Main), 100)
-, mTextHidden("", fonts.get(Fonts::Main), 100)
+, mText(text, fonts.get(Fonts::Label), 100)
+, mTextHidden("", fonts.get(Fonts::Label), 100)
 , mIsToggle(false)
 , hiddenFlag(false)
+, isFirstClick(true)
 {
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
@@ -134,8 +137,10 @@ void InputButton::activate()
 	Component::activate();
     // If we are toggle then we should show that the InputButton is pressed and thus "toggled".
 	if (mIsToggle){
-        mText.setString("");
-        // mText = "";
+		if(isFirstClick)
+        	mText.setString("");
+		isFirstClick = false;
+		// mText = "";
     	mSprite.setTexture(mPressedTexture);
         mSprite.setColor(sf::Color::Cyan);
     }
@@ -164,6 +169,8 @@ void InputButton::deactivate()
 
 void InputButton::handleEvent(const sf::Event& event)
 {
+	// if(event.type != sf::Event::TextEntered)
+	// 	return;
     std::string currentText = mText.getString();
     if(event.type == sf::Event::TextEntered){
         unsigned short unicode = event.text.unicode;
