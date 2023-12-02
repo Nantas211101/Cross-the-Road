@@ -11,6 +11,8 @@ FetchContent_MakeAvailable(SFML)
 
 file(GLOB SRCS CONFIGURE_DEPENDS 
     ${CMAKE_SOURCE_DIR}/src/*.cpp 
+    ${CMAKE_SOURCE_DIR}/src/GUI/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/States/*.cpp
 )
 
 add_executable(game ${SRCS})
@@ -18,6 +20,8 @@ target_link_libraries(game PRIVATE sfml-graphics sfml-window sfml-system)
 target_compile_features(game PRIVATE cxx_std_17)
 target_include_directories(game PRIVATE 
     ${CMAKE_SOURCE_DIR}/include/
+    ${CMAKE_SOURCE_DIR}/include/States/
+    ${CMAKE_SOURCE_DIR}/include/GUI/
     ${CMAKE_SOURCE_DIR}/template/
 )
 
