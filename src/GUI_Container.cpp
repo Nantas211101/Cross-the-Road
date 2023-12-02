@@ -86,8 +86,8 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 
 	}
 	else{ 
-		if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && hasSelection())
-			deactivate();
+		// if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && hasSelection())
+		// 	deactivate();
 		if(isSelectByMouse && !hasActivate())
 			deselect();
 	}
@@ -98,6 +98,7 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 		}
 		select(indexContain);
 		activate(indexContain);
+		isSelectByMouse = true;
 	}
 
 	preMousePos = curPos;

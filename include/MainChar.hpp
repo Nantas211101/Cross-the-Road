@@ -2,7 +2,6 @@
 
 #include "Entity.hpp"
 #include "ResourceIdentifiers.hpp"
-
 class MainChar : public Entity{
 public:
     enum Type{
@@ -30,7 +29,14 @@ public:
     Type getMainCharType();
     Textures::ID getTextureID();
 
+    int getThisMaskID();
+
+    void setOwnerFlag(bool flag);
+
 private: 
     Type mType;
     sf::Sprite mSprite;
+    bool ownerFlag;
 };
+
+int convertToMaskID(MainChar::Type type);

@@ -4,7 +4,7 @@
 #include <State.hpp>
 #include <SceneNode.hpp>
 #include <MainChar.hpp>
-#include "GUI_Container.hpp"
+// #include "GUI_Container.hpp"
 #include "GUI_ContainerSET.hpp"
 
 #include <array>
@@ -30,6 +30,12 @@ private:
 private:
     void buildScene();
     void createMainChar();
+
+private:
+    void PlayGame();
+    void BackToLogin();
+
+    void callError(const std::string& error);
 
 
 private:
@@ -60,6 +66,10 @@ private:
     bool isFocus;
     std::string name;
 
-    GUI::Container mGUIContainer;
+    // GUI::Container mGUIContainer;
     GUI::ContainerSet mGUIContainerSet;
+
+    int maskID;
+    sf::Text uidDisplay;
+    sf::Text ErrorText;
 };

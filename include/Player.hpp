@@ -35,6 +35,12 @@ public:
     void                    setMainCharID(MainChar::Type charID);
     MainChar::Type          getMainCharID();
 
+    void                    setMaskID(int id);
+    int                     getMaskID();
+
+    void                    setUID(int id);
+    int                     getUID();
+
 private:
     void					initializeActions();
     static bool				isRealtimeAction(Action action);
@@ -44,4 +50,6 @@ private:
     std::map<sf::Keyboard::Key, Action>		mKeyBinding;
     std::map<Action, Command>				mActionBinding;
     MainChar::Type                          charID;
+    int                                     maskID; // This is the mask of having characters
+    int                                     UID; // This is the unique ID of the player
 };

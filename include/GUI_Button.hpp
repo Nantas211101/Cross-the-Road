@@ -58,6 +58,8 @@ private:
     sf::Text				mText;
     bool					mIsToggle;
     bool                    mIsToggleRelease;
+    bool                    mIsOnlyOneTexture;
+    sf::Vector2f            mScale;
 };
 
 }

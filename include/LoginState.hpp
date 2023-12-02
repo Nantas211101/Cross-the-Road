@@ -25,6 +25,7 @@ private:
 
 private:
     GUI::Container mGUIContainer;
+    GUI::Container mGUIContainerVisibility;
     sf::Sprite mBackground;
 
     sf::Text mText;

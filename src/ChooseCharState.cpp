@@ -5,15 +5,18 @@
 #include "GUI_Button.hpp"
 #include "GUI_InputButton.hpp"
 #include "SpriteNode.hpp"
+#include "Utility.hpp"
+#include "BitMaskingManipulate.hpp"
 
 #include <memory>
 #include <iostream>
 
 const float speedUp = 1000.f;
+const std::string Error_Do_Not_Have_This_Character = "You do not have this character!";
 
 ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 : State(stack, context)
-, mText()
+, mText("Choose your character", context.fonts->get(Fonts::Main), 75)
 , mWorldView(context.window->getDefaultView())
 , mSceneGraph()
 , mSceneLayers()
@@ -24,13 +27,13 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 , isPressing(false)
 , isChange(false)
 , isFocus(true)
-, mGUIContainer()
+// , mGUIContainer()
 , mGUIContainerSet()
+, maskID(0)
+, uidDisplay("", context.fonts->get(Fonts::Main), 25)
+, ErrorText("", context.fonts->get(Fonts::Main), 50)
 {
     sf::Vector2f pos = context.window->getView().getSize();
-    mText.setFont(context.fonts->get(Fonts::Main));
-    mText.setString("Choose your character");
-    mText.setCharacterSize(75);
     setCenterOrigin(mText);
     mText.setPosition({pos.x / 2.f, 50.f});
 	
@@ -40,6 +43,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	rightButton->setPosition(mWorldBounds.width - 150.f, mSpawnPosition.y);
 	rightButton->setCallback([this] ()
 	{
+		callError("");
 		startRight();
 	});
 
@@ -49,10 +53,13 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	leftButton->setPosition(150.f, mSpawnPosition.y);
 	leftButton->setCallback([this]()
 	{
+		callError("");
 		startLeft();
 	});
 
-
+	ErrorText.setFillColor(sf::Color::Red);
+	centerOrigin(ErrorText);
+	ErrorText.setPosition(mSpawnPosition.x, mWorldBounds.height - 200.f);
 
 	auto chooseButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	chooseButton->centerOrigin();
@@ -61,12 +68,16 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	chooseButton->setText("Accept");
 	chooseButton->setScale(0.8, 0.8);
 	chooseButton->setCallback([this, context](){
-		if(!isMove)
-		{	
-			context.player->setMainCharID(this->mPlayer->getMainCharType());
-			requestStackPop();
-			requestStackPush(States::Game);
-		}
+		PlayGame();
+	});
+
+	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::backButton);
+	backButton->centerOrigin();
+	// backButton->setColor(sf::Color::Cyan);
+	backButton->setPosition(350.f, mWorldBounds.height - 100.f);
+	backButton->setScale(0.8, 0.8);
+	backButton->setCallback([this, context](){
+		BackToLogin();
 	});
 
 	// auto inputNameButton = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures);
@@ -87,10 +98,21 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	// 	// }
 	// });
 
+	maskID = context.player->getMaskID();
+	std::string tmp = toString(context.player->getUID());
+	while(tmp.size() < 7)
+		tmp = "0" + tmp;
+	tmp = "UID: 8" + tmp;
+
+	uidDisplay.setString(tmp);
+	centerOrigin(uidDisplay);
+	sf::FloatRect boundsUID = uidDisplay.getGlobalBounds();
+	uidDisplay.setPosition(mWorldView.getSize().x - boundsUID.width - 1.f, mWorldView.getSize().y - boundsUID.height - 1.f);
+
 	mGUIContainerSet.pack(rightButton);
 	mGUIContainerSet.pack(leftButton);
 	mGUIContainerSet.pack(chooseButton);
-	// mGUIContainer.pack(inputNameButton);
+	mGUIContainerSet.pack(backButton);
     buildScene();
 }
 
@@ -124,9 +146,11 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 void ChooseCharState::draw(){   
     sf::RenderWindow &mWindow = *getContext().window;
     mWindow.draw(mSceneGraph);
-	mWindow.draw(mGUIContainer);
+	// mWindow.draw(mGUIContainer);
 	mWindow.draw(mGUIContainerSet);
     mWindow.draw(mText);
+	mWindow.draw(uidDisplay);
+	mWindow.draw(ErrorText);
 }
 
 bool ChooseCharState::handleEvent(const sf::Event &event){
@@ -146,8 +170,8 @@ bool ChooseCharState::handleEvent(const sf::Event &event){
         if(event.type == sf::Event::KeyReleased)
             handlePlayerInput(event.key.code, false);
 	sf::RenderWindow &mWindow = *getContext().window;
-	mGUIContainer.handleRealTimeInput(mWindow);
-	mGUIContainer.handleEvent(event);
+	// mGUIContainer.handleRealTimeInput(mWindow);
+	// mGUIContainer.handleEvent(event);
 
 	mGUIContainerSet.handleRealTimeInput(mWindow);
 	mGUIContainerSet.handleEvent(event);
@@ -169,6 +193,8 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			tmpPlayer->setScale(0, 0);
 			mSceneLayers[Air]->attachChild(std::move(leader));
 			tmpPlayer->changeTexture(0, *getContext().textures);
+			if((tmpPlayer->getThisMaskID() | maskID) != maskID)
+				tmpPlayer->setOwnerFlag(false);
 		}
 		if(key == sf::Keyboard::Right){
 			isChangeKey = key;
@@ -180,6 +206,8 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			tmpPlayer->setScale(0, 0);
 			mSceneLayers[Air]->attachChild(std::move(leader));
 			tmpPlayer->changeTexture(1, *getContext().textures);
+			if((tmpPlayer->getThisMaskID() | maskID) != maskID)
+				tmpPlayer->setOwnerFlag(false);
 		}
 	}
 
@@ -205,6 +233,8 @@ void ChooseCharState::startRight(){
 		tmpPlayer->setScale(0, 0);
 		mSceneLayers[Air]->attachChild(std::move(leader));
 		tmpPlayer->changeTexture(1, *getContext().textures);
+		if((tmpPlayer->getThisMaskID() | maskID) != maskID)
+			tmpPlayer->setOwnerFlag(false);
 	}
 	isPressing = 0;
 }
@@ -223,6 +253,8 @@ void ChooseCharState::startLeft(){
 		tmpPlayer->setScale(0, 0);
 		mSceneLayers[Air]->attachChild(std::move(leader));
 		tmpPlayer->changeTexture(0, *getContext().textures);
+		if((tmpPlayer->getThisMaskID() | maskID) != maskID)
+			tmpPlayer->setOwnerFlag(false);
 	}
 	isPressing = 0;
 }
@@ -368,9 +400,43 @@ void ChooseCharState::buildScene(){
 }
 
 void ChooseCharState::createMainChar(){
-    std::unique_ptr<MainChar> leader(new MainChar(MainChar::Sheep, *getContext().textures));
+    std::unique_ptr<MainChar> leader(new MainChar(MainChar::Chicken, *getContext().textures));
 	mPlayer = leader.get();
 	mPlayer->setPosition(mSpawnPosition);
 	mPlayer->setVelocity(0, 0);
 	mSceneLayers[Air]->attachChild(std::move(leader));
+}
+
+void ChooseCharState::PlayGame(){
+	// if(!isMove)
+	// 	{	
+	// 		context.player->setMainCharID(this->mPlayer->getMainCharType());
+	// 		requestStackPop();
+	// 		requestStackPush(States::Game);
+	// 	}
+	MainChar* tmp;
+	if(isMove)
+		tmp = tmpPlayer;
+	else 
+		tmp = mPlayer;
+	if((tmp->getThisMaskID() | maskID) != maskID){
+		callError(Error_Do_Not_Have_This_Character);
+		return;
+	}
+	getContext().player->setMainCharID(tmp->getMainCharType());
+	requestStackPop();
+	requestStackPush(States::Game);
+}
+
+void ChooseCharState::BackToLogin(){
+	requestStackPop();
+	requestStackPush(States::Login);
+}
+
+void ChooseCharState::callError(const std::string& error)
+{
+	sf::Vector2f pos = ErrorText.getPosition();
+	ErrorText.setString(error);
+	centerOrigin(ErrorText);
+	ErrorText.setPosition(pos);
 }

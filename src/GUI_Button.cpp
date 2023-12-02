@@ -13,6 +13,7 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures)
 , mText("", fonts.get(Fonts::Main), 100)
 , mIsToggle(false)
 , mIsToggleRelease(false)
+, mIsOnlyOneTexture(false)
 {
 	mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -32,6 +33,7 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures:
 , mText("", fonts.get(Fonts::Main), 100) 
 , mIsToggle(false)
 , mIsToggleRelease(false)
+, mIsOnlyOneTexture(true)
 {
     mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -51,6 +53,7 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures:
 , mText("", fonts.get(Fonts::Main), 100)
 , mIsToggle(false)
 , mIsToggleRelease(false)
+, mIsOnlyOneTexture(false)
 {
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
@@ -118,6 +121,11 @@ bool Button::isContain(const sf::RenderWindow& window) const
 void Button::select()
 {
 	Component::select();
+	mScale = getScale();
+	if(mIsOnlyOneTexture){
+		setScale(mScale.x * 1.2 , mScale.y * 1.2);
+		mScale = getScale();
+	}
 	mSprite.setTexture(mSelectedTexture);
 	mText.setFillColor(sf::Color::Red);
 }
@@ -125,7 +133,10 @@ void Button::select()
 void Button::deselect()
 {
 	Component::deselect();
-
+	if(mIsOnlyOneTexture){
+		setScale(mScale.x / 1.2 , mScale.y / 1.2);
+		mScale = getScale();
+	}
 	mSprite.setTexture(mNormalTexture);
 	mText.setFillColor(sf::Color::Yellow);
 }

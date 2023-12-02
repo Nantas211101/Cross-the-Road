@@ -1,6 +1,7 @@
 #include "MainChar.hpp"
 #include "TextureManipulate.hpp"
 #include "DataTable.hpp"
+#include "BitMaskingManipulate.hpp"
 
 namespace 
 {
@@ -83,6 +84,7 @@ int MainChar::IDToNum(Type type){
 MainChar::MainChar(Type type, const TextureHolder& textures)
 : mType(type)
 , mSprite(textures.get(toTextureID(type)))
+, ownerFlag(true)
 {
     setCenterOrigin(mSprite);
 }
@@ -132,4 +134,40 @@ unsigned int MainChar::getCategory() const
 		default:
 			return Category::EnemyAircraft;
 	}
+}
+
+int MainChar::getThisMaskID()
+{
+    return convertToMaskID(mType);
+}
+
+void MainChar::setOwnerFlag(bool flag)
+{
+    ownerFlag = flag;
+    if(ownerFlag)
+        mSprite.setColor(sf::Color(255, 255, 255, 255));
+    else 
+        mSprite.setColor(sf::Color(0, 0, 0, 100));
+}
+
+int convertToMaskID(MainChar::Type type)
+{
+    switch (type)
+    {
+        case MainChar::Chicken:
+            return Mask(0);
+            break;
+        case MainChar::Penguin:
+            return Mask(1);
+            break;
+        case MainChar::Sheep:
+            return Mask(2);
+            break;
+        case MainChar::Mallard:
+            return Mask(3);
+            break;
+        default:
+            break;
+    }
+    return 0;
 }

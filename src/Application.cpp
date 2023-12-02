@@ -15,7 +15,7 @@ const std::string Path_TitleScreen = "Media/Textures/TitleScreen.jpg";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
 const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
 const std::string Path_ChooseCharScreen = "Media/Textures/bluebackground.jpg";
-const std::string Path_chickenMain = "Media/Textures/chicken.jpg";
+const std::string Path_chickenMain = "Media/Textures/chicken.png";
 const std::string Path_penguinMain = "Media/Textures/Penguin.png";
 const std::string Path_sheepMain = "Media/Textures/Sheep.png";
 const std::string Path_mallardMain = "Media/Textures/Mallard.png";
@@ -29,6 +29,7 @@ const std::string Path_loginBG = "Media/Textures/LoginBG.jpg";
 const std::string Path_registerBG = "Media/Textures/RegisterBG.jpg";
 const std::string Path_VisiblePassword = "Media/Textures/visible.png";
 const std::string Path_InvisiblePassword = "Media/Textures/invisible.png";
+const std::string Path_backButton = "Media/Textures/backButton.png";
 
 // Application quite similar to the Game.cpp
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 120.f);
@@ -148,4 +149,5 @@ void Application::loadResources(){
     mTextures.load(Textures::RegisterBG, Path_registerBG);
     mTextures.load(Textures::VisiblePassword, Path_VisiblePassword);
     mTextures.load(Textures::InvisiblePassword, Path_InvisiblePassword);
+    mTextures.load(Textures::backButton, Path_backButton);
 }

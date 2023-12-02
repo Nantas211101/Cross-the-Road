@@ -12,12 +12,14 @@
 const std::string Main_text = "Login to your account";
 const std::string Error_Wrong_Information = "Wrong username or password!\n Please try again!";
 const std::string Error_Account_Not_Exist = "Account does not exist!\n Please try again!";
+const std::string Error_Not_Fill_Enough = "Please fill in all the information!";
 
 const std::string Path_SaveAccount = "PrivateInfo/AccountSaving.txt";
 
 LoginState::LoginState(StateStack &stack, Context context)
 : State(stack, context)
 , mGUIContainer()
+, mGUIContainerVisibility()
 , mBackground()
 , mText(Main_text, context.fonts->get(Fonts::Main), 75)
 , errorText("", context.fonts->get(Fonts::Main), 50)
@@ -106,7 +108,7 @@ LoginState::LoginState(StateStack &stack, Context context)
     mGUIContainer.pack(password);
     mGUIContainer.pack(Login);
     mGUIContainer.pack(registerButton);
-    mGUIContainer.pack(visibility);
+    mGUIContainerVisibility.pack(visibility);
 }
 
 void LoginState::draw()
@@ -117,6 +119,7 @@ void LoginState::draw()
 
     window.draw(mBackground);
     window.draw(mGUIContainer);
+    window.draw(mGUIContainerVisibility);
     window.draw(mText);
     window.draw(errorText);
 }
@@ -130,6 +133,7 @@ bool LoginState::handleEvent(const sf::Event &event)
 {
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
+    mGUIContainerVisibility.handleEvent(event);
     return false;
 }
 
@@ -137,6 +141,7 @@ void LoginState::handleRealTimeInput()
 {
     sf::RenderWindow &mWindow = *getContext().window;
     mGUIContainer.handleRealTimeInput(mWindow);
+    mGUIContainerVisibility.handleRealTimeInput(mWindow);
 }
 
 void LoginState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
@@ -159,6 +164,10 @@ void LoginState::setErrorText(std::string error)
 
 void LoginState::loginSolver()
 {
+    if (mTextUsername.empty() || mTextPassword.empty()){
+        setErrorText(Error_Not_Fill_Enough);
+        return;
+    }
     std::ifstream fi(Path_SaveAccount);
     if(!fi.is_open()){
         throw std::runtime_error("RegisterState::loginSolver - Cannot open file " + Path_SaveAccount);
@@ -176,6 +185,8 @@ void LoginState::loginSolver()
                 setErrorText("Login success");
                 delete [] passwordHash;
                 fi.close();
+                getContext().player->setMaskID(mask);
+                getContext().player->setUID(UID);
                 requestStackPop();
                 requestStackPush(States::ChooseChar);
                 // Login success

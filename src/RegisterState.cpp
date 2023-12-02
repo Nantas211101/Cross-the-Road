@@ -15,7 +15,7 @@ const std::pair<int, int> limitPassword = {4, 12};
 const std::string Main_text = "Register your account";
 const std::string Error_Username_Wrong_Size = "Username should be in [" + std::to_string(limitUsername.first) + ", " + std::to_string(limitUsername.second) + ']';
 const std::string Error_Password_Wrong_Size = "Password should be in [" + std::to_string(limitPassword.first) + ", " + std::to_string(limitPassword.second) + ']';
-const std::string Error_Password_Invalid = "Password should contain at least\n1 word, 1 Digit 1 Special Character!";
+const std::string Error_Password_Invalid = "Password should contain at least 1 uppercase\n1 lowercase, 1 Digit and 1 Special Character!";
 const std::string Error_Username_Taken = "Username is already taken!\nPlease try again!";
 const std::string Error_Password_Not_Match = "Password does not match!\nPlease try again!";
 
@@ -28,6 +28,7 @@ const std::string Path_SaveAccount = "PrivateInfo/AccountSaving.txt";
 RegisterState::RegisterState(StateStack &stack, Context context)
 : State(stack, context)
 , mGUIContainer()
+, mGUIContainerVisibility()
 , mBackground()
 , mText(Main_text, context.fonts->get(Fonts::Main), 75)
 , errorText("", context.fonts->get(Fonts::Main), 50)
@@ -154,8 +155,8 @@ RegisterState::RegisterState(StateStack &stack, Context context)
     mGUIContainer.pack(passwordConfirm);
     mGUIContainer.pack(registerButton);
     mGUIContainer.pack(backButton);
-    mGUIContainer.pack(visibility1);
-    mGUIContainer.pack(visibility2);
+    mGUIContainerVisibility.pack(visibility1);
+    mGUIContainerVisibility.pack(visibility2);
 }
 
 void RegisterState::draw()
@@ -165,6 +166,7 @@ void RegisterState::draw()
 
     window.draw(mBackground);
     window.draw(mGUIContainer);
+    window.draw(mGUIContainerVisibility);
     window.draw(mText);
     window.draw(errorText);
     window.draw(errorTextUsername);
@@ -181,12 +183,14 @@ bool RegisterState::handleEvent(const sf::Event &event)
 {
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
+    mGUIContainerVisibility.handleEvent(event);
     return false;
 }
 
 void RegisterState::handleRealTimeInput()
 {   
     mGUIContainer.handleRealTimeInput(*getContext().window);
+    mGUIContainerVisibility.handleRealTimeInput(*getContext().window);
     bool isOK = true;
     if(isChangeUsername){
         if(!checkLegalUsername() || !checkUsername())
@@ -279,7 +283,7 @@ bool RegisterState::isPasswordValid(const std::string& st)
         else
             isSpecial = true;
     }
-    return (isUpper || isLower) && isDigit && isSpecial;
+    return isUpper && isLower && isDigit && isSpecial;
 }
 
 void RegisterState::setDefaultError(const std::string& st)

@@ -137,3 +137,23 @@ MainChar::Type Player::getMainCharID()
 {
     return charID;
 }
+
+void Player::setMaskID(int id)
+{
+	maskID = id;
+}
+
+int Player::getMaskID()
+{
+	return maskID;
+}
+
+void Player::setUID(int id)
+{
+	UID = id;
+}
+
+int Player::getUID()
+{
+	return UID;
+}

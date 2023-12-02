@@ -20,6 +20,7 @@ namespace Textures{
         RegisterBG,
         VisiblePassword,
         InvisiblePassword,
+        backButton,
 };
 }
 
