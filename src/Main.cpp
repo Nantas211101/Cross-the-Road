@@ -15,4 +15,5 @@ int main()
 	{
 		std::cout << "\nEXCEPTION: " << e.what() << std::endl;
 	}
+	return 0;
 }

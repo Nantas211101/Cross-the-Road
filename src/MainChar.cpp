@@ -72,12 +72,23 @@ int MainChar::IDToNum(Type type){
     return 0;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures)
+MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts)
 : mType(type)
 , mSprite(textures.get(toTextureID(type)))
+, mHP(100)
+, mHealthDisplay(nullptr)
 {
     mSprite.scale(0.15, 0.15);
-    //centerOrigin(mSprite);
+    centerOrigin(mSprite);
+    std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
+	mHealthDisplay = healthDisplay.get();
+	this->attachChild(std::move(healthDisplay));
+    updateTexts();
+}
+
+void MainChar::updateCurrent(sf::Time dt) {
+    updateTexts();
+    Entity::updateCurrent(dt);
 }
 
 void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -112,6 +123,25 @@ Textures::ID MainChar::getTextureID(){
     return toTextureID(mType);
 }
 
+unsigned int MainChar::getCategory() const
+{
+	switch (mType)
+	{
+		case Chicken:
+        case Penguin:
+        case Sheep:
+        case Mallard:
+			return Category::Player;
+
+		default:
+			return Category::None;
+	}
+}
+
+sf::FloatRect MainChar::getBoundingRect() const {
+    return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+}
+
 int MainChar::getHitpoints() const {
 	return mHP;
 }
@@ -136,21 +166,18 @@ bool MainChar::isDestroyed() const {
 	return mHP <= 0;
 }
 
-unsigned int MainChar::getCategory() const
+
+void MainChar::updateTexts()
 {
-	switch (mType)
-	{
-		case Chicken:
-        case Penguin:
-        case Sheep:
-        case Mallard:
-			return Category::Player;
+	mHealthDisplay->setString(std::to_string(getHitpoints()) + " HP");
+	mHealthDisplay->setPosition(0.f, 50.f);
+	mHealthDisplay->setRotation(-getRotation());
 
-		default:
-			return Category::None;
-	}
-}
-
-sf::FloatRect MainChar::getBoundingRect() const {
-    return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+	// if (mMissileDisplay)
+	// {
+	// 	if (mMissileAmmo == 0)
+	// 		mMissileDisplay->setString("");
+	// 	else
+	// 		mMissileDisplay->setString("M: " + to_string(mMissileAmmo));
+	// }
 }

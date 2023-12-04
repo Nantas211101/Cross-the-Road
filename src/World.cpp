@@ -4,12 +4,14 @@ World::World(sf::RenderWindow& window)
 : mWindow(window)
 , mWorldView(window.getDefaultView())
 , mTextures()
+, mFonts()
 , lanes()
 , mSceneGraph()
 , mSceneLayers()
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 {
+	mFonts.load(Fonts::Main, "../../Media/Sansation.ttf");
 	loadTextures();
 	buildScene();
 
@@ -37,15 +39,15 @@ void World::update(sf::Time dt)
 	mainChar->setVelocity(0.f, 0.f);
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
-	// timeToNextInput += dt;
+	timeToNextInput += dt;
 	while (!mCommandQueue.isEmpty()){
-	// 	if(timeToNextInput > sf::seconds(0.3)) {
+		if(timeToNextInput > sf::seconds(0.3)) {
 			mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-	// 		timeToNextInput = sf::Time::Zero;
-	// 	}
-	// 	else {
-	// 		mCommandQueue.pop();
-	// 	}
+			timeToNextInput = sf::Time::Zero;
+		}
+		else {
+			mCommandQueue.pop();
+		}
 	}
 	adaptPlayerVelocity();
 
@@ -143,7 +145,7 @@ void World::buildScene()
 			mSceneLayers[Title]->attachChild(std::move(x));
 		}
 	}
-	std::unique_ptr<MainChar> character(new MainChar(MainChar::Penguin, mTextures));
+	std::unique_ptr<MainChar> character(new MainChar(MainChar::Penguin, mTextures, mFonts));
 	mainChar = character.get();
 	character->setPosition(300, mSpawnPosition.y + 75);
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));

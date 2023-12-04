@@ -3,6 +3,8 @@
 #include "World.h"
 #include "Player.h"
 #include "CommandQueue.h"
+#include "ResourceIdentifiers.h"
+#include "ResourceHolder.h"
 
 #include <SFML/Graphics.hpp>
 

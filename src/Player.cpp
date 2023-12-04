@@ -7,28 +7,28 @@ struct MainCharMover
 	{
 	}
 
-	//MainCharMover(Player::Action action) : action(action) {}
+	MainCharMover(Player::Action action) : action(action) {}
 
 	void operator() (MainChar& aircraft, sf::Time) const
 	{
-		// sf::Vector2f pos = aircraft.getPosition();
-		// switch(action) {
-		// case Player::MoveDown:
-		// 	aircraft.setPosition(pos.x, pos.y + 150);
-		// 	break;
-		// case Player::MoveUp:
-		// 	aircraft.setPosition(pos.x, pos.y - 150);
-		// 	break;
-		// case Player::MoveLeft:
-		// 	aircraft.setPosition(pos.x - 192, pos.y);
-		// 	break;
-		// case Player::MoveRight:
-		// 	aircraft.setPosition(pos.x + 192, pos.y);
-		// 	break;
-		// }
+		sf::Vector2f pos = aircraft.getPosition();
+		switch(action) {
+		case Player::MoveDown:
+			aircraft.setPosition(pos.x, pos.y + 150);
+			break;
+		case Player::MoveUp:
+			aircraft.setPosition(pos.x, pos.y - 150);
+			break;
+		case Player::MoveLeft:
+			aircraft.setPosition(pos.x - 192, pos.y);
+			break;
+		case Player::MoveRight:
+			aircraft.setPosition(pos.x + 192, pos.y);
+			break;
+		}
 		aircraft.accelerate(velocity);
 	}
-	// Player::Action action;
+	Player::Action action;
 	sf::Vector2f velocity;
 };
 
@@ -100,15 +100,15 @@ void Player::initializeActions()
 {
 	const float playerSpeed = 500.f;
 	
-	// mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(MoveLeft));
-	// mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(MoveRight));
-	// mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(MoveUp));
-	// mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(MoveDown));
+	mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(MoveLeft));
+	mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(MoveRight));
+	mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(MoveUp));
+	mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(MoveDown));
 
-	mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(-playerSpeed, 0.f));
-	mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(+playerSpeed, 0.f));
-	mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(0.f, -playerSpeed));
-	mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(0.f, +playerSpeed));
+	// mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(-playerSpeed, 0.f));
+	// mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(+playerSpeed, 0.f));
+	// mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(0.f, -playerSpeed));
+	// mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(0.f, +playerSpeed));
 }
 
 bool Player::isRealtimeAction(Action action)
