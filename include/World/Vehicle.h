@@ -12,6 +12,7 @@ class Vehicle:public Entity{
     enum Type{
         Truck,
         Car,
+        Train,
         TypeCount
     };
  public:
