@@ -9,8 +9,7 @@ SceneNode::SceneNode()
 {
 }
 
-void SceneNode::attachChild(Ptr child)
-{
+void SceneNode::attachChild(Ptr child) {
 	child->mParent = this;
 	mChildren.push_back(std::move(child));
 }
@@ -116,7 +115,7 @@ sf::Transform SceneNode::getWorldTransform() const
 
 auto SceneNode::getCategory() const -> unsigned int
 {
-    return Category::Scene;
+    return Category::None;
 }
 
 void SceneNode::onCommand(const Command &command, sf::Time dt)

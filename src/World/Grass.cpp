@@ -30,8 +30,6 @@ void Grass::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 void Grass::updateCurrent(sf::Time dt) {
-    // this->setVelocity(0, 0);
-    Entity::updateCurrent(dt);
 }
 
 // bool Grass::checkPass(int x,int y){

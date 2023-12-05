@@ -51,6 +51,9 @@ void World::update(sf::Time dt)
 	}
 	adaptPlayerVelocity();
 
+	// Collision detection and response (may destroy entities)
+	handleCollisions();
+
 	// Regular update step, adapt position (correct if outside view)
 	mSceneGraph.update(dt);
 	adaptPlayerPosition();
@@ -80,28 +83,36 @@ bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Categor
 void World::handleCollisions()
 {
 	std::set<SceneNode::Pair> collisionPairs;
-	mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
+	mainChar->checkSceneCollision(*mSceneLayers[AboveTitle], collisionPairs);
+	mainChar->checkSceneCollision(*mSceneLayers[Title], collisionPairs);
 
 	for(SceneNode::Pair pair : collisionPairs)
 	{
-		if (matchesCategories(pair, Category::Player, Category::River))
+		
+
+		if (matchesCategories(pair, Category::Player, Category::Log))
+		{
+			auto& player = static_cast<MainChar&>(*pair.first);
+			auto& log = static_cast<Log&>(*pair.second);
+			
+			mainChar->setVelocity(log.getVelocity().x, 0);
+			break;
+			// Apply pickup effect to player, destroy projectile
+			// pickup.apply(player);
+			// pickup.destroy();
+		}
+		else if (matchesCategories(pair, Category::Player, Category::River))
 		{
 			auto& player = static_cast<MainChar&>(*pair.first);
 			auto& enemy = static_cast<River&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
-			// player.damage(enemy.getHitpoints());
+			timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
+			if(timeFromLastInvulnerable > sf::seconds(1)){
+				player.damage(5);
+				invulnerableTime.restart();
+			}
 			// enemy.destroy();
-		}
-
-		else if (matchesCategories(pair, Category::Player, Category::Car))
-		{
-			auto& player = static_cast<MainChar&>(*pair.first);
-			auto& car = static_cast<Vehicle&>(*pair.second);
-
-			// Apply pickup effect to player, destroy projectile
-			// pickup.apply(player);
-			// pickup.destroy();
 		}
 	}
 }
@@ -147,7 +158,7 @@ void World::buildScene()
 	}
 	std::unique_ptr<MainChar> character(new MainChar(MainChar::Penguin, mTextures, mFonts));
 	mainChar = character.get();
-	character->setPosition(300, mSpawnPosition.y + 75);
+	character->setPosition(575, mSpawnPosition.y + 75);
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
 
@@ -175,5 +186,5 @@ void World::adaptPlayerVelocity()
 	sf::Vector2f velocityAfterAdapt = mainChar->getVelocity();
 
 	// Add scrolling velocity
-	//mainChar->accelerate(0.f, 100.f);0
+	//mainChar->accelerate(0.f, 100.f);
 }

@@ -26,11 +26,6 @@ private:
     void                updateTexts();
     void                updateCurrent(sf::Time dt);
 
-    int					getHitpoints() const;
-    void				heal(int points);
-    void				damage(int points);
-    void				destroy();
-    virtual bool		isDestroyed() const;
 
 public:
     explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts);
@@ -42,6 +37,12 @@ public:
     Type                getTextureType();
     Textures::ID        getTextureID();
 
+    int					getHitpoints() const;
+    void				heal(int points);
+    void				damage(int points);
+    void				destroy();
+    virtual bool		isDestroyed() const;
+    
 private: 
     Type mType;
     sf::Sprite mSprite;

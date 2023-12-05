@@ -78,7 +78,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 , mHP(100)
 , mHealthDisplay(nullptr)
 {
-    mSprite.scale(0.15, 0.15);
+    mSprite.scale(0.05, 0.05);
     centerOrigin(mSprite);
     std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
 	mHealthDisplay = healthDisplay.get();

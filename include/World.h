@@ -52,6 +52,8 @@ class World : private sf::NonCopyable
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
 		CommandQueue						mCommandQueue;
 		sf::Time							timeToNextInput;
+		sf::Clock							invulnerableTime;
+		sf::Time							timeFromLastInvulnerable;
 
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;

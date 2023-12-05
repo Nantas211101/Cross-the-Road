@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Entity.h"
+#include "../SceneNode.h"
 #include <SFML/Graphics.hpp>
 #include <ctime>
 
-class Lane : public Entity {
+class Lane : public SceneNode {
     public:
         enum Type {
             Ground,

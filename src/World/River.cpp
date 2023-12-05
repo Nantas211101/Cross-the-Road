@@ -11,7 +11,7 @@ void River::loadTexture() {
     //textureHolder.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
 }
 
-River::River(sf::Vector2f spawnPos) 
+River::River(sf::Vector2f spawnPos)
 : Lane()
 , riverLog()
 , startPos(spawnPos) {
@@ -26,9 +26,15 @@ void River::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(sprite, states);
 }
 
-void River::updateCurrent(sf::Time dt) {
-    Entity::updateCurrent(dt);
+unsigned int River::getCategory() const {
+    return Category::River;
+}
 
+sf::FloatRect River::getBoundingRect() const {
+    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+}
+
+void River::updateCurrent(sf::Time dt) {
     if(!this->isReverse() && riverLog[firstLogIndex]->getPosition().x >= 0) {
         riverLog[lastLogIndex]->setPosition(-TableLog[riverLog[lastLogIndex]->getType()].distanceBetweenLog, startPos.y + 25);
         firstLogIndex = lastLogIndex;

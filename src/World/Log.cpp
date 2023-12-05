@@ -10,6 +10,10 @@ Log::Log(Type type, const TextureHolder& texture)
     sprite.scale(Table[type].scaling);
 }
 
+unsigned int Log::getCategory() const {
+    return Category::Log;
+}
+
 Log::Type Log::getType() {
     return type;
 }

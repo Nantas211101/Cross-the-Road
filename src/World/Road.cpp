@@ -100,7 +100,6 @@ void Road::updateCurrent(sf::Time dt){
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }
     }
-    Entity::updateCurrent(dt);
 
 }
 

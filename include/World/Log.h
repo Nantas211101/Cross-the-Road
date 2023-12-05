@@ -19,6 +19,7 @@ class Log : public Entity {
 
     public:
         Log(Type type, const TextureHolder& Texture);
+        virtual unsigned int getCategory() const;
         virtual sf::FloatRect getBoundingRect() const;
         sf::FloatRect* getDangerBound() const;
         Type getType();

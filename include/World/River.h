@@ -13,12 +13,16 @@
 class River : public Lane {
     public:
         River(sf::Vector2f spawnPos);
+
     private:
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-        void updateCurrent(sf::Time dt);
         void loadTexture();
         void buildLog();
    
+        void updateCurrent(sf::Time dt);
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual unsigned int getCategory() const;
+        virtual sf::FloatRect getBoundingRect() const;
+
     private:
         std::vector<Log*> riverLog;
         const int numOfLog = 10;
