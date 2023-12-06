@@ -5,18 +5,12 @@ namespace {
 }
 // 50: width each lane
 
-void River::loadTexture() {
-    textureHolder.load(Textures::Log, "../../Media/Textures/Log.png");
-    textureHolder.load(Textures::River, "../../Media/Textures/River.png");
-    //textureHolder.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
-}
-
-River::River(sf::Vector2f spawnPos)
+River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : Lane()
+, textureHolder(textureHolder)
 , riverLog()
 , startPos(spawnPos) {
-    loadTexture();
-    sprite.setTexture(textureHolder.get(Textures::River));
+    sprite.setTexture(textureHolder->get(Textures::River));
     sf::IntRect textureRect(0, 0, 3000, 150);
     sprite.setTextureRect(textureRect);
     buildLog();
@@ -64,7 +58,7 @@ void River::buildLog() {
     }
     int randSpawnPos = rand() % 200;
     for(int j = 0; j < numOfLog; j++) {
-        std::unique_ptr<Log> log(new Log(kind, textureHolder));
+        std::unique_ptr<Log> log(new Log(kind, *textureHolder));
         if(!this->isReverse())
             log->setVelocity(1.0 * TableLog[kind].speed, 0);
         else

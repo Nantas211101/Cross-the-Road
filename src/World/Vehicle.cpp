@@ -9,7 +9,7 @@ Vehicle::Vehicle(Type type, const TextureHolder& texture)
 , sprite(texture.get(Table[type].texture)){
     sf::FloatRect bounds = sprite.getLocalBounds();
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-}   
+}
 
 Vehicle::Type Vehicle::getType(){
     return type;

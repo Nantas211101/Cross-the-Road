@@ -12,10 +12,9 @@
 
 class River : public Lane {
     public:
-        River(sf::Vector2f spawnPos);
+        River(TextureHolder* textureHolder, sf::Vector2f spawnPos);
 
     private:
-        void loadTexture();
         void buildLog();
    
         void updateCurrent(sf::Time dt);
@@ -31,5 +30,5 @@ class River : public Lane {
         sf::Vector2f startPos;
         
         sf::Sprite sprite;
-        TextureHolder textureHolder;
+        TextureHolder* textureHolder;
 };

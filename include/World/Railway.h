@@ -13,11 +13,11 @@
 #include <SFML/Graphics.hpp>
 class Railway : public Lane {
     public:
-        Railway(sf::Vector2f spawnPos);
+        Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos);
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
-        void loadTexture();
+
         void generateTrain();
         void buildTraffic();
     private:
@@ -27,7 +27,7 @@ class Railway : public Lane {
         sf::Vector2f startPos;
         //Traffic* traffic;
         sf::Sprite sprite;
-        TextureHolder textureHolder;
+        TextureHolder* textureHolder;
         bool hasTraffic;
         Vehicle::Type kind;
 };

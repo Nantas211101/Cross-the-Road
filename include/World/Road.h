@@ -15,24 +15,26 @@
 
 class Road : public Lane {
     public:
-        Road(sf::Vector2f spawnPos, bool checkLine);
+        Road(TextureHolder* textureHolder, sf::Vector2f spawnPos);
+        virtual void generateAnimal() = 0;
+        virtual void generateVehicle() = 0;
+        virtual void buildTraffic() = 0;
+
     private:
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-        void updateCurrent(sf::Time dt);
-        void loadTexture();
-        void generateAnimal();
-        void generateVehicle();
-        void buildTraffic();
-    private:
-        std::vector<Animal*> animals;
-        std::vector<Vehicle*> vehicles;
-        const int numOfObject = 10;
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+        virtual void updateCurrent(sf::Time dt) = 0;
+
+    protected:
         int lastObjectIndex;
         int firstObjectIndex;
+        const int numOfObject = 10;
+        TextureHolder* textureHolder;
         sf::Vector2f startPos;
-        Traffic* traffic;
-        sf::Sprite sprite;
-        TextureHolder textureHolder;
-        bool hasTraffic;
-        Vehicle::Type kind;
 };
+
+namespace {
+    const std::vector<AnimalData> TableAnimal = initializeAnimalData();
+}
+namespace {
+    const std::vector<VehicleData> TableVehicle = initializeVehicleData();
+}

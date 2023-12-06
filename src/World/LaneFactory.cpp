@@ -1,14 +1,15 @@
 #include "../../include/World/LaneFactory.h"
 
-LaneFactory::LaneFactory(sf::Vector2f startPos) 
+LaneFactory::LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos) 
 : lanes()
+, textureHolder(textureHolder)
 , startPos(startPos)
 {}
 
 std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(6, 6);
+    std::uniform_int_distribution<int> dist(1, 1);
     int random = dist(gen);
     lanes.clear();
     switch(random) {
@@ -40,7 +41,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
 
 void LaneFactory::templateGrass(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new Grass(startPos));
+        std::unique_ptr<Lane> lane(new Grass(textureHolder, startPos));
         lane->setPosition(startPos);
         startPos.y -= 150;
         lanes.push_back(std::move(lane));
@@ -51,7 +52,7 @@ void LaneFactory::templateRoad(int num) {
     for(int i = 0; i < num; i++) {
         bool checkLine = 1;
         if (num == 1 || i == num - 1) checkLine = 0;
-        std::unique_ptr<Lane> lane(new Road(startPos, checkLine));
+        std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine));
         lane->setPosition(startPos);
         startPos.y -= 150;
         lanes.push_back(std::move(lane));
@@ -60,7 +61,7 @@ void LaneFactory::templateRoad(int num) {
 
 void LaneFactory::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new River(startPos));
+        std::unique_ptr<Lane> lane(new River(textureHolder, startPos));
         lane->setPosition(startPos);
         startPos.y -= 150;
         lanes.push_back(std::move(lane));
@@ -69,7 +70,7 @@ void LaneFactory::templateRiver(int num) {
 
 void LaneFactory::templateRailway(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new Railway(startPos));
+        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos));
         lane->setPosition(startPos);
         startPos.y -= 150;
         lanes.push_back(std::move(lane));

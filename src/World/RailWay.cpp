@@ -6,21 +6,12 @@ namespace {
 
 // 50: width each lane
 
-void Railway::loadTexture(){
-    textureHolder.load(Textures::Railway, "../../Media/Textures/Railway.png");
-    //textureHolder.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
-    textureHolder.load(Textures::Train1, "../../Media/Textures/Train1.png");
-    textureHolder.load(Textures::Train2, "../../Media/Textures/Train2.png");
-    textureHolder.load(Textures::Train3, "../../Media/Textures/Train3.png");
-}
-
-Railway::Railway(sf::Vector2f spawnPos)
+Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : Lane()
-// ,hasTraffic(1)
+, textureHolder(textureHolder)
 , startPos(spawnPos) {
-    loadTexture();
-    textureHolder.get(Textures::Railway).setRepeated(true);
-    sprite.setTexture(textureHolder.get(Textures::Railway));
+    textureHolder->get(Textures::Railway).setRepeated(true);
+    sprite.setTexture(textureHolder->get(Textures::Railway));
     sf::IntRect textureRect(0, 0, 3000, 152);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
@@ -55,7 +46,7 @@ void Railway::generateTrain(){
         break;
     }
 
-     std::unique_ptr<Train> train(new Train(kind, textureHolder));
+    std::unique_ptr<Train> train(new Train(kind, *textureHolder));
     train->setVelocity(1.0 * TableTrain[kind].speed, 0);
     train->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 

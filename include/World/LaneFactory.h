@@ -4,6 +4,7 @@
 #include "Grass.h"
 #include "Road.h"
 #include "Railway.h"
+#include "RoadTheme1.h"
 #include "../ResourceIdentifiers.h"
 #include "../ResourceHolder.h"
 
@@ -15,6 +16,7 @@ class LaneFactory {
 private:
     std::vector<std::unique_ptr<Lane>> lanes;
     sf::Vector2f startPos;
+    TextureHolder* textureHolder;
 
     void templateGrass(int num);
     void templateRoad(int num);
@@ -29,7 +31,7 @@ private:
     void templateLane6();
 
 public:
-    LaneFactory(sf::Vector2f startPos);
+    LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos);
     
     std::vector<std::unique_ptr<Lane>> randomTemplateLane();
 };

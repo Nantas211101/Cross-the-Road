@@ -19,6 +19,51 @@ World::World(sf::RenderWindow& window)
 	mWorldView.setCenter(mSpawnPosition);
 }
 
+void World::loadTextures(){
+	// Road
+    mTextures.load(Textures::Road, "../../Media/Textures/Road.png");
+	mTextures.load(Textures::Road1, "../../Media/Textures/Road1.png");
+
+    mTextures.load(Textures::Elephant, "../../Media/Textures/Elephant.png");
+    mTextures.load(Textures::Rhinoceros, "../../Media/Textures/Rhinoceros.png");
+    mTextures.load(Textures::Small_Dragon, "../../Media/Textures/Small_Dragon.png");
+    mTextures.load(Textures::Red_Dragon, "../../Media/Textures/Red_Dragon.png");
+    mTextures.load(Textures::Green_Dragon, "../../Media/Textures/Green_Dragon.png");
+    mTextures.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Blue_Twin_Head_Dragon.png");
+    
+    mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
+    mTextures.load(Textures::Truck, "../../Media/Textures/Truck.png");
+    mTextures.load(Textures::Ambulance, "../../Media/Textures/Ambulance.png");
+    mTextures.load(Textures::PoliceCar, "../../Media/Textures/PoliceCar.png");
+    mTextures.load(Textures::SmallCar, "../../Media/Textures/SmallCar.png");
+    mTextures.load(Textures::BlueCar, "../../Media/Textures/BlueCar.png");
+    mTextures.load(Textures::YellowCar, "../../Media/Textures/YellowCar.png");
+    mTextures.load(Textures::OldCar, "../../Media/Textures/OldCar.png");
+    mTextures.load(Textures::SuperCar, "../../Media/Textures/SuperCar.png");
+
+	// River
+	mTextures.load(Textures::Log, "../../Media/Textures/Log.png");
+    mTextures.load(Textures::River, "../../Media/Textures/River.png");
+    //mTextures.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
+
+	// Grass
+	mTextures.load(Textures::Tree, "../../Media/Textures/Tree.png");
+    mTextures.load(Textures::Grass, "../../Media/Textures/Grass.png");
+
+	// Railway
+	mTextures.load(Textures::Railway, "../../Media/Textures/Railway.png");
+    //mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
+    mTextures.load(Textures::Train1, "../../Media/Textures/Train1.png");
+    mTextures.load(Textures::Train2, "../../Media/Textures/Train2.png");
+    mTextures.load(Textures::Train3, "../../Media/Textures/Train3.png");
+
+	// Player
+	mTextures.load(Textures::Penguin, "../../Media/Textures/Player/Penguin.png");
+	mTextures.load(Textures::Mallard, "../../Media/Textures/Player/Mallard.png");
+	mTextures.load(Textures::Sheep, "../../Media/Textures/Player/Sheep.png");
+	mTextures.load(Textures::Chicken, "../../Media/Textures/Player/Chicken.png");
+}
+
 void World::update(sf::Time dt)
 {
 	// Scroll the world
@@ -128,14 +173,6 @@ CommandQueue &World::getCommandQueue()
     return mCommandQueue;
 }
 
-void World::loadTextures()
-{
-	mTextures.load(Textures::Penguin, "../../Media/Textures/Player/Penguin.png");
-	mTextures.load(Textures::Mallard, "../../Media/Textures/Player/Mallard.png");
-	mTextures.load(Textures::Sheep, "../../Media/Textures/Player/Sheep.png");
-	mTextures.load(Textures::Chicken, "../../Media/Textures/Player/Chicken.png");
-}
-
 void World::buildScene()
 {
 	// Initialize the different layers
@@ -147,7 +184,7 @@ void World::buildScene()
 		mSceneGraph.attachChild(std::move(layer));
 	}
 
-	LaneFactory laneFactory(sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height + 500));
+	LaneFactory laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height + 500));
 	for(int i = 0; i < 10; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes = laneFactory.randomTemplateLane();
 		for(auto& x : randLanes) {

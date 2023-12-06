@@ -1,25 +1,12 @@
 #include "../../include/World/Grass.h"
 
-void Grass::loadTexture() {
-    textureHolder.load(Textures::Tree, "../../Media/Textures/Tree.png");
-    textureHolder.load(Textures::Grass, "../../Media/Textures/Grass.png");
-}
-
-Grass::Grass(const TextureHolder& texture) 
-: sprite(texture.get(Textures::Grass))
-{}
-
-Grass::Grass(const TextureHolder& texture, const sf::IntRect& textureRect)
-: sprite(texture.get(Textures::Grass), textureRect)
-{}
-
- Grass::Grass(sf::Vector2f spawnPos)
+ Grass::Grass(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : Lane()
+, textureHolder(textureHolder)
 , Trees()
 , timeSinceTree(sf::Time::Zero)
 , pos(spawnPos) {
-    loadTexture();
-    sprite.setTexture(textureHolder.get(Textures::Grass));
+    sprite.setTexture(textureHolder->get(Textures::Grass));
     sf::IntRect textureRect(0, 0, 15000, 150);
     sprite.setTextureRect(textureRect);
     
@@ -61,7 +48,7 @@ void Grass::updateCurrent(sf::Time dt) {
 void Grass::buildtree() {
     int numTrees = 3 + rand() % 2;
     for(int j = 0; j < numTrees; j++) {
-        std::unique_ptr<Tree> tree(new Tree(textureHolder));
+        std::unique_ptr<Tree> tree(new Tree(*textureHolder));
         Trees.push_back(tree.get());
         int randNum = rand() % 10;
         // if(j > 0){

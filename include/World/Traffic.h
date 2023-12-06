@@ -7,7 +7,7 @@
 
 class Traffic: public Entity{
      public:
-        Traffic( const TextureHolder& Texture,int status);
+        Traffic( const TextureHolder& Texture);
         // virtual sf::FloatRect getBoundingRect() const;
         // sf::FloatRect* getDangerBound() const;
         int getTrafficState();

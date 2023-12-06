@@ -12,14 +12,11 @@
 
 class Grass : public Lane {
     public:
-        Grass(const TextureHolder& texture);
-        Grass(const TextureHolder& texture, const sf::IntRect& textureRect);
-        Grass(sf::Vector2f spawnPos);
+        Grass(TextureHolder* textureHolder, sf::Vector2f spawnPos);
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
         void buildtree();
-        void loadTexture();
         bool checkPass(int x,int y);
         bool checkValidPosition(int x,int y);
     private:
@@ -27,7 +24,7 @@ class Grass : public Lane {
         sf::Sprite sprite;
         std::vector<Tree*> Trees;
         sf::Vector2f pos;
-        TextureHolder textureHolder;
+        TextureHolder* textureHolder;
         sf::Time timeSinceTree;
         std::vector<std::vector<bool>> ContainTree;
         std::vector<std::vector<bool>> isPass;
