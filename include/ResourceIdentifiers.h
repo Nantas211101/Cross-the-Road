@@ -31,8 +31,20 @@ namespace Textures
     	Blue_Twin_Head_Dragon,
 
 		Traffic,
-		Truck,
-		Car,
+        Truck,
+        BlueCar,
+        SmallCar,
+        Ambulance,
+        PoliceCar,
+        SuperCar,
+		YellowCar,
+        OldCar,
+
+		// Railway
+		Railway,
+		Train1,
+		Train2,
+		Train3,
 
 		// Player
 		Chicken,

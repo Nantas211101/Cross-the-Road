@@ -11,8 +11,13 @@ class Vehicle:public Entity{
  public:
     enum Type{
         Truck,
-        Car,
-        Train,
+        BlueCar,
+        YellowCar,
+        SmallCar,
+        Ambulance,
+        PoliceCar,
+        SuperCar,
+        OldCar,
         TypeCount
     };
  public:

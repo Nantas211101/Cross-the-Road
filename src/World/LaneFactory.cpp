@@ -8,7 +8,7 @@ LaneFactory::LaneFactory(sf::Vector2f startPos)
 std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 5);
+    std::uniform_int_distribution<int> dist(6, 6);
     int random = dist(gen);
     lanes.clear();
     switch(random) {
@@ -26,6 +26,9 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
         break;
     case 5:
         templateLane5();
+        break;
+    case 6:
+        templateLane6();
         break;
     }
     std::vector<std::unique_ptr<Lane>> randLanes;
@@ -64,6 +67,15 @@ void LaneFactory::templateRiver(int num) {
     }
 }
 
+void LaneFactory::templateRailway(int num) {
+    for(int i = 0; i < num; i++) {
+        std::unique_ptr<Lane> lane(new Railway(startPos));
+        lane->setPosition(startPos);
+        startPos.y -= 150;
+        lanes.push_back(std::move(lane));
+    }
+}
+
 void LaneFactory::templateLane1() {
     templateGrass(2);
     templateRiver(2);
@@ -87,4 +99,9 @@ void LaneFactory::templateLane4() {
 void LaneFactory::templateLane5() {
     templateGrass(2);
     templateRoad(4);
+}
+
+void LaneFactory::templateLane6() {
+    templateGrass(1);
+    templateRailway(1);
 }

@@ -9,6 +9,7 @@
 #include "World/Log.h"
 #include "ResourceIdentifiers.h"
 #include "World/Vehicle.h"
+#include "World/Train.h"
 
 struct LogData {
 	float speed;
@@ -33,11 +34,19 @@ struct VehicleData {
 	sf::Vector2f scaling;
 };
 
+struct TrainData{
+	float speed;
+	Textures::ID texture;
+	sf::Vector2f scaling;
+};
+
 struct LaneData {
 	float speed;
 	Textures::ID texture;
 };
 
+
 std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
 std::vector<VehicleData> initializeVehicleData();
+std::vector<TrainData> initializeTrainData();

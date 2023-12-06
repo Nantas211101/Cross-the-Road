@@ -9,6 +9,7 @@ namespace Category {
 		Grass   = 1 << 4,
 		Tree	= 1 << 5,
 		Car		= 1 << 6,
-		Log		= 1 << 7
+		Log		= 1 << 7,
+		Train   = 1 << 8
 	};
 }

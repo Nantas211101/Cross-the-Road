@@ -1,4 +1,7 @@
 #include "../../include/World/Road.h"
+#include "ResourceIdentifiers.h"
+
+#include <iostream>
 
 namespace {
     const std::vector<AnimalData> TableAnimal = initializeAnimalData();
@@ -18,9 +21,16 @@ void Road::loadTexture(){
     textureHolder.load(Textures::Red_Dragon, "../../Media/Textures/Red_Dragon.png");
     textureHolder.load(Textures::Green_Dragon, "../../Media/Textures/Green_Dragon.png");
     textureHolder.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Blue_Twin_Head_Dragon.png");
+    
     textureHolder.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
     textureHolder.load(Textures::Truck, "../../Media/Textures/Truck.png");
-    textureHolder.load(Textures::Car, "../../Media/Textures/Car.png");
+    textureHolder.load(Textures::Ambulance, "../../Media/Textures/Ambulance.png");
+    textureHolder.load(Textures::PoliceCar, "../../Media/Textures/PoliceCar.png");
+    textureHolder.load(Textures::SmallCar, "../../Media/Textures/SmallCar.png");
+    textureHolder.load(Textures::BlueCar, "../../Media/Textures/BlueCar.png");
+    textureHolder.load(Textures::YellowCar, "../../Media/Textures/YellowCar.png");
+    textureHolder.load(Textures::OldCar, "../../Media/Textures/OldCar.png");
+    textureHolder.load(Textures::SuperCar, "../../Media/Textures/SuperCar.png");
 }
 
 Road::Road(sf::Vector2f spawnPos, bool checkLine)
@@ -60,20 +70,20 @@ void Road::updateCurrent(sf::Time dt){
         case 1:
             for(int i=0; i < numOfObject; i++){
                  if(!this->isReverse()){
-                    vehicles[i]->setVelocity(1.0 * TableAnimal[kind].speed-100, 0);
+                    vehicles[i]->setVelocity(0.6 * TableVehicle[kind].speed, 0);
                 }
                  else{
-                    vehicles[i]->setVelocity(-1.0 * (TableAnimal[kind].speed-100), 0);
+                    vehicles[i]->setVelocity(-0.6 * (TableVehicle[kind].speed), 0);
                 }
             }
             break;
         case 2:
             for(int i=0; i < numOfObject; i++){
                  if(!this->isReverse()){
-                    vehicles[i]->setVelocity(1.0 * TableAnimal[kind].speed, 0);
+                    vehicles[i]->setVelocity(1.0 * TableVehicle[kind].speed, 0);
                 }
                  else{
-                    vehicles[i]->setVelocity(-1.0 * TableAnimal[kind].speed, 0);
+                    vehicles[i]->setVelocity(-1.0 * TableVehicle[kind].speed, 0);
                 }
             }
             break;
@@ -155,14 +165,35 @@ void Road::generateAnimal(){
 
 void Road::generateVehicle(){
     int distance = 0;
-    int randomKindVehicle = 1 + rand() % 2;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1, 8);
+    int randomKindVehicle = dist(gen);
     
     switch(randomKindVehicle) {
     case 1:
         kind = Vehicle::Truck;
         break;
     case 2:
-        kind = Vehicle::Car;
+        kind = Vehicle::SmallCar;
+        break;
+    case 3:
+        kind = Vehicle::BlueCar;
+        break;
+    case 4:
+        kind = Vehicle::Ambulance;
+        break;
+    case 5:
+        kind = Vehicle::PoliceCar;
+        break;
+    case 6:
+        kind = Vehicle::YellowCar;
+        break;
+    case 7:
+        kind = Vehicle::OldCar;
+        break;
+    case 8:
+        kind = Vehicle::SuperCar;
         break;
     }
     int randSpawnPos = rand() % 200;

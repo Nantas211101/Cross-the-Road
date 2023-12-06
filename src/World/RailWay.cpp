@@ -1,139 +1,64 @@
-#include "../../include/World/RailWay.h"
+#include "../../include/World/Railway.h"
 
 namespace {
-    const std::vector<AnimalData> TableAnimal = initializeAnimalData();
+    const std::vector<TrainData> TableTrain = initializeTrainData();
 }
-namespace {
-    const std::vector<VehicleData> TableVehicle = initializeVehicleData();
-}
+
 // 50: width each lane
 
-void RailWay::loadTexture(){
-    textureHolder.load(Textures::Road, "../../Media/Textures/Road.png");
-    textureHolder.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
-    textureHolder.load(Textures::Truck, "../../Media/Textures/Truck.png");
-    textureHolder.load(Textures::Car, "../../Media/Textures/Car.png");
+void Railway::loadTexture(){
+    textureHolder.load(Textures::Railway, "../../Media/Textures/Railway.png");
+    //textureHolder.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
+    textureHolder.load(Textures::Train1, "../../Media/Textures/Train1.png");
+    textureHolder.load(Textures::Train2, "../../Media/Textures/Train2.png");
+    textureHolder.load(Textures::Train3, "../../Media/Textures/Train3.png");
 }
 
-RailWay::RailWay(sf::Vector2f spawnPos, bool checkLine)
+Railway::Railway(sf::Vector2f spawnPos)
 : Lane()
-,hasTraffic(1)
+// ,hasTraffic(1)
 , startPos(spawnPos) {
     loadTexture();
-    if (checkLine == 0) sprite.setTexture(textureHolder.get(Textures::Road));
-    else sprite.setTexture(textureHolder.get(Textures::Road1));
+    textureHolder.get(Textures::Railway).setRepeated(true);
+    sprite.setTexture(textureHolder.get(Textures::Railway));
     sf::IntRect textureRect(0, 0, 3000, 152);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
-    if(hasTraffic){
-        buildTraffic();
-        generateVehicle();
-    }
-    else {
-        generateAnimal();
-    }
+    generateTrain();
 }
-
-void RailWay::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
+void Railway::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
     target.draw(sprite, states);
 }
 
-void RailWay::updateCurrent(sf::Time dt){
+void Railway::updateCurrent(sf::Time dt){
 
 }
 
-void RailWay::generateAnimal(){
+void Railway::generateTrain(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 6);
-    int randomKindAnimal = dist(gen);
-    Animal::Type kind;
-    switch(randomKindAnimal) {
+    std::uniform_int_distribution<int> dist(1, 3);
+    int randomKindTrain = dist(gen);
+    Train::Type kind;
+    switch(randomKindTrain) {
     case 1:
-        kind = Animal::Elephant;
+        kind = Train::Train1;
         break;
     case 2:
-        kind = Animal::Rhinoceros;
+        kind = Train::Train2;
         break;
     case 3:
-        kind = Animal::Small_Dragon;
-        break;
-    case 4:
-        kind = Animal::Red_Dragon;
-        break;
-    case 5:
-        kind = Animal::Green_Dragon;
-        break;
-    case 6:
-        kind = Animal::Blue_Twin_Head_Dragon;
+        kind = Train::Train3;
         break;
     default:
         break;
     }
-    int randSpawnPos = rand() % 200;
-    for(int j = 0; j < numOfObject; j++) {
-        std::unique_ptr<Animal> animal(new Animal(kind, textureHolder));
-        if(!this->isReverse()){
-            animal->setVelocity(1.0 * TableAnimal[kind].speed, 0);
-            animal->scale(TableAnimal[kind].scaling.x,TableAnimal[kind].scaling.y);
-        }
-        else{
-            animal->setVelocity(-1.0 * TableAnimal[kind].speed, 0);
-            animal->scale(-TableAnimal[kind].scaling.x,TableAnimal[kind].scaling.y);
-        }
-        animal->setPosition(startPos.x + randSpawnPos + distance, startPos.y);
-        distance += TableAnimal[kind].distanceBetweenAnimal;
-        animals.push_back(animal.get());
-        this->attachChild(std::move(animal));
-    }
 
-    lastObjectIndex = numOfObject - 1;
-    firstObjectIndex = 0;
-}
+     std::unique_ptr<Train> train(new Train(kind, textureHolder));
+    train->setVelocity(1.0 * TableTrain[kind].speed, 0);
+    train->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 
-void Road::generateVehicle(){
-    int distance = 0;
-    int randomKindVehicle = 1 + rand() % 2;
-    
-    switch(randomKindVehicle) {
-    case 1:
-        kind = Vehicle::Truck;
-        break;
-    case 2:
-        kind = Vehicle::Car;
-        break;
-    }
-    int randSpawnPos = rand() % 200;
-    for(int j = 0; j < numOfObject; j++) {
-        std::unique_ptr<Vehicle> vehicle(new Vehicle(kind, textureHolder));
-        if(!this->isReverse()){
-            vehicle->setVelocity(1.0 * TableVehicle[kind].speed, 0);
-            vehicle->scale(TableVehicle[kind].scaling.x,TableVehicle[kind].scaling.y);
-        }
-        else{
-            vehicle->setVelocity(-1.0 * TableVehicle[kind].speed, 0);
-            vehicle->scale(-TableVehicle[kind].scaling.x,TableVehicle[kind].scaling.y);
-        }
-        vehicle->setPosition(startPos.x + randSpawnPos + distance, startPos.y + 75);
-        distance += TableVehicle[kind].distanceBetweenVehicle;
-        vehicles.push_back(vehicle.get());
-        this->attachChild(std::move(vehicle));
-    }
-
-    lastObjectIndex = numOfObject - 1;
-    firstObjectIndex = 0;
-}
-
-void Road::buildTraffic(){
-    int status=rand()%3;
-    std::unique_ptr<Traffic> traff(new Traffic(textureHolder,status));
-    traffic= traff.get();
-    if(!this->isReverse()){
-        traff->setPosition(startPos.x+600,startPos.y + 75);
-    }else{
-         traff->setPosition(startPos.x+1900,startPos.y + 75);
-    }
-    
-    this->attachChild(std::move(traff));
+    train->setPosition(-800, startPos.y - 120);
+    this->attachChild(std::move(train));
 }

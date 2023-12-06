@@ -19,6 +19,7 @@ class Train : public Entity {
     public:
         Train(Type type, const TextureHolder& Texture);
         virtual sf::FloatRect getBoundingRect() const;
+        unsigned int getCategory() const;
         Type getType();
 
     private:

@@ -3,6 +3,7 @@
 #include "River.h"
 #include "Grass.h"
 #include "Road.h"
+#include "Railway.h"
 #include "../ResourceIdentifiers.h"
 #include "../ResourceHolder.h"
 
@@ -18,12 +19,14 @@ private:
     void templateGrass(int num);
     void templateRoad(int num);
     void templateRiver(int num);
+    void templateRailway(int num);
 
     void templateLane1();
     void templateLane2();
     void templateLane3();
     void templateLane4();
     void templateLane5();
+    void templateLane6();
 
 public:
     LaneFactory(sf::Vector2f startPos);
