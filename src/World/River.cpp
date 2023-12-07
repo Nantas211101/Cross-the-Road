@@ -11,7 +11,7 @@ River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 , riverLog()
 , startPos(spawnPos) {
     sprite.setTexture(textureHolder->get(Textures::River));
-    sf::IntRect textureRect(0, 0, 3000, 150);
+    sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
     sprite.setTextureRect(textureRect);
     buildLane();
 }

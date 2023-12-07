@@ -7,7 +7,7 @@
 , timeSinceTree(sf::Time::Zero)
 , pos(spawnPos) {
     sprite.setTexture(textureHolder->get(Textures::Grass));
-    sf::IntRect textureRect(0, 0, 15000, 150);
+    sf::IntRect textureRect(0, 0, 15000, distanceBetweenLane);
     sprite.setTextureRect(textureRect);
     
     buildLane();

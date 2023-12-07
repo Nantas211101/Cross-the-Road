@@ -5,7 +5,7 @@ RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
 {
     if (checkLine == 0) sprite.setTexture(textureHolder->get(Textures::Road));
     else sprite.setTexture(textureHolder->get(Textures::Road1));
-    sf::IntRect textureRect(0, 0, 3000, 152);
+    sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
 

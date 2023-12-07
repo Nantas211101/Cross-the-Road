@@ -43,7 +43,7 @@ void LaneFactory::templateGrass(int num) {
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new Grass(textureHolder, startPos));
         lane->setPosition(startPos);
-        startPos.y -= 150;
+        startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
 }
@@ -54,7 +54,7 @@ void LaneFactory::templateRoad(int num) {
         if (num == 1 || i == num - 1) checkLine = 0;
         std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine));
         lane->setPosition(startPos);
-        startPos.y -= 150;
+        startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
 }
@@ -63,7 +63,7 @@ void LaneFactory::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new River(textureHolder, startPos));
         lane->setPosition(startPos);
-        startPos.y -= 150;
+        startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
 }
@@ -72,7 +72,7 @@ void LaneFactory::templateRailway(int num) {
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos));
         lane->setPosition(startPos);
-        startPos.y -= 150;
+        startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
 }
