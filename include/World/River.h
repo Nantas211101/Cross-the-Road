@@ -15,7 +15,7 @@ class River : public Lane {
         River(TextureHolder* textureHolder, sf::Vector2f spawnPos);
 
     private:
-        void buildLog();
+        void buildLane();
    
         void updateCurrent(sf::Time dt);
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

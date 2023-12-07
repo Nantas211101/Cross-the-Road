@@ -4,12 +4,19 @@ namespace Category {
 		None    = 0,
 		Scene   = 1 << 0,
 		Player  = 1 << 1,
+		
+		// River
 		River   = 1 << 2,
-		Road    = 1 << 3,
-		Grass   = 1 << 4,
-		Tree	= 1 << 5,
-		Car		= 1 << 6,
-		Log		= 1 << 7,
-		Train   = 1 << 8
+		Log		= 1 << 3,
+
+		// Road
+		Vehicle = 1 << 4,
+		Animal	= 1 << 5,
+
+		// Grass
+		Obstacle= 1 << 6,
+
+		// Railway
+		Train   = 1 << 7
 	};
 }

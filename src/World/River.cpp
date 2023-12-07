@@ -13,7 +13,7 @@ River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos)
     sprite.setTexture(textureHolder->get(Textures::River));
     sf::IntRect textureRect(0, 0, 3000, 150);
     sprite.setTextureRect(textureRect);
-    buildLog();
+    buildLane();
 }
 
 void River::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -41,7 +41,7 @@ void River::updateCurrent(sf::Time dt) {
     }
 }
 
-void River::buildLog() {
+void River::buildLane() {
     int distance = 0;
     int randomKindLog = 1 + rand() % 3;
     Log::Type kind;

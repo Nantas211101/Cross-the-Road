@@ -4,11 +4,13 @@
 class RoadTheme1 : public Road {
     public:
         RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine);
+
+    private:
+        void buildLane();
         void generateAnimal();
         void generateVehicle();
         void buildTraffic();
-
-    private:
+        
         void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
 

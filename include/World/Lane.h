@@ -21,6 +21,7 @@ class Lane : public SceneNode {
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
         virtual void updateCurrent(sf::Time dt) = 0;
+        virtual void buildLane() = 0;
 
     private:
         bool reverse;

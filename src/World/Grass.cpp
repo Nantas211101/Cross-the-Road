@@ -10,7 +10,7 @@
     sf::IntRect textureRect(0, 0, 15000, 150);
     sprite.setTextureRect(textureRect);
     
-    buildtree();
+    buildLane();
 }
 void Grass::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
@@ -45,7 +45,7 @@ void Grass::updateCurrent(sf::Time dt) {
 //    return false;
 // }
 
-void Grass::buildtree() {
+void Grass::buildLane() {
     int numTrees = 3 + rand() % 2;
     for(int j = 0; j < numTrees; j++) {
         std::unique_ptr<Tree> tree(new Tree(*textureHolder));

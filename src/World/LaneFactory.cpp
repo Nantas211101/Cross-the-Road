@@ -9,7 +9,7 @@ LaneFactory::LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos)
 std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 1);
+    std::uniform_int_distribution<int> dist(1, 6);
     int random = dist(gen);
     lanes.clear();
     switch(random) {

@@ -15,7 +15,7 @@ Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
     sf::IntRect textureRect(0, 0, 3000, 152);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
-    generateTrain();
+    buildLane();
 }
 void Railway::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
     target.draw(sprite, states);
@@ -25,7 +25,7 @@ void Railway::updateCurrent(sf::Time dt){
 
 }
 
-void Railway::generateTrain(){
+void Railway::buildLane(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -46,10 +46,11 @@ void Railway::generateTrain(){
         break;
     }
 
-    std::unique_ptr<Train> train(new Train(kind, *textureHolder));
-    train->setVelocity(1.0 * TableTrain[kind].speed, 0);
-    train->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
+    std::unique_ptr<Train> newTrain(new Train(kind, *textureHolder));
+    train = newTrain.get();
+    newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
+    newTrain->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 
-    train->setPosition(-800, startPos.y - 120);
-    this->attachChild(std::move(train));
+    newTrain->setPosition(-800, startPos.y - 120);
+    this->attachChild(std::move(newTrain));
 }

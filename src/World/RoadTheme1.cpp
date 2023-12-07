@@ -9,10 +9,14 @@ RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
 
+    buildLane();
+};
+
+void RoadTheme1::buildLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0, 1);
-    hasTraffic = dist(gen);    
+    hasTraffic = dist(gen);
     if(hasTraffic){
         buildTraffic();
         generateVehicle();
@@ -20,7 +24,9 @@ RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
     else {
         generateAnimal();
     }
-};
+    firstObjectIndex = 0;
+    lastObjectIndex = numOfObject - 1;
+}
 
 void RoadTheme1::generateAnimal(){
     int distance = 0;
@@ -40,9 +46,8 @@ void RoadTheme1::generateAnimal(){
     default:
         break;
     }
-
-    std::uniform_int_distribution<int> dist3(0, 199);
-    int randSpawnPos = dist3(gen);
+    std::uniform_int_distribution<int> dist2(0, 199);
+    int randSpawnPos = dist2(gen);
 
     for(int j = 0; j < numOfObject; j++) {
         std::unique_ptr<Animal> animal(new Animal(kind, *textureHolder));
@@ -109,7 +114,7 @@ void RoadTheme1::generateVehicle(){
             vehicle->setVelocity(-1.0 * TableVehicle[kind].speed, 0);
             vehicle->scale(-TableVehicle[kind].scaling.x,TableVehicle[kind].scaling.y);
         }
-        vehicle->setPosition(startPos.x + randSpawnPos + distance, startPos.y);
+        vehicle->setPosition(startPos.x + randSpawnPos + distance, startPos.y + 75);
         distance += TableVehicle[kind].distanceBetweenVehicle;
         vehicles.push_back(vehicle.get());
         this->attachChild(std::move(vehicle));

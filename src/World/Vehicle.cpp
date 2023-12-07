@@ -15,6 +15,14 @@ Vehicle::Type Vehicle::getType(){
     return type;
 }
 
+unsigned int Vehicle::getCategory() const {
+    return Category::Vehicle;
+}
+
+sf::FloatRect Vehicle::getBoundingRect() const {
+    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+}
+
 void Vehicle::drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const{
     target.draw(sprite, state);
 }

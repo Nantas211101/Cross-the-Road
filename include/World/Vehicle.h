@@ -23,7 +23,9 @@ class Vehicle:public Entity{
  public:
     Vehicle(Type type, const TextureHolder& texture);
     Type getType();
-    
+    virtual sf::FloatRect getBoundingRect() const;
+    virtual unsigned int getCategory() const;
+
  private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const;
     void updateCurrent(sf::Time dt);

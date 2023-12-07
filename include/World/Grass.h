@@ -13,12 +13,15 @@
 class Grass : public Lane {
     public:
         Grass(TextureHolder* textureHolder, sf::Vector2f spawnPos);
+    
     private:
+        void buildLane();
+    
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
-        void buildtree();
         bool checkPass(int x,int y);
         bool checkValidPosition(int x,int y);
+    
     private:
         int yGrid;
         sf::Sprite sprite;
