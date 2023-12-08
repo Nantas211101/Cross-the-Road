@@ -13,7 +13,7 @@ namespace Category {
 		Vehicle = 1 << 4,
 		Animal	= 1 << 5,
 
-		// Grass
+		// Ground
 		Obstacle= 1 << 6,
 
 		// Railway

@@ -40,6 +40,14 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Small_Dragon].pictureWidth = 192;
     data[Animal::Small_Dragon].pictureHeight = 66;
 
+    data[Animal::Cow].speed = 120.f;
+    data[Animal::Cow].distanceBetweenAnimal = 500;
+    data[Animal::Cow].texture = Textures::Cow;
+    data[Animal::Cow].scaling = sf::Vector2f(0.5, 0.5);
+    data[Animal::Cow].numOfFrames = 4;
+    data[Animal::Cow].pictureWidth = 862;
+    data[Animal::Cow].pictureHeight = 166;
+
     data[Animal::Green_Dragon].speed = 180.f;
     data[Animal::Green_Dragon].distanceBetweenAnimal = 800;
     data[Animal::Green_Dragon].texture = Textures::Green_Dragon;
@@ -109,7 +117,7 @@ std::vector<VehicleData> initializeVehicleData(){
     data[Vehicle::YellowCar].scaling = sf::Vector2f(1.3,1.3);
 
     data[Vehicle::OldCar].speed = 0.f;
-    data[Vehicle::OldCar].distanceBetweenVehicle = 700;
+    data[Vehicle::OldCar].distanceBetweenVehicle = 250;
     data[Vehicle::OldCar].texture = Textures::OldCar;
     data[Vehicle::OldCar].scaling = sf::Vector2f(1.3,1.3);
 

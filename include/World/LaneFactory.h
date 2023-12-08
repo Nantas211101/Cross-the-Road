@@ -1,10 +1,11 @@
 #pragma once
 #include "Lane.h"
 #include "River.h"
-#include "Grass.h"
+#include "Ground.h"
 #include "Road.h"
 #include "Railway.h"
 #include "RoadTheme1.h"
+#include "RoadTheme2.h"
 #include "../ResourceIdentifiers.h"
 #include "../ResourceHolder.h"
 
@@ -18,7 +19,7 @@ private:
     sf::Vector2f startPos;
     TextureHolder* textureHolder;
 
-    void templateGrass(int num);
+    void templateGround(int num);
     void templateRoad(int num);
     void templateRiver(int num);
     void templateRailway(int num);

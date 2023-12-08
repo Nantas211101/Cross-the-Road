@@ -6,18 +6,13 @@ namespace {
 // 50: width each lane
 
 River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: Lane()
-, textureHolder(textureHolder)
+: Lane(textureHolder, spawnPos)
 , riverLog()
-, startPos(spawnPos) {
+{
     sprite.setTexture(textureHolder->get(Textures::River));
     sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
     sprite.setTextureRect(textureRect);
     buildLane();
-}
-
-void River::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(sprite, states);
 }
 
 unsigned int River::getCategory() const {

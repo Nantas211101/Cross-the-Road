@@ -18,7 +18,6 @@ class River : public Lane {
         void buildLane();
    
         void updateCurrent(sf::Time dt);
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         virtual unsigned int getCategory() const;
         virtual sf::FloatRect getBoundingRect() const;
 
@@ -27,6 +26,4 @@ class River : public Lane {
         const int numOfLog = 10;
         int lastLogIndex;
         int firstLogIndex;
-        sf::Vector2f startPos;
-        TextureHolder* textureHolder;
 };

@@ -6,11 +6,11 @@
 
 #include <SFML/Graphics.hpp>
 
-class Tree : public Entity {
+class Obstacle : public Entity {
     
 
     public:
-        Tree( const TextureHolder& Texture);
+        Obstacle( const TextureHolder& Texture);
         virtual sf::FloatRect getBoundingRect() const;
         sf::FloatRect* getDangerBound() const;
 

@@ -20,12 +20,9 @@ class Railway : public Lane {
     private:
         void buildLane();
         void buildLight();
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
 
     private:
         Train* train;
-        sf::Vector2f startPos;
-        TextureHolder* textureHolder;
         RailwayLight* railwayLight;
 };

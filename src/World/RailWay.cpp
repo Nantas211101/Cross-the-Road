@@ -7,9 +7,8 @@ namespace {
 // 50: width each lane
 
 Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: Lane()
-, textureHolder(textureHolder)
-, startPos(spawnPos) {
+: Lane(textureHolder, spawnPos)
+{
     textureHolder->get(Textures::Railway).setRepeated(true);
     sprite.setTexture(textureHolder->get(Textures::Railway));
     sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
@@ -17,9 +16,6 @@ Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
     sprite.setTextureRect(textureRect);
     buildLight();
     buildLane();
-}
-void Railway::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
-    target.draw(sprite, states);
 }
 
 void Railway::updateCurrent(sf::Time dt){

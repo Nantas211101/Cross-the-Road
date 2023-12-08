@@ -21,35 +21,36 @@ World::World(sf::RenderWindow& window)
 
 void World::loadTextures(){
 	// Road
-    mTextures.load(Textures::Road, "../../Media/Textures/Road.png");
-	mTextures.load(Textures::Road1, "../../Media/Textures/Road1.png");
+    mTextures.load(Textures::Road, "../../Media/Textures/Road/Road.png");
+	mTextures.load(Textures::Road1, "../../Media/Textures/Road/Road1.png");
 
-    mTextures.load(Textures::Elephant, "../../Media/Textures/Elephant.png");
-    mTextures.load(Textures::Rhinoceros, "../../Media/Textures/Rhinoceros.png");
-    mTextures.load(Textures::Small_Dragon, "../../Media/Textures/Small_Dragon.png");
-    mTextures.load(Textures::Red_Dragon, "../../Media/Textures/Red_Dragon.png");
-    mTextures.load(Textures::Green_Dragon, "../../Media/Textures/Green_Dragon.png");
-    mTextures.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Blue_Twin_Head_Dragon.png");
+    mTextures.load(Textures::Elephant, "../../Media/Textures/Animal/Elephant.png");
+    mTextures.load(Textures::Rhinoceros, "../../Media/Textures/Animal/Rhinoceros.png");
+	mTextures.load(Textures::Cow, "../../Media/Textures/Animal/Cow.png");
+    mTextures.load(Textures::Small_Dragon, "../../Media/Textures/Animal/Small_Dragon.png");
+    mTextures.load(Textures::Red_Dragon, "../../Media/Textures/Animal/Red_Dragon.png");
+    mTextures.load(Textures::Green_Dragon, "../../Media/Textures/Animal/Green_Dragon.png");
+    mTextures.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Animal/Blue_Twin_Head_Dragon.png");
     
     mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
-    mTextures.load(Textures::Truck, "../../Media/Textures/Truck.png");
-    mTextures.load(Textures::Ambulance, "../../Media/Textures/Ambulance.png");
-    mTextures.load(Textures::PoliceCar, "../../Media/Textures/PoliceCar.png");
-    mTextures.load(Textures::SmallCar, "../../Media/Textures/SmallCar.png");
-    mTextures.load(Textures::BlueCar, "../../Media/Textures/BlueCar.png");
-    mTextures.load(Textures::YellowCar, "../../Media/Textures/YellowCar.png");
-    mTextures.load(Textures::OldCar, "../../Media/Textures/OldCar.png");
-    mTextures.load(Textures::SuperCar, "../../Media/Textures/SuperCar.png");
+    mTextures.load(Textures::Truck, "../../Media/Textures/Vehicle/Truck.png");
+    mTextures.load(Textures::Ambulance, "../../Media/Textures/Vehicle/Ambulance.png");
+    mTextures.load(Textures::PoliceCar, "../../Media/Textures/Vehicle/PoliceCar.png");
+    mTextures.load(Textures::SmallCar, "../../Media/Textures/Vehicle/SmallCar.png");
+    mTextures.load(Textures::BlueCar, "../../Media/Textures/Vehicle/BlueCar.png");
+    mTextures.load(Textures::YellowCar, "../../Media/Textures/Vehicle/YellowCar.png");
+    mTextures.load(Textures::OldCar, "../../Media/Textures/Vehicle/OldCar.png");
+    mTextures.load(Textures::SuperCar, "../../Media/Textures/Vehicle/SuperCar.png");
 
 	// River
 	mTextures.load(Textures::Log, "../../Media/Textures/Log.png");
     mTextures.load(Textures::River, "../../Media/Textures/River.png");
     //mTextures.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
 
-	// Grass
-	mTextures.load(Textures::Tree, "../../Media/Textures/Tree.png");
-    mTextures.load(Textures::Grass, "../../Media/Textures/Grass.png");
-
+	// Ground
+	mTextures.load(Textures::Obstacle, "../../Media/Textures/Obstacle.png");
+    mTextures.load(Textures::Grass, "../../Media/Textures/Ground/Grass.png");
+	mTextures.load(Textures::Soil, "../../Media/Textures/Ground/Soil.png");
 	// Railway
 	mTextures.load(Textures::Railway, "../../Media/Textures/Railway.png");
     //mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");

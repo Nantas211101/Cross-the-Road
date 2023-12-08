@@ -1,26 +1,27 @@
 #pragma once
 
 #include "../SceneNode.h"
+#include "ResourceHolder.h"
+#include "ResourceIdentifiers.h"
 #include <SFML/Graphics.hpp>
 #include <ctime>
 
 class Lane : public SceneNode {
     public:
         enum Type {
-            Ground,
             Road,
             River,
-            Grass,
+            Ground,
             TypeCount
         };
 
     public:
-        Lane();
+        Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos);
         bool isReverse();
         static const int distanceBetweenLane = 100;
         
     private:
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+        void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         virtual void updateCurrent(sf::Time dt) = 0;
         virtual void buildLane() = 0;
 
@@ -28,5 +29,7 @@ class Lane : public SceneNode {
         bool reverse;
 
     protected:
+        sf::Vector2f startPos;
         sf::Sprite sprite;
+        TextureHolder* textureHolder;
 };

@@ -13,6 +13,7 @@ class Animal:public Entity{
     enum Type{
         Elephant,
         Rhinoceros,
+        Cow,
 
         Small_Dragon,
         Green_Dragon,

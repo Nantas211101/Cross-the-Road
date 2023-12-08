@@ -13,11 +13,12 @@ namespace Textures
 		// River
 		River,
 		Log,
-		Ground,
 
-		// Grass
+		// Ground
+		Ground,
 		Grass,
-		Tree,
+		Soil,
+		Obstacle,
 		
 		// Road
 		Road,
@@ -25,6 +26,7 @@ namespace Textures
 		Elephant,
 		Bird,
     	Rhinoceros,
+		Cow,
 		Small_Dragon,
     	Green_Dragon,
     	Red_Dragon,

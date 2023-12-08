@@ -39,9 +39,9 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
     return randLanes;
 }
 
-void LaneFactory::templateGrass(int num) {
+void LaneFactory::templateGround(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new Grass(textureHolder, startPos));
+        std::unique_ptr<Lane> lane(new Ground(textureHolder, startPos, Ground::Soil));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -53,6 +53,7 @@ void LaneFactory::templateRoad(int num) {
         bool checkLine = 1;
         if (num == 1 || i == num - 1) checkLine = 0;
         std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine));
+        //std::unique_ptr<Lane> lane(new RoadTheme2(textureHolder, startPos, checkLine));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -78,31 +79,31 @@ void LaneFactory::templateRailway(int num) {
 }
 
 void LaneFactory::templateLane1() {
-    templateGrass(2);
+    templateGround(2);
     templateRiver(2);
 }
 
 void LaneFactory::templateLane2() {
-    templateGrass(3);
+    templateGround(3);
     templateRoad(5);
 }
 
 void LaneFactory::templateLane3() {
-    templateGrass(1);
+    templateGround(1);
     templateRoad(2);
 }
 
 void LaneFactory::templateLane4() {
-    templateGrass(1);
+    templateGround(1);
     templateRiver(1);
 }
 
 void LaneFactory::templateLane5() {
-    templateGrass(2);
+    templateGround(2);
     templateRoad(4);
 }
 
 void LaneFactory::templateLane6() {
-    templateGrass(1);
+    templateGround(1);
     templateRailway(1);
 }

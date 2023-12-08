@@ -15,15 +15,21 @@ RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
 void RoadTheme1::buildLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(0, 1);
-    hasTraffic = dist(gen);
-    if(hasTraffic){
-        buildTraffic();
-        generateVehicle();
+    std::uniform_int_distribution<int> dist(0, TypeCount-1);
+    int randTypeRoad = dist(gen);
+    switch(randTypeRoad){
+        case 0:
+            typeRoad = RoadTheme1::VehicleRoad;
+            hasTraffic = dist(gen);
+            if(hasTraffic)
+                buildTraffic();
+            generateVehicle();
+            break;
+        case 1:
+            generateAnimal();
+            break;
     }
-    else {
-        generateAnimal();
-    }
+
     firstObjectIndex = 0;
     lastObjectIndex = numOfObject - 1;
 }
@@ -41,7 +47,7 @@ void RoadTheme1::generateAnimal(){
         kind = Animal::Elephant;
         break;
     case 2:
-        kind = Animal::Rhinoceros;
+        kind = Animal::Cow;
         break;
     default:
         break;
@@ -139,36 +145,38 @@ void RoadTheme1::buildTraffic(){
 }
 
 void RoadTheme1::updateCurrent(sf::Time dt){
-    if(hasTraffic){
-        switch (traffic->getTrafficState())
-        {
-        case 0:
-            for(int i=0; i < numOfObject; i++){
-                vehicles[i]->setVelocity(0, 0);
+    if(typeRoad == VehicleRoad){
+        if (hasTraffic){
+            switch (traffic->getTrafficState())
+            {
+            case 0:
+                for(int i=0; i < numOfObject; i++){
+                    vehicles[i]->setVelocity(0, 0);
+                }
+                break;
+            case 1:
+                for(int i=0; i < numOfObject; i++){
+                    if(!this->isReverse()){
+                        vehicles[i]->setVelocity(0.6 * TableVehicle[vehicles[i]->getType()].speed, 0);
+                    }
+                    else{
+                        vehicles[i]->setVelocity(-0.6 * (TableVehicle[vehicles[i]->getType()].speed), 0);
+                    }
+                }
+                break;
+            case 2:
+                for(int i=0; i < numOfObject; i++){
+                    if(!this->isReverse()){
+                        vehicles[i]->setVelocity(1.0 * TableVehicle[vehicles[i]->getType()].speed, 0);
+                    }
+                    else{
+                        vehicles[i]->setVelocity(-1.0 * TableVehicle[vehicles[i]->getType()].speed, 0);
+                    }
+                }
+                break;
             }
-            break;
-        case 1:
-            for(int i=0; i < numOfObject; i++){
-                 if(!this->isReverse()){
-                    vehicles[i]->setVelocity(0.6 * TableVehicle[vehicles[i]->getType()].speed, 0);
-                }
-                 else{
-                    vehicles[i]->setVelocity(-0.6 * (TableVehicle[vehicles[i]->getType()].speed), 0);
-                }
-            }
-            break;
-        case 2:
-            for(int i=0; i < numOfObject; i++){
-                 if(!this->isReverse()){
-                    vehicles[i]->setVelocity(1.0 * TableVehicle[vehicles[i]->getType()].speed, 0);
-                }
-                 else{
-                    vehicles[i]->setVelocity(-1.0 * TableVehicle[vehicles[i]->getType()].speed, 0);
-                }
-            }
-            break;
         }
-         if(!this->isReverse() && vehicles[firstObjectIndex]->getPosition().x >= 0) {
+        if(!this->isReverse() && vehicles[firstObjectIndex]->getPosition().x >= 0) {
             vehicles[lastObjectIndex]->setPosition(-TableVehicle[vehicles[lastObjectIndex]->getType()].distanceBetweenVehicle, startPos.y + 75);
             firstObjectIndex = lastObjectIndex;
             lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
@@ -178,7 +186,8 @@ void RoadTheme1::updateCurrent(sf::Time dt){
             lastObjectIndex = firstObjectIndex;
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }
-    }else{
+    }
+    else{
         if(!this->isReverse() && animals[firstObjectIndex]->getPosition().x >= 0) {
             animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, startPos.y);
             firstObjectIndex = lastObjectIndex;
@@ -190,8 +199,4 @@ void RoadTheme1::updateCurrent(sf::Time dt){
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }
     }
-}
-
-void RoadTheme1::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
-    target.draw(sprite, states);
 }

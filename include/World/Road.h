@@ -18,15 +18,12 @@ class Road : public Lane {
         Road(TextureHolder* textureHolder, sf::Vector2f spawnPos);
 
     private:
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
         virtual void updateCurrent(sf::Time dt) = 0;
 
     protected:
         int lastObjectIndex;
         int firstObjectIndex;
         const int numOfObject = 10;
-        TextureHolder* textureHolder;
-        sf::Vector2f startPos;
 };
 
 namespace {

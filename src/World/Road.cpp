@@ -5,9 +5,4 @@
 // 50: width each lane
 
 Road::Road(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: Lane()
-, textureHolder(textureHolder)
-, startPos(spawnPos) 
-{
-    
-}
+: Lane(textureHolder, spawnPos){}

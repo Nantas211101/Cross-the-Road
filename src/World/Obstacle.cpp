@@ -1,30 +1,30 @@
-#include "../../include/World/Tree.h"
+#include "../../include/World/Obstacle.h"
 
 
-Tree::Tree(const TextureHolder& texture) 
-: sprite(texture.get(Textures::Tree)) {
+Obstacle::Obstacle(const TextureHolder& texture) 
+: sprite(texture.get(Textures::Obstacle)) {
     sf::FloatRect bounds = sprite.getLocalBounds();
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.scale(0.5f,0.5f);
 }
 
-void Tree::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite, states);
 }
 
-void Tree::updateCurrent(sf::Time dt) {
+void Obstacle::updateCurrent(sf::Time dt) {
     this->setVelocity(0, 0);
     Entity::updateCurrent(dt);
 }
 
-sf::FloatRect Tree::getBoundingRect() const {
+sf::FloatRect Obstacle::getBoundingRect() const {
     return getWorldTransform().transformRect(sprite.getGlobalBounds());
 }
 
-// sf::FloatRect* Tree::getDangerBound() const {
+// sf::FloatRect* Obstacle::getDangerBound() const {
 // 	sf::FloatRect tmp = getBoundingRect();
 //     sf::FloatRect* pBound = new sf::FloatRect(tmp);
-//     if(type == Tree::Tree1) {
+//     if(type == Obstacle::Obstacle1) {
 //         delete pBound;
 //         return nullptr;
 //     }
