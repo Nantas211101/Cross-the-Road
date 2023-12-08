@@ -15,6 +15,7 @@ Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
     sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
+    buildLight();
     buildLane();
 }
 void Railway::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -22,7 +23,16 @@ void Railway::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) con
 }
 
 void Railway::updateCurrent(sf::Time dt){
-
+    switch (railwayLight->getRailwayLightState())
+    {
+    case 0:
+        train->setVelocity(0,0);
+        break;
+    
+    case 2:
+        train->setVelocity(1.0 * TableTrain[train->getType()].speed, 0);
+        break;
+    }
 }
 
 void Railway::buildLane(){
@@ -51,6 +61,18 @@ void Railway::buildLane(){
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
     newTrain->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 
-    newTrain->setPosition(-800, startPos.y - 120);
+    newTrain->setPosition(-1500, startPos.y - 120);
     this->attachChild(std::move(newTrain));
+}
+
+void Railway::buildLight(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1, 8);
+    
+    int randomKindVehicle = dist(gen);
+    std::unique_ptr<RailwayLight> light(new RailwayLight(*textureHolder));
+    railwayLight= light.get();
+    light->setPosition(startPos.x+600,startPos.y + 75);
+    this->attachChild(std::move(light));
 }

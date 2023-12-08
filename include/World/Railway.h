@@ -11,7 +11,7 @@
 #include <vector>
 #include <cmath>
 #include <SFML/Graphics.hpp>
-
+#include "RailwayLight.h"
 
 class Railway : public Lane {
     public:
@@ -19,7 +19,7 @@ class Railway : public Lane {
     
     private:
         void buildLane();
-        
+        void buildLight();
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);
 
@@ -27,4 +27,5 @@ class Railway : public Lane {
         Train* train;
         sf::Vector2f startPos;
         TextureHolder* textureHolder;
+        RailwayLight* railwayLight;
 };
