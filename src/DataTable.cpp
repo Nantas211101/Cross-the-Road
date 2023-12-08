@@ -43,10 +43,10 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Cow].speed = 120.f;
     data[Animal::Cow].distanceBetweenAnimal = 500;
     data[Animal::Cow].texture = Textures::Cow;
-    data[Animal::Cow].scaling = sf::Vector2f(0.5, 0.5);
+    data[Animal::Cow].scaling = sf::Vector2f(0.4, 0.4);
     data[Animal::Cow].numOfFrames = 4;
-    data[Animal::Cow].pictureWidth = 862;
-    data[Animal::Cow].pictureHeight = 166;
+    data[Animal::Cow].pictureWidth = 1075;
+    data[Animal::Cow].pictureHeight = 191;
 
     data[Animal::Green_Dragon].speed = 180.f;
     data[Animal::Green_Dragon].distanceBetweenAnimal = 800;
