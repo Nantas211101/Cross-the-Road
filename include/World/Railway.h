@@ -26,6 +26,5 @@ class Railway : public Lane {
     private:
         Train* train;
         sf::Vector2f startPos;
-        sf::Sprite sprite;
         TextureHolder* textureHolder;
 };

@@ -26,4 +26,7 @@ class Lane : public SceneNode {
 
     private:
         bool reverse;
+
+    protected:
+        sf::Sprite sprite;
 };

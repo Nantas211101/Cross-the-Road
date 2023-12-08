@@ -16,7 +16,6 @@ class RoadTheme1 : public Road {
 
     private:
         bool checkLine;
-        sf::Sprite sprite;
         bool hasTraffic;
         std::vector<Animal*> animals;
         std::vector<Vehicle*> vehicles;

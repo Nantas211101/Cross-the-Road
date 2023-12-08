@@ -28,7 +28,5 @@ class River : public Lane {
         int lastLogIndex;
         int firstLogIndex;
         sf::Vector2f startPos;
-        
-        sf::Sprite sprite;
         TextureHolder* textureHolder;
 };

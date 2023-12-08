@@ -24,7 +24,6 @@ class Grass : public Lane {
     
     private:
         int yGrid;
-        sf::Sprite sprite;
         std::vector<Tree*> Trees;
         sf::Vector2f pos;
         TextureHolder* textureHolder;
