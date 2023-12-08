@@ -271,48 +271,6 @@ void ChooseCharState::impleChangeChar(sf::Time dt){
 	else 
 		if(isChangeKey == sf::Keyboard::Left)
 			changeLeft(dt);
-	// if(isChangeKey == sf::Keyboard::Right){
-	// 	mPlayer->accelerate(-speedUp * dt.asSeconds(), 0);
-	// 	dist = position.x - mWorldBounds.left;
-	// 	naturalDist = mSpawnPosition.x - mWorldBounds.left;
-	// 	tmp = dist * 1.0 / naturalDist;
-	// 	if(tmp < 0)
-	// 		tmp = 0;
-	// 	mPlayer->setScale(tmp, tmp);
-	// }
-	// else 
-	// 	if(isChangeKey == sf::Keyboard::Left){
-	// 		mPlayer->accelerate(speedUp * dt.asSeconds(), 0);
-	// 		dist = mWorldBounds.width - position.x;
-	// 		naturalDist = mWorldBounds.width - mSpawnPosition.x;
-	// 		tmp = dist * 1.0 / naturalDist;
-	// 		if(tmp < 0)
-	// 			tmp = 0;
-	// 		mPlayer->setScale(tmp, tmp);
-	// }
-
-	// // tmp player;
-	// position = tmpPlayer->getPosition();
-	// velocity = tmpPlayer->getVelocity();
-	// if(isChangeKey == sf::Keyboard::Right){
-	// 	tmpPlayer->accelerate(-speedUp * dt.asSeconds(), 0);
-	// 	dist = position.x - mSpawnPosition.x;
-	// 	naturalDist = mWorldBounds.width - mSpawnPosition.x;
-	// 	tmp = 1 - (dist * 1.0 / naturalDist);
-	// 	if(tmp < 0)
-	// 		tmp = 0;
-	// 	tmpPlayer->setScale(tmp, tmp);
-	// }
-	// else 
-	// 	if(isChangeKey == sf::Keyboard::Left){
-	// 		tmpPlayer->accelerate(speedUp * dt.asSeconds(), 0);
-	// 		dist = mSpawnPosition.x - position.x;
-	// 		naturalDist = mSpawnPosition.x - 0;
-	// 		tmp = 1 - (dist * 1.0 / naturalDist);
-	// 		if(tmp < 0)
-	// 			tmp = 0;
-	// 		tmpPlayer->setScale(tmp, tmp);
-	// }
 }
 
 void ChooseCharState::changeRight(sf::Time dt){

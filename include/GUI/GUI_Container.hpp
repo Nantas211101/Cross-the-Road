@@ -22,6 +22,7 @@ public:
     virtual bool isContain(const sf::RenderWindow& window) const;
     virtual void handleEvent(const sf::Event &event);
     virtual void handleRealTimeInput(const sf::RenderWindow& window);
+    virtual void update(sf::Time dt); // additional for InputButton
 
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

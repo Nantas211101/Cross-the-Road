@@ -43,8 +43,8 @@ Application::Application()
 , mStayText()
 , mStayUpdateTime()
 , mStayNumFrames(0){
-        // Not let the key repeat
-        mWindow.setKeyRepeatEnabled(false);
+        // Not let the key not repeat to help the input
+        // mWindow.setKeyRepeatEnabled(false);
         // mWindow.create()
 
         loadResources();

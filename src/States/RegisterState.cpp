@@ -150,9 +150,9 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         requestStackPush(States::Login);
     });
 
-    mGUIContainer.pack(username);
-    mGUIContainer.pack(password);
-    mGUIContainer.pack(passwordConfirm);
+    mGUIContainerInputButton.pack(username);
+    mGUIContainerInputButton.pack(password);
+    mGUIContainerInputButton.pack(passwordConfirm);
     mGUIContainer.pack(registerButton);
     mGUIContainer.pack(backButton);
     mGUIContainerVisibility.pack(visibility1);
@@ -166,6 +166,7 @@ void RegisterState::draw()
 
     window.draw(mBackground);
     window.draw(mGUIContainer);
+    window.draw(mGUIContainerInputButton);
     window.draw(mGUIContainerVisibility);
     window.draw(mText);
     window.draw(errorText);
@@ -176,6 +177,7 @@ void RegisterState::draw()
 
 bool RegisterState::update(sf::Time dt)
 {
+    mGUIContainerInputButton.update(dt);
     return false;
 }
 
@@ -183,14 +185,17 @@ bool RegisterState::handleEvent(const sf::Event &event)
 {
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
+    mGUIContainerInputButton.handleEvent(event);
     mGUIContainerVisibility.handleEvent(event);
     return false;
 }
 
 void RegisterState::handleRealTimeInput()
 {   
-    mGUIContainer.handleRealTimeInput(*getContext().window);
-    mGUIContainerVisibility.handleRealTimeInput(*getContext().window);
+    sf::RenderWindow &mWindow = *getContext().window;
+    mGUIContainer.handleRealTimeInput(mWindow);
+    mGUIContainerInputButton.handleRealTimeInput(mWindow);
+    mGUIContainerVisibility.handleRealTimeInput(mWindow);
     bool isOK = true;
     if(isChangeUsername){
         if(!checkLegalUsername() || !checkUsername())

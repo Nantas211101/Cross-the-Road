@@ -26,6 +26,7 @@ public:
     InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id, const std::string& text);
     InputButton(const FontHolder& fonts, const TextureHolder& textures, const std::string& text);
     
+
     void setCallback(Callback callback);
     void setText(const std::string& text);
     void setToggle(bool flag);
@@ -42,6 +43,7 @@ public:
     virtual void deactivate();
 
     virtual void handleEvent(const sf::Event& event);
+    virtual void update(sf::Time dt); // additional for InputButton
     
 
 private:
@@ -56,9 +58,12 @@ private:
     sf::Sprite				mSprite;
     sf::Text				mText;
     sf::Text                mTextHidden;
+    bool                    mIsBlink;
     bool					mIsToggle;
     bool                    hiddenFlag;
     bool                    isFirstClick;
+    sf::Time                mTime;
+    sf::Vector2f            mPos;     
 };
 
 }

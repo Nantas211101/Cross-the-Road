@@ -38,7 +38,6 @@ LoginState::LoginState(StateStack &stack, Context context)
     username->centerOrigin();
     username->setScale(0.5, 0.5);
     username->setPosition(pos.x, pos.y - 150);
-    username->setText("Username");
     username->setToggle(true);
     username->setColor(sf::Color(96, 130, 182, 200));
     username->setCallback([this](std::string st){
@@ -49,7 +48,6 @@ LoginState::LoginState(StateStack &stack, Context context)
     password->centerOrigin();
     password->setScale(0.5, 0.5);
     password->setPosition(pos.x, pos.y + 150);
-    password->setText("Password");
     password->setToggle(true);
     password->setColor(sf::Color(96, 130, 182, 200));
     password->setFlagHidden(true);
@@ -104,10 +102,10 @@ LoginState::LoginState(StateStack &stack, Context context)
         // requestStackPush(States::ChooseChar);
     });
 
-    mGUIContainer.pack(username);
-    mGUIContainer.pack(password);
     mGUIContainer.pack(Login);
     mGUIContainer.pack(registerButton);
+    mGUIContainerInputButton.pack(username);
+    mGUIContainerInputButton.pack(password);
     mGUIContainerVisibility.pack(visibility);
 }
 
@@ -119,6 +117,7 @@ void LoginState::draw()
 
     window.draw(mBackground);
     window.draw(mGUIContainer);
+    window.draw(mGUIContainerInputButton);
     window.draw(mGUIContainerVisibility);
     window.draw(mText);
     window.draw(errorText);
@@ -126,6 +125,7 @@ void LoginState::draw()
 
 bool LoginState::update(sf::Time dt)
 {
+    mGUIContainerInputButton.update(dt);
     return false;
 }
 
@@ -133,6 +133,7 @@ bool LoginState::handleEvent(const sf::Event &event)
 {
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
+    mGUIContainerInputButton.handleEvent(event);
     mGUIContainerVisibility.handleEvent(event);
     return false;
 }
@@ -141,6 +142,7 @@ void LoginState::handleRealTimeInput()
 {
     sf::RenderWindow &mWindow = *getContext().window;
     mGUIContainer.handleRealTimeInput(mWindow);
+    mGUIContainerInputButton.handleRealTimeInput(mWindow);
     mGUIContainerVisibility.handleRealTimeInput(mWindow);
 }
 

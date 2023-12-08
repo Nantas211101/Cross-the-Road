@@ -16,6 +16,11 @@ Component::~Component()
 
 }
 
+void Component::update(sf::Time dt)
+{
+	// do nothing
+}
+
 bool Component::isSelected() const
 {
 	return mIsSelected;

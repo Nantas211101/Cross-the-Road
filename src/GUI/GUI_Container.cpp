@@ -38,14 +38,21 @@ void Container::handleEvent(const sf::Event& event)
     // If we have selected and activated a child then give it events
 
 	if (hasActivate() && mChildren[mActivateChild]->isActive())
-	{
-		if(event.key.code == sf::Keyboard::Return){ // special case when press enter of InputButton
+	{	
+		if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Tab){ // special case when press tab of InputButton
+			int index = mActivateChild;
+			if(hasActivate())
+				deactivate();
+			select(index);
+			selectNext();
+			activate(mSelectedChild);
+		}
+		else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return){ // special case when press enter of InputButton
 			if(hasActivate())
 				deactivate();
 		}
-		else{
-			mChildren[mSelectedChild]->handleEvent(event);
-		}
+		else
+			mChildren[mActivateChild]->handleEvent(event); // solve bug selected
 	}
 	else if (event.type == sf::Event::KeyReleased)
 	{
@@ -54,12 +61,12 @@ void Container::handleEvent(const sf::Event& event)
 			isSelectByMouse = false;
 			selectPrev();
 		}
-		else if (event.key.code == sf::Keyboard::Tab)
-		{
-			isSelectByMouse = false;
-			selectNext();
-			// activate(mSelectedChild);
-		}
+		// else if (event.key.code == sf::Keyboard::Tab)
+		// {
+		// 	isSelectByMouse = false;
+		// 	selectNext();
+		// 	// activate(mSelectedChild);
+		// }
 		// else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
 		// {
 		// 	if (hasSelection()){
@@ -103,6 +110,12 @@ void Container::handleRealTimeInput(const sf::RenderWindow& window){
 
 	preMousePos = curPos;
 	isJustStart = 0;
+}
+
+void Container::update(sf::Time dt) 
+{
+	for(int i = 0; i < mChildren.size(); ++i)
+		mChildren[i]->update(dt);
 }
 
 void Container::draw(sf::RenderTarget &target, sf::RenderStates states) const
@@ -172,8 +185,6 @@ void Container::deselect()
 
 void Container::selectNext()
 {
-	if(hasActivate())
-		return;
 	if(!hasSelection()){
 		for(int index = 0; index < mChildren.size(); ++index)
 			if(mChildren[index]->isSelectable()){

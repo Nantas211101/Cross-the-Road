@@ -19,6 +19,8 @@ public:
     Component();
     virtual ~Component();
     
+    virtual void update(sf::Time dt); // additional for InputButton
+
     // virtual std::string takeSaveText() = 0;
     virtual bool isSelectable() const = 0;
     virtual bool isContain(const sf::RenderWindow& window) const = 0;

@@ -10,15 +10,18 @@ ConfirmRegisterState::ConfirmRegisterState(StateStack &stack, Context context)
 , mText("Register successfully!", context.fonts->get(Fonts::Main), 50)
 {
     sf::Vector2f pos = context.window->getView().getCenter();
-    mBackground.setFillColor(sf::Color(255, 255, 255, 150));
-    mBackground.setSize(context.window->getView().getSize() / 2.f);
+    mBackground.setFillColor(sf::Color(255, 255, 255, 255));
+    mBackground.setSize({context.window->getView().getSize().x / (float)2.5, context.window->getView().getSize().y / (float)2.7});
     mBackground.setOrigin(mBackground.getSize() / 2.f);
     mBackground.setPosition(pos);
+    mBackground.setOutlineThickness(15.f);
+    mBackground.setOutlineColor(sf::Color(96, 130, 182, 200));
 
     sf::Font &font = context.fonts->get(Fonts::Main);
 
     centerOrigin(mText);
-    mText.setPosition(pos.x, pos.y - 100.f);
+    mText.setPosition(pos.x, pos.y - 50.f);
+    mText.setFillColor(sf::Color::Black);
 
     auto returnButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
     returnButton->centerOrigin();

@@ -1,6 +1,7 @@
 #include "GUI_InputButton.hpp"
 #include "TextureManipulate.hpp"
 
+const sf::Time blinkTime = sf::seconds(0.5f);
 namespace GUI
 {
 
@@ -12,9 +13,11 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures)
 , mSprite()
 , mText("", fonts.get(Fonts::Label), 100)
 , mTextHidden("", fonts.get(Fonts::Label), 100)
+, mIsBlink(false)
 , mIsToggle(false)
 , hiddenFlag(false)
 , isFirstClick(true)
+, mTime(sf::Time::Zero)
 {
 	mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -22,7 +25,7 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures)
 
 	mText.setFillColor(sf::Color::Yellow);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
 }
 
 InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id, const std::string& text)
@@ -33,9 +36,11 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 , mSprite()
 , mText("", fonts.get(Fonts::Label), 100) 
 , mTextHidden("", fonts.get(Fonts::Label), 100)
+, mIsBlink(false)
 , mIsToggle(false)
 , hiddenFlag(false)
 , isFirstClick(true)
+, mTime(sf::Time::Zero)
 {
     mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -43,7 +48,7 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 	
 	mText.setFillColor(sf::Color(229, 218, 218));
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
 }
 
 InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures, const std::string& text)
@@ -54,16 +59,18 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 , mSprite()
 , mText(text, fonts.get(Fonts::Label), 100)
 , mTextHidden("", fonts.get(Fonts::Label), 100)
+, mIsBlink(false)
 , mIsToggle(false)
 , hiddenFlag(false)
 , isFirstClick(true)
+, mTime(sf::Time::Zero)
 {
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 	
 	mText.setFillColor(sf::Color(229, 218, 218));
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
 
 	mTextHidden = mText;
 	// fillHiddenText(text);
@@ -79,7 +86,7 @@ void InputButton::setText(const std::string& text)
     sf::FloatRect bounds = mSprite.getGlobalBounds();
 	mText.setString(text);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
 }
 
 void InputButton::setToggle(bool flag)
@@ -137,8 +144,12 @@ void InputButton::activate()
 	Component::activate();
     // If we are toggle then we should show that the InputButton is pressed and thus "toggled".
 	if (mIsToggle){
-		if(isFirstClick)
-        	mText.setString("");
+		if(isFirstClick){
+			sf::Vector2f pos = mText.getPosition();
+			mText.setString("");
+			setCenterOrigin(mText);
+			mText.setPosition(pos);
+		}
 		isFirstClick = false;
 		// mText = "";
     	mSprite.setTexture(mPressedTexture);
@@ -189,14 +200,43 @@ void InputButton::handleEvent(const sf::Event& event)
 	fillHiddenText(currentText);
 }
 
+void InputButton::update(sf::Time dt)
+{
+	if(!isActive()){
+		mIsBlink = 0;
+		mTime = sf::Time::Zero;
+		return;
+	}
+	mTime += dt;
+	if(mTime >= blinkTime){
+		mTime = sf::Time::Zero;
+		mIsBlink ^= 1;
+	}
+}
+
 void InputButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
 	target.draw(mSprite, states);
+	sf::Text mTextDraw;
+	
 	if(hiddenFlag)
-		target.draw(mTextHidden, states);
+		mTextDraw = mTextHidden;
 	else
-		target.draw(mText, states);
+		mTextDraw = mText;
+	
+	sf::Vector2 pos = mTextDraw.getPosition();
+	mTextDraw.setString(mTextDraw.getString() + "|");
+	setCenterOrigin(mTextDraw);	
+	mTextDraw.setPosition(pos);
+	if(!mIsBlink){
+		std::string text = mTextDraw.getString();
+		text.pop_back();
+		mTextDraw.setString(text);
+	}
+
+	// mTextDraw.setPosition(pos);
+	target.draw(mTextDraw, states);
 }
 
 void InputButton::fillHiddenText(const std::string &currentText)
@@ -205,7 +245,7 @@ void InputButton::fillHiddenText(const std::string &currentText)
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 	mTextHidden.setString(hiddenText);
 	setCenterOrigin(mTextHidden);
-	mTextHidden.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mTextHidden.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
 	mTextHidden.setFillColor(mText.getFillColor());
 }
 
