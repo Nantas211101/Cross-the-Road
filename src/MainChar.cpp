@@ -4,6 +4,8 @@ Textures::ID toTextureID(MainChar::Type type)
 {
     switch (type)
     {
+    case MainChar::Player1:
+        return Textures:: Player1Up;
     case MainChar::Chicken:
         return Textures::Chicken;
     case MainChar::Penguin:
@@ -20,6 +22,8 @@ MainChar::Type toMainCharID(Textures::ID id)
 {
     switch (id)
     {
+    case Textures::Player1Up:
+        return MainChar::Player1;
     case Textures::Chicken:
         return MainChar::Chicken;
     case Textures::Penguin:
@@ -35,15 +39,18 @@ MainChar::Type MainChar::numToID(int num){
     switch (num)
     {
         case 0:
-            return MainChar::Chicken;
+            return MainChar::Player1;
             break;
         case 1:
-            return MainChar::Penguin;
+            return MainChar::Chicken;
             break;
         case 2:
-            return MainChar::Sheep;
+            return MainChar::Penguin;
             break;
         case 3:
+            return MainChar::Sheep;
+            break;
+        case 4:
             return MainChar::Mallard;
         default:
             break;
@@ -54,17 +61,20 @@ MainChar::Type MainChar::numToID(int num){
 int MainChar::IDToNum(Type type){
     switch (type)
     {
-        case Chicken:
+        case Player1:
             return 0;
             break;
-        case Penguin:
+        case Chicken:
             return 1;
             break;
-        case Sheep:
+        case Penguin:
             return 2;
             break;
-        case Mallard:
+        case Sheep:
             return 3;
+            break;
+        case Mallard:
+            return 4;
             break;
         default:
             break;
@@ -75,24 +85,47 @@ int MainChar::IDToNum(Type type){
 MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts)
 : mType(type)
 , mSprite(textures.get(toTextureID(type)))
+, upAnimation(textures.get(Textures::Up1))
+, downAnimation(textures.get(Textures::Down1))
+, leftAnimation(textures.get(Textures::Left1))
+, rightAnimation(textures.get(Textures::Right1))
 , mHP(100)
 , mHealthDisplay(nullptr)
+, isGoingUp(false)
+, isGoingDown(false)
+, isGoingLeft(false)
+, isGoingRight(false)
 {
-    mSprite.scale(0.05, 0.05);
-    centerOrigin(mSprite);
+    mSprite.scale(1, 1);
+    //centerOrigin(mSprite);
     std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
 	mHealthDisplay = healthDisplay.get();
-	this->attachChild(std::move(healthDisplay));
+
+    //upAnimation.setOrigin(this->getPosition().x / 2.f, this->getPosition().y / 2.f);
+    centerOrigin(upAnimation);
+    upAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
+	upAnimation.setNumFrames(4);
+	upAnimation.setDuration(sf::seconds(1));
+	
+    this->attachChild(std::move(healthDisplay));
     updateTexts();
 }
 
 void MainChar::updateCurrent(sf::Time dt) {
+    if(isGoingUp) {
+        upAnimation.update(dt);
+        upAnimation.setRepeating(true);
+    }
     updateTexts();
     Entity::updateCurrent(dt);
 }
 
 void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
-    target.draw(mSprite, states);
+    if(isGoingUp) {
+        target.draw(upAnimation, states);
+    }
+    else
+        target.draw(mSprite, states);
 }
 
 void MainChar::changeTexture(bool isIncrease, const TextureHolder& textures){
@@ -127,6 +160,7 @@ unsigned int MainChar::getCategory() const
 {
 	switch (mType)
 	{
+        case Player1:
 		case Chicken:
         case Penguin:
         case Sheep:
@@ -166,6 +200,33 @@ bool MainChar::isDestroyed() const {
 	return mHP <= 0;
 }
 
+void MainChar::goUp() {
+    setVelocity(0, -movingVelocity);
+    isGoingUp = true;
+}
+
+void MainChar::goDown() {
+    setVelocity(0, movingVelocity);
+    isGoingUp = true;
+}
+
+void MainChar::goLeft() {
+    setVelocity(-movingVelocity, 0);
+    isGoingUp = true;
+}
+
+void MainChar::goRight() {
+    setVelocity(movingVelocity, 0);
+    isGoingUp = true;
+}
+
+void MainChar::stop() {
+    setVelocity(0, 0);
+    isGoingUp = false;
+    isGoingDown = false;
+    isGoingLeft = false;
+    isGoingRight = false;
+}
 
 void MainChar::updateTexts()
 {

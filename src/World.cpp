@@ -11,6 +11,8 @@ World::World(sf::RenderWindow& window)
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 {
+	lastPosSinceMoving = mSpawnPosition;
+
 	mFonts.load(Fonts::Main, "../../Media/Sansation.ttf");
 	loadTextures();
 	buildScene();
@@ -59,6 +61,15 @@ void World::loadTextures(){
     mTextures.load(Textures::Train3, "../../Media/Textures/Train3.png");
 
 	// Player
+	mTextures.load(Textures::Player1Up, "../../Media/Textures/Player/Player1/Player1Up.png");
+	mTextures.load(Textures::Player1Down, "../../Media/Textures/Player/Player1/Player1Down.png");
+	mTextures.load(Textures::Player1Left, "../../Media/Textures/Player/Player1/Player1Left.png");
+	mTextures.load(Textures::Player1Right, "../../Media/Textures/Player/Player1/Player1Right.png");
+	mTextures.load(Textures::Up1, "../../Media/Textures/Player/Player1/Up.png");
+	mTextures.load(Textures::Down1, "../../Media/Textures/Player/Player1/Down.png");
+	mTextures.load(Textures::Left1, "../../Media/Textures/Player/Player1/Left.png");
+	mTextures.load(Textures::Right1, "../../Media/Textures/Player/Player1/Right.png");
+	
 	mTextures.load(Textures::Penguin, "../../Media/Textures/Player/Penguin.png");
 	mTextures.load(Textures::Mallard, "../../Media/Textures/Player/Mallard.png");
 	mTextures.load(Textures::Sheep, "../../Media/Textures/Player/Sheep.png");
@@ -78,11 +89,12 @@ void World::update(sf::Time dt)
 		sf::Vector2f playerPos = mainChar->getPosition();
 		sf::Vector2f mid = viewSize / 2.f;
 		sf::Vector2f diffPos = playerPos - mid;
-		mainChar->setPosition(mSpawnPosition + diffPos);
+		lastPosSinceMoving = mSpawnPosition + diffPos;
+		mainChar->setPosition(lastPosSinceMoving);
 		mWorldView.setCenter(mSpawnPosition);
 	}
 
-	mainChar->setVelocity(0.f, 0.f);
+	//mainChar->setVelocity(0.f, 0.f);
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
 	timeToNextInput += dt;
@@ -95,6 +107,7 @@ void World::update(sf::Time dt)
 			mCommandQueue.pop();
 		}
 	}
+	stopPlayer();
 	adaptPlayerVelocity();
 
 	// Collision detection and response (may destroy entities)
@@ -136,30 +149,30 @@ void World::handleCollisions()
 	{
 		
 
-		if (matchesCategories(pair, Category::Player, Category::Log))
-		{
-			auto& player = static_cast<MainChar&>(*pair.first);
-			auto& log = static_cast<Log&>(*pair.second);
+		// if (matchesCategories(pair, Category::Player, Category::Log))
+		// {
+		// 	auto& player = static_cast<MainChar&>(*pair.first);
+		// 	auto& log = static_cast<Log&>(*pair.second);
 			
-			mainChar->setVelocity(log.getVelocity().x, 0);
-			break;
-			// Apply pickup effect to player, destroy projectile
-			// pickup.apply(player);
-			// pickup.destroy();
-		}
-		else if (matchesCategories(pair, Category::Player, Category::River))
-		{
-			auto& player = static_cast<MainChar&>(*pair.first);
-			auto& enemy = static_cast<River&>(*pair.second);
+		// 	mainChar->setVelocity(log.getVelocity().x, 0);
+		// 	break;
+		// 	// Apply pickup effect to player, destroy projectile
+		// 	// pickup.apply(player);
+		// 	// pickup.destroy();
+		// }
+		// else if (matchesCategories(pair, Category::Player, Category::River))
+		// {
+		// 	auto& player = static_cast<MainChar&>(*pair.first);
+		// 	auto& enemy = static_cast<River&>(*pair.second);
 
-			// Collision: Player damage = enemy's remaining HP
-			timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
-			if(timeFromLastInvulnerable > sf::seconds(1)){
-				player.damage(5);
-				invulnerableTime.restart();
-			}
-			// enemy.destroy();
-		}
+		// 	// Collision: Player damage = enemy's remaining HP
+		// 	timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
+		// 	if(timeFromLastInvulnerable > sf::seconds(1)){
+		// 		player.damage(5);
+		// 		invulnerableTime.restart();
+		// 	}
+		// 	// enemy.destroy();
+		// }
 	}
 }
 
@@ -194,9 +207,9 @@ void World::buildScene()
 			mSceneLayers[Title]->attachChild(std::move(x));
 		}
 	}
-	std::unique_ptr<MainChar> character(new MainChar(MainChar::Penguin, mTextures, mFonts));
+	std::unique_ptr<MainChar> character(new MainChar(MainChar::Player1, mTextures, mFonts));
 	mainChar = character.get();
-	character->setPosition(575, mSpawnPosition.y + 75);
+	character->setPosition(lastPosSinceMoving);
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
 
@@ -225,4 +238,13 @@ void World::adaptPlayerVelocity()
 
 	// Add scrolling velocity
 	//mainChar->accelerate(0.f, 100.f);
+}
+
+void World::stopPlayer() {
+	sf::Vector2f newPos = mainChar->getPosition();
+	sf::Vector2f diff = lastPosSinceMoving - newPos;
+	if(diff.y >= Lane::distanceBetweenLane) {
+		mainChar->stop();
+		lastPosSinceMoving = newPos;
+	}
 }

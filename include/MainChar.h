@@ -11,6 +11,7 @@
 class MainChar : public Entity{
 public:
     enum Type{
+        Player1,
         Chicken,
         Penguin,
         Sheep,
@@ -43,12 +44,28 @@ public:
     void				destroy();
     virtual bool		isDestroyed() const;
     
+    void                goUp();
+    void                goDown();
+    void                goLeft();
+    void                goRight();
+    void                stop();
+    
 private: 
     Type mType;
     sf::Sprite mSprite;
     TextNode* mHealthDisplay;
     int mHP;
-    // Animation MovingAnimation;
+
+    const int movingVelocity = 200;
+    Animation upAnimation;
+    Animation downAnimation;
+    Animation leftAnimation;
+    Animation rightAnimation;
+
+    bool isGoingUp;
+    bool isGoingDown;
+    bool isGoingLeft;
+    bool isGoingRight;
     // Animation deathAnimation;
     // Animation healingAnimation;
     // Animation takingDamageAnimation;

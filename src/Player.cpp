@@ -9,24 +9,24 @@ struct MainCharMover
 
 	MainCharMover(Player::Action action) : action(action) {}
 
-	void operator() (MainChar& aircraft, sf::Time) const
+	void operator() (MainChar& mainChar, sf::Time) const
 	{
-		sf::Vector2f pos = aircraft.getPosition();
+		sf::Vector2f pos = mainChar.getPosition();
 		switch(action) {
 		case Player::MoveDown:
-			aircraft.setPosition(pos.x, pos.y + 150);
+			mainChar.setPosition(pos.x, pos.y + 150);
 			break;
 		case Player::MoveUp:
-			aircraft.setPosition(pos.x, pos.y - 150);
+			mainChar.goUp();
 			break;
 		case Player::MoveLeft:
-			aircraft.setPosition(pos.x - 192, pos.y);
+			mainChar.setPosition(pos.x - 192, pos.y);
 			break;
 		case Player::MoveRight:
-			aircraft.setPosition(pos.x + 192, pos.y);
+			mainChar.setPosition(pos.x + 192, pos.y);
 			break;
 		}
-		aircraft.accelerate(velocity);
+		//mainChar.accelerate(velocity);
 	}
 	Player::Action action;
 	sf::Vector2f velocity;
