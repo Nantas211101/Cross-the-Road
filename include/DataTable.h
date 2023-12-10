@@ -10,6 +10,7 @@
 #include "ResourceIdentifiers.h"
 #include "World/Vehicle.h"
 #include "World/Train.h"
+#include "World/Obstacle.h"
 
 struct LogData {
 	float speed;
@@ -17,6 +18,13 @@ struct LogData {
 	Textures::ID texture;
 	sf::Vector2f scaling;
 };
+
+struct ObstacleData {
+	float speed;
+	Textures::ID texture;
+	sf::Vector2f scaling;
+};
+
 struct AnimalData {
 	float speed;
 	int distanceBetweenAnimal;
@@ -50,3 +58,4 @@ std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
 std::vector<VehicleData> initializeVehicleData();
 std::vector<TrainData> initializeTrainData();
+std::vector<ObstacleData> initializeObstacleData();

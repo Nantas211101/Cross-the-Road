@@ -1,29 +1,25 @@
 #pragma once
 
+#include "Lane.h"
 #include "Entity.h"
 #include "../DataTable.h"
 #include "../ResourceIdentifiers.h"
 #include "../ResourceHolder.h"
-#include "Lane.h"
 #include "Obstacle.h"
 
-#include <SFML/Graphics.hpp>
 #include <vector>
+#include <random>
+#include <SFML/Graphics.hpp>
 
 class Ground : public Lane {
     public:
-        enum Type{
-            Grass,
-            Soil,
-            TypeCount
-        };
-        Ground(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround);
-    
+        Ground(TextureHolder* textureHolder, sf::Vector2f spawnPos);
+
     private:
-        void buildLane();
-        void updateCurrent(sf::Time dt);
-    
-    private:
-        Type typeGround;
-        std::vector<Obstacle*> obstacles;
+        virtual void updateCurrent(sf::Time dt) = 0;
+        //virtual void buildLane() = 0;
 };
+
+namespace {
+    const std::vector<ObstacleData> TableObstacle = initializeObstacleData();
+}

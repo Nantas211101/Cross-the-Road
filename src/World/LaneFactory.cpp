@@ -1,5 +1,4 @@
 #include "../../include/World/LaneFactory.h"
-#include "RoadTheme1.h"
 
 LaneFactory::LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos) 
 : lanes()
@@ -42,7 +41,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
 
 void LaneFactory::templateGround(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new Ground(textureHolder, startPos, Ground::Grass));
+        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

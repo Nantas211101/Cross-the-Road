@@ -8,7 +8,7 @@ class RoadTheme1 : public Road {
             VehicleRoad,
             TypeCount
         };
-        RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine, Type typeGround);
+        RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine, Type typeRoad);
 
     private:
         void buildLane();

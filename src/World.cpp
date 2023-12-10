@@ -49,9 +49,14 @@ void World::loadTextures(){
     //mTextures.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
 
 	// Ground
-	mTextures.load(Textures::Obstacle, "../../Media/Textures/Obstacle.png");
     mTextures.load(Textures::Grass, "../../Media/Textures/Ground/Grass.png");
 	mTextures.load(Textures::Soil, "../../Media/Textures/Ground/Soil.png");
+	mTextures.load(Textures::Tree1, "../../Media/Textures/Obstacle/Tree1.png");
+	mTextures.load(Textures::Tree2, "../../Media/Textures/Obstacle/Tree2.png");
+	mTextures.load(Textures::Tree3, "../../Media/Textures/Obstacle/Tree3.png");
+	mTextures.load(Textures::Rock1, "../../Media/Textures/Obstacle/Rock1.png");
+	mTextures.load(Textures::Rock2, "../../Media/Textures/Obstacle/Rock2.png");
+	mTextures.load(Textures::Ruin1, "../../Media/Textures/Obstacle/Ruin1.png");
 	// Railway
 	mTextures.load(Textures::Railway, "../../Media/Textures/Railway.png");
     //mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");

@@ -1,11 +1,16 @@
 #include "../../include/World/Obstacle.h"
 
+namespace{
+    std::vector<ObstacleData> Table = initializeObstacleData();  
+}
 
-Obstacle::Obstacle(const TextureHolder& texture) 
-: sprite(texture.get(Textures::Obstacle)) {
+
+Obstacle::Obstacle(Type type, const TextureHolder& texture) 
+: type(type)
+, sprite(texture.get(Table[type].texture)) {
     sf::FloatRect bounds = sprite.getLocalBounds();
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-    sprite.scale(0.35f,0.35f);
+    sprite.scale(Table[type].scaling);
 }
 
 void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -19,6 +24,10 @@ void Obstacle::updateCurrent(sf::Time dt) {
 
 sf::FloatRect Obstacle::getBoundingRect() const {
     return getWorldTransform().transformRect(sprite.getGlobalBounds());
+}
+
+Obstacle::Type Obstacle::getType() {
+    return type;
 }
 
 // sf::FloatRect* Obstacle::getDangerBound() const {

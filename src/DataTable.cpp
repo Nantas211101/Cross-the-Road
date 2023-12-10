@@ -22,6 +22,34 @@ std::vector<LogData> initializeLogData() {
     data[Log::Crocodile].texture = Textures::Log;
     return data;
 }
+std::vector<ObstacleData> initializeObstacleData() {
+    std::vector<ObstacleData> data(Obstacle::TypeCount);
+    data[Obstacle::Tree1].speed = 0.f;
+    data[Obstacle::Tree1].texture = Textures::Tree1;
+    data[Obstacle::Tree1].scaling = sf::Vector2f(0.6, 0.6);
+
+    data[Obstacle::Tree2].speed = 0.f;
+    data[Obstacle::Tree2].texture = Textures::Tree2;
+    data[Obstacle::Tree2].scaling = sf::Vector2f(0.9, 0.9);
+
+    data[Obstacle::Tree3].speed = 0.f;
+    data[Obstacle::Tree3].texture = Textures::Tree3;
+    data[Obstacle::Tree3].scaling = sf::Vector2f(0.5, 0.5);
+
+    data[Obstacle::Rock1].speed = 0.f;
+    data[Obstacle::Rock1].texture = Textures::Rock1;
+    data[Obstacle::Rock1].scaling = sf::Vector2f(0.35, 0.35);
+
+    data[Obstacle::Rock2].speed = 0.f;
+    data[Obstacle::Rock2].texture = Textures::Rock2;
+    data[Obstacle::Rock2].scaling = sf::Vector2f(0.5, 0.5);
+
+    data[Obstacle::Ruin1].speed = 0.f;
+    data[Obstacle::Ruin1].texture = Textures::Ruin1;
+    data[Obstacle::Ruin1].scaling = sf::Vector2f(0.5, 0.5);
+
+    return data;
+}
 std::vector<AnimalData> initializeAnimalData(){
     std::vector<AnimalData> data(Animal::TypeCount);
     data[Animal::Elephant].speed = 120.f;

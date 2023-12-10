@@ -18,7 +18,12 @@ namespace Textures
 		Ground,
 		Grass,
 		Soil,
-		Obstacle,
+		Tree1,
+		Tree2,
+		Tree3,
+		Rock1,
+		Rock2,
+		Ruin1,
 		
 		// Road
 		Road,
