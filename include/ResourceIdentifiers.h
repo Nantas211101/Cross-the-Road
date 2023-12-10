@@ -17,17 +17,18 @@ namespace Textures
 		// Ground
 		Ground,
 		Grass,
-		Soil,
+		LightGrass,
 		Tree1,
 		Tree2,
 		Tree3,
 		Rock1,
 		Rock2,
 		Ruin1,
-		
+		Ruin2,
 		// Road
 		Road,
 		Road1,
+		Soil,
 		Elephant,
 		Bird,
     	Rhinoceros,

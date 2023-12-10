@@ -48,6 +48,10 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Ruin1].texture = Textures::Ruin1;
     data[Obstacle::Ruin1].scaling = sf::Vector2f(0.5, 0.5);
 
+    data[Obstacle::Ruin2].speed = 0.f;
+    data[Obstacle::Ruin2].texture = Textures::Ruin2;
+    data[Obstacle::Ruin2].scaling = sf::Vector2f(0.5, 0.5);
+
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){
@@ -158,17 +162,17 @@ std::vector<VehicleData> initializeVehicleData(){
 
 std::vector<TrainData> initializeTrainData(){
     std::vector<TrainData> data(Train::TypeCount);
-    data[Train::Train1].speed = 200.f;
+    data[Train::Train1].speed = 700.f;
     data[Train::Train1].texture = Textures::Train1;
-    data[Train::Train1].scaling = sf::Vector2f(0.8, 0.8);
+    data[Train::Train1].scaling = sf::Vector2f(0.7, 0.7);
     
-    data[Train::Train2].speed = 1000.f;
+    data[Train::Train2].speed = 600.f;
     data[Train::Train2].texture = Textures::Train2;
-    data[Train::Train2].scaling = sf::Vector2f(0.9, 0.9);
+    data[Train::Train2].scaling = sf::Vector2f(0.8, 0.8);
     
-    data[Train::Train3].speed = 200.f;
+    data[Train::Train3].speed = 700.f;
     data[Train::Train3].texture = Textures::Train3;
-    data[Train::Train3].scaling = sf::Vector2f(0.9, 0.9);
+    data[Train::Train3].scaling = sf::Vector2f(0.75, 0.75);
 
     return data;
 }

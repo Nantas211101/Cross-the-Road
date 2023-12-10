@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Lane.h"
-#include "Log.h"
+#include "Entity.h"
 #include "../DataTable.h"
 #include "../ResourceIdentifiers.h"
 #include "../ResourceHolder.h"
+#include "Log.h"
 
 #include <vector>
-#include <cmath>
+#include <random>
 #include <SFML/Graphics.hpp>
 
 class River : public Lane {
@@ -15,15 +16,9 @@ class River : public Lane {
         River(TextureHolder* textureHolder, sf::Vector2f spawnPos);
 
     private:
-        void buildLane();
-   
-        void updateCurrent(sf::Time dt);
-        virtual unsigned int getCategory() const;
-        virtual sf::FloatRect getBoundingRect() const;
-
-    private:
-        std::vector<Log*> riverLog;
-        const int numOfLog = 10;
-        int lastLogIndex;
-        int firstLogIndex;
+        virtual void updateCurrent(sf::Time dt) = 0;
 };
+
+namespace {
+    const std::vector<LogData> TableLog = initializeLogData();
+}

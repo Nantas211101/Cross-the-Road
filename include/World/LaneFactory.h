@@ -6,6 +6,7 @@
 #include "Railway.h"
 #include "RoadTheme1.h"
 #include "RoadTheme2.h"
+#include "RiverTheme1.h"
 #include "GroundTheme1.h"
 #include "../ResourceIdentifiers.h"
 #include "../ResourceHolder.h"

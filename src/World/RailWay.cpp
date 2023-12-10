@@ -57,7 +57,7 @@ void Railway::buildLane(){
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
     newTrain->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 
-    newTrain->setPosition(-1500, startPos.y - 120);
+    newTrain->setPosition(-1100, startPos.y - 100);
     this->attachChild(std::move(newTrain));
 }
 

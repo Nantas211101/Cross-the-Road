@@ -17,7 +17,6 @@ class Ground : public Lane {
 
     private:
         virtual void updateCurrent(sf::Time dt) = 0;
-        //virtual void buildLane() = 0;
 };
 
 namespace {
