@@ -7,7 +7,9 @@
 #include "RoadTheme1.h"
 #include "RoadTheme2.h"
 #include "RiverTheme1.h"
+#include "RiverTheme2.h"
 #include "GroundTheme1.h"
+#include "GroundTheme2.h"
 #include "../ResourceIdentifiers.h"
 #include "../ResourceHolder.h"
 

@@ -12,11 +12,14 @@ namespace Textures
 	{
 		// River
 		River,
+		LavaRiver,
 		Log,
+		Log1,
 
 		// Ground
 		Ground,
 		Grass,
+		LavaGround,
 		LightGrass,
 		Tree1,
 		Tree2,
@@ -25,6 +28,7 @@ namespace Textures
 		Rock2,
 		Ruin1,
 		Ruin2,
+		Vocalno,
 		// Road
 		Road,
 		Road1,
@@ -50,6 +54,7 @@ namespace Textures
 
 		// Railway
 		Railway,
+		RailwayLight,
 		Train1,
 		Train2,
 		Train3,

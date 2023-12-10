@@ -46,11 +46,14 @@ void World::loadTextures(){
 
 	// River
 	mTextures.load(Textures::Log, "../../Media/Textures/Log.png");
+	mTextures.load(Textures::Log1, "../../Media/Textures/Log1.png");
     mTextures.load(Textures::River, "../../Media/Textures/River.png");
+	mTextures.load(Textures::LavaRiver, "../../Media/Textures/LavaRiver.png");
     //mTextures.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
 
 	// Ground
     mTextures.load(Textures::Grass, "../../Media/Textures/Ground/Grass.png");
+	mTextures.load(Textures::LavaGround, "../../Media/Textures/Ground/LavaGround.png");
 	mTextures.load(Textures::LightGrass, "../../Media/Textures/Ground/LightGrass.png");
 	mTextures.load(Textures::Tree1, "../../Media/Textures/Obstacle/Tree1.png");
 	mTextures.load(Textures::Tree2, "../../Media/Textures/Obstacle/Tree2.png");
@@ -59,8 +62,10 @@ void World::loadTextures(){
 	mTextures.load(Textures::Rock2, "../../Media/Textures/Obstacle/Rock2.png");
 	mTextures.load(Textures::Ruin1, "../../Media/Textures/Obstacle/Ruin1.png");
 	mTextures.load(Textures::Ruin2, "../../Media/Textures/Obstacle/Ruin2.png");
+	mTextures.load(Textures::Vocalno, "../../Media/Textures/Obstacle/Volcano.png");
 	// Railway
 	mTextures.load(Textures::Railway, "../../Media/Textures/Railway.png");
+	mTextures.load(Textures::RailwayLight, "../../Media/Textures/RailwayLight.png");
     //mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
     mTextures.load(Textures::Train1, "../../Media/Textures/Train1.png");
     mTextures.load(Textures::Train2, "../../Media/Textures/Train2.png");

@@ -25,7 +25,7 @@ void Railway::updateCurrent(sf::Time dt){
         train->setVelocity(0,0);
         break;
     
-    case 2:
+    case 1:
         train->setVelocity(1.0 * TableTrain[train->getType()].speed, 0);
         break;
     }
@@ -69,6 +69,6 @@ void Railway::buildLight(){
     int randomKindVehicle = dist(gen);
     std::unique_ptr<RailwayLight> light(new RailwayLight(*textureHolder));
     railwayLight= light.get();
-    light->setPosition(startPos.x+600,startPos.y + 75);
+    light->setPosition(startPos.x+700,startPos.y + 30);
     this->attachChild(std::move(light));
 }

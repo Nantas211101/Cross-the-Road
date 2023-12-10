@@ -17,6 +17,7 @@ class Obstacle : public Entity {
             Rock2,
             Ruin1,
             Ruin2,
+            Volcano,
             TypeCount
     };
 

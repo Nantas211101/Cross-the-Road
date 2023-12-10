@@ -21,5 +21,5 @@ class RailwayLight: public Entity{
         sf::Sprite sprite;
         sf::FloatRect bounds;
         const float redTime = 1.0f;
-        const float greenTime = 4.0f;
+        const float greenTime = 6.0f;
 };

@@ -5,18 +5,18 @@ std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
     data[Log::Log1].speed = 200.f;
     data[Log::Log1].distanceBetweenLog = 500;
-    data[Log::Log1].texture = Textures::Log;
-    data[Log::Log1].scaling = sf::Vector2f(0.6, 0.3);
+    data[Log::Log1].texture = Textures::Log1;
+    data[Log::Log1].scaling = sf::Vector2f(0.5, 0.6);
 
     data[Log::Log2].speed = 200.f;
     data[Log::Log2].distanceBetweenLog = 850;
-    data[Log::Log2].texture = Textures::Log;
-    data[Log::Log2].scaling = sf::Vector2f(0.9, 0.3);
+    data[Log::Log2].texture = Textures::Log1;
+    data[Log::Log2].scaling = sf::Vector2f(0.5, 0.6);
 
     data[Log::Log3].speed = 200.f;
     data[Log::Log3].distanceBetweenLog = 400;
-    data[Log::Log3].texture = Textures::Log;
-    data[Log::Log3].scaling = sf::Vector2f(0.5, 0.3);
+    data[Log::Log3].texture = Textures::Log1;
+    data[Log::Log3].scaling = sf::Vector2f(0.5, 0.6);
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
@@ -51,6 +51,10 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Ruin2].speed = 0.f;
     data[Obstacle::Ruin2].texture = Textures::Ruin2;
     data[Obstacle::Ruin2].scaling = sf::Vector2f(0.5, 0.5);
+
+    data[Obstacle::Volcano].speed = 0.f;
+    data[Obstacle::Volcano].texture = Textures::Vocalno;
+    data[Obstacle::Volcano].scaling = sf::Vector2f(0.5, 0.5);
 
     return data;
 }
