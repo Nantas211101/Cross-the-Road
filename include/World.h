@@ -33,7 +33,6 @@ class World : private sf::NonCopyable
 		void 								adaptPlayerPosition();
 		void 								adaptPlayerVelocity();
 		void								handleCollisions();
-		void								stopPlayer();
 		
 	private:
 		enum Layer
@@ -53,7 +52,6 @@ class World : private sf::NonCopyable
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
 		CommandQueue						mCommandQueue;
 
-		sf::Vector2f						lastPosSinceMoving;
 		sf::Time							timeToNextInput;
 		sf::Clock							invulnerableTime;
 		sf::Time							timeFromLastInvulnerable;

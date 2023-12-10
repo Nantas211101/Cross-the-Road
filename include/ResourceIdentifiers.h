@@ -49,10 +49,7 @@ namespace Textures
 		Train3,
 
 		// Player
-		Player1Up,
-		Player1Down,
-		Player1Left,
-		Player1Right,
+		Standing1,
 		Up1,
 		Down1,
 		Left1,

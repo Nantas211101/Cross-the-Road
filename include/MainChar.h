@@ -6,6 +6,7 @@
 #include "utility.h"
 #include "Animation.h"
 #include "TextNode.h"
+#include "World/Lane.h"
 #include <string>
 
 class MainChar : public Entity{
@@ -19,6 +20,7 @@ public:
         none,
     };
 
+
 private:
     Type                numToID(int num);
     int                 IDToNum(Type type);
@@ -29,7 +31,7 @@ private:
 
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts);
+    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, sf::Vector2f spawnPos);
     void                changeTexture(bool isIncrease, const TextureHolder& textures);  
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
@@ -50,22 +52,27 @@ public:
     void                goRight();
     void                stop();
     
-private: 
+private:
+    enum State {
+        Up,
+        Down,
+        Right,
+        Left,
+        Standing,
+    };
     Type mType;
     sf::Sprite mSprite;
     TextNode* mHealthDisplay;
     int mHP;
 
-    const int movingVelocity = 200;
+    const int movingVelocity = 350;
     Animation upAnimation;
     Animation downAnimation;
     Animation leftAnimation;
     Animation rightAnimation;
 
-    bool isGoingUp;
-    bool isGoingDown;
-    bool isGoingLeft;
-    bool isGoingRight;
+    State state;
+	sf::Vector2f lastPosSinceMoving;
     // Animation deathAnimation;
     // Animation healingAnimation;
     // Animation takingDamageAnimation;

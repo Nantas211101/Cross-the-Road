@@ -13,17 +13,17 @@ struct MainCharMover
 	{
 		sf::Vector2f pos = mainChar.getPosition();
 		switch(action) {
-		case Player::MoveDown:
-			mainChar.setPosition(pos.x, pos.y + 150);
-			break;
 		case Player::MoveUp:
 			mainChar.goUp();
 			break;
+		case Player::MoveDown:
+			mainChar.goDown();
+			break;
 		case Player::MoveLeft:
-			mainChar.setPosition(pos.x - 192, pos.y);
+			mainChar.goLeft();
 			break;
 		case Player::MoveRight:
-			mainChar.setPosition(pos.x + 192, pos.y);
+			mainChar.goRight();
 			break;
 		}
 		//mainChar.accelerate(velocity);

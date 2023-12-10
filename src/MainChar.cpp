@@ -5,7 +5,7 @@ Textures::ID toTextureID(MainChar::Type type)
     switch (type)
     {
     case MainChar::Player1:
-        return Textures:: Player1Up;
+        return Textures:: Standing1;
     case MainChar::Chicken:
         return Textures::Chicken;
     case MainChar::Penguin:
@@ -22,7 +22,7 @@ MainChar::Type toMainCharID(Textures::ID id)
 {
     switch (id)
     {
-    case Textures::Player1Up:
+    case Textures::Standing1:
         return MainChar::Player1;
     case Textures::Chicken:
         return MainChar::Chicken;
@@ -82,48 +82,84 @@ int MainChar::IDToNum(Type type){
     return 0;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts)
+MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, sf::Vector2f spawnPos)
 : mType(type)
-, mSprite(textures.get(toTextureID(type)))
 , upAnimation(textures.get(Textures::Up1))
 , downAnimation(textures.get(Textures::Down1))
 , leftAnimation(textures.get(Textures::Left1))
 , rightAnimation(textures.get(Textures::Right1))
 , mHP(100)
 , mHealthDisplay(nullptr)
-, isGoingUp(false)
-, isGoingDown(false)
-, isGoingLeft(false)
-, isGoingRight(false)
+, state(State::Standing)
 {
-    mSprite.scale(1, 1);
+    mSprite.setTexture(textures.get(Textures::Standing1));
+    mSprite.setTextureRect(sf::IntRect(0, 0, 239 / 4, 56));
     //centerOrigin(mSprite);
+    
+    lastPosSinceMoving = spawnPos;
+
     std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
 	mHealthDisplay = healthDisplay.get();
 
-    //upAnimation.setOrigin(this->getPosition().x / 2.f, this->getPosition().y / 2.f);
     centerOrigin(upAnimation);
     upAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
 	upAnimation.setNumFrames(4);
-	upAnimation.setDuration(sf::seconds(1));
+	upAnimation.setDuration(sf::seconds(0.5));
+    
+    centerOrigin(downAnimation);
+    downAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
+	downAnimation.setNumFrames(4);
+	downAnimation.setDuration(sf::seconds(0.5));
+    
+    centerOrigin(leftAnimation);
+    leftAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
+	leftAnimation.setNumFrames(4);
+	leftAnimation.setDuration(sf::seconds(0.5));
+
+    centerOrigin(rightAnimation);
+    rightAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
+	rightAnimation.setNumFrames(4);
+	rightAnimation.setDuration(sf::seconds(0.5));
 	
     this->attachChild(std::move(healthDisplay));
     updateTexts();
 }
 
 void MainChar::updateCurrent(sf::Time dt) {
-    if(isGoingUp) {
+    if(state == State::Up) {
         upAnimation.update(dt);
         upAnimation.setRepeating(true);
+        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
     }
+    else if(state == State::Down) {
+        downAnimation.update(dt);
+        downAnimation.setRepeating(true);
+        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
+    }
+    else if(state == State::Left) {
+        leftAnimation.update(dt);
+        leftAnimation.setRepeating(true);
+        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
+    }
+    else if(state == State::Right) {
+        rightAnimation.update(dt);
+        rightAnimation.setRepeating(true);
+        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
+    }
+    stop();
     updateTexts();
     Entity::updateCurrent(dt);
 }
 
 void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
-    if(isGoingUp) {
+    if(state == State::Up)
         target.draw(upAnimation, states);
-    }
+    else if(state == State::Down)
+        target.draw(downAnimation, states);
+    else if(state == State::Left)
+        target.draw(leftAnimation, states);
+    else if(state == State::Right)
+        target.draw(rightAnimation, states);
     else
         target.draw(mSprite, states);
 }
@@ -202,30 +238,36 @@ bool MainChar::isDestroyed() const {
 
 void MainChar::goUp() {
     setVelocity(0, -movingVelocity);
-    isGoingUp = true;
+    state = State::Up;
 }
 
 void MainChar::goDown() {
     setVelocity(0, movingVelocity);
-    isGoingUp = true;
+    state = State::Down;
 }
 
 void MainChar::goLeft() {
     setVelocity(-movingVelocity, 0);
-    isGoingUp = true;
+    state = State::Left;
 }
 
 void MainChar::goRight() {
     setVelocity(movingVelocity, 0);
-    isGoingUp = true;
+    state = State::Right;
 }
 
 void MainChar::stop() {
-    setVelocity(0, 0);
-    isGoingUp = false;
-    isGoingDown = false;
-    isGoingLeft = false;
-    isGoingRight = false;
+	sf::Vector2f newPos = getPosition();
+	sf::Vector2f diff = lastPosSinceMoving - newPos;
+	if(diff.y >= Lane::distanceBetweenLane ||
+       diff.y <= -Lane::distanceBetweenLane || 
+       diff.x >= 150 ||
+       diff.x <= -150) 
+    {
+        state = State::Standing;
+        setVelocity(0, 0);
+		lastPosSinceMoving = newPos;
+	}
 }
 
 void MainChar::updateTexts()

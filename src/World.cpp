@@ -11,7 +11,6 @@ World::World(sf::RenderWindow& window)
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 {
-	lastPosSinceMoving = mSpawnPosition;
 
 	mFonts.load(Fonts::Main, "../../Media/Sansation.ttf");
 	loadTextures();
@@ -61,10 +60,7 @@ void World::loadTextures(){
     mTextures.load(Textures::Train3, "../../Media/Textures/Train3.png");
 
 	// Player
-	mTextures.load(Textures::Player1Up, "../../Media/Textures/Player/Player1/Player1Up.png");
-	mTextures.load(Textures::Player1Down, "../../Media/Textures/Player/Player1/Player1Down.png");
-	mTextures.load(Textures::Player1Left, "../../Media/Textures/Player/Player1/Player1Left.png");
-	mTextures.load(Textures::Player1Right, "../../Media/Textures/Player/Player1/Player1Right.png");
+	mTextures.load(Textures::Standing1, "../../Media/Textures/Player/Player1/Standing.png");
 	mTextures.load(Textures::Up1, "../../Media/Textures/Player/Player1/Up.png");
 	mTextures.load(Textures::Down1, "../../Media/Textures/Player/Player1/Down.png");
 	mTextures.load(Textures::Left1, "../../Media/Textures/Player/Player1/Left.png");
@@ -89,8 +85,7 @@ void World::update(sf::Time dt)
 		sf::Vector2f playerPos = mainChar->getPosition();
 		sf::Vector2f mid = viewSize / 2.f;
 		sf::Vector2f diffPos = playerPos - mid;
-		lastPosSinceMoving = mSpawnPosition + diffPos;
-		mainChar->setPosition(lastPosSinceMoving);
+		mainChar->setPosition(mSpawnPosition + diffPos);
 		mWorldView.setCenter(mSpawnPosition);
 	}
 
@@ -99,7 +94,7 @@ void World::update(sf::Time dt)
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
 	timeToNextInput += dt;
 	while (!mCommandQueue.isEmpty()){
-		if(timeToNextInput > sf::seconds(0.3)) {
+		if(timeToNextInput > sf::seconds(0.4)) {
 			mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 			timeToNextInput = sf::Time::Zero;
 		}
@@ -107,7 +102,6 @@ void World::update(sf::Time dt)
 			mCommandQueue.pop();
 		}
 	}
-	stopPlayer();
 	adaptPlayerVelocity();
 
 	// Collision detection and response (may destroy entities)
@@ -207,9 +201,9 @@ void World::buildScene()
 			mSceneLayers[Title]->attachChild(std::move(x));
 		}
 	}
-	std::unique_ptr<MainChar> character(new MainChar(MainChar::Player1, mTextures, mFonts));
+	std::unique_ptr<MainChar> character(new MainChar(MainChar::Player1, mTextures, mFonts, mSpawnPosition));
 	mainChar = character.get();
-	character->setPosition(lastPosSinceMoving);
+	character->setPosition(mSpawnPosition);
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
 
@@ -238,13 +232,4 @@ void World::adaptPlayerVelocity()
 
 	// Add scrolling velocity
 	//mainChar->accelerate(0.f, 100.f);
-}
-
-void World::stopPlayer() {
-	sf::Vector2f newPos = mainChar->getPosition();
-	sf::Vector2f diff = lastPosSinceMoving - newPos;
-	if(diff.y >= Lane::distanceBetweenLane) {
-		mainChar->stop();
-		lastPosSinceMoving = newPos;
-	}
 }
