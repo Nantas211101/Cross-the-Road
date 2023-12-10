@@ -5,7 +5,7 @@ Obstacle::Obstacle(const TextureHolder& texture)
 : sprite(texture.get(Textures::Obstacle)) {
     sf::FloatRect bounds = sprite.getLocalBounds();
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-    sprite.scale(0.5f,0.5f);
+    sprite.scale(0.35f,0.35f);
 }
 
 void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {

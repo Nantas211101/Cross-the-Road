@@ -1,10 +1,20 @@
 #include "../../include/World/RoadTheme1.h"
 
-RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine)
-:Road(textureHolder, spawnPos)
+RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine, Type typeRoad)
+:Road(textureHolder, spawnPos),
+typeRoad(typeRoad)
 {
-    if (checkLine == 0) sprite.setTexture(textureHolder->get(Textures::Road));
-    else sprite.setTexture(textureHolder->get(Textures::Road1));
+    switch (this->typeRoad){
+        case RoadTheme1::AnimalRoad:
+            textureHolder->get(Textures::Soil).setRepeated(true);
+            sprite.setTexture(textureHolder->get(Textures::Soil));
+            break;
+        case RoadTheme1::VehicleRoad:
+            if (checkLine == 0) sprite.setTexture(textureHolder->get(Textures::Road));
+            else sprite.setTexture(textureHolder->get(Textures::Road1));
+            break;
+    }
+
     sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
@@ -15,17 +25,15 @@ RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
 void RoadTheme1::buildLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(0, TypeCount-1);
-    int randTypeRoad = dist(gen);
-    switch(randTypeRoad){
-        case 0:
-            typeRoad = RoadTheme1::VehicleRoad;
+    std::uniform_int_distribution<int> dist(0, 1);
+    switch(typeRoad){
+        case RoadTheme1::VehicleRoad:
             hasTraffic = dist(gen);
             if(hasTraffic)
                 buildTraffic();
             generateVehicle();
             break;
-        case 1:
+        case RoadTheme1::AnimalRoad:
             generateAnimal();
             break;
     }
@@ -52,6 +60,7 @@ void RoadTheme1::generateAnimal(){
     default:
         break;
     }
+    
     std::uniform_int_distribution<int> dist2(0, 199);
     int randSpawnPos = dist2(gen);
 
@@ -120,7 +129,7 @@ void RoadTheme1::generateVehicle(){
             vehicle->setVelocity(-1.0 * TableVehicle[kind].speed, 0);
             vehicle->scale(-TableVehicle[kind].scaling.x,TableVehicle[kind].scaling.y);
         }
-        vehicle->setPosition(startPos.x + randSpawnPos + distance, startPos.y + 75);
+        vehicle->setPosition(startPos.x + randSpawnPos + distance, startPos.y + 42);
         distance += TableVehicle[kind].distanceBetweenVehicle;
         vehicles.push_back(vehicle.get());
         this->attachChild(std::move(vehicle));

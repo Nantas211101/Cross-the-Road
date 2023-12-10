@@ -4,19 +4,19 @@
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
     data[Log::Log1].speed = 200.f;
-    data[Log::Log1].distanceBetweenLog = 600;
+    data[Log::Log1].distanceBetweenLog = 500;
     data[Log::Log1].texture = Textures::Log;
-    data[Log::Log1].scaling = sf::Vector2f(0.8, 0.4);
+    data[Log::Log1].scaling = sf::Vector2f(0.6, 0.3);
 
     data[Log::Log2].speed = 200.f;
-    data[Log::Log2].distanceBetweenLog = 1000;
+    data[Log::Log2].distanceBetweenLog = 850;
     data[Log::Log2].texture = Textures::Log;
-    data[Log::Log2].scaling = sf::Vector2f(1.2, 0.4);
+    data[Log::Log2].scaling = sf::Vector2f(0.9, 0.3);
 
     data[Log::Log3].speed = 200.f;
-    data[Log::Log3].distanceBetweenLog = 500;
+    data[Log::Log3].distanceBetweenLog = 400;
     data[Log::Log3].texture = Textures::Log;
-    data[Log::Log3].scaling = sf::Vector2f(0.6, 0.4);
+    data[Log::Log3].scaling = sf::Vector2f(0.5, 0.3);
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
@@ -27,10 +27,18 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Elephant].speed = 120.f;
     data[Animal::Elephant].distanceBetweenAnimal = 600;
     data[Animal::Elephant].texture = Textures::Elephant;
-    data[Animal::Elephant].scaling = sf::Vector2f(1.6, 1.6);
+    data[Animal::Elephant].scaling = sf::Vector2f(1.25, 1.25);
     data[Animal::Elephant].numOfFrames = 3;
     data[Animal::Elephant].pictureWidth = 288;
     data[Animal::Elephant].pictureHeight = 79;
+
+    data[Animal::Cow].speed = 120.f;
+    data[Animal::Cow].distanceBetweenAnimal = 500;
+    data[Animal::Cow].texture = Textures::Cow;
+    data[Animal::Cow].scaling = sf::Vector2f(0.35, 0.35);
+    data[Animal::Cow].numOfFrames = 4;
+    data[Animal::Cow].pictureWidth = 1075;
+    data[Animal::Cow].pictureHeight = 191;
 
     data[Animal::Small_Dragon].speed = 260.f;
     data[Animal::Small_Dragon].distanceBetweenAnimal = 500;
@@ -39,14 +47,6 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Small_Dragon].numOfFrames = 3;
     data[Animal::Small_Dragon].pictureWidth = 192;
     data[Animal::Small_Dragon].pictureHeight = 66;
-
-    data[Animal::Cow].speed = 120.f;
-    data[Animal::Cow].distanceBetweenAnimal = 500;
-    data[Animal::Cow].texture = Textures::Cow;
-    data[Animal::Cow].scaling = sf::Vector2f(0.4, 0.4);
-    data[Animal::Cow].numOfFrames = 4;
-    data[Animal::Cow].pictureWidth = 1075;
-    data[Animal::Cow].pictureHeight = 191;
 
     data[Animal::Green_Dragon].speed = 180.f;
     data[Animal::Green_Dragon].distanceBetweenAnimal = 800;
@@ -88,43 +88,42 @@ std::vector<VehicleData> initializeVehicleData(){
     data[Vehicle::Truck].speed = 400.f;
     data[Vehicle::Truck].distanceBetweenVehicle = 800;
     data[Vehicle::Truck].texture = Textures::Truck;
-    data[Vehicle::Truck].scaling = sf::Vector2f(1.3, 1.3);
+    data[Vehicle::Truck].scaling = sf::Vector2f(0.8, 0.8);
     
-
     data[Vehicle::BlueCar].speed = 300.f;
     data[Vehicle::BlueCar].distanceBetweenVehicle = 600;
     data[Vehicle::BlueCar].texture = Textures::BlueCar;
-    data[Vehicle::BlueCar].scaling = sf::Vector2f(1.3,1.3);
+    data[Vehicle::BlueCar].scaling = sf::Vector2f(1.2,1.2);
 
     data[Vehicle::SmallCar].speed = 300.f;
     data[Vehicle::SmallCar].distanceBetweenVehicle = 600;
     data[Vehicle::SmallCar].texture = Textures::SmallCar;
-    data[Vehicle::SmallCar].scaling = sf::Vector2f(1.3,1.3);
+    data[Vehicle::SmallCar].scaling = sf::Vector2f(1.15,1.15);
 
     data[Vehicle::Ambulance].speed = 1200.f;
     data[Vehicle::Ambulance].distanceBetweenVehicle = 1500;
     data[Vehicle::Ambulance].texture = Textures::Ambulance;
-    data[Vehicle::Ambulance].scaling = sf::Vector2f(1.3,1.3);
+    data[Vehicle::Ambulance].scaling = sf::Vector2f(1.2,1.2);
 
     data[Vehicle::PoliceCar].speed = 1200.f;
     data[Vehicle::PoliceCar].distanceBetweenVehicle = 1500;
     data[Vehicle::PoliceCar].texture = Textures::PoliceCar;
-    data[Vehicle::PoliceCar].scaling = sf::Vector2f(0.4,0.4);
+    data[Vehicle::PoliceCar].scaling = sf::Vector2f(0.25,0.25);
 
     data[Vehicle::YellowCar].speed = 200.f;
     data[Vehicle::YellowCar].distanceBetweenVehicle = 520;
     data[Vehicle::YellowCar].texture = Textures::YellowCar;
-    data[Vehicle::YellowCar].scaling = sf::Vector2f(1.3,1.3);
+    data[Vehicle::YellowCar].scaling = sf::Vector2f(1.1,1.1);
 
     data[Vehicle::OldCar].speed = 0.f;
     data[Vehicle::OldCar].distanceBetweenVehicle = 250;
     data[Vehicle::OldCar].texture = Textures::OldCar;
-    data[Vehicle::OldCar].scaling = sf::Vector2f(1.3,1.3);
+    data[Vehicle::OldCar].scaling = sf::Vector2f(1.1,1.1);
 
     data[Vehicle::SuperCar].speed = 900.f;
     data[Vehicle::SuperCar].distanceBetweenVehicle = 1000;
     data[Vehicle::SuperCar].texture = Textures::SuperCar;
-    data[Vehicle::SuperCar].scaling = sf::Vector2f(1.3,1.3);
+    data[Vehicle::SuperCar].scaling = sf::Vector2f(1.2,1.2);
 
     return data;
 }

@@ -30,7 +30,7 @@ void Ground::buildLane() {
         std::unique_ptr<Obstacle> obstacle(new Obstacle(*textureHolder));
         obstacles.push_back(obstacle.get());
         int randNum = rand() % 10;
-        obstacle->setPosition( randNum * 192 + obstacle->getBoundingRect().width/2 , startPos.y + 75);
+        obstacle->setPosition( randNum * 192 + obstacle->getBoundingRect().width/2 , startPos.y);
         this->attachChild(std::move(obstacle));
     }
 }

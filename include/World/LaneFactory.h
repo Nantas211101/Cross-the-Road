@@ -21,6 +21,7 @@ private:
 
     void templateGround(int num);
     void templateRoad(int num);
+    void templateAnimalRoad(int num);
     void templateRiver(int num);
     void templateRailway(int num);
 
