@@ -176,3 +176,36 @@ std::vector<TrainData> initializeTrainData(){
 
     return data;
 }
+
+std::vector<CharData> initializeCharData() {
+    std::vector<CharData> data(MainChar::TypeCount);
+    data[MainChar::Player1].hitpoints = 100;
+    data[MainChar::Player1].speed = 300.f;
+    data[MainChar::Player1].texture = Textures::Standing1;
+    data[MainChar::Player1].upTexture = Textures::Up1;
+    data[MainChar::Player1].downTexture = Textures::Down1;
+    data[MainChar::Player1].leftTexture = Textures::Left1;
+    data[MainChar::Player1].rightTexture = Textures::Right1;
+    data[MainChar::Player1].pictureHeight = 56;
+    data[MainChar::Player1].pictureWidth = 256;
+    data[MainChar::Player1].numOfFrames = 4;
+    data[MainChar::Player1].timeEachFrame = 0.4;
+
+    data[MainChar::Chicken].hitpoints = 100;
+    data[MainChar::Chicken].speed = 200.f;
+    data[MainChar::Chicken].texture = Textures::Chicken;
+
+    data[MainChar::Penguin].hitpoints = 150;
+    data[MainChar::Penguin].speed = 200.f;
+    data[MainChar::Penguin].texture = Textures::Penguin;
+
+    data[MainChar::Sheep].hitpoints = 300;
+    data[MainChar::Sheep].speed = 150.f;
+    data[MainChar::Sheep].texture = Textures::Sheep;
+
+    data[MainChar::Mallard].hitpoints = 250;
+    data[MainChar::Mallard].speed = 200.f;
+    data[MainChar::Mallard].texture = Textures::Mallard;
+
+    return data;
+}

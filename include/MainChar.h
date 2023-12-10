@@ -7,6 +7,7 @@
 #include "Animation.h"
 #include "TextNode.h"
 #include "World/Lane.h"
+#include "DataTable.h"
 #include <string>
 
 class MainChar : public Entity{
@@ -18,6 +19,7 @@ public:
         Sheep,
         Mallard,
         none,
+        TypeCount
     };
 
 
@@ -51,6 +53,7 @@ public:
     void                goLeft();
     void                goRight();
     void                stop();
+    bool                isStanding();
     
 private:
     enum State {

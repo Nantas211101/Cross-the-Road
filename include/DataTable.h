@@ -11,6 +11,7 @@
 #include "World/Vehicle.h"
 #include "World/Train.h"
 #include "World/Obstacle.h"
+#include "MainChar.h"
 
 struct LogData {
 	float speed;
@@ -53,9 +54,24 @@ struct LaneData {
 	Textures::ID texture;
 };
 
+struct CharData {
+    int hitpoints;
+    float speed;
+    Textures::ID texture;
+    Textures::ID upTexture;
+    Textures::ID downTexture;
+    Textures::ID leftTexture;
+    Textures::ID rightTexture;
+	int pictureWidth;
+	int pictureHeight;
+	int numOfFrames;
+	float timeEachFrame;
+};
+
 
 std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
 std::vector<VehicleData> initializeVehicleData();
 std::vector<TrainData> initializeTrainData();
 std::vector<ObstacleData> initializeObstacleData();
+std::vector<CharData> initializeCharData();

@@ -1,21 +1,7 @@
 #include "../include/MainChar.h"
 
-Textures::ID toTextureID(MainChar::Type type)
-{
-    switch (type)
-    {
-    case MainChar::Player1:
-        return Textures:: Standing1;
-    case MainChar::Chicken:
-        return Textures::Chicken;
-    case MainChar::Penguin:
-        return Textures::Penguin;
-    case MainChar::Sheep:
-        return Textures::Sheep;
-    case MainChar::Mallard:
-        return Textures::Mallard;
-    }
-    return Textures::none;
+namespace {
+    const std::vector<CharData> Table = initializeCharData();
 }
 
 MainChar::Type toMainCharID(Textures::ID id)
@@ -84,16 +70,18 @@ int MainChar::IDToNum(Type type){
 
 MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, sf::Vector2f spawnPos)
 : mType(type)
-, upAnimation(textures.get(Textures::Up1))
-, downAnimation(textures.get(Textures::Down1))
-, leftAnimation(textures.get(Textures::Left1))
-, rightAnimation(textures.get(Textures::Right1))
-, mHP(100)
+, upAnimation(textures.get(Table[type].upTexture))
+, downAnimation(textures.get(Table[type].downTexture))
+, leftAnimation(textures.get(Table[type].leftTexture))
+, rightAnimation(textures.get(Table[type].rightTexture))
+, mHP(Table[type].hitpoints)
 , mHealthDisplay(nullptr)
 , state(State::Standing)
 {
+    int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
+    int frameHeight = Table[type].pictureHeight;
     mSprite.setTexture(textures.get(Textures::Standing1));
-    mSprite.setTextureRect(sf::IntRect(0, 0, 239 / 4, 56));
+    mSprite.setTextureRect(sf::IntRect(0, 0, frameWidth, frameHeight));
     //centerOrigin(mSprite);
     
     lastPosSinceMoving = spawnPos;
@@ -101,50 +89,52 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
     std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
 	mHealthDisplay = healthDisplay.get();
 
-    centerOrigin(upAnimation);
-    upAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
-	upAnimation.setNumFrames(4);
-	upAnimation.setDuration(sf::seconds(0.5));
+    //centerOrigin(upAnimation);
+    upAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	upAnimation.setNumFrames(Table[type].numOfFrames);
+	upAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
     
     centerOrigin(downAnimation);
-    downAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
-	downAnimation.setNumFrames(4);
-	downAnimation.setDuration(sf::seconds(0.5));
+    downAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	downAnimation.setNumFrames(Table[type].numOfFrames);
+	downAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
     
     centerOrigin(leftAnimation);
-    leftAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
-	leftAnimation.setNumFrames(4);
-	leftAnimation.setDuration(sf::seconds(0.5));
+    leftAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	leftAnimation.setNumFrames(Table[type].numOfFrames);
+	leftAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
 
     centerOrigin(rightAnimation);
-    rightAnimation.setFrameSize(sf::Vector2i(256 / 4, 56));
-	rightAnimation.setNumFrames(4);
-	rightAnimation.setDuration(sf::seconds(0.5));
+    rightAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	rightAnimation.setNumFrames(Table[type].numOfFrames);
+	rightAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
 	
     this->attachChild(std::move(healthDisplay));
     updateTexts();
 }
 
 void MainChar::updateCurrent(sf::Time dt) {
+    int frameWidth = Table[mType].pictureWidth / Table[mType].numOfFrames;
+    int frameHeight = Table[mType].pictureHeight;
     if(state == State::Up) {
         upAnimation.update(dt);
         upAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
+        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
     else if(state == State::Down) {
         downAnimation.update(dt);
         downAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
+        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
     else if(state == State::Left) {
         leftAnimation.update(dt);
         leftAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
+        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
     else if(state == State::Right) {
         rightAnimation.update(dt);
         rightAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(239 / 4 * state, 0, 239 / 4, 56));
+        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
     stop();
     updateTexts();
@@ -172,7 +162,7 @@ void MainChar::changeTexture(bool isIncrease, const TextureHolder& textures){
         --id;
     id = (id + 4) % 4;
     mType = numToID(id);
-    mSprite = sf::Sprite(textures.get(toTextureID(mType)));
+    mSprite = sf::Sprite(textures.get(Table[mType].texture));
     centerOrigin(mSprite);
 }
 
@@ -189,7 +179,7 @@ auto MainChar::getTextureType() -> MainChar::Type{
 }
 
 Textures::ID MainChar::getTextureID(){
-    return toTextureID(mType);
+    return Table[mType].texture;
 }
 
 unsigned int MainChar::getCategory() const
@@ -259,15 +249,21 @@ void MainChar::goRight() {
 void MainChar::stop() {
 	sf::Vector2f newPos = getPosition();
 	sf::Vector2f diff = lastPosSinceMoving - newPos;
-	if(diff.y >= Lane::distanceBetweenLane ||
-       diff.y <= -Lane::distanceBetweenLane || 
-       diff.x >= 150 ||
-       diff.x <= -150) 
+	if(diff.y >= Lane::distanceBetweenLane - 5 ||
+       diff.y <= -Lane::distanceBetweenLane + 5 || 
+       diff.x >= Lane::distanceBetweenTile - 5 ||
+       diff.x <= -Lane::distanceBetweenTile + 5) 
     {
         state = State::Standing;
         setVelocity(0, 0);
 		lastPosSinceMoving = newPos;
 	}
+}
+
+bool MainChar::isStanding() {
+    if(state == State::Standing)
+        return true;
+    return false;
 }
 
 void MainChar::updateTexts()

@@ -101,7 +101,7 @@ void World::update(sf::Time dt)
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
 	timeToNextInput += dt;
 	while (!mCommandQueue.isEmpty()){
-		if(timeToNextInput > sf::seconds(0.4)) {
+		if(mainChar->isStanding()) {
 			mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 			timeToNextInput = sf::Time::Zero;
 		}
@@ -148,19 +148,18 @@ void World::handleCollisions()
 
 	for(SceneNode::Pair pair : collisionPairs)
 	{
-		
-
-		// if (matchesCategories(pair, Category::Player, Category::Log))
-		// {
-		// 	auto& player = static_cast<MainChar&>(*pair.first);
-		// 	auto& log = static_cast<Log&>(*pair.second);
+		if (matchesCategories(pair, Category::Player, Category::Log))
+		{
+			auto& player = static_cast<MainChar&>(*pair.first);
+			auto& log = static_cast<Log&>(*pair.second);
 			
-		// 	mainChar->setVelocity(log.getVelocity().x, 0);
-		// 	break;
-		// 	// Apply pickup effect to player, destroy projectile
-		// 	// pickup.apply(player);
-		// 	// pickup.destroy();
-		// }
+			if(mainChar->isStanding())
+				mainChar->setVelocity(log.getVelocity().x, 0);
+			break;
+			// Apply pickup effect to player, destroy projectile
+			// pickup.apply(player);
+			// pickup.destroy();
+		}
 		// else if (matchesCategories(pair, Category::Player, Category::River))
 		// {
 		// 	auto& player = static_cast<MainChar&>(*pair.first);
