@@ -31,6 +31,7 @@ private:
     void                updateTexts();
     void                updateCurrent(sf::Time dt);
 
+    void                makeStop();
 
 public:
     explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, sf::Vector2f spawnPos);
@@ -52,8 +53,9 @@ public:
     void                goDown();
     void                goLeft();
     void                goRight();
-    void                stop();
+    void                stopMoving();
     bool                isStanding();
+    sf::Vector2f        getLastPos();
     
 private:
     enum State {

@@ -26,6 +26,7 @@ class Obstacle : public Entity {
         virtual sf::FloatRect getBoundingRect() const;
         sf::FloatRect* getDangerBound() const;
         Type getType();
+        virtual unsigned int getCategory() const;
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);

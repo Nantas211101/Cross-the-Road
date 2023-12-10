@@ -19,7 +19,7 @@ class Lane : public SceneNode {
         Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos);
         bool isReverse();
         static const int distanceBetweenLane = 100;
-        static const int distanceBetweenTile = 150;
+        static const int distanceBetweenTile = 100;
         
     private:
         void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

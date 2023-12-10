@@ -136,9 +136,22 @@ void MainChar::updateCurrent(sf::Time dt) {
         rightAnimation.setRepeating(true);
         mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
-    stop();
+    makeStop();
     updateTexts();
     Entity::updateCurrent(dt);
+}
+
+void MainChar::makeStop() {
+	sf::Vector2f newPos = getPosition();
+	sf::Vector2f diff = lastPosSinceMoving - newPos;
+	if(diff.y >= Lane::distanceBetweenLane - 5 ||
+       diff.y <= -Lane::distanceBetweenLane + 5 || 
+       diff.x >= Lane::distanceBetweenTile - 5 ||
+       diff.x <= -Lane::distanceBetweenTile + 5) 
+    {
+        stopMoving();
+        lastPosSinceMoving = newPos;
+	}
 }
 
 void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -246,24 +259,19 @@ void MainChar::goRight() {
     state = State::Right;
 }
 
-void MainChar::stop() {
-	sf::Vector2f newPos = getPosition();
-	sf::Vector2f diff = lastPosSinceMoving - newPos;
-	if(diff.y >= Lane::distanceBetweenLane - 5 ||
-       diff.y <= -Lane::distanceBetweenLane + 5 || 
-       diff.x >= Lane::distanceBetweenTile - 5 ||
-       diff.x <= -Lane::distanceBetweenTile + 5) 
-    {
-        state = State::Standing;
-        setVelocity(0, 0);
-		lastPosSinceMoving = newPos;
-	}
+void MainChar::stopMoving() {
+    state = State::Standing;
+    setVelocity(0, 0);
 }
 
 bool MainChar::isStanding() {
     if(state == State::Standing)
         return true;
     return false;
+}
+
+sf::Vector2f MainChar::getLastPos() {
+    return lastPosSinceMoving;
 }
 
 void MainChar::updateTexts()

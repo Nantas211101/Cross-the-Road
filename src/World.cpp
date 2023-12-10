@@ -165,19 +165,28 @@ void World::handleCollisions()
 			// pickup.apply(player);
 			// pickup.destroy();
 		}
-		// else if (matchesCategories(pair, Category::Player, Category::River))
-		// {
-		// 	auto& player = static_cast<MainChar&>(*pair.first);
-		// 	auto& enemy = static_cast<River&>(*pair.second);
+		else if (matchesCategories(pair, Category::Player, Category::River))
+		{
+			auto& player = static_cast<MainChar&>(*pair.first);
+			auto& enemy = static_cast<River&>(*pair.second);
 
-		// 	// Collision: Player damage = enemy's remaining HP
-		// 	timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
-		// 	if(timeFromLastInvulnerable > sf::seconds(1)){
-		// 		player.damage(5);
-		// 		invulnerableTime.restart();
-		// 	}
-		// 	// enemy.destroy();
-		// }
+			// Collision: Player damage = enemy's remaining HP
+			timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
+			if(timeFromLastInvulnerable > sf::seconds(0.5)){
+				player.damage(5);
+				invulnerableTime.restart();
+			}
+			// enemy.destroy();
+		}
+		else if (matchesCategories(pair, Category::Player, Category::Obstacle))
+		{
+			auto& player = static_cast<MainChar&>(*pair.first);
+			auto& block = static_cast<Obstacle&>(*pair.second);
+
+			// Collision: Player damage = enemy's remaining HP
+			mainChar->setPosition(mainChar->getLastPos());
+			mainChar->stopMoving();
+		}
 	}
 }
 
