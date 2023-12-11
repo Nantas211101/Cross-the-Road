@@ -54,7 +54,7 @@ std::vector<ObstacleData> initializeObstacleData() {
 
     data[Obstacle::Volcano].speed = 0.f;
     data[Obstacle::Volcano].texture = Textures::Vocalno;
-    data[Obstacle::Volcano].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::Volcano].scaling = sf::Vector2f(0.35, 0.35);
 
     return data;
 }
@@ -115,6 +115,14 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Rhinoceros].numOfFrames = 4;
     data[Animal::Rhinoceros].pictureWidth = 615;
     data[Animal::Rhinoceros].pictureHeight = 90;
+
+    data[Animal::Monster1].speed = 150.f;
+    data[Animal::Monster1].distanceBetweenAnimal = 1000;
+    data[Animal::Monster1].texture = Textures::Monster1;
+    data[Animal::Monster1].scaling = sf::Vector2f(0.6, 0.6);
+    data[Animal::Monster1].numOfFrames = 11;
+    data[Animal::Monster1].pictureWidth = 4019;
+    data[Animal::Monster1].pictureHeight = 394;    
 
     return data;
 }

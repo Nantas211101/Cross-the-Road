@@ -41,7 +41,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::randomTemplateLane() {
 
 void LaneFactory::templateGround(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass));
+        std::unique_ptr<Lane> lane(new GroundTheme2(textureHolder, startPos, GroundTheme2::Lava));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -52,7 +52,7 @@ void LaneFactory::templateRoad(int num) {
     for(int i = 0; i < num; i++) {
         bool checkLine = 1;
         if (num == 1 || i == num - 1) checkLine = 0;
-        std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine, RoadTheme1::VehicleRoad));
+        std::unique_ptr<Lane> lane(new RoadTheme2(textureHolder, startPos, checkLine));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -62,7 +62,7 @@ void LaneFactory::templateRoad(int num) {
 void LaneFactory::templateAnimalRoad(int num) {
     for(int i = 0; i < num; i++) {
         bool checkLine = 0;
-        std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine, RoadTheme1::AnimalRoad));
+        std::unique_ptr<Lane> lane(new RoadTheme2(textureHolder, startPos, checkLine));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -71,7 +71,7 @@ void LaneFactory::templateAnimalRoad(int num) {
 
 void LaneFactory::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new RiverTheme1(textureHolder, startPos));
+        std::unique_ptr<Lane> lane(new RiverTheme2(textureHolder, startPos));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

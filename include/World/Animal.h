@@ -21,6 +21,7 @@ class Animal:public Entity{
         Blue_Twin_Head_Dragon,
         //Buffalo,
         //Hippo,
+        Monster1,
        
         TypeCount
     };

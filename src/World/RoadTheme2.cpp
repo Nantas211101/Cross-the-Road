@@ -3,8 +3,8 @@
 RoadTheme2::RoadTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine)
 :Road(textureHolder, spawnPos)
 {
-    if (checkLine == 0) sprite.setTexture(textureHolder->get(Textures::Road));
-    else sprite.setTexture(textureHolder->get(Textures::Road1));
+    textureHolder->get(Textures::LavaRoad).setRepeated(true);
+    sprite.setTexture(textureHolder->get(Textures::LavaRoad));
     sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
@@ -37,7 +37,7 @@ void RoadTheme2::generateAnimal(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(0, 3);
+    std::uniform_int_distribution<int> dist(4, 4);
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
 
@@ -53,6 +53,9 @@ void RoadTheme2::generateAnimal(){
         break;
     case 3:
         kind = Animal::Blue_Twin_Head_Dragon;
+        break;
+    case 4:
+        kind = Animal::Monster1;
         break;
     default:
         break;

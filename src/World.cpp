@@ -23,6 +23,7 @@ World::World(sf::RenderWindow& window)
 void World::loadTextures(){
 	// Road
     mTextures.load(Textures::Road, "../../Media/Textures/Road/Road.png");
+	mTextures.load(Textures::LavaRoad, "../../Media/Textures/Road/LavaRoad.png");
 	mTextures.load(Textures::Road1, "../../Media/Textures/Road/Road1.png");
 	mTextures.load(Textures::Soil, "../../Media/Textures/Road/Soil.png");
 
@@ -33,7 +34,8 @@ void World::loadTextures(){
     mTextures.load(Textures::Red_Dragon, "../../Media/Textures/Animal/Red_Dragon.png");
     mTextures.load(Textures::Green_Dragon, "../../Media/Textures/Animal/Green_Dragon.png");
     mTextures.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Animal/Blue_Twin_Head_Dragon.png");
-    
+    mTextures.load(Textures::Monster1, "../../Media/Textures/Animal/Monster1.png");
+
     mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
     mTextures.load(Textures::Truck, "../../Media/Textures/Vehicle/Truck.png");
     mTextures.load(Textures::Ambulance, "../../Media/Textures/Vehicle/Ambulance.png");

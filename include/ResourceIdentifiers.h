@@ -32,6 +32,7 @@ namespace Textures
 		// Road
 		Road,
 		Road1,
+		LavaRoad,
 		Soil,
 		Elephant,
 		Bird,
@@ -41,6 +42,7 @@ namespace Textures
     	Green_Dragon,
     	Red_Dragon,
     	Blue_Twin_Head_Dragon,
+		Monster1,
 
 		Traffic,
         Truck,
