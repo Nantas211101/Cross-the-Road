@@ -62,6 +62,15 @@ namespace Textures
 		Train2,
 		Train3,
 		Train4,
+
+		//Decorator
+		DecoTree1,
+		DecoTree2,
+		DecoFlower1,
+        DecoRock1,
+		DecoRock2,
+		DecoFire1,
+		DecoFire2,
 		
 		// Player
 		Standing1,

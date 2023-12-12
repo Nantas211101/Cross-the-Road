@@ -1,4 +1,5 @@
-#include <DataTable.h>
+#include "../include/DataTable.h"
+#include "ResourceIdentifiers.h"
 
 
 std::vector<LogData> initializeLogData() {
@@ -246,6 +247,21 @@ std::vector<TrainData> initializeTrainData(){
     data[Train::Train4].texture = Textures::Train4;
     data[Train::Train4].scaling = sf::Vector2f(0.8, 0.8);
 
+    return data;
+}
+std::vector<DecoratorData> initializeDecoratorData() {
+    std::vector<DecoratorData> data(Decorator::TypeCount);
+    data[Decorator::DecoTree1].speed = 0.f;
+    data[Decorator::DecoTree1].texture = Textures::DecoTree1;
+    data[Decorator::DecoTree1].scaling = sf::Vector2f(0.4, 0.4);
+
+    data[Decorator::DecoTree2].speed = 0.f;
+    data[Decorator::DecoTree2].texture = Textures::DecoTree2;
+    data[Decorator::DecoTree2].scaling = sf::Vector2f(1.0, 1.0);
+
+    data[Decorator::DecoFlower1].speed = 0.f;
+    data[Decorator::DecoFlower1].texture = Textures::DecoFlower1;
+    data[Decorator::DecoFlower1].scaling = sf::Vector2f(0.7, 0.7);
     return data;
 }
 

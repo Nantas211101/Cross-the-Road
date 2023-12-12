@@ -1,8 +1,12 @@
 #pragma once
 
-#include <Lane.h>
-#include <DataTable.h>
-#include <Obstacle.h>
+#include "Lane.h"
+#include "Entity.h"
+#include "../DataTable.h"
+#include "../ResourceIdentifiers.h"
+#include "../ResourceHolder.h"
+#include "Obstacle.h"
+#include "Decorator.h"
 
 #include <vector>
 #include <random>

@@ -1,17 +1,16 @@
 #pragma once
 
-#include <ResourceIdentifiers.h>
-#include <ResourceHolder.h>
-#include <Lane.h>
-#include <Animal.h>
-#include <Log.h>
-#include <Vehicle.h>
-#include <Train.h>
-#include <Obstacle.h>
-#include <MainChar.h>
-
-#include <vector>
-#include <SFML/Graphics.hpp>
+#include "ResourceIdentifiers.h"
+#include "ResourceHolder.h"
+#include "World/Lane.h"
+#include "World/Animal.h"
+#include "World/Log.h"
+#include "ResourceIdentifiers.h"
+#include "World/Vehicle.h"
+#include "World/Train.h"
+#include "World/Decorator.h"
+#include "World/Obstacle.h"
+#include "MainChar.h"
 
 struct LogData {
 	float speed;
@@ -60,6 +59,12 @@ struct LaneData {
 	Textures::ID texture;
 };
 
+struct DecoratorData {
+	float speed;
+	Textures::ID texture;
+	sf::Vector2f scaling;
+};
+
 struct CharData {
     int hitpoints;
     float speed;
@@ -80,4 +85,5 @@ std::vector<AnimalData> initializeAnimalData();
 std::vector<VehicleData> initializeVehicleData();
 std::vector<TrainData> initializeTrainData();
 std::vector<ObstacleData> initializeObstacleData();
+std::vector<DecoratorData> initializeDecoratorData();
 std::vector<CharData> initializeCharData();

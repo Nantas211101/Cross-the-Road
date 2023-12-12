@@ -37,7 +37,7 @@ void RoadTheme2::generateAnimal(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(4, 4);
+    std::uniform_int_distribution<int> dist(0, 4);
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
 

@@ -17,4 +17,5 @@ class GroundTheme1 : public Ground {
     private:
         Type typeGround;
         std::vector<Obstacle*> obstacles;
+        std::vector<Decorator*> decorators;
 };
