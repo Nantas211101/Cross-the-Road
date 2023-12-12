@@ -135,6 +135,9 @@ bool LoginState::handleEvent(const sf::Event &event)
     mGUIContainer.handleEvent(event);
     mGUIContainerInputButton.handleEvent(event);
     mGUIContainerVisibility.handleEvent(event);
+    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return){
+        loginSolver();
+    }
     return false;
 }
 
@@ -190,7 +193,7 @@ void LoginState::loginSolver()
                 getContext().player->setMaskID(mask);
                 getContext().player->setUID(UID);
                 requestStackPop();
-                requestStackPush(States::ChooseChar);
+                requestStackPush(States::Menu);
                 // Login success
                 return;
             }

@@ -47,10 +47,6 @@ void Container::handleEvent(const sf::Event& event)
 			selectNext();
 			activate(mSelectedChild);
 		}
-		else if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return){ // special case when press enter of InputButton
-			if(hasActivate())
-				deactivate();
-		}
 		else
 			mChildren[mActivateChild]->handleEvent(event); // solve bug selected
 	}

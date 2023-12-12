@@ -185,4 +185,10 @@ void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(mText, states);
 }
 
+sf::Vector2f Button::getSize() const{
+	sf::FloatRect bounds = mSprite.getGlobalBounds();
+	sf::Vector2f mScale = getScale();
+	return sf::Vector2f(bounds.width * mScale.x, bounds.height * mScale.y);
+}
+
 }

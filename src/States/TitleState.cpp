@@ -53,7 +53,8 @@ bool TitleState::handleEvent(const sf::Event &event){
         case sf::Event::KeyReleased:
             if(!isFocus) return false;
             requestStackPop(); // pop the title screen
-            requestStackPush(States::Menu); // push the menuState screen
+            requestStackPush(States::Login); // push the login screen
+            // requestStackPush(States::Menu); // push the menuState screen
             break;
 
         default:

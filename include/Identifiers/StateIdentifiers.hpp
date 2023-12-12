@@ -13,5 +13,6 @@ namespace States{
         Login,
         Register,
         ConfirmRegister,
+        DisplayCharState,
     };
 }

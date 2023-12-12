@@ -21,6 +21,10 @@ namespace Textures{
         VisiblePassword,
         InvisiblePassword,
         backButton,
+        displayButton,
+        
+        Heart,
+        Thunder,
 };
 }
 

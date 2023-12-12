@@ -26,6 +26,8 @@ struct CharData { // Thinh adding
     int hitpoints;
     float speed;
     Textures::ID texture;
+	static const int MaxHitpoints = 300;
+	static const int MaxSpeed = 300;
 };
 
 

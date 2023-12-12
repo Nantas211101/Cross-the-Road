@@ -13,7 +13,7 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 , mGUIContainer()
 {
     
-    mBackground.setFillColor(sf::Color(0, 0, 0, 200));
+    mBackground.setFillColor(sf::Color(0, 0, 0, 255));
     mBackground.setSize(sf::Vector2f(context.window->getSize()));
 	// mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
 	
@@ -34,7 +34,6 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 	backButton->setCallback(([this]()
 	{
         requestStackPop();
-		requestStackPush(States::Pause);
 	}));
 
 	mGUIContainer.pack(backButton);
@@ -109,41 +108,27 @@ void SettingsState::updateLabels()
 
 void SettingsState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
 {
-    // sf::Keyboard::Key key = context.player->getAssignedKey(action);
-
 	mBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	sf::View mView = (*context.window).getDefaultView();
     mBindingButtons[action]->centerOrigin();
     mBindingButtons[action]->setPosition(mView.getCenter().x, y);
     mBindingButtons[action]->setScale(0.5, 0.5);
-	// mBindingButtons[action]->setText(toString(key));
-
-	// mBindingButtons[action]->setText(text);
 	mBindingButtons[action]->setToggle(true);
-	// mBindingButtons[action]->setColor(sf::Color::Black);
     mBindingButtons[action]->setColor(sf::Color(96, 130, 182, 200));
     
 	setTextButton(action, context);
 
     sf::Vector2f position = mBindingButtons[action]->getPosition();
-    // sf::Keyboard::Key key = context.player->getAssignedKey(action);
     sf::Text tmp;
     tmp.setFont(context.fonts->get(Fonts::Main));
     tmp.setString(text);
     setCenterOrigin(tmp);
     tmp.setPosition({position.x + 300.f, position.y});
     tmp.setCharacterSize(25);
-    // tmp.setFillColor(sf::Color::White);
 	tmp.setFillColor(sf::Color::White);
-    // tmp.setColor(sf::Color::White);
     textHold.push_back(tmp);
 
-	// mBindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);
-	// mBindingLabels[action]->setPosition(position.x + 200.f, position.y);
-    // mBindingLabels[action]->setColor(sf::Color::Wh/ite);
-
 	mGUIContainer.pack(mBindingButtons[action]);
-	// mGUIContainer.pack(mBindingLabels[action]);
 }
 
 void SettingsState::setTextButton(Player::Action action, Context context){

@@ -8,37 +8,43 @@ MenuState::MenuState(StateStack& stack, Context context)
 , mGUIContainer()
 , mWorldView(context.window->getDefaultView())
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y)
-{
+{   
     sf::Vector2f pos = context.window->getView().getSize();
-    mText.setFont(context.fonts->get(Fonts::Main));
-    mText.setString("Crossy the road");
-    mText.setCharacterSize(75);
-    setCenterOrigin(mText);
-    mText.setPosition({pos.x / 2.f, 100.f});
+    float add_y = pos.y / 5;
 
 	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	playButton->centerOrigin();
-    playButton->setPosition(pos.x / 2.f, 400);
+    playButton->setPosition(pos.x / 2.f, add_y * 2);
 	playButton->setText("PLAY");
     playButton->setScale(0.8, 0.8);
     playButton->setColor(sf::Color::Cyan);
 	playButton->setCallback([this] ()
 	{
 		requestStackPop();
-		requestStackPush(States::Login);
+		// requestStackPush(States::Login);
+        requestStackPush(States::ChooseChar);
 	});
 
-	// auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	// settingsButton->setPosition(100, 300);
-	// settingsButton->setText("Settings");
-	// settingsButton->setCallback([this] ()
-	// {
-	// 	requestStackPush(States::Settings);
-	// });
+    mText.setFont(context.fonts->get(Fonts::Main));
+    mText.setString("Crossy the road");
+    mText.setCharacterSize(75);
+    setCenterOrigin(mText);
+    mText.setPosition({pos.x / 2.f, add_y - playButton->getSize().y / 2});
+
+	auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    settingsButton->centerOrigin();
+	settingsButton->setPosition(pos.x / 2.f, add_y * 3);
+	settingsButton->setText("SETTINGS");
+    settingsButton->setScale(0.8, 0.8);
+    settingsButton->setColor(sf::Color::Cyan);
+	settingsButton->setCallback([this] ()
+	{   
+		requestStackPush(States::Settings);
+	});
 
 	auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	exitButton->centerOrigin();
-    exitButton->setPosition(pos.x / 2.f, 700);
+    exitButton->setPosition(pos.x / 2.f, add_y * 4);
 	exitButton->setText("Exit");
     exitButton->setScale(0.8, 0.8);
     exitButton->setColor(sf::Color::Cyan);
@@ -48,7 +54,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	});
 
 	mGUIContainer.pack(playButton);
-	// mGUIContainer.pack(settingsButton);
+	mGUIContainer.pack(settingsButton);
 	mGUIContainer.pack(exitButton);
 
     buildScene();

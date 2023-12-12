@@ -10,6 +10,7 @@
 #include "LoginState.hpp"
 #include "RegisterState.hpp"
 #include "ConfirmRegisterState.hpp"
+#include "DisplayCharState.hpp"
 
 const std::string Path_TitleScreen = "Media/Textures/TitleScreen.jpg";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
@@ -30,6 +31,9 @@ const std::string Path_registerBG = "Media/Textures/RegisterBG.jpg";
 const std::string Path_VisiblePassword = "Media/Textures/visible.png";
 const std::string Path_InvisiblePassword = "Media/Textures/invisible.png";
 const std::string Path_backButton = "Media/Textures/backButton.png";
+const std::string Path_displayButton = "Media/Textures/DisplayPlayer.png";
+const std::string Path_heart = "Media/Textures/heart.png";
+const std::string Path_Thunder = "Media/Textures/Thunder.png";
 
 // Application quite similar to the Game.cpp
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 120.f);
@@ -69,6 +73,7 @@ void Application::registerStates(){
     mStateStack.registerState<LoginState>(States::Login);
     mStateStack.registerState<RegisterState>(States::Register);
     mStateStack.registerState<ConfirmRegisterState>(States::ConfirmRegister);
+    mStateStack.registerState<DisplayCharState>(States::DisplayCharState);
 }
 
 void Application::processInput(){
@@ -150,4 +155,7 @@ void Application::loadResources(){
     mTextures.load(Textures::VisiblePassword, Path_VisiblePassword);
     mTextures.load(Textures::InvisiblePassword, Path_InvisiblePassword);
     mTextures.load(Textures::backButton, Path_backButton);
+    mTextures.load(Textures::displayButton, Path_displayButton);
+    mTextures.load(Textures::Heart, Path_heart);
+    mTextures.load(Textures::Thunder, Path_Thunder);
 }

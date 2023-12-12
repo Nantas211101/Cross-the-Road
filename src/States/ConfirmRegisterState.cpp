@@ -17,6 +17,7 @@ ConfirmRegisterState::ConfirmRegisterState(StateStack &stack, Context context)
     mBackground.setOutlineThickness(15.f);
     mBackground.setOutlineColor(sf::Color(96, 130, 182, 200));
 
+
     sf::Font &font = context.fonts->get(Fonts::Main);
 
     centerOrigin(mText);

@@ -32,6 +32,7 @@ public:
     void centerOrigin(); // additional function
     void setColor(sf::Color color);
     void setToggleRelease(bool flag);
+    sf::Vector2f getSize() const;
     
     virtual bool checkToggle();
     virtual bool isSelectable() const;

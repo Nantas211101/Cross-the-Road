@@ -3,7 +3,6 @@
 #include "ResourceIdentifiers.hpp"
 #include "TextureManipulate.hpp"
 #include "GUI_Button.hpp"
-#include "GUI_InputButton.hpp"
 #include "SpriteNode.hpp"
 #include "Utility.hpp"
 #include "BitMaskingManipulate.hpp"
@@ -11,7 +10,8 @@
 #include <memory>
 #include <iostream>
 
-const float speedUp = 1000.f;
+const float startSpeedUp = 1000.f;
+float speedUp = 1000.f;
 const std::string Error_Do_Not_Have_This_Character = "You do not have this character!";
 
 ChooseCharState::ChooseCharState(StateStack &stack, Context context)
@@ -43,6 +43,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	rightButton->setPosition(mWorldBounds.width - 150.f, mSpawnPosition.y);
 	rightButton->setCallback([this] ()
 	{
+		speedUp = startSpeedUp;
 		callError("");
 		startRight();
 	});
@@ -53,6 +54,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	leftButton->setPosition(150.f, mSpawnPosition.y);
 	leftButton->setCallback([this]()
 	{
+		speedUp = startSpeedUp;
 		callError("");
 		startLeft();
 	});
@@ -80,23 +82,16 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 		BackToLogin();
 	});
 
-	// auto inputNameButton = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures);
-	// inputNameButton->centerOrigin();
-	// // inputNameButton->setColor(sf::Color::Cyan);
-	// inputNameButton->setPosition(mSpawnPosition.x, 200.f);
-	// inputNameButton->setText("Your Name");
-	// inputNameButton->setScale(0.5, 0.5);
-	// inputNameButton->setToggle(true);
-
-	// inputNameButton->setCallback([this, context](std::string st){
-	// 	// if(!isMove)
-	// 	// {	
-	// 		// context.player->setTextureID(this->mPlayer->getTextureID());
-	// 		// requestStackPop();
-	// 		// requestStackPush(States::Game);
-	// 	name = st;
-	// 	// }
-	// });
+	auto displayCharButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::displayButton);
+	displayCharButton->centerOrigin();
+	sf::Vector2f sizee = displayCharButton->getSize();
+	sf::Vector2f needSize = {mWorldBounds.width / 30.f, mWorldBounds.height / 15.f};
+	displayCharButton->setScale({needSize.x / sizee.x, needSize.y / sizee.y});
+	displayCharButton->setPosition(mWorldBounds.width - displayCharButton->getSize().x / 1.8, mWorldBounds.height / 6.f);
+	
+	displayCharButton->setCallback([this](){
+		requestStackPush(States::DisplayCharState);
+	});
 
 	maskID = context.player->getMaskID();
 	std::string tmp = toString(context.player->getUID());
@@ -113,6 +108,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	mGUIContainerSet.pack(leftButton);
 	mGUIContainerSet.pack(chooseButton);
 	mGUIContainerSet.pack(backButton);
+	mGUIContainerSet.pack(displayCharButton);
     buildScene();
 }
 
@@ -133,13 +129,15 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 
 		mSceneLayers[Air]->detachChild(*mPlayer);
 		mPlayer = tmpPlayer;
+		mPlayer->setPosition(mSpawnPosition);
 		isMove = 0;
+		// speedUp = startSpeedUp;
 	}
 
 	
 	// Apply movements
 	mSceneGraph.update(elapsedTime);
-    
+    updateCharID();
     return true;
 }
 
@@ -170,20 +168,18 @@ bool ChooseCharState::handleEvent(const sf::Event &event){
         if(event.type == sf::Event::KeyReleased)
             handlePlayerInput(event.key.code, false);
 	sf::RenderWindow &mWindow = *getContext().window;
-	// mGUIContainer.handleRealTimeInput(mWindow);
-	// mGUIContainer.handleEvent(event);
-
 	mGUIContainerSet.handleRealTimeInput(mWindow);
 	mGUIContainerSet.handleEvent(event);
     return true;
 }
 
 void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
-    if(!isMove && !isPressing)
+    if(!isMove)
 		isChange = 0;
 	// Change main character display when using arrow
 	if(isPressed && !isChange){
 		if(key == sf::Keyboard::Left){
+			callError("");
 			isChangeKey = key;
 			isChange = isMove = isPressing = 1;
 			std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getMainCharType(), *getContext().textures));
@@ -197,6 +193,7 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 				tmpPlayer->setOwnerFlag(false);
 		}
 		if(key == sf::Keyboard::Right){
+			callError("");
 			isChangeKey = key;
 			isChange = isMove = isPressing = 1;
 			std::unique_ptr<MainChar> leader(new MainChar(mPlayer->getMainCharType(), *getContext().textures));
@@ -217,6 +214,8 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 
 	if(!isPressed && isPressing && key == isChangeKey)
 		isPressing = 0;
+	if(!isPressed && key == isChangeKey)
+		speedUp = startSpeedUp;
 }
 
 void ChooseCharState::startRight(){
@@ -262,6 +261,8 @@ void ChooseCharState::startLeft(){
 void ChooseCharState::impleChangeChar(sf::Time dt){
     if(!isMove)
 		return;
+	if(speedUp < 100000.f)
+		speedUp += speedUp * dt.asSeconds();
 	sf::Vector2f position = mPlayer->getPosition();
 	sf::Vector2f velocity = mPlayer->getVelocity();
 	int dist, naturalDist;
@@ -366,12 +367,6 @@ void ChooseCharState::createMainChar(){
 }
 
 void ChooseCharState::PlayGame(){
-	// if(!isMove)
-	// 	{	
-	// 		context.player->setMainCharID(this->mPlayer->getMainCharType());
-	// 		requestStackPop();
-	// 		requestStackPush(States::Game);
-	// 	}
 	MainChar* tmp;
 	if(isMove)
 		tmp = tmpPlayer;
@@ -384,6 +379,15 @@ void ChooseCharState::PlayGame(){
 	getContext().player->setMainCharID(tmp->getMainCharType());
 	requestStackPop();
 	requestStackPush(States::Game);
+}
+
+void ChooseCharState::updateCharID(){
+	MainChar *tmp;
+	if(isMove)
+		tmp = tmpPlayer;
+	else 
+		tmp = mPlayer;
+	getContext().player->setMainCharID(tmp->getMainCharType());
 }
 
 void ChooseCharState::BackToLogin(){

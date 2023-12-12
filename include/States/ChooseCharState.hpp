@@ -37,6 +37,8 @@ private:
 
     void callError(const std::string& error);
 
+    void updateCharID();
+
 
 private:
     enum Layer
@@ -73,3 +75,5 @@ private:
     sf::Text uidDisplay;
     sf::Text ErrorText;
 };
+
+// static bool isCharacterMove = false;

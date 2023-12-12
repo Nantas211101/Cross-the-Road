@@ -57,7 +57,6 @@ bool PauseState::handleEvent(const sf::Event &event){
         requestStackPush(States::Menu); // and return back to menu state
     }
     else if(event.key.code == sf::Keyboard::Space){
-        requestStackPop();
         requestStackPush(States::Settings);
     }
     return false; // why return false at handleEvent and update

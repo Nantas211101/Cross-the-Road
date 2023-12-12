@@ -64,12 +64,6 @@ void Player::handleRealtimeInput(CommandQueue& commands)
 		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
 			commands.push(mActionBinding[pair.second]);
     }
-	// FOREACH(auto pair, mKeyBinding)
-	// {
-	// 	// If key is pressed, lookup action and trigger corresponding command
-	// 	if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
-	// 		commands.push(mActionBinding[pair.second]);
-	// }
 }
 
 void Player::assignKey(Action action, sf::Keyboard::Key key)
@@ -94,12 +88,6 @@ sf::Keyboard::Key Player::getAssignedKey(Action action) const
         if (pair.second == action)
 			return pair.first;
     }
-
-	// FOREACH(auto pair, mKeyBinding)
-	// {
-	// 	if (pair.second == action)
-	// 		return pair.first;
-	// }
 
 	return sf::Keyboard::Unknown;
 }

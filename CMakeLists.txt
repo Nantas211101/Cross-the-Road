@@ -13,6 +13,7 @@ file(GLOB SRCS CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/src/*.cpp 
     ${CMAKE_SOURCE_DIR}/src/GUI/*.cpp
     ${CMAKE_SOURCE_DIR}/src/States/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/Entities/*.cpp
 )
 
 add_executable(game ${SRCS})
@@ -22,6 +23,8 @@ target_include_directories(game PRIVATE
     ${CMAKE_SOURCE_DIR}/include/
     ${CMAKE_SOURCE_DIR}/include/States/
     ${CMAKE_SOURCE_DIR}/include/GUI/
+    ${CMAKE_SOURCE_DIR}/include/Identifiers/
+    ${CMAKE_SOURCE_DIR}/include/Entities/
     ${CMAKE_SOURCE_DIR}/template/
 )
 
