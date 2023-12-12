@@ -29,10 +29,10 @@ void GroundTheme2::buildLane() {
     std::uniform_int_distribution<int> dist(3, 7);
     int numObstacles = dist(gen);
     for(int j = 0; j < numObstacles; j++) {
-        std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Volcano, *textureHolder));
+        std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Fire, *textureHolder));
         obstacles.push_back(obstacle.get());
         int randNum = rand() % 17;
-        obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 , startPos.y + 30);
+        obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 , startPos.y );
         this->attachChild(std::move(obstacle));
     }
 }

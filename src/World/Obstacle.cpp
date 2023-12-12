@@ -11,6 +11,9 @@ Obstacle::Obstacle(Type type, const TextureHolder& texture)
     sf::FloatRect bounds = sprite.getLocalBounds();
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.scale(Table[type].scaling);
+    sprite.setFrameSize(sf::Vector2i(Table[type].pictureWidth/Table[type].numOfFrames, Table[type].pictureHeight));
+	sprite.setNumFrames(Table[type].numOfFrames);
+	sprite.setDuration(sf::seconds(1));
 }
 
 void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -18,8 +21,9 @@ void Obstacle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 }
 
 void Obstacle::updateCurrent(sf::Time dt) {
-    this->setVelocity(0, 0);
     Entity::updateCurrent(dt);
+    sprite.update(dt);
+    sprite.setRepeating(true);
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const {

@@ -28,42 +28,75 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Tree1].speed = 0.f;
     data[Obstacle::Tree1].texture = Textures::Tree1;
     data[Obstacle::Tree1].scaling = sf::Vector2f(0.6, 0.6);
+    data[Obstacle::Tree1].numOfFrames = 1;
+    data[Obstacle::Tree1].pictureWidth = 270;
+    data[Obstacle::Tree1].pictureHeight = 270;
 
     data[Obstacle::Tree2].dmg = 0;
     data[Obstacle::Tree2].speed = 0.f;
     data[Obstacle::Tree2].texture = Textures::Tree2;
     data[Obstacle::Tree2].scaling = sf::Vector2f(0.9, 0.9);
+    data[Obstacle::Tree2].numOfFrames = 1;
+    data[Obstacle::Tree2].pictureWidth = 308;
+    data[Obstacle::Tree2].pictureHeight = 456;
 
     data[Obstacle::Tree3].dmg = 0;
     data[Obstacle::Tree3].speed = 0.f;
     data[Obstacle::Tree3].texture = Textures::Tree3;
     data[Obstacle::Tree3].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::Tree3].numOfFrames = 1;
+    data[Obstacle::Tree3].pictureWidth = 188;
+    data[Obstacle::Tree3].pictureHeight = 222;
+
 
     data[Obstacle::Rock1].dmg = 0;
     data[Obstacle::Rock1].speed = 0.f;
     data[Obstacle::Rock1].texture = Textures::Rock1;
     data[Obstacle::Rock1].scaling = sf::Vector2f(0.35, 0.35);
+    data[Obstacle::Rock1].numOfFrames = 1;
+    data[Obstacle::Rock1].pictureWidth = 210;
+    data[Obstacle::Rock1].pictureHeight = 208;
 
     data[Obstacle::Rock2].dmg = 0;
     data[Obstacle::Rock2].speed = 0.f;
     data[Obstacle::Rock2].texture = Textures::Rock2;
     data[Obstacle::Rock2].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::Rock2].numOfFrames = 1;
+    data[Obstacle::Rock2].pictureWidth = 148;   
+    data[Obstacle::Rock2].pictureHeight = 176;
 
     data[Obstacle::Ruin1].dmg = 0;
     data[Obstacle::Ruin1].speed = 0.f;
     data[Obstacle::Ruin1].texture = Textures::Ruin1;
     data[Obstacle::Ruin1].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::Ruin1].numOfFrames = 1;
+    data[Obstacle::Ruin1].pictureWidth = 160;   
+    data[Obstacle::Ruin1].pictureHeight = 186;
 
     data[Obstacle::Ruin1].dmg = 0;
     data[Obstacle::Ruin2].speed = 0.f;
     data[Obstacle::Ruin2].texture = Textures::Ruin2;
     data[Obstacle::Ruin2].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::Ruin2].numOfFrames = 1;
+    data[Obstacle::Ruin2].pictureWidth = 200;   
+    data[Obstacle::Ruin2].pictureHeight = 182;
+
 
     data[Obstacle::Volcano].dmg = 5;
     data[Obstacle::Volcano].speed = 0.f;
     data[Obstacle::Volcano].texture = Textures::Vocalno;
     data[Obstacle::Volcano].scaling = sf::Vector2f(0.35, 0.35);
+    data[Obstacle::Volcano].numOfFrames = 1;
+    data[Obstacle::Volcano].pictureWidth = 280;   
+    data[Obstacle::Volcano].pictureHeight = 269;
 
+    data[Obstacle::Fire].dmg = 5;
+    data[Obstacle::Fire].speed = 0.f;
+    data[Obstacle::Fire].texture = Textures::Fire;
+    data[Obstacle::Fire].scaling = sf::Vector2f(1, 0.8);
+    data[Obstacle::Fire].numOfFrames = 7;
+    data[Obstacle::Fire].pictureWidth = 688;   
+    data[Obstacle::Fire].pictureHeight = 204;
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){
@@ -134,7 +167,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Monster1].speed = 150.f;
     data[Animal::Monster1].distanceBetweenAnimal = 1000;
     data[Animal::Monster1].texture = Textures::Monster1;
-    data[Animal::Monster1].scaling = sf::Vector2f(0.6, 0.6);
+    data[Animal::Monster1].scaling = sf::Vector2f(0.4, 0.3);
     data[Animal::Monster1].numOfFrames = 11;
     data[Animal::Monster1].pictureWidth = 4019;
     data[Animal::Monster1].pictureHeight = 394;    

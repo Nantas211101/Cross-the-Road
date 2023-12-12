@@ -51,7 +51,8 @@ void World::loadTextures(){
 	mTextures.load(Textures::Log1, "../../Media/Textures/Log1.png");
     mTextures.load(Textures::River, "../../Media/Textures/River.png");
 	mTextures.load(Textures::LavaRiver, "../../Media/Textures/LavaRiver.png");
-    //mTextures.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
+    mTextures.load(Textures::LavaRiver1, "../../Media/Textures/LavaRiver1.png");
+	//mTextures.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
 
 	// Ground
     mTextures.load(Textures::Grass, "../../Media/Textures/Ground/Grass.png");
@@ -65,6 +66,7 @@ void World::loadTextures(){
 	mTextures.load(Textures::Ruin1, "../../Media/Textures/Obstacle/Ruin1.png");
 	mTextures.load(Textures::Ruin2, "../../Media/Textures/Obstacle/Ruin2.png");
 	mTextures.load(Textures::Vocalno, "../../Media/Textures/Obstacle/Volcano.png");
+	mTextures.load(Textures::Fire, "../../Media/Textures/Obstacle/Fire.png");
 	// Railway
 	mTextures.load(Textures::Railway, "../../Media/Textures/Railway.png");
 	mTextures.load(Textures::RailwayLight, "../../Media/Textures/RailwayLight.png");
@@ -215,7 +217,7 @@ void World::buildScene()
 		mSceneGraph.attachChild(std::move(layer));
 	}
 
-	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height));
+	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height));
 	
 	for(int i = 0; i < 10; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes = laneFactory.randomTemplateLane();

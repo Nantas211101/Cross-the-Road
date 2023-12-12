@@ -29,6 +29,7 @@ namespace Textures
 		Ruin1,
 		Ruin2,
 		Vocalno,
+		Fire,
 		// Road
 		Road,
 		Road1,

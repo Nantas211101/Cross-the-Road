@@ -25,6 +25,9 @@ struct ObstacleData {
 	int dmg;
 	Textures::ID texture;
 	sf::Vector2f scaling;
+	int pictureWidth;
+	int pictureHeight;
+	int numOfFrames;
 };
 
 struct AnimalData {

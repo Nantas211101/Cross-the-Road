@@ -18,6 +18,7 @@ class Obstacle : public Entity {
             Ruin1,
             Ruin2,
             Volcano,
+            Fire,
             TypeCount
     };
 
@@ -34,5 +35,5 @@ class Obstacle : public Entity {
  
     private:
         Type type;
-        sf::Sprite sprite;
+        Animation sprite;
 };
