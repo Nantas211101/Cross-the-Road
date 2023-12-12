@@ -72,6 +72,7 @@ void World::loadTextures(){
     mTextures.load(Textures::Train1, "../../Media/Textures/Train1.png");
     mTextures.load(Textures::Train2, "../../Media/Textures/Train2.png");
     mTextures.load(Textures::Train3, "../../Media/Textures/Train3.png");
+	mTextures.load(Textures::Train4, "../../Media/Textures/Train4.png");
 
 	// Player
 	mTextures.load(Textures::Standing1, "../../Media/Textures/Player/Player1/Standing.png");
@@ -214,7 +215,8 @@ void World::buildScene()
 		mSceneGraph.attachChild(std::move(layer));
 	}
 
-	LaneFactory laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height));
+	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height));
+	
 	for(int i = 0; i < 10; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes = laneFactory.randomTemplateLane();
 		for(auto& x : randLanes) {

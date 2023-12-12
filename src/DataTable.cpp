@@ -181,8 +181,8 @@ std::vector<VehicleData> initializeVehicleData(){
     data[Vehicle::YellowCar].scaling = sf::Vector2f(1.1,1.1);
 
     data[Vehicle::OldCar].dmg = 0;
-    data[Vehicle::OldCar].speed = 0.f;
-    data[Vehicle::OldCar].distanceBetweenVehicle = 250;
+    data[Vehicle::OldCar].speed = 100.f;
+    data[Vehicle::OldCar].distanceBetweenVehicle = 450;
     data[Vehicle::OldCar].texture = Textures::OldCar;
     data[Vehicle::OldCar].scaling = sf::Vector2f(1.1,1.1);
 
