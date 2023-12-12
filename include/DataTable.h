@@ -22,11 +22,13 @@ struct LogData {
 
 struct ObstacleData {
 	float speed;
+	int dmg;
 	Textures::ID texture;
 	sf::Vector2f scaling;
 };
 
 struct AnimalData {
+	int dmg;
 	float speed;
 	int distanceBetweenAnimal;
 	Textures::ID texture;
@@ -37,6 +39,7 @@ struct AnimalData {
 };
 
 struct VehicleData {
+	int dmg;
 	float speed;
 	int distanceBetweenVehicle;
 	Textures::ID texture;

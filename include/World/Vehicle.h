@@ -25,6 +25,7 @@ class Vehicle:public Entity{
     Type getType();
     virtual sf::FloatRect getBoundingRect() const;
     virtual unsigned int getCategory() const;
+    int getDamage();
 
  private:
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const;

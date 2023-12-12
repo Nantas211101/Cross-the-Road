@@ -30,3 +30,7 @@ void Vehicle::drawCurrent(sf::RenderTarget& target, sf::RenderStates state) cons
 void Vehicle::updateCurrent(sf::Time dt) {
     Entity::updateCurrent(dt);
 }
+
+int Vehicle::getDamage(){
+    return Table[type].dmg;
+}

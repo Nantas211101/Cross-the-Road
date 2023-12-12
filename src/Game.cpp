@@ -1,4 +1,5 @@
 #include "../include/Game.h"
+#include "SFML/Window/WindowStyle.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -6,7 +7,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 Game::Game()
-: mWindow(sf::VideoMode(1900, 850), "World", sf::Style::Close)
+: mWindow(sf::VideoMode(1710, 950), "World", sf::Style::Close)
 , mWorld(mWindow)
 , mFont()
 , mPlayer()

@@ -27,6 +27,7 @@ class Animal:public Entity{
     };
  public:
     Animal(Type type, const TextureHolder& texture);
+    int getDamage();
     Type getType();
     
  private:
@@ -34,5 +35,6 @@ class Animal:public Entity{
     void updateCurrent(sf::Time dt);
  private:
     Type type;
+    int dmg;
     Animation sprite;
 };

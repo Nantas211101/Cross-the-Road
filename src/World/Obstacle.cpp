@@ -33,6 +33,10 @@ Obstacle::Type Obstacle::getType() {
 unsigned int Obstacle::getCategory() const {
     return Category::Obstacle;
 }
+
+int Obstacle::getDamage(){
+    return Table[type].dmg;
+}
 // sf::FloatRect* Obstacle::getDangerBound() const {
 // 	sf::FloatRect tmp = getBoundingRect();
 //     sf::FloatRect* pBound = new sf::FloatRect(tmp);

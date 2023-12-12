@@ -27,3 +27,7 @@ void Animal::updateCurrent(sf::Time dt) {
     sprite.update(dt);
     sprite.setRepeating(true);
 }
+
+int Animal::getDamage(){
+    return Table[type].dmg;
+}
