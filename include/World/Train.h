@@ -13,6 +13,7 @@ class Train : public Entity {
             Train1,
             Train2,
             Train3,
+            Train4,
             TypeCount
         };
 

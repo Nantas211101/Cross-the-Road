@@ -38,7 +38,7 @@ void Railway::buildLane(){
     std::uniform_int_distribution<int> dist(1, 3);
     int randomKindTrain = dist(gen);
     Train::Type kind;
-    switch(randomKindTrain) {
+    switch(4) {
     case 1:
         kind = Train::Train1;
         break;
@@ -47,6 +47,9 @@ void Railway::buildLane(){
         break;
     case 3:
         kind = Train::Train3;
+        break;
+     case 4:
+        kind = Train::Train4;
         break;
     default:
         break;

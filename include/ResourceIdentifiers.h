@@ -60,7 +60,8 @@ namespace Textures
 		Train1,
 		Train2,
 		Train3,
-
+		Train4,
+		
 		// Player
 		Standing1,
 		Up1,

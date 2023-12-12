@@ -209,6 +209,10 @@ std::vector<TrainData> initializeTrainData(){
     data[Train::Train3].texture = Textures::Train3;
     data[Train::Train3].scaling = sf::Vector2f(0.75, 0.75);
 
+    data[Train::Train4].speed = 700.f;
+    data[Train::Train4].texture = Textures::Train4;
+    data[Train::Train4].scaling = sf::Vector2f(0.8, 0.8);
+
     return data;
 }
 

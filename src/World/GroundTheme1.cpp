@@ -24,12 +24,12 @@
 void GroundTheme1::updateCurrent(sf::Time dt){}
 
 void GroundTheme1::buildLane() {
-    int numObstacles = 3 + rand() % 2;
+    int numObstacles = 3 + rand() % 5;
     for(int j = 0; j < numObstacles; j++) {
         std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Rock1, *textureHolder));
         obstacles.push_back(obstacle.get());
         int randNum = rand() % 10;
-        obstacle->setPosition( randNum * 192 + obstacle->getBoundingRect().width/2 , startPos.y + 30);
+        obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 , startPos.y + 30);
         this->attachChild(std::move(obstacle));
     }
 }
