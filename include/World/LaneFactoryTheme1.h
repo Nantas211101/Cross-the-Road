@@ -1,7 +1,7 @@
 #pragma once
-#include "LaneFactory.h"
+#include <LaneFactory.h>
 
-class LaneFactoryTheme1: public LaneFactory {
+class LaneFactoryTheme1 : public LaneFactory {
 private:
 
     void templateGround(int num);

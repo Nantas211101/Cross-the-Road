@@ -1,17 +1,12 @@
 #pragma once
 
-#include "Lane.h"
-#include "Train.h"
-#include "../DataTable.h"
-#include "../ResourceIdentifiers.h"
-#include "../ResourceHolder.h"
-#include "../SceneNode.h"
-#include <iostream>
+#include <Lane.h>
+#include <Train.h>
+#include <RailwayLight.h>
+#include <DataTable.h>
+
 #include <random>
-#include <vector>
-#include <cmath>
 #include <SFML/Graphics.hpp>
-#include "RailwayLight.h"
 
 class Railway : public Lane {
     public:

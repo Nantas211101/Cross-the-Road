@@ -1,4 +1,4 @@
-#include "../include/DataTable.h"
+#include <DataTable.h>
 
 
 std::vector<LogData> initializeLogData() {

@@ -17,6 +17,10 @@ namespace Category {
 		Obstacle= 1 << 6,
 
 		// Railway
-		Train   = 1 << 7
+		Train   = 1 << 7,
+
+		// lane
+		Ground	= 1 << 8,
+		Road	= 1 << 9
 	};
 }

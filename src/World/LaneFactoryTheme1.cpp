@@ -1,6 +1,4 @@
-#include "../../include/World/LaneFactory.h"
-#include "LaneFactoryTheme1.h"
-#include "RoadTheme1.h"
+#include <LaneFactoryTheme1.h>
 
 LaneFactoryTheme1::LaneFactoryTheme1(TextureHolder* textureHolder, sf::Vector2f startPos) 
 : LaneFactory(textureHolder, startPos, 1)

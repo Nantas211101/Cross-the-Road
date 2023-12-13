@@ -1,8 +1,7 @@
 #pragma once
-#include "../SceneNode.h"
+#include <SceneNode.h>
 
-class Entity : public SceneNode
-{
+class Entity : public SceneNode {
 	public:
 		void				setVelocity(sf::Vector2f velocity);
 		void				setVelocity(float vx, float vy);

@@ -1,8 +1,4 @@
-#include "../include/Game.h"
-#include "SFML/Window/WindowStyle.hpp"
-
-#include <SFML/Graphics.hpp>
-
+#include <Game.h>
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
@@ -15,7 +11,7 @@ Game::Game()
 , mStatisticsUpdateTime()
 , mStatisticsNumFrames(0)
 {
-	mFont.loadFromFile("../../Media/Sansation.ttf");
+	mFont.loadFromFile("Media/Sansation.ttf");
 	mStatisticsText.setFont(mFont);
 	mStatisticsText.setPosition(5.f, 5.f);
 	mStatisticsText.setCharacterSize(1);

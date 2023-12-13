@@ -1,10 +1,8 @@
 #pragma once
 
-#include "World.h"
-#include "Player.h"
-#include "CommandQueue.h"
-#include "ResourceIdentifiers.h"
-#include "ResourceHolder.h"
+#include <World.h>
+#include <Player.h>
+#include <CommandQueue.h>
 
 #include <SFML/Graphics.hpp>
 

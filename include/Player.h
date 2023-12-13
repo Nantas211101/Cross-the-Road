@@ -1,6 +1,6 @@
 #pragma once
-#include "CommandQueue.h"
-#include "MainChar.h"
+#include <CommandQueue.h>
+#include <MainChar.h>
 
 #include <map>
 #include <SFML/Graphics.hpp>

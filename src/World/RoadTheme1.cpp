@@ -1,4 +1,4 @@
-#include "../../include/World/RoadTheme1.h"
+#include <RoadTheme1.h>
 
 RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine, Type typeRoad)
 :Road(textureHolder, spawnPos),
@@ -74,7 +74,7 @@ void RoadTheme1::generateAnimal(){
             animal->setVelocity(-1.0 * TableAnimal[kind].speed, 0);
             animal->scale(-TableAnimal[kind].scaling.x,TableAnimal[kind].scaling.y);
         }
-        animal->setPosition(startPos.x + randSpawnPos + distance, startPos.y);
+        animal->setPosition(randSpawnPos + distance, 0);
         distance += TableAnimal[kind].distanceBetweenAnimal;
         animals.push_back(animal.get());
         this->attachChild(std::move(animal));
@@ -129,7 +129,7 @@ void RoadTheme1::generateVehicle(){
             vehicle->setVelocity(-1.0 * TableVehicle[kind].speed, 0);
             vehicle->scale(-TableVehicle[kind].scaling.x,TableVehicle[kind].scaling.y);
         }
-        vehicle->setPosition(startPos.x + randSpawnPos + distance, startPos.y + 42);
+        vehicle->setPosition(randSpawnPos + distance, 50);
         distance += TableVehicle[kind].distanceBetweenVehicle;
         vehicles.push_back(vehicle.get());
         this->attachChild(std::move(vehicle));
@@ -145,9 +145,9 @@ void RoadTheme1::buildTraffic(){
     std::unique_ptr<Traffic> traff(new Traffic(*textureHolder));
     traffic= traff.get();
     if(!this->isReverse()){
-        traff->setPosition(startPos.x+600,startPos.y + 75);
+        traff->setPosition(600, 75);
     }else{
-         traff->setPosition(startPos.x+1900,startPos.y + 75);
+         traff->setPosition(1900, 75);
     }
     
     this->attachChild(std::move(traff));
@@ -186,24 +186,24 @@ void RoadTheme1::updateCurrent(sf::Time dt){
             }
         }
         if(!this->isReverse() && vehicles[firstObjectIndex]->getPosition().x >= 0) {
-            vehicles[lastObjectIndex]->setPosition(-TableVehicle[vehicles[lastObjectIndex]->getType()].distanceBetweenVehicle, startPos.y + 75);
+            vehicles[lastObjectIndex]->setPosition(-TableVehicle[vehicles[lastObjectIndex]->getType()].distanceBetweenVehicle, 50);
             firstObjectIndex = lastObjectIndex;
             lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
         }
         if(this->isReverse() && vehicles[lastObjectIndex]->getPosition().x <= 2500) {
-            vehicles[firstObjectIndex]->setPosition(TableVehicle[vehicles[firstObjectIndex]->getType()].distanceBetweenVehicle + 2500, startPos.y + 75);
+            vehicles[firstObjectIndex]->setPosition(TableVehicle[vehicles[firstObjectIndex]->getType()].distanceBetweenVehicle + 2500, 50);
             lastObjectIndex = firstObjectIndex;
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }
     }
     else{
         if(!this->isReverse() && animals[firstObjectIndex]->getPosition().x >= 0) {
-            animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, startPos.y);
+            animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, 0);
             firstObjectIndex = lastObjectIndex;
             lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
         }
         if(this->isReverse() && animals[lastObjectIndex]->getPosition().x <= 2500) {
-            animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, startPos.y);
+            animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, 0);
             lastObjectIndex = firstObjectIndex;
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }

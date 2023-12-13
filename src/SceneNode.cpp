@@ -1,7 +1,4 @@
-#include "../include/SceneNode.h"
-
-#include <algorithm>
-#include <cassert>
+#include <SceneNode.h>
 
 SceneNode::SceneNode()
 : mChildren()

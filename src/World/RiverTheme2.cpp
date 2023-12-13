@@ -11,14 +11,6 @@ RiverTheme2::RiverTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos)
     buildLane();
 }
 
-unsigned int RiverTheme2::getCategory() const {
-    return Category::River;
-}
-
-sf::FloatRect RiverTheme2::getBoundingRect() const {
-    return getWorldTransform().transformRect(sprite.getGlobalBounds());
-}
-
 void RiverTheme2::updateCurrent(sf::Time dt) {
     if(!this->isReverse() && riverLog[firstLogIndex]->getPosition().x >= 0) {
         riverLog[lastLogIndex]->setPosition(-TableLog[riverLog[lastLogIndex]->getType()].distanceBetweenLog, startPos.y + 25);

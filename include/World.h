@@ -1,19 +1,18 @@
 #pragma once
 
-#include "SceneNode.h"
-#include "World/LaneFactory.h"
-#include "World/LaneFactoryTheme1.h"
-#include "World/LaneFactoryTheme2.h"
-#include "CommandQueue.h"
-#include "MainChar.h"
-#include "ResourceIdentifiers.h"
-#include "ResourceHolder.h"
+#include <SceneNode.h>
+#include <LaneFactory.h>
+#include <LaneFactoryTheme1.h>
+#include <LaneFactoryTheme2.h>
+#include <CommandQueue.h>
+#include <MainChar.h>
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
 
-#include <SFML/Graphics.hpp>
 #include <random>
 #include <array>
-#include <iostream>
 #include <cmath>
+#include <SFML/Graphics.hpp>
 
 // Forward declaration
 namespace sf
@@ -62,4 +61,6 @@ class World : private sf::NonCopyable
 		sf::Vector2f						mSpawnPosition;
 		std::vector<Lane*> 					lanes;
 		MainChar*							mainChar;
+		bool								needAlign;
+		bool								isOnLog;
 };

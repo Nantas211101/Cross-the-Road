@@ -1,5 +1,6 @@
 #pragma once
-#include "Animation.h"
+#include <Animation.h>
+
 #include <cmath>
 #include <SFML/Graphics.hpp>
 

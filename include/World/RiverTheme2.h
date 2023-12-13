@@ -7,14 +7,8 @@ class RiverTheme2 : public River {
 
     private:
         void buildLane();
-   
         void updateCurrent(sf::Time dt);
-        virtual unsigned int getCategory() const;
-        virtual sf::FloatRect getBoundingRect() const;
 
     private:
         std::vector<Log*> riverLog;
-        const int numOfLog = 10;
-        int lastLogIndex;
-        int firstLogIndex;
 };

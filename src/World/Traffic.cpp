@@ -1,4 +1,4 @@
-#include "../../include/World/Traffic.h"
+#include <Traffic.h>
 
 Traffic::Traffic(const TextureHolder& texture) 
 : sprite(texture.get(Textures::Traffic)),timeCount(sf::Time::Zero),bounds(sprite.getLocalBounds()) {

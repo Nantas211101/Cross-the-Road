@@ -1,17 +1,17 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <vector>
 
-#include "ResourceIdentifiers.h"
-#include "ResourceHolder.h"
-#include "World/Lane.h"
-#include "World/Animal.h"
-#include "World/Log.h"
-#include "ResourceIdentifiers.h"
-#include "World/Vehicle.h"
-#include "World/Train.h"
-#include "World/Obstacle.h"
-#include "MainChar.h"
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
+#include <Lane.h>
+#include <Animal.h>
+#include <Log.h>
+#include <Vehicle.h>
+#include <Train.h>
+#include <Obstacle.h>
+#include <MainChar.h>
+
+#include <vector>
+#include <SFML/Graphics.hpp>
 
 struct LogData {
 	float speed;

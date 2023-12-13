@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Entity.h"
-#include "../DataTable.h"
-#include "../ResourceIdentifiers.h"
-#include "../ResourceHolder.h"
-#include <iostream>
+#include <Entity.h>
+#include <DataTable.h>
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
+
 #include <SFML/Graphics.hpp>
 
 class Train : public Entity {

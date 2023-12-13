@@ -1,4 +1,4 @@
-#include "../../include/World/Vehicle.h"
+#include <Vehicle.h>
 
 namespace{
     std::vector<VehicleData> Table = initializeVehicleData();  

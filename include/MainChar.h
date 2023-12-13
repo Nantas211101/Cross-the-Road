@@ -1,13 +1,14 @@
 #pragma once
 
-#include "World/Entity.h"
-#include "ResourceIdentifiers.h"
-#include "ResourceHolder.h"
-#include "utility.h"
-#include "Animation.h"
-#include "TextNode.h"
-#include "World/Lane.h"
-#include "DataTable.h"
+#include <Entity.h>
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
+#include <utility.h>
+#include <Animation.h>
+#include <TextNode.h>
+#include <Lane.h>
+#include <DataTable.h>
+
 #include <string>
 
 class MainChar : public Entity{
@@ -34,7 +35,7 @@ private:
     void                makeStop();
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, sf::Vector2f spawnPos);
+    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes);
     void                changeTexture(bool isIncrease, const TextureHolder& textures);  
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
@@ -55,8 +56,14 @@ public:
     void                goRight();
     void                stopMoving();
     bool                isStanding();
+
+    void                setInLane(const std::vector<Lane*>& lanes);
+    void                resetState();
+    int                 getCurLane();
+    void                backTolastLane();
     sf::Vector2f        getLastPos();
-    
+    void                alignChar();
+
 private:
     enum State {
         Up,
@@ -78,6 +85,8 @@ private:
 
     State state;
 	sf::Vector2f lastPosSinceMoving;
+    int curLane;
+    int prevLane;
     // Animation deathAnimation;
     // Animation healingAnimation;
     // Animation takingDamageAnimation;

@@ -1,4 +1,4 @@
-#include "../../include/World/RailwayLight.h"
+#include <RailwayLight.h>
 
 RailwayLight::RailwayLight(const TextureHolder& texture) 
 : sprite(texture.get(Textures::RailwayLight)),timeCount(sf::Time::Zero),bounds(sprite.getLocalBounds()) {

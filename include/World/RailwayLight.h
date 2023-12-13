@@ -1,16 +1,15 @@
 #pragma once
 #include "Entity.h"
-#include "../ResourceIdentifiers.h"
-#include "../ResourceHolder.h"
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
 
 #include <SFML/Graphics.hpp>
 
-class RailwayLight: public Entity{
+class RailwayLight : public Entity {
      public:
-        RailwayLight( const TextureHolder& Texture);
-        // virtual sf::FloatRect getBoundingRect() const;
-        // sf::FloatRect* getDangerBound() const;
+        RailwayLight(const TextureHolder& Texture);
         int getRailwayLightState();
+
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         void updateCurrent(sf::Time dt);

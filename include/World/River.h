@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Lane.h"
-#include "Entity.h"
-#include "../DataTable.h"
-#include "../ResourceIdentifiers.h"
-#include "../ResourceHolder.h"
-#include "Log.h"
+#include <Lane.h>
+#include <DataTable.h>
+#include <Log.h>
 
 #include <vector>
 #include <random>
@@ -17,6 +14,13 @@ class River : public Lane {
 
     private:
         virtual void updateCurrent(sf::Time dt) = 0;
+        unsigned int getCategory() const;
+        virtual sf::FloatRect getBoundingRect() const;
+
+    protected:
+        const int numOfLog = 10;
+        int lastLogIndex;
+        int firstLogIndex;
 };
 
 namespace {

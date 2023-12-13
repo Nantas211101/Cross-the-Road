@@ -1,12 +1,7 @@
-#include "../include/Player.h"
+#include <Player.h>
 
 struct MainCharMover
 {
-	MainCharMover(float vx, float vy)
-	: velocity(vx, vy)
-	{
-	}
-
 	MainCharMover(Player::Action action) : action(action) {}
 
 	void operator() (MainChar& mainChar, sf::Time) const
@@ -26,10 +21,8 @@ struct MainCharMover
 			mainChar.goRight();
 			break;
 		}
-		//mainChar.accelerate(velocity);
 	}
 	Player::Action action;
-	sf::Vector2f velocity;
 };
 
 Player::Player()

@@ -1,4 +1,4 @@
-#include "../include/World.h"
+#include <World.h>
 
 World::World(sf::RenderWindow& window)
 : mWindow(window)
@@ -10,9 +10,11 @@ World::World(sf::RenderWindow& window)
 , mSceneLayers()
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
+, needAlign(false)
+, isOnLog(false)
 {
 
-	mFonts.load(Fonts::Main, "../../Media/Sansation.ttf");
+	mFonts.load(Fonts::Main, "Media/Sansation.ttf");
 	loadTextures();
 	buildScene();
 
@@ -22,71 +24,71 @@ World::World(sf::RenderWindow& window)
 
 void World::loadTextures(){
 	// Road
-    mTextures.load(Textures::Road, "../../Media/Textures/Road/Road.png");
-	mTextures.load(Textures::LavaRoad, "../../Media/Textures/Road/LavaRoad.png");
-	mTextures.load(Textures::Road1, "../../Media/Textures/Road/Road1.png");
-	mTextures.load(Textures::Soil, "../../Media/Textures/Road/Soil.png");
+    mTextures.load(Textures::Road, "Media/Textures/Road/Road.png");
+	mTextures.load(Textures::LavaRoad, "Media/Textures/Road/LavaRoad.png");
+	mTextures.load(Textures::Road1, "Media/Textures/Road/Road1.png");
+	mTextures.load(Textures::Soil, "Media/Textures/Road/Soil.png");
 
-    mTextures.load(Textures::Elephant, "../../Media/Textures/Animal/Elephant.png");
-    mTextures.load(Textures::Rhinoceros, "../../Media/Textures/Animal/Rhinoceros.png");
-	mTextures.load(Textures::Cow, "../../Media/Textures/Animal/Cow.png");
-    mTextures.load(Textures::Small_Dragon, "../../Media/Textures/Animal/Small_Dragon.png");
-    mTextures.load(Textures::Red_Dragon, "../../Media/Textures/Animal/Red_Dragon.png");
-    mTextures.load(Textures::Green_Dragon, "../../Media/Textures/Animal/Green_Dragon.png");
-    mTextures.load(Textures::Blue_Twin_Head_Dragon, "../../Media/Textures/Animal/Blue_Twin_Head_Dragon.png");
-    mTextures.load(Textures::Monster1, "../../Media/Textures/Animal/Monster1.png");
+    mTextures.load(Textures::Elephant, "Media/Textures/Animal/Elephant.png");
+    mTextures.load(Textures::Rhinoceros, "Media/Textures/Animal/Rhinoceros.png");
+	mTextures.load(Textures::Cow, "Media/Textures/Animal/Cow.png");
+    mTextures.load(Textures::Small_Dragon, "Media/Textures/Animal/Small_Dragon.png");
+    mTextures.load(Textures::Red_Dragon, "Media/Textures/Animal/Red_Dragon.png");
+    mTextures.load(Textures::Green_Dragon, "Media/Textures/Animal/Green_Dragon.png");
+    mTextures.load(Textures::Blue_Twin_Head_Dragon, "Media/Textures/Animal/Blue_Twin_Head_Dragon.png");
+    mTextures.load(Textures::Monster1, "Media/Textures/Animal/Monster1.png");
 
-    mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
-    mTextures.load(Textures::Truck, "../../Media/Textures/Vehicle/Truck.png");
-    mTextures.load(Textures::Ambulance, "../../Media/Textures/Vehicle/Ambulance.png");
-    mTextures.load(Textures::PoliceCar, "../../Media/Textures/Vehicle/PoliceCar.png");
-    mTextures.load(Textures::SmallCar, "../../Media/Textures/Vehicle/SmallCar.png");
-    mTextures.load(Textures::BlueCar, "../../Media/Textures/Vehicle/BlueCar.png");
-    mTextures.load(Textures::YellowCar, "../../Media/Textures/Vehicle/YellowCar.png");
-    mTextures.load(Textures::OldCar, "../../Media/Textures/Vehicle/OldCar.png");
-    mTextures.load(Textures::SuperCar, "../../Media/Textures/Vehicle/SuperCar.png");
+    mTextures.load(Textures::Traffic, "Media/Textures/Traffic.png");
+    mTextures.load(Textures::Truck, "Media/Textures/Vehicle/Truck.png");
+    mTextures.load(Textures::Ambulance, "Media/Textures/Vehicle/Ambulance.png");
+    mTextures.load(Textures::PoliceCar, "Media/Textures/Vehicle/PoliceCar.png");
+    mTextures.load(Textures::SmallCar, "Media/Textures/Vehicle/SmallCar.png");
+    mTextures.load(Textures::BlueCar, "Media/Textures/Vehicle/BlueCar.png");
+    mTextures.load(Textures::YellowCar, "Media/Textures/Vehicle/YellowCar.png");
+    mTextures.load(Textures::OldCar, "Media/Textures/Vehicle/OldCar.png");
+    mTextures.load(Textures::SuperCar, "Media/Textures/Vehicle/SuperCar.png");
 
 	// River
-	mTextures.load(Textures::Log, "../../Media/Textures/Log.png");
-	mTextures.load(Textures::Log1, "../../Media/Textures/Log1.png");
-    mTextures.load(Textures::River, "../../Media/Textures/River.png");
-	mTextures.load(Textures::LavaRiver, "../../Media/Textures/LavaRiver.png");
-    mTextures.load(Textures::LavaRiver1, "../../Media/Textures/LavaRiver1.png");
-	//mTextures.load(Textures::Eagle, "../../Media/Textures/Eagle.png"); // crocodile
+	mTextures.load(Textures::Log, "Media/Textures/Log.png");
+	mTextures.load(Textures::Log1, "Media/Textures/Log1.png");
+    mTextures.load(Textures::River, "Media/Textures/River.png");
+	mTextures.load(Textures::LavaRiver, "Media/Textures/LavaRiver.png");
+    // mTextures.load(Textures::LavaRiver1, "Media/Textures/LavaRiver1.png");
+	//mTextures.load(Textures::Eagle, "Media/Textures/Eagle.png"); // crocodile
 
 	// Ground
-    mTextures.load(Textures::Grass, "../../Media/Textures/Ground/Grass.png");
-	mTextures.load(Textures::LavaGround, "../../Media/Textures/Ground/LavaGround.png");
-	mTextures.load(Textures::LightGrass, "../../Media/Textures/Ground/LightGrass.png");
-	mTextures.load(Textures::Tree1, "../../Media/Textures/Obstacle/Tree1.png");
-	mTextures.load(Textures::Tree2, "../../Media/Textures/Obstacle/Tree2.png");
-	mTextures.load(Textures::Tree3, "../../Media/Textures/Obstacle/Tree3.png");
-	mTextures.load(Textures::Rock1, "../../Media/Textures/Obstacle/Rock1.png");
-	mTextures.load(Textures::Rock2, "../../Media/Textures/Obstacle/Rock2.png");
-	mTextures.load(Textures::Ruin1, "../../Media/Textures/Obstacle/Ruin1.png");
-	mTextures.load(Textures::Ruin2, "../../Media/Textures/Obstacle/Ruin2.png");
-	mTextures.load(Textures::Vocalno, "../../Media/Textures/Obstacle/Volcano.png");
-	mTextures.load(Textures::Fire, "../../Media/Textures/Obstacle/Fire.png");
+    mTextures.load(Textures::Grass, "Media/Textures/Ground/Grass.png");
+	mTextures.load(Textures::LavaGround, "Media/Textures/Ground/LavaGround.png");
+	mTextures.load(Textures::LightGrass, "Media/Textures/Ground/LightGrass.png");
+	mTextures.load(Textures::Tree1, "Media/Textures/Obstacle/Tree1.png");
+	mTextures.load(Textures::Tree2, "Media/Textures/Obstacle/Tree2.png");
+	mTextures.load(Textures::Tree3, "Media/Textures/Obstacle/Tree3.png");
+	mTextures.load(Textures::Rock1, "Media/Textures/Obstacle/Rock1.png");
+	mTextures.load(Textures::Rock2, "Media/Textures/Obstacle/Rock2.png");
+	mTextures.load(Textures::Ruin1, "Media/Textures/Obstacle/Ruin1.png");
+	mTextures.load(Textures::Ruin2, "Media/Textures/Obstacle/Ruin2.png");
+	mTextures.load(Textures::Vocalno, "Media/Textures/Obstacle/Volcano.png");
+	mTextures.load(Textures::Fire, "Media/Textures/Obstacle/Fire.png");
 	// Railway
-	mTextures.load(Textures::Railway, "../../Media/Textures/Railway.png");
-	mTextures.load(Textures::RailwayLight, "../../Media/Textures/RailwayLight.png");
-    //mTextures.load(Textures::Traffic, "../../Media/Textures/Traffic.png");
-    mTextures.load(Textures::Train1, "../../Media/Textures/Train1.png");
-    mTextures.load(Textures::Train2, "../../Media/Textures/Train2.png");
-    mTextures.load(Textures::Train3, "../../Media/Textures/Train3.png");
-	mTextures.load(Textures::Train4, "../../Media/Textures/Train4.png");
+	mTextures.load(Textures::Railway, "Media/Textures/Railway.png");
+	mTextures.load(Textures::RailwayLight, "Media/Textures/RailwayLight.png");
+    //mTextures.load(Textures::Traffic, "Media/Textures/Traffic.png");
+    mTextures.load(Textures::Train1, "Media/Textures/Train1.png");
+    mTextures.load(Textures::Train2, "Media/Textures/Train2.png");
+    mTextures.load(Textures::Train3, "Media/Textures/Train3.png");
+	mTextures.load(Textures::Train4, "Media/Textures/Train4.png");
 
 	// Player
-	mTextures.load(Textures::Standing1, "../../Media/Textures/Player/Player1/Standing.png");
-	mTextures.load(Textures::Up1, "../../Media/Textures/Player/Player1/Up.png");
-	mTextures.load(Textures::Down1, "../../Media/Textures/Player/Player1/Down.png");
-	mTextures.load(Textures::Left1, "../../Media/Textures/Player/Player1/Left.png");
-	mTextures.load(Textures::Right1, "../../Media/Textures/Player/Player1/Right.png");
+	mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
+	mTextures.load(Textures::Up1, "Media/Textures/Player/Player1/Up.png");
+	mTextures.load(Textures::Down1, "Media/Textures/Player/Player1/Down.png");
+	mTextures.load(Textures::Left1, "Media/Textures/Player/Player1/Left.png");
+	mTextures.load(Textures::Right1, "Media/Textures/Player/Player1/Right.png");
 	
-	mTextures.load(Textures::Penguin, "../../Media/Textures/Player/Penguin.png");
-	mTextures.load(Textures::Mallard, "../../Media/Textures/Player/Mallard.png");
-	mTextures.load(Textures::Sheep, "../../Media/Textures/Player/Sheep.png");
-	mTextures.load(Textures::Chicken, "../../Media/Textures/Player/Chicken.png");
+	mTextures.load(Textures::Penguin, "Media/Textures/Player/Penguin.png");
+	mTextures.load(Textures::Mallard, "Media/Textures/Player/Mallard.png");
+	mTextures.load(Textures::Sheep, "Media/Textures/Player/Sheep.png");
+	mTextures.load(Textures::Chicken, "Media/Textures/Player/Chicken.png");
 }
 
 void World::update(sf::Time dt)
@@ -104,6 +106,7 @@ void World::update(sf::Time dt)
 		sf::Vector2f diffPos = playerPos - mid;
 		mainChar->setPosition(mSpawnPosition + diffPos);
 		mWorldView.setCenter(mSpawnPosition);
+		mainChar->resetState();
 	}
 
 	//mainChar->setVelocity(0.f, 0.f);
@@ -119,6 +122,8 @@ void World::update(sf::Time dt)
 			mCommandQueue.pop();
 		}
 	}
+	if(mainChar->isStanding())
+		mainChar->setInLane(lanes);
 	adaptPlayerVelocity();
 
 	// Collision detection and response (may destroy entities)
@@ -153,8 +158,7 @@ bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Categor
 void World::handleCollisions()
 {
 	std::set<SceneNode::Pair> collisionPairs;
-	mainChar->checkSceneCollision(*mSceneLayers[AboveTitle], collisionPairs);
-	mainChar->checkSceneCollision(*mSceneLayers[Title], collisionPairs);
+	mainChar->checkSceneCollision(*lanes[mainChar->getCurLane()], collisionPairs);
 
 	for(SceneNode::Pair pair : collisionPairs)
 	{
@@ -163,6 +167,8 @@ void World::handleCollisions()
 			auto& player = static_cast<MainChar&>(*pair.first);
 			auto& log = static_cast<Log&>(*pair.second);
 			
+			needAlign = true;
+			isOnLog = true;
 			if(mainChar->isStanding())
 				mainChar->setVelocity(log.getVelocity().x, 0);
 			break;
@@ -177,7 +183,7 @@ void World::handleCollisions()
 
 			// Collision: Player damage = enemy's remaining HP
 			timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
-			if(timeFromLastInvulnerable > sf::seconds(0.5)){
+			if(timeFromLastInvulnerable > sf::seconds(0.1)){
 				player.damage(5);
 				invulnerableTime.restart();
 			}
@@ -189,10 +195,20 @@ void World::handleCollisions()
 			auto& block = static_cast<Obstacle&>(*pair.second);
 
 			// Collision: Player damage = enemy's remaining HP
-			mainChar->setPosition(mainChar->getLastPos());
+			if(mainChar->getVelocity().y != 0)
+				mainChar->backTolastLane();
+			else
+				mainChar->setPosition(mainChar->getLastPos());
 			mainChar->stopMoving();
 		}
+	// 	if(matchesCategories(pair, Category::Player, Category::Road) || matchesCategories(pair, Category::Player, Category::Ground)) {
+	// 		isOnLog = false;
+	// 	}
 	}
+	// if(needAlign && !isOnLog && mainChar->isStanding()) {
+	// 	needAlign = false;
+	// 	mainChar->alignChar();
+	// }
 }
 
 void World::draw()
@@ -217,19 +233,17 @@ void World::buildScene()
 		mSceneGraph.attachChild(std::move(layer));
 	}
 
-	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height));
+	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 10; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes = laneFactory.randomTemplateLane();
 		for(auto& x : randLanes) {
 			lanes.push_back(x.get());
-			mSceneLayers[AboveTitle]->attachChild(x->detachChild());
 			mSceneLayers[Title]->attachChild(std::move(x));
 		}
 	}
-	std::unique_ptr<MainChar> character(new MainChar(MainChar::Player1, mTextures, mFonts, mSpawnPosition));
+	std::unique_ptr<MainChar> character(new MainChar(MainChar::Player1, mTextures, mFonts, 1, lanes));
 	mainChar = character.get();
-	character->setPosition(mSpawnPosition);
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
 
@@ -237,7 +251,7 @@ void World::adaptPlayerPosition()
 {
 	// Keep player's position inside the screen bounds, at least borderDistance units from the border
 	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
-	const float borderDistance = 20.f;
+	const float borderDistance = 0.f;
 
 	sf::Vector2f position = mainChar->getPosition();
 	position.x = std::max(position.x, viewBounds.left + borderDistance);
@@ -249,12 +263,12 @@ void World::adaptPlayerPosition()
 
 void World::adaptPlayerVelocity()
 {
-	sf::Vector2f velocity = mainChar->getVelocity();
+	// sf::Vector2f velocity = mainChar->getVelocity();
 
-	// If moving diagonally, reduce velocity (to have always same velocity)
-	if (velocity.x != 0.f && velocity.y != 0.f)
-		mainChar->setVelocity(velocity / std::sqrt(2.f));
-	sf::Vector2f velocityAfterAdapt = mainChar->getVelocity();
+	// // If moving diagonally, reduce velocity (to have always same velocity)
+	// if (velocity.x != 0.f && velocity.y != 0.f)
+	// 	mainChar->setVelocity(velocity / std::sqrt(2.f));
+	// sf::Vector2f velocityAfterAdapt = mainChar->getVelocity();
 
 	// Add scrolling velocity
 	//mainChar->accelerate(0.f, 100.f);

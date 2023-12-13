@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../SceneNode.h"
-#include "../ResourceHolder.h"
-#include "../ResourceIdentifiers.h"
+#include <SceneNode.h>
+#include <ResourceHolder.h>
+#include <ResourceIdentifiers.h>
+
 #include <SFML/Graphics.hpp>
 #include <ctime>
 

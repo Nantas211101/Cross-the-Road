@@ -1,8 +1,4 @@
-#include "../../include/World/Road.h"
-
-#include <iostream>
-
-// 50: width each lane
+#include <Road.h>
 
 Road::Road(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : Lane(textureHolder, spawnPos){}

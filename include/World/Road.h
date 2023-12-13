@@ -1,13 +1,11 @@
 #pragma once
 
-#include "Lane.h"
-#include "Entity.h"
-#include "../DataTable.h"
-#include "../ResourceIdentifiers.h"
-#include "../ResourceHolder.h"
-#include "Animal.h"
-#include "Vehicle.h"
-#include "Traffic.h"
+#include <Lane.h>
+#include <Entity.h>
+#include <DataTable.h>
+#include <Animal.h>
+#include <Vehicle.h>
+#include <Traffic.h>
 
 #include <vector>
 #include <random>

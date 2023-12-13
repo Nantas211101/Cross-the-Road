@@ -1,10 +1,8 @@
-#include "../../include/World/Railway.h"
+#include <Railway.h>
 
 namespace {
     const std::vector<TrainData> TableTrain = initializeTrainData();
 }
-
-// 50: width each lane
 
 Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : Lane(textureHolder, spawnPos)
@@ -60,7 +58,7 @@ void Railway::buildLane(){
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
     newTrain->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 
-    newTrain->setPosition(-1100, startPos.y - 100);
+    newTrain->setPosition(-1100, -100);
     this->attachChild(std::move(newTrain));
 }
 
@@ -72,6 +70,6 @@ void Railway::buildLight(){
     int randomKindVehicle = dist(gen);
     std::unique_ptr<RailwayLight> light(new RailwayLight(*textureHolder));
     railwayLight= light.get();
-    light->setPosition(startPos.x+700,startPos.y + 30);
+    light->setPosition(700, 30);
     this->attachChild(std::move(light));
 }

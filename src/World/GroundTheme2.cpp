@@ -1,4 +1,4 @@
-#include "../../include/World/GroundTheme2.h"
+#include <GroundTheme2.h>
 
  GroundTheme2::GroundTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround)
 : Ground(textureHolder, spawnPos)
@@ -32,7 +32,7 @@ void GroundTheme2::buildLane() {
         std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Fire, *textureHolder));
         obstacles.push_back(obstacle.get());
         int randNum = rand() % 17;
-        obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 , startPos.y );
+        obstacle->setPosition( randNum * 100 , 0 );
         this->attachChild(std::move(obstacle));
     }
 }

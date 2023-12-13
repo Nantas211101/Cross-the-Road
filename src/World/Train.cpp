@@ -1,4 +1,4 @@
-#include "../../include/World/Train.h"
+#include <Train.h>
 
 namespace {
     const std::vector<TrainData> Table = initializeTrainData();

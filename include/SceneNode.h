@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Command.h"
-#include "Category.h"
-#include "Utility.h"
+#include <Command.h>
+#include <Category.h>
+#include <Utility.h>
 
 #include <vector>
 #include <memory>

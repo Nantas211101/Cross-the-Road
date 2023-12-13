@@ -1,5 +1,5 @@
 #pragma once
-#include "Category.h"
+#include <Category.h>
 
 #include <SFML/System/Time.hpp>
 #include <functional>

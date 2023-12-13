@@ -1,4 +1,4 @@
-#include "../include/MainChar.h"
+#include <MainChar.h>
 
 namespace {
     const std::vector<CharData> Table = initializeCharData();
@@ -68,7 +68,7 @@ int MainChar::IDToNum(Type type){
     return 0;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, sf::Vector2f spawnPos)
+MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes)
 : mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
@@ -76,15 +76,18 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 , rightAnimation(textures.get(Table[type].rightTexture))
 , mHP(Table[type].hitpoints)
 , mHealthDisplay(nullptr)
+, lastPosSinceMoving(410, 0)
 , state(State::Standing)
+, curLane(curLane)
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
     mSprite.setTexture(textures.get(Textures::Standing1));
     mSprite.setTextureRect(sf::IntRect(0, 0, frameWidth, frameHeight));
     //centerOrigin(mSprite);
-    
-    lastPosSinceMoving = spawnPos;
+
+    setPosition(lastPosSinceMoving);
+    setInLane(lanes);
 
     std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
 	mHealthDisplay = healthDisplay.get();
@@ -139,19 +142,6 @@ void MainChar::updateCurrent(sf::Time dt) {
     makeStop();
     updateTexts();
     Entity::updateCurrent(dt);
-}
-
-void MainChar::makeStop() {
-	sf::Vector2f newPos = getPosition();
-	sf::Vector2f diff = lastPosSinceMoving - newPos;
-	if(diff.y >= Lane::distanceBetweenLane - 5 ||
-       diff.y <= -Lane::distanceBetweenLane + 5 || 
-       diff.x >= Lane::distanceBetweenTile - 5 ||
-       diff.x <= -Lane::distanceBetweenTile + 5) 
-    {
-        stopMoving();
-        lastPosSinceMoving = newPos;
-	}
 }
 
 void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -242,11 +232,15 @@ bool MainChar::isDestroyed() const {
 void MainChar::goUp() {
     setVelocity(0, -movingVelocity);
     state = State::Up;
+    prevLane = curLane;
+    ++curLane;
 }
 
 void MainChar::goDown() {
     setVelocity(0, movingVelocity);
     state = State::Down;
+    prevLane = curLane;
+    --curLane;
 }
 
 void MainChar::goLeft() {
@@ -274,17 +268,44 @@ sf::Vector2f MainChar::getLastPos() {
     return lastPosSinceMoving;
 }
 
+void MainChar::alignChar() {
+    sf::Vector2f pos = getPosition();
+    setPosition((pos.x + Lane::distanceBetweenTile / 2) / Lane::distanceBetweenTile * Lane::distanceBetweenTile, pos.y);
+}
+
+int MainChar::getCurLane() {
+    return curLane;
+}
+
+void MainChar::setInLane(const std::vector<Lane*>& lanes) {
+    setPosition(getPosition().x, lanes[curLane]->getPosition().y + 25);
+}
+
+void MainChar::resetState() {
+    curLane = 0;
+    state = State::Standing;
+}
+
+void MainChar::backTolastLane() {
+    curLane = prevLane;
+}
+
+void MainChar::makeStop() {
+	sf::Vector2f newPos = getPosition();
+	sf::Vector2f diff = lastPosSinceMoving - newPos;
+	if(diff.y >= Lane::distanceBetweenLane - 1 ||
+       diff.y <= -Lane::distanceBetweenLane + 1 || 
+       diff.x >= Lane::distanceBetweenTile - 1 ||
+       diff.x <= -Lane::distanceBetweenTile + 1) 
+    {
+        stopMoving();
+        lastPosSinceMoving = newPos;
+	}
+}
+
 void MainChar::updateTexts()
 {
 	mHealthDisplay->setString(std::to_string(getHitpoints()) + " HP");
 	mHealthDisplay->setPosition(0.f, 50.f);
 	mHealthDisplay->setRotation(-getRotation());
-
-	// if (mMissileDisplay)
-	// {
-	// 	if (mMissileAmmo == 0)
-	// 		mMissileDisplay->setString("");
-	// 	else
-	// 		mMissileDisplay->setString("M: " + to_string(mMissileAmmo));
-	// }
 }

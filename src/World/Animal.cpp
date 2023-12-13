@@ -1,4 +1,4 @@
-#include "../../include/World/Animal.h"
+#include <Animal.h>
 
 namespace{
     std::vector<AnimalData> Table = initializeAnimalData();  
