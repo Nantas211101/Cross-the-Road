@@ -1,4 +1,4 @@
-#include <LaneFactory.h>
+#include <LaneFactory.hpp>
 
 LaneFactory::LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos, int theme)
 : lanes()

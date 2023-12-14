@@ -1,4 +1,4 @@
-#include <GroundTheme2.h>
+#include <GroundTheme2.hpp>
 
  GroundTheme2::GroundTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart)
 : Ground(textureHolder, spawnPos)

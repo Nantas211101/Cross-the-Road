@@ -1,4 +1,4 @@
-#include <Utility.h>
+#include <Utility.hpp>
 
 void centerOrigin(sf::Sprite& sprite)
 {

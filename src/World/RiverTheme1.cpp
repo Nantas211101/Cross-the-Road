@@ -1,4 +1,4 @@
-#include <RiverTheme1.h>
+#include <RiverTheme1.hpp>
 
 RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : River(textureHolder, spawnPos)

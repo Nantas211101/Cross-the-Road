@@ -1,4 +1,4 @@
-#include <RoadTheme1.h>
+#include <RoadTheme1.hpp>
 
 RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine, Type typeRoad)
 :Road(textureHolder, spawnPos),

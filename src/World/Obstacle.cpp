@@ -1,4 +1,4 @@
-#include <Obstacle.h>
+#include <Obstacle.hpp>
 
 namespace{
     std::vector<ObstacleData> Table = initializeObstacleData();  

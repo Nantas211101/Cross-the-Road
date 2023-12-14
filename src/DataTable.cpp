@@ -1,6 +1,4 @@
-#include "../include/DataTable.h"
-#include "ResourceIdentifiers.h"
-
+#include <DataTable.hpp>
 
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);

@@ -1,4 +1,4 @@
-#include "../../include/World/RiverTheme2.h"
+#include <RiverTheme2.hpp>
 
 RiverTheme2::RiverTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : River(textureHolder, spawnPos)

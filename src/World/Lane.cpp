@@ -1,4 +1,4 @@
-#include <Lane.h>
+#include <Lane.hpp>
 
 Lane::Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : textureHolder(textureHolder)

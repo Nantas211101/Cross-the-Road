@@ -1,4 +1,4 @@
-#include <FinishLane.h>
+#include <FinishLane.hpp>
 
  FinishLane::FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeFinishLane)
  : Lane(textureHolder, spawnPos)

@@ -1,4 +1,4 @@
-#include <Command.h>
+#include <Command.hpp>
 
 Command::Command()
 : action()

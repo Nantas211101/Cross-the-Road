@@ -1,5 +1,5 @@
 #pragma once
-#include <ResourceHolder.h>
+#include <ResourceHolder.hpp>
 
 template <typename Resource, typename Identifier>
 void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string& filename)

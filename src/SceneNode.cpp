@@ -1,4 +1,4 @@
-#include <SceneNode.h>
+#include <SceneNode.hpp>
 
 SceneNode::SceneNode()
 : mChildren()

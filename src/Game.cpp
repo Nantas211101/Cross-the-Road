@@ -1,4 +1,4 @@
-#include <Game.h>
+#include <Game.hpp>
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 

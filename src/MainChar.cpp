@@ -1,4 +1,4 @@
-#include <MainChar.h>
+#include <MainChar.hpp>
 
 namespace {
     const std::vector<CharData> Table = initializeCharData();

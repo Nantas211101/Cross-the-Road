@@ -1,4 +1,4 @@
-#include <River.h>
+#include <River.hpp>
 
 River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : Lane(textureHolder, spawnPos){}
