@@ -1,7 +1,7 @@
-#include "../../include/World/Traffic.h"
+#include <Traffic.h>
 
-Traffic::Traffic(const TextureHolder& texture,int status) 
-: sprite(texture.get(Textures::Traffic)),sta(status),timeCount(sf::Time::Zero),bounds(sprite.getLocalBounds()) {
+Traffic::Traffic(const TextureHolder& texture) 
+: sprite(texture.get(Textures::Traffic)),timeCount(sf::Time::Zero),bounds(sprite.getLocalBounds()) {
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.scale(0.1f,0.1f);
     sprite.setTextureRect(sf::IntRect(bounds.width/3 * sta, 0, bounds.width/3, bounds.height));

@@ -1,30 +1,25 @@
 #pragma once
-#include "Lane.h"
-#include "River.h"
-#include "Grass.h"
-#include "Road.h"
-#include "TextureHolder.h"
+#include <Railway.h>
+#include <RoadTheme1.h>
+#include <RoadTheme2.h>
+#include <RiverTheme1.h>
+#include <RiverTheme2.h>
+#include <GroundTheme1.h>
+#include <GroundTheme2.h>
+#include <FinishLane.h>
+
 #include <vector>
 #include <memory>
 #include <SFML/Graphics.hpp>
 
 class LaneFactory {
-private:
+protected:
     std::vector<std::unique_ptr<Lane>> lanes;
     sf::Vector2f startPos;
-
-    void templateGrass(int num);
-    void templateRoad(int num);
-    void templateRiver(int num);
-
-    void templateLane1();
-    void templateLane2();
-    void templateLane3();
-    void templateLane4();
-    void templateLane5();
-
-public:
-    LaneFactory(sf::Vector2f startPos);
+    TextureHolder* textureHolder;
+    int theme;
     
-    std::vector<std::unique_ptr<Lane>> randomTemplateLane();
+public:
+    LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos, int theme);
+    virtual std::vector<std::unique_ptr<Lane>> randomTemplateLane() = 0;
 };

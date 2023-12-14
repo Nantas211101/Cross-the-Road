@@ -1,4 +1,4 @@
-#include "../../include/World/Animal.h"
+#include <Animal.h>
 
 namespace{
     std::vector<AnimalData> Table = initializeAnimalData();  
@@ -26,4 +26,8 @@ void Animal::updateCurrent(sf::Time dt) {
     Entity::updateCurrent(dt);
     sprite.update(dt);
     sprite.setRepeating(true);
+}
+
+int Animal::getDamage(){
+    return Table[type].dmg;
 }

@@ -1,6 +1,9 @@
 #pragma once
 
-#include "World/World.h"
+#include <World.h>
+#include <Player.h>
+#include <CommandQueue.h>
+
 #include <SFML/Graphics.hpp>
 
 class Game : private sf::NonCopyable
@@ -16,7 +19,7 @@ class Game : private sf::NonCopyable
 		void					render();
 
 		void					updateStatistics(sf::Time elapsedTime);	
-		void					handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+		void 					handlePlayerInput(const sf::Event& event);
 		
 
 	private:
@@ -24,6 +27,7 @@ class Game : private sf::NonCopyable
 
 		sf::RenderWindow		mWindow;
 		World					mWorld;
+		Player	 				mPlayer;
 
 	  	sf::Font				mFont;
 		sf::Text				mStatisticsText;

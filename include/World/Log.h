@@ -1,10 +1,11 @@
 #pragma once
 
+#include <Entity.h>
+#include <DataTable.h>
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
+
 #include <SFML/Graphics.hpp>
-#include "Entity.h"
-#include "DataTable.h"
-#include "TextureHolder.h"
-#include <iostream>
 
 class Log : public Entity {
     public:
@@ -18,8 +19,8 @@ class Log : public Entity {
 
     public:
         Log(Type type, const TextureHolder& Texture);
+        virtual unsigned int getCategory() const;
         virtual sf::FloatRect getBoundingRect() const;
-        sf::FloatRect* getDangerBound() const;
         Type getType();
 
     private:

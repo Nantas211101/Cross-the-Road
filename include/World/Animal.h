@@ -1,36 +1,40 @@
 #pragma once
-#include <vector>
-#include "Entity.h"
-#include "DataTable.h"
-#include "SFML/Graphics/Sprite.hpp"
-#include "SFML/Graphics/Texture.hpp"
+#include <Entity.h>
+#include <DataTable.h>
+#include <Animation.h>
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
+
 #include <SFML/Graphics.hpp>
-#include "Animation.h"
-#include "TextureHolder.h"
 
-class Animal:public Entity{
- public:
-    enum Type{
-        Elephant,
-        Rhinoceros,
+class Animal : public Entity {
+public:
+   enum Type {
+      Elephant,
+      Rhinoceros,
+      Cow,
 
-        Small_Dragon,
-        Green_Dragon,
-        Red_Dragon,
-        Blue_Twin_Head_Dragon,
-        //Buffalo,
-        //Hippo,
-       
-        TypeCount
-    };
- public:
-    Animal(Type type, const TextureHolder& texture);
-    Type getType();
+      Small_Dragon,
+      Green_Dragon,
+      Red_Dragon,
+      Blue_Twin_Head_Dragon,
+      //Buffalo,
+      //Hippo,
+      Monster1,
+      
+      TypeCount
+   };
+public:
+   Animal(Type type, const TextureHolder& texture);
+   int getDamage();
+   Type getType();
     
- private:
-    virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const;
-    void updateCurrent(sf::Time dt);
- private:
-    Type type;
-    Animation sprite;
+private:
+   virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const;
+   void updateCurrent(sf::Time dt);
+
+private:
+   Type type;
+   int dmg;
+   Animation sprite;
 };

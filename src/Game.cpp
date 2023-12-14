@@ -1,19 +1,17 @@
-#include "../include/Game.h"
-
-#include <SFML/Graphics.hpp>
-
+#include <Game.h>
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 Game::Game()
-: mWindow(sf::VideoMode(1440, 800), "World", sf::Style::Close)
+: mWindow(sf::VideoMode(1700, 950), "World", sf::Style::Close)
 , mWorld(mWindow)
 , mFont()
+, mPlayer()
 , mStatisticsText()
 , mStatisticsUpdateTime()
 , mStatisticsNumFrames(0)
 {
-	mFont.loadFromFile("../../Media/Sansation.ttf");
+	mFont.loadFromFile("Media/Sansation.ttf");
 	mStatisticsText.setFont(mFont);
 	mStatisticsText.setPosition(5.f, 5.f);
 	mStatisticsText.setCharacterSize(1);
@@ -44,28 +42,19 @@ void Game::run()
 void Game::processEvents()
 {
 	sf::Event event;
-	while (mWindow.pollEvent(event))
-	{
-		switch (event.type)
-		{
-			case sf::Event::KeyPressed:
-				handlePlayerInput(event.key.code, true);
-				break;
+    while(mWindow.pollEvent(event)){
+        handlePlayerInput(event);
 
-			case sf::Event::KeyReleased:
-				handlePlayerInput(event.key.code, false);
-				break;
-
-			case sf::Event::Closed:
-				mWindow.close();
-				break;
-		}
-	}
+        if(event.type == sf::Event::Closed)
+            mWindow.close();
+    }
 }
 
 void Game::update(sf::Time elapsedTime)
 {
 	mWorld.update(elapsedTime);
+	CommandQueue& commands = mWorld.getCommandQueue();
+	mPlayer.handleRealtimeInput(commands);
 }
 
 void Game::render()
@@ -94,6 +83,9 @@ void Game::updateStatistics(sf::Time elapsedTime)
 	}
 }
 
-void Game::handlePlayerInput(sf::Keyboard::Key, bool)
+void Game::handlePlayerInput(const sf::Event& event)
 {
+	// Game input handling
+	CommandQueue& commands = mWorld.getCommandQueue();
+	mPlayer.handleEvent(event, commands);
 }

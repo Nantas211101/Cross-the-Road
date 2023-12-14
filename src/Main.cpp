@@ -1,4 +1,4 @@
-#include "../include/Game.h"
+#include <Game.h>
 
 #include <stdexcept>
 #include <iostream>
@@ -15,4 +15,5 @@ int main()
 	{
 		std::cout << "\nEXCEPTION: " << e.what() << std::endl;
 	}
+	return 0;
 }
