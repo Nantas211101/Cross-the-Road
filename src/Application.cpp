@@ -12,28 +12,28 @@
 #include "ConfirmRegisterState.hpp"
 #include "DisplayCharState.hpp"
 
-const std::string Path_TitleScreen = "Media/Textures/TitleScreen.jpg";
+const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.jpg";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
 const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
-const std::string Path_ChooseCharScreen = "Media/Textures/bluebackground.jpg";
-const std::string Path_chickenMain = "Media/Textures/chicken.png";
-const std::string Path_penguinMain = "Media/Textures/Penguin.png";
-const std::string Path_sheepMain = "Media/Textures/Sheep.png";
-const std::string Path_mallardMain = "Media/Textures/Mallard.png";
-const std::string Path_RightButton = "Media/Textures/Right.png";
-const std::string Path_LeftButton = "Media/Textures/Left.png";
-const std::string Path_Normal = "Media/Textures/ButtonNormal.png";
-const std::string Path_Pressed = "Media/Textures/ButtonPressed.png";
-const std::string Path_Selected = "Media/Textures/ButtonSelected.png";
-const std::string Path_InputButton = "Media/Textures/purpleInputBox.png";
-const std::string Path_loginBG = "Media/Textures/LoginBG.jpg";
-const std::string Path_registerBG = "Media/Textures/RegisterBG.jpg";
-const std::string Path_VisiblePassword = "Media/Textures/visible.png";
-const std::string Path_InvisiblePassword = "Media/Textures/invisible.png";
-const std::string Path_backButton = "Media/Textures/backButton.png";
-const std::string Path_displayButton = "Media/Textures/DisplayPlayer.png";
-const std::string Path_heart = "Media/Textures/heart.png";
-const std::string Path_Thunder = "Media/Textures/Thunder.png";
+const std::string Path_ChooseCharScreen = "Media/Textures/State/bluebackground.jpg";
+const std::string Path_chickenMain = "Media/Textures/Player/chicken.png";
+const std::string Path_penguinMain = "Media/Textures/Player/Penguin.png";
+const std::string Path_sheepMain = "Media/Textures/Player/Sheep.png";
+const std::string Path_mallardMain = "Media/Textures/Player/Mallard.png";
+const std::string Path_RightButton = "Media/Textures/Button/Right.png";
+const std::string Path_LeftButton = "Media/Textures/Button/Left.png";
+const std::string Path_Normal = "Media/Textures/Button/ButtonNormal.png";
+const std::string Path_Pressed = "Media/Textures/Button/ButtonPressed.png";
+const std::string Path_Selected = "Media/Textures/Button/ButtonSelected.png";
+const std::string Path_InputButton = "Media/Textures/Button/purpleInputBox.png";
+const std::string Path_loginBG = "Media/Textures/State/LoginBG.jpg";
+const std::string Path_registerBG = "Media/Textures/State/RegisterBG.jpg";
+const std::string Path_VisiblePassword = "Media/Textures/Button/visible.png";
+const std::string Path_InvisiblePassword = "Media/Textures/Button/invisible.png";
+const std::string Path_backButton = "Media/Textures/Button/backButton.png";
+const std::string Path_displayButton = "Media/Textures/Button/DisplayPlayer.png";
+const std::string Path_heart = "Media/Textures/Icon/heart.png";
+const std::string Path_Thunder = "Media/Textures/Icon/Thunder.png";
 
 // Application quite similar to the Game.cpp
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 120.f);

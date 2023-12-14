@@ -6,11 +6,11 @@
 #include <cmath>
 #include <iostream>
 
-const std::string Path_TitleScreen = "Media/Textures/TitleScreen.jpg";
-const std::string Path_chickenMain = "Media/Textures/chicken.png";
-const std::string Path_penguinMain = "Media/Textures/Penguin.png";
-const std::string Path_sheepMain = "Media/Textures/Sheep.png";
-const std::string Path_mallardMain = "Media/Textures/Mallard.png";
+const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.jpg";
+const std::string Path_chickenMain = "Media/Textures/Player/chicken.png";
+const std::string Path_penguinMain = "Media/Textures/Player/Penguin.png";
+const std::string Path_sheepMain = "Media/Textures/Player/Sheep.png";
+const std::string Path_mallardMain = "Media/Textures/Player/Mallard.png";
 
 const int numOfHeight = 3;
 
