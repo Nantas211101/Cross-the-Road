@@ -78,6 +78,11 @@ void World::loadTextures(){
     mTextures.load(Textures::Train3, "Media/Textures/Train3.png");
 	mTextures.load(Textures::Train4, "Media/Textures/Train4.png");
 
+	// FinishLane
+	mTextures.load(Textures::FinishLevel, "Media/Textures/FinishLane/FinishLevel.png");
+	mTextures.load(Textures::FinishTheme1, "Media/Textures/FinishLane/FinishTheme1.png");
+	mTextures.load(Textures::FinishTheme2, "Media/Textures/FinishLane/FinishTheme2.png");
+
 	// Player
 	mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
 	mTextures.load(Textures::Up1, "Media/Textures/Player/Player1/Up.png");
@@ -85,15 +90,15 @@ void World::loadTextures(){
 	mTextures.load(Textures::Left1, "Media/Textures/Player/Player1/Left.png");
 	mTextures.load(Textures::Right1, "Media/Textures/Player/Player1/Right.png");
 	
-	mTextures.load(Textures::Penguin, "../../Media/Textures/Player/Penguin.png");
-	mTextures.load(Textures::Mallard, "../../Media/Textures/Player/Mallard.png");
-	mTextures.load(Textures::Sheep, "../../Media/Textures/Player/Sheep.png");
-	mTextures.load(Textures::Chicken, "../../Media/Textures/Player/Chicken.png");
+	mTextures.load(Textures::Penguin, "Media/Textures/Player/Penguin.png");
+	mTextures.load(Textures::Mallard, "Media/Textures/Player/Mallard.png");
+	mTextures.load(Textures::Sheep, "Media/Textures/Player/Sheep.png");
+	mTextures.load(Textures::Chicken, "Media/Textures/Player/Chicken.png");
 
 	//Decorator
-	mTextures.load(Textures::DecoTree1, "../../Media/Textures/Decorator/DecoTree1.png");
-	mTextures.load(Textures::DecoTree2, "../../Media/Textures/Decorator/DecoTree2.png");
-	mTextures.load(Textures::DecoFlower1, "../../Media/Textures/Decorator/DecoFlower1.png");
+	mTextures.load(Textures::DecoTree1, "Media/Textures/Decorator/DecoTree1.png");
+	mTextures.load(Textures::DecoTree2, "Media/Textures/Decorator/DecoTree2.png");
+	mTextures.load(Textures::DecoFlower1, "Media/Textures/Decorator/DecoFlower1.png");
 }
 
 void World::update(sf::Time dt)

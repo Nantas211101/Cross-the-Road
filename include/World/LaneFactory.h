@@ -6,6 +6,7 @@
 #include <RiverTheme2.h>
 #include <GroundTheme1.h>
 #include <GroundTheme2.h>
+#include <FinishLane.h>
 
 #include <vector>
 #include <memory>

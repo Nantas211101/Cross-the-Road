@@ -63,6 +63,12 @@ namespace Textures
 		Train3,
 		Train4,
 
+		// FinishLane
+		FinishLevel,
+		FinishTheme1,
+		FinishTheme2,
+
+
 		//Decorator
 		DecoTree1,
 		DecoTree2,

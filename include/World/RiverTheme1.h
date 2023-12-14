@@ -1,5 +1,5 @@
 #pragma once
-#include "River.h"
+#include <River.h>
 
 class RiverTheme1 : public River {
     public:

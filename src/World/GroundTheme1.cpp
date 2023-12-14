@@ -29,10 +29,10 @@ void GroundTheme1::buildLane() {
     std::uniform_int_distribution<int> dist(3, 7);
     int numObstacles = dist(gen);
     for(int j = 0; j < numObstacles; j++) {
-        std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree1, *textureHolder));
+        std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
         obstacles.push_back(obstacle.get());
         int randNum = rand() % 17;
-        obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 , startPos.y + 30);
+        obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 ,0);
         this->attachChild(std::move(obstacle));
     }
 
@@ -57,7 +57,7 @@ void GroundTheme1::buildLane() {
         std::unique_ptr<Decorator> decorator(new Decorator(randType, *textureHolder));
         decorators.push_back(decorator.get());
         int randNum = rand() % 1700;
-        decorator->setPosition( randNum + decorator->getBoundingRect().width/2 , startPos.y + 30);
+        decorator->setPosition( randNum + decorator->getBoundingRect().width/2 , 0);
         this->attachChild(std::move(decorator));
     }
 }

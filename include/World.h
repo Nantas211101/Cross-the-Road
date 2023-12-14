@@ -1,14 +1,14 @@
 #pragma once
 
-#include "SceneNode.h"
-#include "World/LaneFactory.h"
-#include "World/LaneFactoryTheme1.h"
-#include "World/LaneFactoryTheme2.h"
-#include "World/Decorator.h"
-#include "CommandQueue.h"
-#include "MainChar.h"
-#include "ResourceIdentifiers.h"
-#include "ResourceHolder.h"
+#include <SceneNode.h>
+#include <World/LaneFactory.h>
+#include <World/LaneFactoryTheme1.h>
+#include <World/LaneFactoryTheme2.h>
+#include <World/Decorator.h>
+#include <CommandQueue.h>
+#include <MainChar.h>
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
 
 #include <random>
 #include <array>

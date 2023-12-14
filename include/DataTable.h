@@ -1,16 +1,16 @@
 #pragma once
 
-#include "ResourceIdentifiers.h"
-#include "ResourceHolder.h"
-#include "World/Lane.h"
-#include "World/Animal.h"
-#include "World/Log.h"
-#include "ResourceIdentifiers.h"
-#include "World/Vehicle.h"
-#include "World/Train.h"
-#include "World/Decorator.h"
-#include "World/Obstacle.h"
-#include "MainChar.h"
+#include <ResourceIdentifiers.h>
+#include <ResourceHolder.h>
+#include <Lane.h>
+#include <Animal.h>
+#include <Log.h>
+#include <ResourceIdentifiers.h>
+#include <Vehicle.h>
+#include <Train.h>
+#include <Decorator.h>
+#include <Obstacle.h>
+#include <MainChar.h>
 
 struct LogData {
 	float speed;

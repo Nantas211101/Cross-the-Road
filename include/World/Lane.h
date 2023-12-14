@@ -13,6 +13,7 @@ class Lane : public SceneNode {
             Road,
             River,
             Ground,
+            FinishLane,
             TypeCount
         };
 
