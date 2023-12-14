@@ -1,9 +1,10 @@
 #include <GroundTheme1.h>
 
- GroundTheme1::GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround)
+ GroundTheme1::GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart)
 : Ground(textureHolder, spawnPos)
 , obstacles()
 , typeGround(typeGround)
+, isStartLane(isStart)
 {
     switch (this->typeGround){
         case GroundTheme1::Grass:
@@ -24,20 +25,35 @@
 void GroundTheme1::updateCurrent(sf::Time dt){}
 
 void GroundTheme1::buildLane() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(3, 7);
-    int numObstacles = dist(gen);
-    for(int j = 0; j < numObstacles; j++) {
-        std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
-        obstacles.push_back(obstacle.get());
-        int randNum = rand() % 17;
-        obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 ,0);
-        this->attachChild(std::move(obstacle));
+    if(isStartLane){
+        for(int j = 0; j < 4; j++) {
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
+            obstacles.push_back(obstacle.get());
+            if(j <=1){
+                obstacle->setPosition(j * 100 + 500 + obstacle->getBoundingRect().width/2 ,0);
+            }
+            else{
+                obstacle->setPosition((17-j) * 100 + 500 + obstacle->getBoundingRect().width/2 ,0);
+            }
+            this->attachChild(std::move(obstacle));
+        }
     }
-
+    else{
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> dist(3, 7);
+        int numObstacles = dist(gen);
+        for(int j = 0; j < numObstacles; j++) {
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
+            obstacles.push_back(obstacle.get());
+            int randNum = rand() % 17;
+            obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 ,0);
+            this->attachChild(std::move(obstacle));
+        }
+    }
+    
     std::random_device rd2;
-    std::mt19937 gen2(rd());
+    std::mt19937 gen2(rd2());
     std::uniform_int_distribution<int> dist2(0,5);
     int numDecorators = dist2(gen2);
     Decorator::Type randType;

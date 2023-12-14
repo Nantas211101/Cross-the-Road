@@ -243,10 +243,16 @@ void World::buildScene()
 		mSceneGraph.attachChild(std::move(layer));
 	}
 
-	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 10; i++) {
-		std::vector<std::unique_ptr<Lane>> randLanes = laneFactory.randomTemplateLane();
+		std::vector<std::unique_ptr<Lane>> randLanes;
+		if(i == 0){
+			randLanes = laneFactory.templateStartLane();
+		}
+		else{
+			randLanes = laneFactory.randomTemplateLane();
+		} 
 		for(auto& x : randLanes) {
 			lanes.push_back(x.get());
 			mSceneLayers[Title]->attachChild(std::move(x));

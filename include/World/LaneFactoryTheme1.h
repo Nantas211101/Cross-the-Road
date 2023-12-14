@@ -23,4 +23,5 @@ public:
     LaneFactoryTheme1(TextureHolder* textureHolder, sf::Vector2f startPos);
     
     std::vector<std::unique_ptr<Lane>> randomTemplateLane();
+    std::vector<std::unique_ptr<Lane>> templateStartLane();
 };

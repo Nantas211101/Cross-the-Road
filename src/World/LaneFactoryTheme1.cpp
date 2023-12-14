@@ -37,6 +37,22 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::randomTemplateLane() {
     return randLanes;
 }
 
+std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::templateStartLane(){
+    lanes.clear();
+    for(int i = 0; i < 3; i++) {
+        bool isStart = 1;
+        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass,isStart));
+        lane->setPosition(startPos);
+        startPos.y -= Lane::distanceBetweenLane;
+        lanes.push_back(std::move(lane));
+    }
+    std::vector<std::unique_ptr<Lane>> randLanes;
+    for(auto&x : lanes) {
+        randLanes.push_back(std::move(x));
+    }
+    return randLanes;
+}
+
 void LaneFactoryTheme1::templateFinishLevel(int num){
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, FinishLane::Level));
@@ -57,7 +73,8 @@ void LaneFactoryTheme1::templateFinishTheme(int num){
 
 void LaneFactoryTheme1::templateGround(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass));
+        bool isStart = 0;
+        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass,isStart));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

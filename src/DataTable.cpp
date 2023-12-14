@@ -96,8 +96,8 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Fire].texture = Textures::Fire;
     data[Obstacle::Fire].scaling = sf::Vector2f(1, 0.8);
     data[Obstacle::Fire].numOfFrames = 7;
-    data[Obstacle::Fire].pictureWidth = 688;   
-    data[Obstacle::Fire].pictureHeight = 204;
+    data[Obstacle::Fire].pictureWidth = 667;   
+    data[Obstacle::Fire].pictureHeight = 205;
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){

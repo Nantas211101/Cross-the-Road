@@ -37,9 +37,26 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::randomTemplateLane() {
     return randLanes;
 }
 
+std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::templateStartLane(){
+    lanes.clear();
+    for(int i = 0; i < 3; i++) {
+        bool isStart = 1;
+        std::unique_ptr<Lane> lane(new GroundTheme2(textureHolder, startPos, GroundTheme2::Lava,isStart));
+        lane->setPosition(startPos);
+        startPos.y -= Lane::distanceBetweenLane;
+        lanes.push_back(std::move(lane));
+    }
+    std::vector<std::unique_ptr<Lane>> randLanes;
+    for(auto&x : lanes) {
+        randLanes.push_back(std::move(x));
+    }
+    return randLanes;
+}
+
 void LaneFactoryTheme2::templateGround(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new GroundTheme2(textureHolder, startPos, GroundTheme2::Lava));
+        bool isStart = 0;
+        std::unique_ptr<Lane> lane(new GroundTheme2(textureHolder, startPos, GroundTheme2::Lava,isStart));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
