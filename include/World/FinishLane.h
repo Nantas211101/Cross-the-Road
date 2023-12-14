@@ -13,7 +13,9 @@
 class FinishLane: public Lane{
     public:
         enum Type{
-            Level,
+            Level1,
+            Level2,
+            Level3,
             Theme1,
             Theme2,
             TypeCount

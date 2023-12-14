@@ -79,7 +79,9 @@ void World::loadTextures(){
 	mTextures.load(Textures::Train4, "Media/Textures/Train4.png");
 
 	// FinishLane
-	mTextures.load(Textures::FinishLevel, "Media/Textures/FinishLane/FinishLevel.png");
+	mTextures.load(Textures::FinishLevel1, "Media/Textures/FinishLane/FinishLevel1.png");
+	mTextures.load(Textures::FinishLevel2, "Media/Textures/FinishLane/FinishLevel2.png");
+	mTextures.load(Textures::FinishLevel3, "Media/Textures/FinishLane/FinishLevel3.png");
 	mTextures.load(Textures::FinishTheme1, "Media/Textures/FinishLane/FinishTheme1.png");
 	mTextures.load(Textures::FinishTheme2, "Media/Textures/FinishLane/FinishTheme2.png");
 

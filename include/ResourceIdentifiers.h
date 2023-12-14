@@ -64,7 +64,9 @@ namespace Textures
 		Train4,
 
 		// FinishLane
-		FinishLevel,
+		FinishLevel1,
+		FinishLevel2,
+		FinishLevel3,
 		FinishTheme1,
 		FinishTheme2,
 
