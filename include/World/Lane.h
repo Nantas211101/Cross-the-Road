@@ -22,6 +22,7 @@ class Lane : public SceneNode {
         bool isReverse();
         static const int distanceBetweenLane = 100;
         static const int distanceBetweenTile = 100;
+        static const int widthOfLane = 2800;
         
     private:
         void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

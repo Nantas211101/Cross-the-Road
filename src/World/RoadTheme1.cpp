@@ -15,7 +15,7 @@ typeRoad(typeRoad)
             break;
     }
 
-    sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
+    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
 
@@ -145,9 +145,9 @@ void RoadTheme1::buildTraffic(){
     std::unique_ptr<Traffic> traff(new Traffic(*textureHolder));
     traffic= traff.get();
     if(!this->isReverse()){
-        traff->setPosition(600, 75);
+        traff->setPosition(600, 0);
     }else{
-         traff->setPosition(1900, 75);
+         traff->setPosition(1900, 0);
     }
     
     this->attachChild(std::move(traff));

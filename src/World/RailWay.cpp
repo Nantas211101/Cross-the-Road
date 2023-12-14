@@ -9,7 +9,7 @@ Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 {
     textureHolder->get(Textures::Railway).setRepeated(true);
     sprite.setTexture(textureHolder->get(Textures::Railway));
-    sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
+    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
     buildLight();

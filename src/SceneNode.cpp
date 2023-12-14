@@ -3,6 +3,7 @@
 SceneNode::SceneNode()
 : mChildren()
 , mParent(nullptr)
+, isReverse(false)
 {
 }
 
@@ -91,8 +92,18 @@ void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const
 
 void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (const Ptr& child : mChildren)
-		child->draw(target, states);
+	if (!isReverse){
+		for (int i=0; i < mChildren.size(); i++)
+			mChildren[i]->draw(target, states);
+	}
+	else {
+		for (int i=mChildren.size()-1; i >=0 ; i--)
+			mChildren[i]->draw(target, states);
+	}
+}
+
+void SceneNode::setReverse(bool flag){
+	isReverse = flag;
 }
 
 sf::Vector2f SceneNode::getWorldPosition() const

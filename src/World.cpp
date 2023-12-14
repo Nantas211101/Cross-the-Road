@@ -38,7 +38,7 @@ void World::loadTextures(){
     mTextures.load(Textures::Blue_Twin_Head_Dragon, "Media/Textures/Animal/Blue_Twin_Head_Dragon.png");
     mTextures.load(Textures::Monster1, "Media/Textures/Animal/Monster1.png");
 
-    mTextures.load(Textures::Traffic, "Media/Textures/Traffic.png");
+    mTextures.load(Textures::Traffic, "Media/Textures/Road/Traffic.png");
     mTextures.load(Textures::Truck, "Media/Textures/Vehicle/Truck.png");
     mTextures.load(Textures::Ambulance, "Media/Textures/Vehicle/Ambulance.png");
     mTextures.load(Textures::PoliceCar, "Media/Textures/Vehicle/PoliceCar.png");
@@ -49,10 +49,10 @@ void World::loadTextures(){
     mTextures.load(Textures::SuperCar, "Media/Textures/Vehicle/SuperCar.png");
 
 	// River
-	mTextures.load(Textures::Log, "Media/Textures/Log.png");
-	mTextures.load(Textures::Log1, "Media/Textures/Log1.png");
-    mTextures.load(Textures::River, "Media/Textures/River.png");
-	mTextures.load(Textures::LavaRiver, "Media/Textures/LavaRiver.png");
+	mTextures.load(Textures::Log, "Media/Textures/River/Log.png");
+	mTextures.load(Textures::Log1, "Media/Textures/River/Log1.png");
+    mTextures.load(Textures::River, "Media/Textures/River/River.png");
+	mTextures.load(Textures::LavaRiver, "Media/Textures/River/LavaRiver.png");
     // mTextures.load(Textures::LavaRiver1, "Media/Textures/LavaRiver1.png");
 	//mTextures.load(Textures::Eagle, "Media/Textures/Eagle.png"); // crocodile
 
@@ -70,13 +70,13 @@ void World::loadTextures(){
 	mTextures.load(Textures::Vocalno, "Media/Textures/Obstacle/Volcano.png");
 	mTextures.load(Textures::Fire, "Media/Textures/Obstacle/Fire.png");
 	// Railway
-	mTextures.load(Textures::Railway, "Media/Textures/Railway.png");
-	mTextures.load(Textures::RailwayLight, "Media/Textures/RailwayLight.png");
-    //mTextures.load(Textures::Traffic, "Media/Textures/Traffic.png");
-    mTextures.load(Textures::Train1, "Media/Textures/Train1.png");
-    mTextures.load(Textures::Train2, "Media/Textures/Train2.png");
-    mTextures.load(Textures::Train3, "Media/Textures/Train3.png");
-	mTextures.load(Textures::Train4, "Media/Textures/Train4.png");
+	mTextures.load(Textures::Railway, "Media/Textures/Railway/Railway.png");
+	mTextures.load(Textures::RailwayLight, "Media/Textures/Railway/RailwayLight.png");
+    //mTextures.load(Textures::Traffic, "Media/Textures/Railway/Traffic.png");
+    mTextures.load(Textures::Train1, "Media/Textures/Railway/Train1.png");
+    mTextures.load(Textures::Train2, "Media/Textures/Railway/Train2.png");
+    mTextures.load(Textures::Train3, "Media/Textures/Railway/Train3.png");
+	mTextures.load(Textures::Train4, "Media/Textures/Railway/Train4.png");
 
 	// FinishLane
 	mTextures.load(Textures::FinishLevel1, "Media/Textures/FinishLane/FinishLevel1.png");
@@ -244,8 +244,8 @@ void World::buildScene()
 
 		mSceneGraph.attachChild(std::move(layer));
 	}
-
-	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	mSceneLayers[Title]->setReverse();
+	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 10; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;

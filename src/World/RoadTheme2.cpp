@@ -5,7 +5,7 @@ RoadTheme2::RoadTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
 {
     textureHolder->get(Textures::LavaRoad).setRepeated(true);
     sprite.setTexture(textureHolder->get(Textures::LavaRoad));
-    sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
+    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
 

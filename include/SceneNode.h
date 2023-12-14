@@ -36,6 +36,8 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 		virtual bool			isMarkedForRemoval() const;
 		virtual bool			isDestroyed() const;
 
+		//Additional function
+		void 					setReverse(bool flag = true);
 	private:
 		virtual void			updateCurrent(sf::Time dt);
 		void					updateChildren(sf::Time dt);
@@ -48,6 +50,8 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 	private:
 		std::vector<Ptr>		mChildren;
 		SceneNode*				mParent;
+		//Additional attribute
+		bool					isReverse;
 };
 
 bool	collision(const SceneNode& lhs, const SceneNode& rhs);

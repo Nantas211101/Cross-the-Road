@@ -6,7 +6,7 @@ RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 {
     textureHolder->get(Textures::River).setRepeated(true);
     sprite.setTexture(textureHolder->get(Textures::River));
-    sf::IntRect textureRect(0, 0, 3000, distanceBetweenLane);
+    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
     sprite.setTextureRect(textureRect);
     buildLane();
 }

@@ -16,7 +16,7 @@
             sprite.setTexture(textureHolder->get(Textures::Soil));
             break;
     }
-    sf::IntRect textureRect(0, 0, 15000, distanceBetweenLane);
+    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
     sprite.setTextureRect(textureRect);
     
     buildLane();

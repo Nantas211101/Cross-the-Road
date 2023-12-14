@@ -30,7 +30,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::randomTemplateLane() {
         templateLane6();
         break;
     }
-    //templateFinishLevel();
+    templateFinishLevel();
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
