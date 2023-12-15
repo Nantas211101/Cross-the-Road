@@ -3,7 +3,7 @@
 #include <Entity.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <ResourceHolder.hpp>
-#include <utility.hpp>
+#include <Utility.hpp>
 #include <Animation.hpp>
 #include <TextNode.hpp>
 #include <Lane.hpp>
@@ -19,10 +19,10 @@ public:
         Penguin,
         Sheep,
         Mallard,
-        none,
-        TypeCount
+        TypeCount,
     };
 
+    static Textures::ID toTextureID(MainChar::Type type);
 
 private:
     Type                numToID(int num);
@@ -63,6 +63,13 @@ public:
     void                backTolastLane();
     sf::Vector2f        getLastPos();
     void                alignChar();
+    
+    Type getMainCharType();
+    int getThisMaskID();
+    void setOwnerFlag(bool flag);
+
+
+
 
 private:
     enum State {
@@ -74,6 +81,8 @@ private:
     };
     Type mType;
     sf::Sprite mSprite;
+    bool ownerFlag;
+
     TextNode* mHealthDisplay;
     int mHP;
 
@@ -91,3 +100,5 @@ private:
     // Animation healingAnimation;
     // Animation takingDamageAnimation;
 };
+
+int convertToMaskID(MainChar::Type type);

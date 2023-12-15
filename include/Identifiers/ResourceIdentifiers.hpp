@@ -90,7 +90,27 @@ namespace Textures
 		Mallard,
 		Penguin,
 		Sheep,
-		none
+		none,
+
+		// Menu and State part
+		background,
+        TitleScreen,
+        ChooseCharScreen,
+        RightButton,
+        LeftButton,
+        ButtonNormal,
+        ButtonPressed,
+        ButtonSelected,
+        InputButton1,
+        LoginBG,
+        RegisterBG,
+        VisiblePassword,
+        InvisiblePassword,
+        backButton,
+        displayButton,
+        
+        Heart,
+        Thunder,
 	};
 }
 namespace Fonts
@@ -98,6 +118,7 @@ namespace Fonts
 	enum ID
 	{
 		Main,
+		Label,
 	};
 }
 

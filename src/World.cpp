@@ -14,7 +14,7 @@ World::World(sf::RenderWindow& window)
 , isOnLog(false)
 {
 
-	mFonts.load(Fonts::Main, "Media/Sansation.ttf");
+	mFonts.load(Fonts::Main, "Media/Font/Sansation.ttf");
 	loadTextures();
 	buildScene();
 
@@ -290,4 +290,9 @@ void World::adaptPlayerVelocity()
 
 	// Add scrolling velocity
 	//mainChar->accelerate(0.f, 100.f);
+}
+
+void World::initMainCharID(MainChar::Type id)
+{
+	// currently do nothing
 }

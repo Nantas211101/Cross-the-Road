@@ -1,14 +1,12 @@
-#include <Game.hpp>
+#include <Application.hpp>
 
-#include <stdexcept>
 #include <iostream>
-
 
 int main()
 {
 	try
 	{
-		Game game;
+		Application game;
 		game.run();
 	}
 	catch (std::exception& e)

@@ -28,6 +28,7 @@ class World : private sf::NonCopyable
 		void								update(sf::Time dt);
 		void								draw();
 		CommandQueue&						getCommandQueue();
+		void 								initMainCharID(MainChar::Type id);
 
 	private:
 		void								loadTextures();

@@ -1,4 +1,3 @@
-#pragma once
 #include <ResourceHolder.hpp>
 
 template <typename Resource, typename Identifier>

@@ -1,7 +1,14 @@
 #include <MainChar.hpp>
+#include <TextureManipulate.hpp>
+#include <BitMaskingManipulate.hpp>
 
 namespace {
     const std::vector<CharData> Table = initializeCharData();
+}
+
+Textures::ID MainChar::toTextureID(MainChar::Type type)
+{
+    return Table[type].texture;
 }
 
 MainChar::Type toMainCharID(Textures::ID id)
@@ -19,7 +26,7 @@ MainChar::Type toMainCharID(Textures::ID id)
     case Textures::Mallard:
         return MainChar::Mallard;
     }
-    return MainChar::none;
+    return MainChar::TypeCount;
 }
 MainChar::Type MainChar::numToID(int num){
     switch (num)
@@ -41,7 +48,7 @@ MainChar::Type MainChar::numToID(int num){
         default:
             break;
     }
-    return MainChar::none;
+    return MainChar::TypeCount;
 }
 
 int MainChar::IDToNum(Type type){
@@ -165,8 +172,8 @@ void MainChar::changeTexture(bool isIncrease, const TextureHolder& textures){
         --id;
     id = (id + 4) % 4;
     mType = numToID(id);
-    mSprite = sf::Sprite(textures.get(Table[mType].texture));
-    centerOrigin(mSprite);
+    mSprite = sf::Sprite(textures.get(toTextureID(mType)));
+    setCenterOrigin(mSprite);
 }
 
 void MainChar::setTexture(Textures::ID id, const TextureHolder& textures)
@@ -175,7 +182,6 @@ void MainChar::setTexture(Textures::ID id, const TextureHolder& textures)
     mSprite = sf::Sprite(textures.get(id));
     centerOrigin(mSprite);
 }
-
 
 auto MainChar::getTextureType() -> MainChar::Type{
     return mType;
@@ -308,4 +314,44 @@ void MainChar::updateTexts()
 	mHealthDisplay->setString(std::to_string(getHitpoints()) + " HP");
 	mHealthDisplay->setPosition(0.f, 50.f);
 	mHealthDisplay->setRotation(-getRotation());
+}
+
+auto MainChar::getMainCharType() -> MainChar::Type{
+    return mType;
+}
+
+int MainChar::getThisMaskID()
+{
+    return convertToMaskID(mType);
+}
+
+void MainChar::setOwnerFlag(bool flag)
+{
+    ownerFlag = flag;
+    if(ownerFlag)
+        mSprite.setColor(sf::Color(255, 255, 255, 255));
+    else 
+        mSprite.setColor(sf::Color(0, 0, 0, 100));
+}
+
+int convertToMaskID(MainChar::Type type)
+{
+    switch (type)
+    {
+        case MainChar::Chicken:
+            return Mask(0);
+            break;
+        case MainChar::Penguin:
+            return Mask(1);
+            break;
+        case MainChar::Sheep:
+            return Mask(2);
+            break;
+        case MainChar::Mallard:
+            return Mask(3);
+            break;
+        default:
+            break;
+    }
+    return 0;
 }

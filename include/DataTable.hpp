@@ -77,6 +77,8 @@ struct CharData {
 	int pictureHeight;
 	int numOfFrames;
 	float timeEachFrame;
+	static const int MaxHitpoints = 300;
+	static const int MaxSpeed = 300;
 };
 
 
