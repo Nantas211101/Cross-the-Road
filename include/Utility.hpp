@@ -1,9 +1,10 @@
 #pragma once
 
-#include <SFML/Window/Keyboard.hpp>
+#include <Animation.hpp>
 
+#include <cmath>
 #include <sstream>
-
+#include <SFML/Graphics.hpp>
 
 namespace sf
 {
@@ -19,8 +20,10 @@ std::string toString(const T& value);
 // Convert enumerators to strings
 std::string toString(sf::Keyboard::Key key);
 
-// Call setOrigin() with the center of the object
-void centerOrigin(sf::Sprite& sprite);
-void centerOrigin(sf::Text& text);
 
-#include "Utility.inl"
+void centerOrigin(sf::Sprite& sprite);
+void centerOrigin(Animation& animation);
+void centerOrigin(sf::Text& text);
+float length(sf::Vector2f vector);
+
+#include <Utility.inl>

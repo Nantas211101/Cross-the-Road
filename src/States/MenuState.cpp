@@ -22,8 +22,9 @@ MenuState::MenuState(StateStack& stack, Context context)
 	{
 		requestStackPop();
 		// requestStackPush(States::Login);
-        requestStackPush(States::ChooseChar);
-	});
+        // requestStackPush(States::ChooseChar);
+        requestStackPush(States::Game);
+    });
 
     mText.setFont(context.fonts->get(Fonts::Main));
     mText.setString("Crossy the road");

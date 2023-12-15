@@ -1,26 +1,28 @@
-#include "Player.hpp"
-#include "CommandQueue.hpp"
-#include "SceneNode.hpp"
-#include "MainChar.hpp"
-
-#include <map>
-#include <string>
-#include <algorithm>
-#include <iostream>
+#include <Player.hpp>
 
 struct MainCharMover
 {
-	MainCharMover(float vx, float vy)
-	: velocity(vx, vy)
-	{
-	}
+	MainCharMover(Player::Action action) : action(action) {}
 
-	void operator() (MainChar& aircraft, sf::Time) const
+	void operator() (MainChar& mainChar, sf::Time) const
 	{
-		aircraft.accelerate(velocity);
+		sf::Vector2f pos = mainChar.getPosition();
+		switch(action) {
+		case Player::MoveUp:
+			mainChar.goUp();
+			break;
+		case Player::MoveDown:
+			mainChar.goDown();
+			break;
+		case Player::MoveLeft:
+			mainChar.goLeft();
+			break;
+		case Player::MoveRight:
+			mainChar.goRight();
+			break;
+		}
 	}
-
-	sf::Vector2f velocity;
+	Player::Action action;
 };
 
 Player::Player()
@@ -35,11 +37,8 @@ Player::Player()
 	initializeActions();	
 
 	// Assign all categories to player's aircraft
-    for(auto &pair : mActionBinding)
-        pair.second.category = Category::PlayerAircraft;
-
-	// FOREACH(auto& pair, mActionBinding)
-	// 	pair.second.category = Category::PlayerAircraft;
+	for(auto& pair : mActionBinding)
+		pair.second.category = Category::Player;
 }
 
 void Player::handleEvent(const sf::Event& event, CommandQueue& commands)
@@ -48,22 +47,20 @@ void Player::handleEvent(const sf::Event& event, CommandQueue& commands)
 	{
 		// Check if pressed key appears in key binding, trigger command if so
 		auto found = mKeyBinding.find(event.key.code);
-		if (found != mKeyBinding.end() && isRealtimeAction(found->second))
-		{	
+		if (found != mKeyBinding.end() && !isRealtimeAction(found->second))
 			commands.push(mActionBinding[found->second]);
-		}
 	}
 }
 
 void Player::handleRealtimeInput(CommandQueue& commands)
 {
 	// Traverse all assigned keys and check if they are pressed
-    for(auto pair : mKeyBinding)
-    {
-        // If key is pressed, lookup action and trigger corresponding command
+	for(auto pair : mKeyBinding)
+	{
+		// If key is pressed, lookup action and trigger corresponding command
 		if (sf::Keyboard::isKeyPressed(pair.first) && isRealtimeAction(pair.second))
 			commands.push(mActionBinding[pair.second]);
-    }
+	}
 }
 
 void Player::assignKey(Action action, sf::Keyboard::Key key)
@@ -83,22 +80,28 @@ void Player::assignKey(Action action, sf::Keyboard::Key key)
 
 sf::Keyboard::Key Player::getAssignedKey(Action action) const
 {
-    for(auto pair: mKeyBinding)
-    {
-        if (pair.second == action)
+	for(auto pair : mKeyBinding)
+	{
+		if (pair.second == action)
 			return pair.first;
-    }
+	}
 
 	return sf::Keyboard::Unknown;
 }
 
 void Player::initializeActions()
 {
-	const float playerSpeed = 200.f;
-	mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(-playerSpeed, 0.f));
-	mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(+playerSpeed, 0.f));
-	mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(0.f, -playerSpeed));
-	mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(0.f, +playerSpeed));
+	const float playerSpeed = 500.f;
+	
+	mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(MoveLeft));
+	mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(MoveRight));
+	mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(MoveUp));
+	mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(MoveDown));
+
+	// mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(-playerSpeed, 0.f));
+	// mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(+playerSpeed, 0.f));
+	// mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(0.f, -playerSpeed));
+	// mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(0.f, +playerSpeed));
 }
 
 bool Player::isRealtimeAction(Action action)

@@ -1,85 +1,129 @@
-#include "SceneNode.hpp"
-#include <iostream>
+#include <SceneNode.hpp>
 
-SceneNode::SceneNode() 
+SceneNode::SceneNode()
 : mChildren()
 , mParent(nullptr)
+, isReverse(false)
 {
-
 }
 
-void SceneNode::attachChild(Ptr child)
-{
-    child->mParent = this;
-    mChildren.push_back(std::move(child));
+void SceneNode::attachChild(Ptr child) {
+	child->mParent = this;
+	mChildren.push_back(std::move(child));
 }
 
-auto SceneNode::detachChild(const SceneNode &node) -> Ptr
-{
-    auto found = std::find_if(mChildren.begin(), mChildren.end(), [&](Ptr &p) -> bool
-                              { return p.get() == &node; }); // check the element's pointer p.get() == address of the node or not
-    assert(found != mChildren.end());
-
-    auto result = std::move(*found);
-    result->mParent = nullptr;
-    mChildren.erase(found); // erase iterator
-    return result;          // return unique_ptr 
+void SceneNode::attachChild(std::vector<Ptr> children) {
+	for(int i = 0; i < children.size(); i++) {
+		children[i]->mParent = this;
+		mChildren.push_back(std::move(children[i]));
+	}
 }
 
-void SceneNode::draw(sf::RenderTarget &target, sf::RenderStates states) const
+SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
 {
-    states.transform *= getTransform(); // *= is a operator to combines the parent's absolute transform (states) with the current node's relative one (target). result will be the current node
-    drawCurrent(target, states);
+	auto found = std::find_if(mChildren.begin(), mChildren.end(), [&] (Ptr& p) { return p.get() == &node; });
+	assert(found != mChildren.end());
 
-    // Way 1 of iteration
-    for (const Ptr &child : mChildren)
-    {
-        child->draw(target, states);
-    }
-
-    // Way 2 of iteration
-    // for (auto itr = mChildren.begin(); itr != mChildren.end(); ++itr)
-    // {
-    //     (*itr)->draw(target, states);
-    // }
+	Ptr result = std::move(*found);
+	result->mParent = nullptr;
+	mChildren.erase(found);
+	return result;
 }
 
-void SceneNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
-{
+std::vector<SceneNode::Ptr> SceneNode::detachChild() {
+	std::vector<Ptr> result;
+	for(int i = mChildren.size() - 1; i >= 0; i--) {
+		Ptr child = std::move(mChildren[i]);
+		child->mParent = nullptr;
+		mChildren.erase(mChildren.begin() + i);
+		result.push_back(std::move(child));
+	}
+	return result;
 }
 
 void SceneNode::update(sf::Time dt)
 {
-    updateCurrent(dt);
-    updateChildren(dt);
+	updateCurrent(dt);
+	updateChildren(dt);
 }
 
-void SceneNode::updateCurrent(sf::Time dt)
+void SceneNode::updateCurrent(sf::Time)
 {
+	// Do nothing by default
 }
 
 void SceneNode::updateChildren(sf::Time dt)
 {
-    for (const Ptr &child : mChildren)
-        child->update(dt);
+	for (Ptr& child : mChildren)
+		child->update(dt);
 }
 
-auto SceneNode::getWorldTransform() -> sf::Transform const
+void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    sf::Transform transform = sf::Transform::Identity;
-    for (const SceneNode *node = this; node != nullptr; node = node->mParent)
-        transform = node->getTransform() * transform; // reverse the operator of combining in the SceneNode::draw
-    return transform;
+	// Apply transform of current node
+	states.transform *= getTransform();
+
+	// Draw node and children with changed transform
+	drawCurrent(target, states);
+	drawChildren(target, states);
+
+	// Draw bounding rectangle - disabled by default
+	drawBoundingRect(target, states);
 }
 
-auto SceneNode::getWorldPosition() -> sf::Vector2f const
+void SceneNode::drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) const
 {
-    return getWorldTransform() * sf::Vector2f();
+	sf::FloatRect rect = getBoundingRect();
+
+	sf::RectangleShape shape;
+	shape.setPosition(sf::Vector2f(rect.left, rect.top));
+	shape.setSize(sf::Vector2f(rect.width, rect.height));
+	shape.setFillColor(sf::Color::Transparent);
+	shape.setOutlineColor(sf::Color::Green);
+	shape.setOutlineThickness(1.f);
+
+	target.draw(shape);
+}
+
+void SceneNode::drawCurrent(sf::RenderTarget&, sf::RenderStates) const
+{
+	// Do nothing by default
+}
+
+void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (!isReverse){
+		for (int i=0; i < mChildren.size(); i++)
+			mChildren[i]->draw(target, states);
+	}
+	else {
+		for (int i=mChildren.size()-1; i >=0 ; i--)
+			mChildren[i]->draw(target, states);
+	}
+}
+
+void SceneNode::setReverse(bool flag){
+	isReverse = flag;
+}
+
+sf::Vector2f SceneNode::getWorldPosition() const
+{
+	return getWorldTransform() * sf::Vector2f();
+}
+
+sf::Transform SceneNode::getWorldTransform() const
+{
+	sf::Transform transform = sf::Transform::Identity;
+
+	for (const SceneNode* node = this; node != nullptr; node = node->mParent)
+		transform = node->getTransform() * transform;
+
+	return transform;
 }
 
 auto SceneNode::getCategory() const -> unsigned int
 {
-    return Category::Scene;
+    return Category::None;
 }
 
 void SceneNode::onCommand(const Command &command, sf::Time dt)
@@ -90,4 +134,58 @@ void SceneNode::onCommand(const Command &command, sf::Time dt)
 
     for (Ptr &child : mChildren)
         child->onCommand(command, dt);
+}
+
+void SceneNode::checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs)
+{
+	checkNodeCollision(sceneGraph, collisionPairs);
+
+	for(Ptr& child : sceneGraph.mChildren)
+		checkSceneCollision(*child, collisionPairs);
+}
+
+void SceneNode::checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs)
+{
+	if (this != &node && collision(*this, node) && !isDestroyed() && !node.isDestroyed())
+		collisionPairs.insert(std::minmax(this, &node));
+
+	for(Ptr& child : mChildren)
+		child->checkNodeCollision(node, collisionPairs);
+}
+
+void SceneNode::removeWrecks()
+{
+	// Remove all children which request so
+	auto wreckfieldBegin = std::remove_if(mChildren.begin(), mChildren.end(), std::mem_fn(&SceneNode::isMarkedForRemoval));
+	mChildren.erase(wreckfieldBegin, mChildren.end());
+
+	// Call function recursively for all remaining children
+	std::for_each(mChildren.begin(), mChildren.end(), std::mem_fn(&SceneNode::removeWrecks));
+}
+
+sf::FloatRect SceneNode::getBoundingRect() const
+{
+	return sf::FloatRect();
+}
+
+bool SceneNode::isMarkedForRemoval() const
+{
+	// By default, remove node if entity is destroyed
+	return isDestroyed();
+}
+
+bool SceneNode::isDestroyed() const
+{
+	// By default, scene node needn't be removed
+	return false;
+}
+
+bool collision(const SceneNode& lhs, const SceneNode& rhs)
+{
+	return lhs.getBoundingRect().intersects(rhs.getBoundingRect());
+}
+
+float distance(const SceneNode& lhs, const SceneNode& rhs)
+{
+	return length(lhs.getWorldPosition() - rhs.getWorldPosition());
 }

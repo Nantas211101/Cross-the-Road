@@ -4,7 +4,6 @@
 #include "StateIdentifiers.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "ResourceHolder.hpp"
-#include "StringHelpers.hpp"
 #include "StateIdentifiers.hpp"
 
 // const std::string Path_MenuScreen = "resource/Textures/Menu.jpg";

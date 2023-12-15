@@ -1,20 +1,19 @@
 #pragma once
 
-#include "ResourceHolder.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "SceneNode.hpp"
-#include "SpriteNode.hpp"
-#include "MainChar.hpp"
-#include "CommandQueue.hpp"
-#include "Command.hpp"
+#include <SceneNode.hpp>
+#include <World/LaneFactory.hpp>
+#include <World/LaneFactoryTheme1.hpp>
+#include <World/LaneFactoryTheme2.hpp>
+#include <World/Decorator.hpp>
+#include <CommandQueue.hpp>
+#include <MainChar.hpp>
+#include <ResourceIdentifiers.hpp>
+#include <ResourceHolder.hpp>
 
-#include <SFML/System/NonCopyable.hpp>
-#include <SFML/Graphics/View.hpp>
-#include <SFML/Graphics/Texture.hpp>
-
+#include <random>
 #include <array>
-#include <queue>
-
+#include <cmath>
+#include <SFML/Graphics.hpp>
 
 // Forward declaration
 namespace sf
@@ -28,40 +27,42 @@ class World : private sf::NonCopyable
 		explicit							World(sf::RenderWindow& window);
 		void								update(sf::Time dt);
 		void								draw();
-		
 		CommandQueue&						getCommandQueue();
 		void 								initMainCharID(MainChar::Type id);
 
 	private:
 		void								loadTextures();
 		void								buildScene();
-		void								adaptPlayerPosition();
-		void								adaptPlayerVelocity();
-
-
+		void 								adaptPlayerPosition();
+		void 								adaptPlayerVelocity();
+		void								handleCollisions();
+		
 	private:
 		enum Layer
 		{
 			Background,
-			Air,
+			Title,
+			AboveTitle,
 			LayerCount
 		};
-
-
 	private:
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
 		TextureHolder						mTextures;
+		FontHolder							mFonts;
 
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
 		CommandQueue						mCommandQueue;
 
+		sf::Time							timeToNextInput;
+		sf::Clock							invulnerableTime;
+		sf::Time							timeFromLastInvulnerable;
+
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
-		float								mScrollSpeed;
-		MainChar*							mPlayerAircraft;
-		SpriteNode* 						mBackGround;
-		MainChar::Type						mMainCharID;
-
+		std::vector<Lane*> 					lanes;
+		MainChar*							mainChar;
+		bool								needAlign;
+		bool								isOnLog;
 };

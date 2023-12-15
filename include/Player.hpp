@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Command.hpp"
-#include "ResourceHolder.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "MainChar.hpp"
+#include <Command.hpp>
+#include <ResourceHolder.hpp>
+#include <ResourceIdentifiers.hpp>
+#include <MainChar.hpp>
+#include <CommandQueue.hpp>
 
 #include <SFML/Graphics.hpp>
 

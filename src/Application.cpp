@@ -66,14 +66,14 @@ Application::Application()
 void Application::registerStates(){
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
-    mStateStack.registerState<ChooseCharState>(States::ChooseChar);
+    // mStateStack.registerState<ChooseCharState>(States::ChooseChar);
     mStateStack.registerState<PauseState>(States::Pause);
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<SettingsState>(States::Settings);
     mStateStack.registerState<LoginState>(States::Login);
     mStateStack.registerState<RegisterState>(States::Register);
     mStateStack.registerState<ConfirmRegisterState>(States::ConfirmRegister);
-    mStateStack.registerState<DisplayCharState>(States::DisplayCharState);
+    // mStateStack.registerState<DisplayCharState>(States::DisplayCharState);
 }
 
 void Application::processInput(){
@@ -140,10 +140,10 @@ void Application::loadResources(){
     mFonts.load(Fonts::Label, Path_Input_Font);
     mTextures.load(Textures::TitleScreen, Path_TitleScreen);
     mTextures.load(Textures::ChooseCharScreen, Path_ChooseCharScreen);
-    mTextures.load(Textures::chicken, Path_chickenMain);
-    mTextures.load(Textures::penguin, Path_penguinMain);
-    mTextures.load(Textures::sheep, Path_sheepMain);
-    mTextures.load(Textures::mallard, Path_mallardMain);
+    mTextures.load(Textures::Chicken, Path_chickenMain);
+    mTextures.load(Textures::Penguin, Path_penguinMain);
+    mTextures.load(Textures::Sheep, Path_sheepMain);
+    mTextures.load(Textures::Mallard, Path_mallardMain);
     mTextures.load(Textures::RightButton, Path_RightButton);
     mTextures.load(Textures::LeftButton, Path_LeftButton);
     mTextures.load(Textures::ButtonNormal, Path_Normal);

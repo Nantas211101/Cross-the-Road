@@ -1,27 +1,22 @@
 #pragma once
+#include <Category.hpp>
 
-#include "Category.hpp"
 #include <SFML/System/Time.hpp>
-
 #include <functional>
 #include <cassert>
 
-
 class SceneNode;
 
-struct Command
-{
-												Command();
+struct Command {
+	Command();
 
-	std::function<void(SceneNode&, sf::Time)>	action;
-	unsigned int								category;
+	std::function<void(SceneNode&, sf::Time)> action;
+	unsigned int category;
 };
 
 template <typename GameObject, typename Function>
-std::function<void(SceneNode&, sf::Time)> derivedAction(Function fn)
-{
-	return [=] (SceneNode& node, sf::Time dt)
-	{
+std::function<void(SceneNode&, sf::Time)> derivedAction(Function fn) {
+	return [=] (SceneNode& node, sf::Time dt) {
 		// Check if cast is safe
 		assert(dynamic_cast<GameObject*>(&node) != nullptr);
 

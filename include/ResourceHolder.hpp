@@ -1,23 +1,30 @@
 #pragma once
-#include <assert.h>
-
-#include <SFML/Graphics.hpp>
 #include <map>
+#include <string>
 #include <memory>
+#include <stdexcept>
+#include <cassert>
+#include <SFML/Graphics.hpp>
 
 template <typename Resource, typename Identifier>
-class ResourceHolder {
-   public:
-    void load(Identifier id, const std::string& filename);
+class ResourceHolder
+{
+	public:
+		void						load(Identifier id, const std::string& filename);
 
-    template <typename Parameter>
-    void load(Identifier id, const std::string& filename, const Parameter& secondpara);
-    
-    // Resource&           get(Identifier id);
-    auto get(Identifier id) const -> Resource&;
+		template <typename Parameter>
+		void						load(Identifier id, const std::string& filename, const Parameter& secondParam);
 
-   private:
-    std::map<Identifier, std::unique_ptr<Resource>> mResourceMap;
+		Resource&					get(Identifier id);
+		const Resource&				get(Identifier id) const;
+
+
+	private:
+		void						insertResource(Identifier id, std::unique_ptr<Resource> resource);
+
+
+	private:
+		std::map<Identifier, std::unique_ptr<Resource>>	mResourceMap;
 };
 
-#include "ResourceHolder.inl"
+#include <ResourceHolder.inl>
