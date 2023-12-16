@@ -1,14 +1,15 @@
 #pragma once
 
 #include <SceneNode.hpp>
-#include <World/LaneFactory.hpp>
-#include <World/LaneFactoryTheme1.hpp>
-#include <World/LaneFactoryTheme2.hpp>
-#include <World/Decorator.hpp>
+#include <LaneFactory.hpp>
+#include <LaneFactoryTheme1.hpp>
+#include <LaneFactoryTheme2.hpp>
+#include <Decorator.hpp>
 #include <CommandQueue.hpp>
 #include <MainChar.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <ResourceHolder.hpp>
+#include <State.hpp>
 
 #include <random>
 #include <array>
@@ -24,17 +25,14 @@ namespace sf
 class World : private sf::NonCopyable
 {
 	public:
-		explicit							World(sf::RenderWindow& window);
+		explicit		 							World(State::Context context);
 		void								update(sf::Time dt);
 		void								draw();
 		CommandQueue&						getCommandQueue();
-		void 								initMainCharID(MainChar::Type id);
 
 	private:
-		void								loadTextures();
-		void								buildScene();
+		void								buildScene(MainChar::Type id);
 		void 								adaptPlayerPosition();
-		void 								adaptPlayerVelocity();
 		void								handleCollisions();
 		
 	private:
@@ -48,8 +46,8 @@ class World : private sf::NonCopyable
 	private:
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
-		TextureHolder						mTextures;
-		FontHolder							mFonts;
+		TextureHolder&						mTextures;
+		FontHolder&							mFonts;
 
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;

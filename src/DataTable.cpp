@@ -275,11 +275,19 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].pictureHeight = 56;
     data[MainChar::Player1].pictureWidth = 256;
     data[MainChar::Player1].numOfFrames = 4;
-    data[MainChar::Player1].timeEachFrame = 0.4;
+    data[MainChar::Player1].timeEachFrame = 0.6;
 
-    data[MainChar::Chicken].hitpoints = 100;
-    data[MainChar::Chicken].speed = 200.f;
-    data[MainChar::Chicken].texture = Textures::Chicken;
+    data[MainChar::Player2].hitpoints = 100;
+    data[MainChar::Player2].speed = 200.f;
+    data[MainChar::Player2].texture = Textures::Standing2;
+    data[MainChar::Player2].upTexture = Textures::Up2;
+    data[MainChar::Player2].downTexture = Textures::Down2;
+    data[MainChar::Player2].leftTexture = Textures::Left2;
+    data[MainChar::Player2].rightTexture = Textures::Right2;
+    data[MainChar::Player2].pictureHeight = 70;
+    data[MainChar::Player2].pictureWidth = 256;
+    data[MainChar::Player2].numOfFrames = 4;
+    data[MainChar::Player2].timeEachFrame = 0.6;
 
     data[MainChar::Penguin].hitpoints = 150;
     data[MainChar::Penguin].speed = 200.f;

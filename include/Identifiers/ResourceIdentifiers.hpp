@@ -80,12 +80,19 @@ namespace Textures
 		DecoFire1,
 		DecoFire2,
 		
-		// Player
+		// Player1
 		Standing1,
 		Up1,
 		Down1,
 		Left1,
 		Right1,
+
+		// Player2
+		Standing2,
+		Up2,
+		Down2,
+		Left2,
+		Right2,
 		Chicken,
 		Mallard,
 		Penguin,
