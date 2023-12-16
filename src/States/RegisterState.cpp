@@ -129,7 +129,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
 
     errorText.setFillColor(sf::Color::Red);
 
-    auto registerButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto registerButton = std::make_shared<GUI::Button>(context);
     registerButton->centerOrigin();
     registerButton->setScale(0.3, 0.3);
     registerButton->setPosition(pos.x + 400.f, pos.y + 500.f);
@@ -139,7 +139,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         registerAccount();
     });
 
-    auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto backButton = std::make_shared<GUI::Button>(context);
     backButton->centerOrigin();
     backButton->setScale(0.3, 0.3);
     backButton->setPosition(pos.x - 400.f, pos.y - 500.f);

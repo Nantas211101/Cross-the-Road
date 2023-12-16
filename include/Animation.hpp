@@ -31,6 +31,9 @@ class Animation : public sf::Drawable, public sf::Transformable
 
 		void 					update(sf::Time dt);
 
+		// Ham thinh moi them vao
+		void 					setOwnerFlag(bool flag);
+
 
 	private:
 		void 					draw(sf::RenderTarget& target, sf::RenderStates states) const;

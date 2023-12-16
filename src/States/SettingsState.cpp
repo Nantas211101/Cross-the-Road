@@ -25,7 +25,7 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 
 	updateLabels();
 
-	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto backButton = std::make_shared<GUI::Button>(context);
 	backButton->centerOrigin();
     backButton->setPosition(140.f, context.window->getDefaultView().getSize().y - 50.f);
     backButton->setScale(0.5, 0.5);
@@ -108,7 +108,7 @@ void SettingsState::updateLabels()
 
 void SettingsState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
 {
-	mBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mBindingButtons[action] = std::make_shared<GUI::Button>(context);
 	sf::View mView = (*context.window).getDefaultView();
     mBindingButtons[action]->centerOrigin();
     mBindingButtons[action]->setPosition(mView.getCenter().x, y);

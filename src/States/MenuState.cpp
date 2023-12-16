@@ -12,7 +12,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     sf::Vector2f pos = context.window->getView().getSize();
     float add_y = pos.y / 5;
 
-	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto playButton = std::make_shared<GUI::Button>(context);
 	playButton->centerOrigin();
     playButton->setPosition(pos.x / 2.f, add_y * 2);
 	playButton->setText("PLAY");
@@ -32,7 +32,7 @@ MenuState::MenuState(StateStack& stack, Context context)
     setCenterOrigin(mText);
     mText.setPosition({pos.x / 2.f, add_y - playButton->getSize().y / 2});
 
-	auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto settingsButton = std::make_shared<GUI::Button>(context);
     settingsButton->centerOrigin();
 	settingsButton->setPosition(pos.x / 2.f, add_y * 3);
 	settingsButton->setText("SETTINGS");
@@ -43,7 +43,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 		requestStackPush(States::Settings);
 	});
 
-	auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto exitButton = std::make_shared<GUI::Button>(context);
 	exitButton->centerOrigin();
     exitButton->setPosition(pos.x / 2.f, add_y * 4);
 	exitButton->setText("Exit");

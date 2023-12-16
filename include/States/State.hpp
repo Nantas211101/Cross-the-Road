@@ -2,22 +2,27 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
-#include "Player.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "StateIdentifiers.hpp"
-#include "ResourceHolder.hpp"
+#include <Player.hpp>
+#include <ResourceIdentifiers.hpp>
+#include <StateIdentifiers.hpp>
+#include <ResourceHolder.hpp>
+#include <MusicPlayer.hpp>
+#include <SoundPlayer.hpp>
 
 class StateStack;  
 class State{
     public:
         typedef std::unique_ptr<State> S_Ptr;
         struct Context{
-            Context(sf::RenderWindow &window, TextureHolder &textures, FontHolder &fonts, Player& player);
+            Context(sf::RenderWindow &window, TextureHolder &textures, FontHolder &fonts, Player& player, MusicPlayer& music, SoundPlayer& sound);
             
             sf::RenderWindow* window;
             TextureHolder* textures;
             FontHolder* fonts;
             Player* player;
+            MusicPlayer* music;
+            SoundPlayer* sounds;
+
         };
     
     public:

@@ -24,7 +24,7 @@ ConfirmRegisterState::ConfirmRegisterState(StateStack &stack, Context context)
     mText.setPosition(pos.x, pos.y - 50.f);
     mText.setFillColor(sf::Color::Black);
 
-    auto returnButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto returnButton = std::make_shared<GUI::Button>(context);
     returnButton->centerOrigin();
     returnButton->setPosition(pos.x - 175.f, pos.y + 100.f);
     returnButton->setScale(0.4, 0.4);
@@ -36,7 +36,7 @@ ConfirmRegisterState::ConfirmRegisterState(StateStack &stack, Context context)
         requestStackPush(States::Login);
     });
 
-    auto escapeButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto escapeButton = std::make_shared<GUI::Button>(context);
     escapeButton->centerOrigin();
     escapeButton->setPosition(pos.x + 175.f, pos.y + 100.f);
     escapeButton->setScale(0.4, 0.4);

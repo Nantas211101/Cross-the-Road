@@ -225,7 +225,7 @@ void InputButton::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	else
 		mTextDraw = mText;
 	
-	sf::Vector2 pos = mTextDraw.getPosition();
+	sf::Vector2f pos = mTextDraw.getPosition();
 	mTextDraw.setString(mTextDraw.getString() + "|");
 	setCenterOrigin(mTextDraw);	
 	mTextDraw.setPosition(pos);

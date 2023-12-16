@@ -17,7 +17,7 @@ file(GLOB SRCS CONFIGURE_DEPENDS
 )
 
 add_executable(game ${SRCS})
-target_link_libraries(game PRIVATE sfml-graphics sfml-window sfml-system)
+target_link_libraries(game PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 target_compile_features(game PRIVATE cxx_std_17)
 target_include_directories(game PRIVATE 
     ${CMAKE_SOURCE_DIR}/include/

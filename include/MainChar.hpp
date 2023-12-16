@@ -16,7 +16,7 @@ public:
     enum Type{
         Player1,
         Player2,
-        Penguin,
+        Player3,
         Sheep,
         Mallard,
         TypeCount,
@@ -31,6 +31,8 @@ private:
     void                updateCurrent(sf::Time dt);
 
     void                makeStop();
+
+    void                setOwnerShip(bool flag);
 
 public:
     explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes);

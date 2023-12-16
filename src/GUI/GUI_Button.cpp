@@ -4,36 +4,17 @@
 namespace GUI
 {
 
-Button::Button(const FontHolder& fonts, const TextureHolder& textures)
+Button::Button(State::Context context, Textures::ID id)
 : mCallback()
-, mNormalTexture(textures.get(Textures::ButtonNormal))
-, mSelectedTexture(textures.get(Textures::ButtonSelected))
-, mPressedTexture(textures.get(Textures::ButtonPressed))
+, mNormalTexture(context.textures->get(id))
+, mSelectedTexture(context.textures->get(id))
+, mPressedTexture(context.textures->get(id))
 , mSprite()
-, mText("", fonts.get(Fonts::Main), 100)
-, mIsToggle(false)
-, mIsToggleRelease(false)
-, mIsOnlyOneTexture(false)
-{
-	mSprite.setTexture(mNormalTexture);
-	// setCenterOrigin(mSprite);
-	sf::FloatRect bounds = mSprite.getGlobalBounds();
-
-	mText.setFillColor(sf::Color::Yellow);
-	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
-}
-
-Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id)
-: mCallback()
-, mNormalTexture(textures.get(id))
-, mSelectedTexture(textures.get(id))
-, mPressedTexture(textures.get(id))
-, mSprite()
-, mText("", fonts.get(Fonts::Main), 100) 
+, mText("", context.fonts->get(Fonts::Main), 100) 
 , mIsToggle(false)
 , mIsToggleRelease(false)
 , mIsOnlyOneTexture(true)
+, mSounds(*context.sounds)
 {
     mSprite.setTexture(mNormalTexture);
 	// setCenterOrigin(mSprite);
@@ -44,21 +25,42 @@ Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures:
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
 }
 
-Button::Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id1, Textures::ID id2)
+Button::Button(State::Context context, Textures::ID id1, Textures::ID id2)
 : mCallback()
-, mNormalTexture(textures.get(id1))
-, mSelectedTexture(textures.get(id1))
-, mPressedTexture(textures.get(id2))
+, mNormalTexture(context.textures->get(id1))
+, mSelectedTexture(context.textures->get(id1))
+, mPressedTexture(context.textures->get(id2))
 , mSprite()
-, mText("", fonts.get(Fonts::Main), 100)
+, mText("", context.fonts->get(Fonts::Main), 100)
 , mIsToggle(false)
 , mIsToggleRelease(false)
 , mIsOnlyOneTexture(false)
+, mSounds(*context.sounds)
 {
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 }
 
+Button::Button(State::Context context)
+: mCallback()
+, mNormalTexture(context.textures->get(Textures::ButtonNormal))
+, mSelectedTexture(context.textures->get(Textures::ButtonSelected))
+, mPressedTexture(context.textures->get(Textures::ButtonPressed))
+, mSprite()
+, mText("", context.fonts->get(Fonts::Main), 100)
+, mIsToggle(false)
+, mIsToggleRelease(false)
+, mIsOnlyOneTexture(false)
+, mSounds(*context.sounds)
+{
+	mSprite.setTexture(mNormalTexture);
+	// setCenterOrigin(mSprite);
+	sf::FloatRect bounds = mSprite.getGlobalBounds();
+
+	mText.setFillColor(sf::Color::Yellow);
+	setCenterOrigin(mText);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+}
 void Button::setCallback(Callback callback)
 {
 	mCallback = std::move(callback);
@@ -155,6 +157,7 @@ void Button::activate()
     // If we are not a toggle then deactivate the button since we are just momentarily activated.
 	if (!mIsToggle)
 		deactivate();
+	mSounds.play(SoundEffect::Button);
 }
 
 void Button::deactivate()

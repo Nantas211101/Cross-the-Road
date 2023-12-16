@@ -1,8 +1,9 @@
 #pragma once
 
-#include "GUI_Component.hpp"
-#include "ResourceHolder.hpp"
-#include "ResourceIdentifiers.hpp"
+#include <GUI_Component.hpp>
+#include <ResourceHolder.hpp>
+#include <ResourceIdentifiers.hpp>
+#include <State.hpp>
 
 #include <SFML/Graphics.hpp>
 
@@ -22,10 +23,9 @@ public:
 
 
 public:
-    Button(const FontHolder& fonts, const TextureHolder& textures);
-    Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id);
-    Button(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id1, Textures::ID id2);
-    
+    Button(State::Context context, Textures::ID id);
+    Button(State::Context context, Textures::ID id1, Textures::ID id2);
+    Button(State::Context context);
     void setCallback(Callback callback);
     void setText(const std::string& text, int size = 100);
     void setToggle(bool flag);
@@ -61,6 +61,7 @@ private:
     bool                    mIsToggleRelease;
     bool                    mIsOnlyOneTexture;
     sf::Vector2f            mScale;
+    SoundPlayer&            mSounds;
 };
 
 }

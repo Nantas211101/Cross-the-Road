@@ -265,8 +265,8 @@ std::vector<DecoratorData> initializeDecoratorData() {
 
 std::vector<CharData> initializeCharData() {
     std::vector<CharData> data(MainChar::TypeCount);
-    data[MainChar::Player1].hitpoints = 100;
-    data[MainChar::Player1].speed = 300.f;
+    data[MainChar::Player1].hitpoints = 100.f;
+    data[MainChar::Player1].speed = 100.f;
     data[MainChar::Player1].texture = Textures::Standing1;
     data[MainChar::Player1].upTexture = Textures::Up1;
     data[MainChar::Player1].downTexture = Textures::Down1;
@@ -277,7 +277,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].numOfFrames = 4;
     data[MainChar::Player1].timeEachFrame = 0.6;
 
-    data[MainChar::Player2].hitpoints = 100;
+    data[MainChar::Player2].hitpoints = 100.f;
     data[MainChar::Player2].speed = 200.f;
     data[MainChar::Player2].texture = Textures::Standing2;
     data[MainChar::Player2].upTexture = Textures::Up2;
@@ -289,9 +289,17 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player2].numOfFrames = 4;
     data[MainChar::Player2].timeEachFrame = 0.6;
 
-    data[MainChar::Penguin].hitpoints = 150;
-    data[MainChar::Penguin].speed = 200.f;
-    data[MainChar::Penguin].texture = Textures::Penguin;
+    data[MainChar::Player3].hitpoints = 150.f;
+    data[MainChar::Player3].speed = 250.f;
+    data[MainChar::Player3].texture = Textures::Standing3;
+    data[MainChar::Player3].upTexture = Textures::Up3;
+    data[MainChar::Player3].downTexture = Textures::Down3;
+    data[MainChar::Player3].leftTexture = Textures::Left3;
+    data[MainChar::Player3].rightTexture = Textures::Right3;
+    data[MainChar::Player3].pictureHeight = 73;
+    data[MainChar::Player3].pictureWidth = 273;
+    data[MainChar::Player3].numOfFrames = 4;
+    data[MainChar::Player3].timeEachFrame = 0.5;
 
     data[MainChar::Sheep].hitpoints = 300;
     data[MainChar::Sheep].speed = 150.f;
