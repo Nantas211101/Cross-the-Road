@@ -140,3 +140,11 @@ void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	states.transform *= getTransform();
 	target.draw(mSprite, states);
 }
+
+void Animation::setOwnerFlag(bool flag)
+{
+	if(flag)
+		mSprite.setColor(sf::Color(255, 255, 255, 255));
+	else
+		mSprite.setColor(sf::Color(0, 0, 0, 100));
+}

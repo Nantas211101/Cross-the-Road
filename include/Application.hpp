@@ -1,10 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "StateStack.hpp"
-#include "StateIdentifiers.hpp"
-#include "ResourceIdentifiers.hpp"
-#include "ResourceHolder.hpp"
-#include "StateIdentifiers.hpp"
+#include <StateStack.hpp>
+#include <StateIdentifiers.hpp>
+#include <ResourceIdentifiers.hpp>
+#include <ResourceHolder.hpp>
+#include <StateIdentifiers.hpp>
+#include <SoundPlayer.hpp>
 
 // const std::string Path_MenuScreen = "resource/Textures/Menu.jpg";
 // const std::string Path_WhiteBackground = "resource/Textures/WhiteBackground.jpg";
@@ -36,7 +37,9 @@ private:
     TextureHolder			mTextures;
     FontHolder				mFonts;
     Player                  mPlayer;
-
+    
+    MusicPlayer             mMusic;
+    SoundPlayer             mSound;
     StateStack				mStateStack;
 
     sf::Text				mStayText;

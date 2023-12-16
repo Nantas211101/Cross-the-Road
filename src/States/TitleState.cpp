@@ -36,6 +36,7 @@ TitleState::TitleState(StateStack &stack, Context context)
     // mProjectText.setScale({2.5, 2.5});
     // mProjectText.setPosition({pos.x / 2.f, pos.y / 2.f - 8 * add_y});
     //
+	context.music->play(Music::MenuTheme);
 }
 
 bool TitleState::handleEvent(const sf::Event &event){

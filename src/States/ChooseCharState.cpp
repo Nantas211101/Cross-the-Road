@@ -39,7 +39,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
     setCenterOrigin(mText);
     mText.setPosition({pos.x / 2.f, 50.f});
 	
-	auto rightButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::RightButton);
+	auto rightButton = std::make_shared<GUI::Button>(context, Textures::RightButton);
 	rightButton->centerOrigin();
 	rightButton->setScale(0.5, 0.5);
 	rightButton->setPosition(mWorldBounds.width - 150.f, mSpawnPosition.y);
@@ -51,7 +51,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	});
 
 
-	auto leftButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::LeftButton);
+	auto leftButton = std::make_shared<GUI::Button>(context, Textures::LeftButton);
 	leftButton->centerOrigin();
 	leftButton->setScale(0.5, 0.5);
 	leftButton->setPosition(150.f, mSpawnPosition.y);
@@ -66,7 +66,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	centerOrigin(ErrorText);
 	ErrorText.setPosition(mSpawnPosition.x, mWorldBounds.height - 200.f);
 
-	auto chooseButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto chooseButton = std::make_shared<GUI::Button>(context);
 	chooseButton->centerOrigin();
 	chooseButton->setColor(sf::Color::Cyan);
 	chooseButton->setPosition(mSpawnPosition.x, mWorldBounds.height - 100.f);
@@ -76,7 +76,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 		PlayGame();
 	});
 
-	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::backButton);
+	auto backButton = std::make_shared<GUI::Button>(context, Textures::backButton);
 	backButton->centerOrigin();
 	// backButton->setColor(sf::Color::Cyan);
 	backButton->setPosition(350.f, mWorldBounds.height - 100.f);
@@ -85,7 +85,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 		BackToLogin();
 	});
 
-	auto displayCharButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures, Textures::displayButton);
+	auto displayCharButton = std::make_shared<GUI::Button>(context, Textures::displayButton);
 	displayCharButton->centerOrigin();
 	sf::Vector2f sizee = displayCharButton->getSize();
 	sf::Vector2f needSize = {mWorldBounds.width / 30.f, mWorldBounds.height / 15.f};
@@ -114,6 +114,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	mGUIContainerSet.pack(displayCharButton);
 
     buildScene();
+	context.music->play(Music::ChooseCharTheme);
 }
 
 bool ChooseCharState::update(sf::Time elapsedTime){

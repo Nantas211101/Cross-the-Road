@@ -1,13 +1,15 @@
 #include "State.hpp"
 #include "StateStack.hpp"
 
-State::Context::Context(sf::RenderWindow& window, TextureHolder& textures,
-                        FontHolder& fonts, Player& player)
+State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
+                        Player& player, MusicPlayer& music, SoundPlayer& sound)
 : window(&window) // using & because the variable is a pointer (pointer
                     // save address)
 , textures(&textures)
 , fonts(&fonts)
 , player(&player)
+, music(&music)
+, sounds(&sound)
 {
     
 }

@@ -55,7 +55,7 @@ LoginState::LoginState(StateStack &stack, Context context)
         mTextPassword = st;
     });
 
-    auto registerButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto registerButton = std::make_shared<GUI::Button>(context);
     registerButton->centerOrigin();
     registerButton->setScale(0.5, 0.5);
     registerButton->setPosition(pos.x - 700.f, pos.y + 351.f);
@@ -90,7 +90,7 @@ LoginState::LoginState(StateStack &stack, Context context)
     // label->setPosition(pos.x + 400.f, pos.y + 175.5);
     // label->setColor(sf::Color::White);
 
-    auto Login = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    auto Login = std::make_shared<GUI::Button>(context);
     Login->centerOrigin();
     Login->setScale(0.5, 0.5);
     Login->setPosition(pos.x + 700.f, pos.y + 351.f);

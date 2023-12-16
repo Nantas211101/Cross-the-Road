@@ -30,6 +30,13 @@ PauseState::PauseState(StateStack &stack, Context context)
     mInstructionText.setString(Instruction_text);
     setCenterOrigin(mInstructionText);
     mInstructionText.setPosition(0.5f * viewSize.x, 0.6f * viewSize.y);
+    
+    context.music->setPaused(true); // pause the music
+}
+
+PauseState::~PauseState()
+{
+    getContext().music->setPaused(false); // resume the music
 }
 
 void PauseState::draw(){

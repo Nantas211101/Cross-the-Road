@@ -36,14 +36,16 @@ const std::string Path_heart = "Media/Textures/Icon/heart.png";
 const std::string Path_Thunder = "Media/Textures/Icon/Thunder.png";
 
 // Application quite similar to the Game.cpp
-const sf::Time Application::TimePerFrame = sf::seconds(1.f / 120.f);
+const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Application::Application()
-: mWindow(sf::VideoMode(1920, 1080), "Game States (Beta Version) World", sf::Style::Close)
+: mWindow(sf::VideoMode(1700, 950), "Game States (Beta Version) World", sf::Style::Close)
 , mTextures()
 , mFonts()
 , mPlayer()
-, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer))
+, mMusic()
+, mSound()
+, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound))
 , mStayText()
 , mStayUpdateTime()
 , mStayNumFrames(0){
@@ -61,6 +63,8 @@ Application::Application()
         registerStates();
         // start with the title state
         mStateStack.pushState(States::Title);
+
+        mMusic.setVolume(25.f);
 }
 
 void Application::registerStates(){
@@ -173,6 +177,13 @@ void Application::loadResources(){
 	mTextures.load(Textures::Left2, "Media/Textures/Player/Player2/Left.png");
 	mTextures.load(Textures::Right2, "Media/Textures/Player/Player2/Right.png");
     
+    // Player3
+    mTextures.load(Textures::Standing3, "Media/Textures/Player/Player3/Standing.png");
+    mTextures.load(Textures::Up3, "Media/Textures/Player/Player3/Up.png");
+    mTextures.load(Textures::Down3, "Media/Textures/Player/Player3/Down.png");
+    mTextures.load(Textures::Left3, "Media/Textures/Player/Player3/Left.png");
+    mTextures.load(Textures::Right3, "Media/Textures/Player/Player3/Right.png");
+
     // Road
     mTextures.load(Textures::Road, "Media/Textures/Road/Road.png");
 	mTextures.load(Textures::LavaRoad, "Media/Textures/Road/LavaRoad.png");

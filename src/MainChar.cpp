@@ -29,8 +29,13 @@ MainChar::Type toMainCharID(Textures::ID id)
     case Textures::Up2:
         return MainChar::Player2;    
 
-    case Textures::Penguin:
-        return MainChar::Penguin;
+    case Textures::Standing3:
+    case Textures::Down3:
+    case Textures::Left3:
+    case Textures::Right3:
+    case Textures::Up3:
+        return MainChar::Player3;
+
     case Textures::Sheep:
         return MainChar::Sheep;
     case Textures::Mallard:
@@ -46,7 +51,7 @@ MainChar::Type numToID(int num){
         case 1:
             return MainChar::Player2;
         case 2:
-            return MainChar::Penguin;
+            return MainChar::Player3;
         case 3:
             return MainChar::Sheep;
         case 4:
@@ -64,7 +69,7 @@ int IDToNum(MainChar::Type type){
             return 0;
         case MainChar::Player2:
             return 1;
-        case MainChar::Penguin:
+        case MainChar::Player3:
             return 2;
         case MainChar::Sheep:
             return 3;
@@ -87,6 +92,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 , lastPosSinceMoving(410, 0)
 , state(State::Standing)
 , curLane(curLane)
+, ownerFlag(true)
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -135,6 +141,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
 , lastPosSinceMoving(pos)
 , state(State::Standing)
 , curLane()
+, ownerFlag(true)
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -175,6 +182,7 @@ void MainChar::updateCurrent(sf::Time dt) {
         mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
     else if(state == State::Down) {
+        downAnimation.setOwnerFlag(ownerFlag);
         downAnimation.update(dt);
         downAnimation.setRepeating(true);
         mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
@@ -228,7 +236,7 @@ unsigned int MainChar::getCategory() const
 	{
         case Player1:
 		case Player2:
-        case Penguin:
+        case Player3:
         case Sheep:
         case Mallard:
 			return Category::Player;
@@ -359,10 +367,7 @@ int MainChar::getThisMaskID()
 void MainChar::setOwnerFlag(bool flag)
 {
     ownerFlag = flag;
-    if(ownerFlag)
-        mSprite.setColor(sf::Color(255, 255, 255, 255));
-    else 
-        mSprite.setColor(sf::Color(0, 0, 0, 100));
+    setOwnerShip(flag);
 }
 
 void MainChar::setAnimationDown()
@@ -380,13 +385,13 @@ int convertToMaskID(MainChar::Type type)
 {
     switch (type)
     {
-        case MainChar::Player2:
+        case MainChar::Player1:
             return Mask(0);
             break;
-        case MainChar::Penguin:
+        case MainChar::Player2:
             return Mask(1);
             break;
-        case MainChar::Sheep:
+        case MainChar::Player3:
             return Mask(2);
             break;
         case MainChar::Mallard:
@@ -434,4 +439,12 @@ void MainChar::whatIsCurrentState()
             break;
     }
     // std::cout << "Current state: " << state << std::endl;
+}
+
+void MainChar::setOwnerShip(bool flag)
+{
+    if(ownerFlag)
+        mSprite.setColor(sf::Color(255, 255, 255, 255));
+    else 
+        mSprite.setColor(sf::Color(0, 0, 0, 100));
 }
