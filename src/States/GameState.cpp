@@ -4,10 +4,9 @@
 
 GameState::GameState(StateStack& stack, Context context)
 : State(stack, context)
-, mWorld(*context.window)
+, mWorld(context)
 , mPlayer(*context.player)
 {
-	// mWorld.initMainCharID(mPlayer.getMainCharID());
 }
 
 void GameState::draw()

@@ -15,7 +15,7 @@ class MainChar : public Entity{
 public:
     enum Type{
         Player1,
-        Chicken,
+        Player2,
         Penguin,
         Sheep,
         Mallard,
@@ -25,8 +25,6 @@ public:
     static Textures::ID toTextureID(MainChar::Type type);
 
 private:
-    Type                numToID(int num);
-    int                 IDToNum(Type type);
     virtual void        drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::FloatRect       getBoundingRect() const;
     void                updateTexts();
@@ -36,7 +34,7 @@ private:
 
 public:
     explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes);
-    void                changeTexture(bool isIncrease, const TextureHolder& textures);  
+    explicit            MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
     virtual unsigned int getCategory() const;
@@ -68,7 +66,11 @@ public:
     int getThisMaskID();
     void setOwnerFlag(bool flag);
 
+    void setAnimationDown();
+    void setCenterOriginMainChar();
 
+    // Ham de fix bug
+    void whatIsCurrentState();
 
 
 private:
@@ -102,3 +104,4 @@ private:
 };
 
 int convertToMaskID(MainChar::Type type);
+MainChar::Type changeTexture(MainChar::Type type, bool isLeft);  

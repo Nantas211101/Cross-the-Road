@@ -22,8 +22,8 @@ MenuState::MenuState(StateStack& stack, Context context)
 	{
 		requestStackPop();
 		// requestStackPush(States::Login);
-        // requestStackPush(States::ChooseChar);
-        requestStackPush(States::Game);
+        requestStackPush(States::ChooseChar);
+        // requestStackPush(States::Game);
     });
 
     mText.setFont(context.fonts->get(Fonts::Main));

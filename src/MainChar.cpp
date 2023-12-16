@@ -16,9 +16,19 @@ MainChar::Type toMainCharID(Textures::ID id)
     switch (id)
     {
     case Textures::Standing1:
+    case Textures::Down1:
+    case Textures::Left1:
+    case Textures::Right1:
+    case Textures::Up1:
         return MainChar::Player1;
-    case Textures::Chicken:
-        return MainChar::Chicken;
+    
+    case Textures::Standing2:
+    case Textures::Down2:
+    case Textures::Left2:
+    case Textures::Right2:
+    case Textures::Up2:
+        return MainChar::Player2;    
+
     case Textures::Penguin:
         return MainChar::Penguin;
     case Textures::Sheep:
@@ -28,21 +38,17 @@ MainChar::Type toMainCharID(Textures::ID id)
     }
     return MainChar::TypeCount;
 }
-MainChar::Type MainChar::numToID(int num){
+MainChar::Type numToID(int num){
     switch (num)
     {
         case 0:
             return MainChar::Player1;
-            break;
         case 1:
-            return MainChar::Chicken;
-            break;
+            return MainChar::Player2;
         case 2:
             return MainChar::Penguin;
-            break;
         case 3:
             return MainChar::Sheep;
-            break;
         case 4:
             return MainChar::Mallard;
         default:
@@ -51,28 +57,23 @@ MainChar::Type MainChar::numToID(int num){
     return MainChar::TypeCount;
 }
 
-int MainChar::IDToNum(Type type){
+int IDToNum(MainChar::Type type){
     switch (type)
     {
-        case Player1:
+        case MainChar::Player1:
             return 0;
-            break;
-        case Chicken:
+        case MainChar::Player2:
             return 1;
-            break;
-        case Penguin:
+        case MainChar::Penguin:
             return 2;
-            break;
-        case Sheep:
+        case MainChar::Sheep:
             return 3;
-            break;
-        case Mallard:
+        case MainChar::Mallard:
             return 4;
-            break;
         default:
             break;
     }
-    return 0;
+    return MainChar::TypeCount;
 }
 
 MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes)
@@ -89,7 +90,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
-    mSprite.setTexture(textures.get(Textures::Standing1));
+    mSprite.setTexture(textures.get(Table[type].texture));
     mSprite.setTextureRect(sf::IntRect(0, 0, frameWidth, frameHeight));
     //centerOrigin(mSprite);
 
@@ -123,6 +124,48 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
     updateTexts();
 }
 
+MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
+: mType(type)
+, upAnimation(textures.get(Table[type].upTexture))
+, downAnimation(textures.get(Table[type].downTexture))
+, leftAnimation(textures.get(Table[type].leftTexture))
+, rightAnimation(textures.get(Table[type].rightTexture))
+, mHP(Table[type].hitpoints)
+, mHealthDisplay(nullptr)
+, lastPosSinceMoving(pos)
+, state(State::Standing)
+, curLane()
+{
+    int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
+    int frameHeight = Table[type].pictureHeight;
+    mSprite.setTexture(textures.get(Table[type].texture));
+    mSprite.setTextureRect(sf::IntRect(0, 0, frameWidth, frameHeight));
+    //centerOrigin(mSprite);
+
+    // lastPosSinceMoving = pos;
+    setPosition(pos);
+    //centerOrigin(upAnimation);
+    upAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	upAnimation.setNumFrames(Table[type].numOfFrames);
+	upAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+    
+    centerOrigin(downAnimation);
+    downAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	downAnimation.setNumFrames(Table[type].numOfFrames);
+	downAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+    
+    centerOrigin(leftAnimation);
+    leftAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	leftAnimation.setNumFrames(Table[type].numOfFrames);
+	leftAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+
+    centerOrigin(rightAnimation);
+    rightAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	rightAnimation.setNumFrames(Table[type].numOfFrames);
+	rightAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+	
+}
+
 void MainChar::updateCurrent(sf::Time dt) {
     int frameWidth = Table[mType].pictureWidth / Table[mType].numOfFrames;
     int frameHeight = Table[mType].pictureHeight;
@@ -147,7 +190,7 @@ void MainChar::updateCurrent(sf::Time dt) {
         mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
     makeStop();
-    updateTexts();
+    // updateTexts();
     Entity::updateCurrent(dt);
 }
 
@@ -162,18 +205,6 @@ void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
         target.draw(rightAnimation, states);
     else
         target.draw(mSprite, states);
-}
-
-void MainChar::changeTexture(bool isIncrease, const TextureHolder& textures){
-    int id = IDToNum(mType);
-    if(isIncrease)
-        ++id;
-    else 
-        --id;
-    id = (id + 4) % 4;
-    mType = numToID(id);
-    mSprite = sf::Sprite(textures.get(toTextureID(mType)));
-    setCenterOrigin(mSprite);
 }
 
 void MainChar::setTexture(Textures::ID id, const TextureHolder& textures)
@@ -196,7 +227,7 @@ unsigned int MainChar::getCategory() const
 	switch (mType)
 	{
         case Player1:
-		case Chicken:
+		case Player2:
         case Penguin:
         case Sheep:
         case Mallard:
@@ -334,11 +365,22 @@ void MainChar::setOwnerFlag(bool flag)
         mSprite.setColor(sf::Color(0, 0, 0, 100));
 }
 
+void MainChar::setAnimationDown()
+{
+    state = State::Down;
+}
+
+void MainChar::setCenterOriginMainChar()
+{
+    centerOrigin(mSprite);
+    centerOrigin(downAnimation);
+}
+
 int convertToMaskID(MainChar::Type type)
 {
     switch (type)
     {
-        case MainChar::Chicken:
+        case MainChar::Player2:
             return Mask(0);
             break;
         case MainChar::Penguin:
@@ -354,4 +396,42 @@ int convertToMaskID(MainChar::Type type)
             break;
     }
     return 0;
+}
+
+MainChar::Type changeTexture(MainChar::Type type, bool isLeft){
+    int shift = (isLeft) ? -1 : 1;
+    int id = IDToNum(type);
+    id = (id + shift + MainChar::TypeCount) % MainChar::TypeCount;
+    MainChar::Type ans = numToID(id);
+    return ans;
+}
+
+void MainChar::whatIsCurrentState()
+{
+    switch (state)
+    {
+        case State::Up:
+            std::cerr << "Up" << std::endl;
+            break;
+        
+        case State::Down:
+            std::cerr << "Down" << std::endl;
+            break;
+        
+        case State::Left:
+            std::cerr << "Left" << std::endl;
+            break;
+
+        case State::Right:
+            std::cerr << "Right" << std::endl;
+            break;
+
+        case State::Standing:
+            std::cerr << "Standing" << std::endl;
+            break;
+        
+        default:
+            break;
+    }
+    // std::cout << "Current state: " << state << std::endl;
 }
