@@ -81,7 +81,7 @@ int IDToNum(MainChar::Type type){
     return MainChar::TypeCount;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes)
+MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, int curGrid, const std::vector<Lane*>& lanes)
 : mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
@@ -89,42 +89,51 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 , rightAnimation(textures.get(Table[type].rightTexture))
 , mHP(Table[type].hitpoints)
 , mHealthDisplay(nullptr)
-, lastPosSinceMoving(410, 0)
-, state(State::Standing)
 , curLane(curLane)
+, curGrid(curGrid)
+, prevLane(curLane)
+, prevGrid(curGrid)
+, lastPosSinceMoving(Lane::distanceBetweenTile * curGrid, Lane::distanceBetweenLane * curLane)
+, state(State::Standing)
 , ownerFlag(true)
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
     mSprite.setTexture(textures.get(Table[type].texture));
     mSprite.setTextureRect(sf::IntRect(0, 0, frameWidth, frameHeight));
+    mSprite.scale(Table[type].scaling, Table[type].scaling);
     //centerOrigin(mSprite);
 
     setPosition(lastPosSinceMoving);
     setInLane(lanes);
+    setInGrid();
 
     std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
 	mHealthDisplay = healthDisplay.get();
 
-    //centerOrigin(upAnimation);
+    centerOrigin(upAnimation);
     upAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
 	upAnimation.setNumFrames(Table[type].numOfFrames);
-	upAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+	upAnimation.setDuration(sf::seconds(Table[type].timeEachFrameInGame));
+    upAnimation.scale(Table[type].scaling, Table[type].scaling);
     
     centerOrigin(downAnimation);
     downAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
 	downAnimation.setNumFrames(Table[type].numOfFrames);
-	downAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+	downAnimation.setDuration(sf::seconds(Table[type].timeEachFrameInGame));
+    downAnimation.scale(Table[type].scaling, Table[type].scaling);
     
     centerOrigin(leftAnimation);
     leftAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
 	leftAnimation.setNumFrames(Table[type].numOfFrames);
-	leftAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+	leftAnimation.setDuration(sf::seconds(Table[type].timeEachFrameInGame));
+    leftAnimation.scale(Table[type].scaling, Table[type].scaling);
 
     centerOrigin(rightAnimation);
     rightAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
 	rightAnimation.setNumFrames(Table[type].numOfFrames);
-	rightAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
+	rightAnimation.setDuration(sf::seconds(Table[type].timeEachFrameInGame));
+    rightAnimation.scale(Table[type].scaling, Table[type].scaling);
 	
     this->attachChild(std::move(healthDisplay));
     updateTexts();
@@ -132,48 +141,38 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 
 MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
 : mType(type)
-, upAnimation(textures.get(Table[type].upTexture))
-, downAnimation(textures.get(Table[type].downTexture))
-, leftAnimation(textures.get(Table[type].leftTexture))
-, rightAnimation(textures.get(Table[type].rightTexture))
+, restAnimation(textures.get(Table[type].restTexture))
 , mHP(Table[type].hitpoints)
 , mHealthDisplay(nullptr)
 , lastPosSinceMoving(pos)
-, state(State::Standing)
+, state(State::Rest)
 , curLane()
 , ownerFlag(true)
 {
+    setPosition(pos);
+
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
+	centerOrigin(mSprite);
     mSprite.setTexture(textures.get(Table[type].texture));
     mSprite.setTextureRect(sf::IntRect(0, 0, frameWidth, frameHeight));
-    //centerOrigin(mSprite);
+    mSprite.scale(Table[type].scaling, Table[type].scaling);
 
-    // lastPosSinceMoving = pos;
-    setPosition(pos);
-    //centerOrigin(upAnimation);
-    upAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
-	upAnimation.setNumFrames(Table[type].numOfFrames);
-	upAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
-    
-    centerOrigin(downAnimation);
-    downAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
-	downAnimation.setNumFrames(Table[type].numOfFrames);
-	downAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
-    
-    centerOrigin(leftAnimation);
-    leftAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
-	leftAnimation.setNumFrames(Table[type].numOfFrames);
-	leftAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
-
-    centerOrigin(rightAnimation);
-    rightAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
-	rightAnimation.setNumFrames(Table[type].numOfFrames);
-	rightAnimation.setDuration(sf::seconds(Table[type].timeEachFrame));
-	
+	centerOrigin(restAnimation);
+    restAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
+	restAnimation.setNumFrames(Table[type].numOfFrames);
+	restAnimation.setDuration(sf::seconds(Table[type].timeEachFrameInMenu));
+    restAnimation.scale(Table[type].scaling, Table[type].scaling);
 }
 
 void MainChar::updateCurrent(sf::Time dt) {
+    if(state == State::Rest) {
+        restAnimation.setOwnerFlag(ownerFlag);
+        restAnimation.update(dt);
+        restAnimation.setRepeating(true);
+        Entity::updateCurrent(dt);
+        return;
+    }
     int frameWidth = Table[mType].pictureWidth / Table[mType].numOfFrames;
     int frameHeight = Table[mType].pictureHeight;
     if(state == State::Up) {
@@ -198,12 +197,14 @@ void MainChar::updateCurrent(sf::Time dt) {
         mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
     }
     makeStop();
-    // updateTexts();
+    updateTexts();
     Entity::updateCurrent(dt);
 }
 
 void MainChar::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const{
-    if(state == State::Up)
+    if(state == State::Rest) 
+        target.draw(restAnimation, states);
+    else if(state == State::Up)
         target.draw(upAnimation, states);
     else if(state == State::Down)
         target.draw(downAnimation, states);
@@ -277,6 +278,7 @@ bool MainChar::isDestroyed() const {
 void MainChar::goUp() {
     setVelocity(0, -movingVelocity);
     state = State::Up;
+    prevGrid = curGrid;
     prevLane = curLane;
     ++curLane;
 }
@@ -284,6 +286,7 @@ void MainChar::goUp() {
 void MainChar::goDown() {
     setVelocity(0, movingVelocity);
     state = State::Down;
+    prevGrid = curGrid;
     prevLane = curLane;
     --curLane;
 }
@@ -291,11 +294,17 @@ void MainChar::goDown() {
 void MainChar::goLeft() {
     setVelocity(-movingVelocity, 0);
     state = State::Left;
+    prevLane = curLane;
+    prevGrid = curGrid;
+    --curGrid;
 }
 
 void MainChar::goRight() {
     setVelocity(movingVelocity, 0);
     state = State::Right;
+    prevLane = curLane;
+    prevGrid = curGrid;
+    ++curGrid;
 }
 
 void MainChar::stopMoving() {
@@ -313,11 +322,6 @@ sf::Vector2f MainChar::getLastPos() {
     return lastPosSinceMoving;
 }
 
-void MainChar::alignChar() {
-    sf::Vector2f pos = getPosition();
-    setPosition((pos.x + Lane::distanceBetweenTile / 2) / Lane::distanceBetweenTile * Lane::distanceBetweenTile, pos.y);
-}
-
 int MainChar::getCurLane() {
     return curLane;
 }
@@ -326,13 +330,28 @@ void MainChar::setInLane(const std::vector<Lane*>& lanes) {
     setPosition(getPosition().x, lanes[curLane]->getPosition().y + 25);
 }
 
+void MainChar::setInGrid() {
+    setPosition(Lane::distanceBetweenTile * curGrid + 15, getPosition().y);
+}
+
+void MainChar::fixInPos(const std::vector<Lane*>& lanes) {
+    setInLane(lanes);
+    setInGrid();
+}
+
 void MainChar::resetState() {
     curLane = 0;
+    prevLane = 0;
+    curGrid = 5;
+    prevGrid = 5;
     state = State::Standing;
 }
 
-void MainChar::backTolastLane() {
+void MainChar::backTolastPos(const std::vector<Lane*>& lanes) {
     curLane = prevLane;
+    curGrid = prevGrid;
+    fixInPos(lanes);
+    lastPosSinceMoving = getPosition();
 }
 
 void MainChar::makeStop() {
@@ -370,15 +389,10 @@ void MainChar::setOwnerFlag(bool flag)
     setOwnerShip(flag);
 }
 
-void MainChar::setAnimationDown()
-{
-    state = State::Down;
-}
-
 void MainChar::setCenterOriginMainChar()
 {
     centerOrigin(mSprite);
-    centerOrigin(downAnimation);
+    centerOrigin(restAnimation);
 }
 
 int convertToMaskID(MainChar::Type type)

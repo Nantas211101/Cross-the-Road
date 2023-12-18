@@ -165,6 +165,7 @@ void Application::loadResources(){
 
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
+    mTextures.load(Textures::Rest1, "Media/Textures/Player/Player1/Rest.png");
 	mTextures.load(Textures::Up1, "Media/Textures/Player/Player1/Up.png");
 	mTextures.load(Textures::Down1, "Media/Textures/Player/Player1/Down.png");
 	mTextures.load(Textures::Left1, "Media/Textures/Player/Player1/Left.png");
@@ -172,6 +173,7 @@ void Application::loadResources(){
 
     // Player2
     mTextures.load(Textures::Standing2, "Media/Textures/Player/Player2/Standing.png");
+    mTextures.load(Textures::Rest2, "Media/Textures/Player/Player2/Rest.png");
 	mTextures.load(Textures::Up2, "Media/Textures/Player/Player2/Up.png");
 	mTextures.load(Textures::Down2, "Media/Textures/Player/Player2/Down.png");
 	mTextures.load(Textures::Left2, "Media/Textures/Player/Player2/Left.png");
@@ -179,6 +181,7 @@ void Application::loadResources(){
     
     // Player3
     mTextures.load(Textures::Standing3, "Media/Textures/Player/Player3/Standing.png");
+    mTextures.load(Textures::Rest3, "Media/Textures/Player/Player3/Rest.png");
     mTextures.load(Textures::Up3, "Media/Textures/Player/Player3/Up.png");
     mTextures.load(Textures::Down3, "Media/Textures/Player/Player3/Down.png");
     mTextures.load(Textures::Left3, "Media/Textures/Player/Player3/Left.png");
