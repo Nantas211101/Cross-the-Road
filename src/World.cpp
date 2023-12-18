@@ -30,10 +30,6 @@ void World::update(sf::Time dt)
 	if(ta.y <= viewSize.y / 2){
 
 		// keep the mplayer position while reset the scroll (to make it infinity)
-		sf::Vector2f playerPos = mainChar->getPosition();
-		sf::Vector2f mid = viewSize / 2.f;
-		sf::Vector2f diffPos = playerPos - mid;
-		mainChar->setPosition(mSpawnPosition + diffPos);
 		mWorldView.setCenter(mSpawnPosition);
 		mainChar->resetState();
 	}
@@ -51,8 +47,9 @@ void World::update(sf::Time dt)
 			mCommandQueue.pop();
 		}
 	}
-	if(mainChar->isStanding())
-		mainChar->setInLane(lanes);
+	if(mainChar->isStanding()) {
+		mainChar->fixInPos(lanes);
+	}
 
 	// Collision detection and response (may destroy entities)
 	handleCollisions();
@@ -100,33 +97,25 @@ void World::handleCollisions()
 			if(mainChar->isStanding())
 				mainChar->setVelocity(log.getVelocity().x, 0);
 			break;
-			// Apply pickup effect to player, destroy projectile
-			// pickup.apply(player);
-			// pickup.destroy();
 		}
 		else if (matchesCategories(pair, Category::Player, Category::River))
 		{
 			auto& player = static_cast<MainChar&>(*pair.first);
 			auto& enemy = static_cast<River&>(*pair.second);
 
-			// Collision: Player damage = enemy's remaining HP
+			// Collision:
 			timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
 			if(timeFromLastInvulnerable > sf::seconds(0.1)){
 				player.damage(5);
 				invulnerableTime.restart();
 			}
-			// enemy.destroy();
 		}
 		else if (matchesCategories(pair, Category::Player, Category::Obstacle))
 		{
 			auto& player = static_cast<MainChar&>(*pair.first);
 			auto& block = static_cast<Obstacle&>(*pair.second);
 
-			// Collision: Player damage = enemy's remaining HP
-			if(mainChar->getVelocity().y != 0)
-				mainChar->backTolastLane();
-			else
-				mainChar->setPosition(mainChar->getLastPos());
+			mainChar->backTolastPos(lanes);
 			mainChar->stopMoving();
 		}
 	// 	if(matchesCategories(pair, Category::Player, Category::Road) || matchesCategories(pair, Category::Player, Category::Ground)) {
@@ -176,7 +165,7 @@ void World::buildScene(MainChar::Type id)
 			mSceneLayers[Title]->attachChild(std::move(x));
 		}
 	}
-	std::unique_ptr<MainChar> character(new MainChar(id, mTextures, mFonts, 1, lanes));
+	std::unique_ptr<MainChar> character(new MainChar(id, mTextures, mFonts, 1, 5, lanes));
 	mainChar = character.get();
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }

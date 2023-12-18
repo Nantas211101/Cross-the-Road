@@ -31,11 +31,13 @@ private:
     void                updateCurrent(sf::Time dt);
 
     void                makeStop();
+    void                setInLane(const std::vector<Lane*>& lanes);
+    void                setInGrid();
 
     void                setOwnerShip(bool flag);
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes);
+    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, int curGrid, const std::vector<Lane*>& lanes);
     explicit            MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
@@ -57,18 +59,16 @@ public:
     void                stopMoving();
     bool                isStanding();
 
-    void                setInLane(const std::vector<Lane*>& lanes);
     void                resetState();
     int                 getCurLane();
-    void                backTolastLane();
+    void                fixInPos(const std::vector<Lane*>& lanes);
+    void                backTolastPos(const std::vector<Lane*>& lanes);
     sf::Vector2f        getLastPos();
-    void                alignChar();
     
     Type getMainCharType();
     int getThisMaskID();
     void setOwnerFlag(bool flag);
 
-    void setAnimationDown();
     void setCenterOriginMainChar();
 
     // Ham de fix bug
@@ -82,6 +82,7 @@ private:
         Right,
         Left,
         Standing,
+        Rest
     };
     Type mType;
     sf::Sprite mSprite;
@@ -95,12 +96,15 @@ private:
     Animation downAnimation;
     Animation leftAnimation;
     Animation rightAnimation;
+    Animation restAnimation;
+    Animation deathAnimation;
 
     State state;
 	sf::Vector2f lastPosSinceMoving;
     int curLane;
     int prevLane;
-    // Animation deathAnimation;
+    int curGrid;
+    int prevGrid;
     // Animation healingAnimation;
     // Animation takingDamageAnimation;
 };

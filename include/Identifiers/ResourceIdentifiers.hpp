@@ -83,6 +83,7 @@ namespace Textures
 		
 		// Player1
 		Standing1,
+		Rest1,
 		Up1,
 		Down1,
 		Left1,
@@ -90,6 +91,7 @@ namespace Textures
 
 		// Player2
 		Standing2,
+		Rest2,
 		Up2,
 		Down2,
 		Left2,
@@ -97,6 +99,7 @@ namespace Textures
 
 		// Player3
 		Standing3,
+		Rest3,
 		Up3,
 		Down3,
 		Left3,
