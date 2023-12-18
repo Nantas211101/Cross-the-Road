@@ -124,7 +124,7 @@ void LaneFactoryTheme1::templateAnimalRoad(int num) {
 void LaneFactoryTheme1::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new RiverTheme1(textureHolder, startPos));
-        lane->setPosition(startPos);
+        lane->setPosition(0,startPos.y);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
@@ -157,7 +157,7 @@ void LaneFactoryTheme1::templateLane3() {
 
 void LaneFactoryTheme1::templateLane4() {
     templateGround(1);
-    templateRiver(1);
+    templateRiver(2);
     templateRailway(1);
 }
 

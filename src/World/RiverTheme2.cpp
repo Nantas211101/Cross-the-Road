@@ -3,25 +3,27 @@
 RiverTheme2::RiverTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : River(textureHolder, spawnPos)
 , riverLog()
-{
-    textureHolder->get(Textures::LavaRiver).setRepeated(true);
-    sprite.setTexture(textureHolder->get(Textures::LavaRiver));
-    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
-    sprite.setTextureRect(textureRect);
+{   
+    animation.setTexture(textureHolder->get(Textures::LavaRiver));
+    animation.setFrameSize(sf::Vector2i(8218/4, 100));
+	animation.setNumFrames(4);
+	animation.setDuration(sf::seconds(1));
     buildLane();
 }
 
 void RiverTheme2::updateCurrent(sf::Time dt) {
     if(!this->isReverse() && riverLog[firstLogIndex]->getPosition().x >= 0) {
-        riverLog[lastLogIndex]->setPosition(-TableLog[riverLog[lastLogIndex]->getType()].distanceBetweenLog, startPos.y + 25);
+        riverLog[lastLogIndex]->setPosition(-TableLog[riverLog[lastLogIndex]->getType()].distanceBetweenLog,25);
         firstLogIndex = lastLogIndex;
         lastLogIndex = (lastLogIndex + numOfLog - 1) % numOfLog;
     }
     if(this->isReverse() && riverLog[lastLogIndex]->getPosition().x <= 2500) {
-        riverLog[firstLogIndex]->setPosition(TableLog[riverLog[firstLogIndex]->getType()].distanceBetweenLog + 2500, startPos.y + 25);
+        riverLog[firstLogIndex]->setPosition(TableLog[riverLog[firstLogIndex]->getType()].distanceBetweenLog + 2500,25);
         lastLogIndex = firstLogIndex;
         firstLogIndex = (firstLogIndex + 1) % numOfLog;
     }
+    animation.update(dt);
+    animation.setRepeating(true);
 }
 
 void RiverTheme2::buildLane() {
@@ -46,7 +48,7 @@ void RiverTheme2::buildLane() {
             log->setVelocity(1.0 * TableLog[kind].speed, 0);
         else
             log->setVelocity(-1.0 * TableLog[kind].speed, 0);
-        log->setPosition(startPos.x + randSpawnPos + distance, startPos.y + 25);
+        log->setPosition(randSpawnPos + distance,25);
         distance += TableLog[kind].distanceBetweenLog;
         riverLog.push_back(log.get());
         this->attachChild(std::move(log));

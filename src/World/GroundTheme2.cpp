@@ -27,7 +27,7 @@ void GroundTheme2::updateCurrent(sf::Time dt){}
 void GroundTheme2::buildLane() {
     if(isStartLane){
         for(int j = 0; j < 4; j++) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Fire, *textureHolder));
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Volcano, *textureHolder));
             obstacles.push_back(obstacle.get());
             if(j <=1){
                 obstacle->setPosition(j * 100 + 500 + obstacle->getBoundingRect().width/2 ,0);
@@ -44,7 +44,7 @@ void GroundTheme2::buildLane() {
         std::uniform_int_distribution<int> dist(3, 7);
         int numObstacles = dist(gen);
         for(int j = 0; j < numObstacles; j++) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Fire, *textureHolder));
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Volcano, *textureHolder));
             obstacles.push_back(obstacle.get());
             int randNum = rand() % 17;
             obstacle->setPosition( randNum * 100 , 0 );

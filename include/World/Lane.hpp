@@ -36,4 +36,5 @@ class Lane : public SceneNode {
         sf::Vector2f startPos;
         sf::Sprite sprite;
         TextureHolder* textureHolder;
+        Animation animation;
 };

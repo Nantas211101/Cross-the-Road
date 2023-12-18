@@ -10,7 +10,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::randomTemplateLane() {
     std::uniform_int_distribution<int> dist(1, 6);
     int random = dist(gen);
     lanes.clear();
-    switch(random) {
+    switch(1) {
     case 1:
         templateLane1();
         break;
@@ -87,7 +87,7 @@ void LaneFactoryTheme2::templateAnimalRoad(int num) {
 void LaneFactoryTheme2::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new RiverTheme2(textureHolder, startPos));
-        lane->setPosition(startPos);
+        lane->setPosition(0,startPos.y);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }

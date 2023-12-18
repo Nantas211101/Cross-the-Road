@@ -4,10 +4,10 @@ RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : River(textureHolder, spawnPos)
 , riverLog()
 {
-    textureHolder->get(Textures::River).setRepeated(true);
-    sprite.setTexture(textureHolder->get(Textures::River));
-    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
-    sprite.setTextureRect(textureRect);
+    animation.setTexture(textureHolder->get(Textures::River));
+    animation.setFrameSize(sf::Vector2i(7026/4, 100));
+	animation.setNumFrames(4);
+	animation.setDuration(sf::seconds(1.5));
     buildLane();
 }
 
@@ -22,6 +22,8 @@ void RiverTheme1::updateCurrent(sf::Time dt) {
         lastLogIndex = firstLogIndex;
         firstLogIndex = (firstLogIndex + 1) % numOfLog;
     }
+    animation.update(dt);
+    animation.setRepeating(true);
 }
 
 void RiverTheme1::buildLane() {

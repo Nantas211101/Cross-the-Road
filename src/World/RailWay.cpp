@@ -12,20 +12,14 @@ Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
     sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
     //sprite.scale(0.5f,0.6f);
     sprite.setTextureRect(textureRect);
-    buildLight();
+    
     buildLane();
+    buildLight();
 }
 
 void Railway::updateCurrent(sf::Time dt){
-    switch (railwayLight->getRailwayLightState())
-    {
-    case 0:
-        train->setVelocity(0,0);
-        break;
-    
-    case 1:
-        train->setVelocity(1.0 * TableTrain[train->getType()].speed, 0);
-        break;
+    if(train->getPosition().x >= 2500){
+        train->setPosition(-300, -100);
     }
 }
 
@@ -58,7 +52,7 @@ void Railway::buildLane(){
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
     newTrain->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 
-    newTrain->setPosition(-1100, -100);
+    newTrain->setPosition(-300, -100);
     this->attachChild(std::move(newTrain));
 }
 

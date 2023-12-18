@@ -37,7 +37,7 @@ void RoadTheme2::generateAnimal(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(0, 4);
+    std::uniform_int_distribution<int> dist(4, 4);
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
 
@@ -73,7 +73,7 @@ void RoadTheme2::generateAnimal(){
             animal->setVelocity(-1.0 * TableAnimal[kind].speed, 0);
             animal->scale(-TableAnimal[kind].scaling.x,TableAnimal[kind].scaling.y);
         }
-        animal->setPosition(startPos.x + randSpawnPos + distance, startPos.y - 25);
+        animal->setPosition(randSpawnPos + distance, -20);
         distance += TableAnimal[kind].distanceBetweenAnimal;
         animals.push_back(animal.get());
         this->attachChild(std::move(animal));
