@@ -6,28 +6,36 @@
 #include <iostream>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-const float buttonHeight = 210;
+const float buttonHeight = 150;
+const float leftRightScale = 0.1;
 
 SettingsState::SettingsState(StateStack& stack, Context context)
 : State(stack, context)
 , mGUIContainer()
+, mText("Settings", context.fonts->get(Fonts::Main), 75)
+, mVolumeText("Volume", context.fonts->get(Fonts::Main), 25)
 {
     
     mBackground.setFillColor(sf::Color(0, 0, 0, 255));
     mBackground.setSize(sf::Vector2f(context.window->getSize()));
 	// mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
 	
+	sf::Vector2f pos = context.window->getView().getSize();
 	// Build key binding buttons and labels
-	addButtonLabel(Player::MoveLeft,  buttonHeight, "Left", context);
-	addButtonLabel(Player::MoveRight, buttonHeight * 2, "Right", context);
-	addButtonLabel(Player::MoveUp,    buttonHeight * 3, "Up", context);
-	addButtonLabel(Player::MoveDown,  buttonHeight * 4, "Down", context);
-
+	addButtonLabel(Player::MoveLeft,  buttonHeight + pos.y / 10.f, "Left", context);
+	addButtonLabel(Player::MoveRight, buttonHeight * 2 + pos.y / 10.f, "Right", context);
+	addButtonLabel(Player::MoveUp,    buttonHeight * 3 + pos.y / 10.f, "Up", context);
+	addButtonLabel(Player::MoveDown,  buttonHeight * 4 + pos.y / 10.f, "Down", context);
+	mText.setFillColor(sf::Color::White);
+	mText.setPosition(pos.x / 2.f, pos.y / 10.f);
+	centerOrigin(mText);
+	mText.setOutlineThickness(5.f);
+	mText.setOutlineColor(sf::Color::Blue);
 	updateLabels();
 
 	auto backButton = std::make_shared<GUI::Button>(context);
 	backButton->centerOrigin();
-    backButton->setPosition(140.f, context.window->getDefaultView().getSize().y - 50.f);
+    backButton->setPosition(140.f, /*context.window->getDefaultView().getSize().y -*/ 50.f);
     backButton->setScale(0.5, 0.5);
     backButton->setColor(sf::Color(96, 130, 182, 200));
 	backButton->setText("Back");
@@ -36,7 +44,28 @@ SettingsState::SettingsState(StateStack& stack, Context context)
         requestStackPop();
 	}));
 
+	auto rightButton = std::make_shared<GUI::Button>(context, Textures::RightButton);
+	rightButton->centerOrigin();
+	rightButton->setScale(leftRightScale, leftRightScale);
+	rightButton->setPosition(pos.x / 2.f + 250.f, buttonHeight * 5 + pos.y / 10.f);
+	rightButton->setCallback([this] (){
+		std::cerr << "Right\n";
+	});
+	auto leftButton = std::make_shared<GUI::Button>(context, Textures::LeftButton);
+	leftButton->centerOrigin();
+	leftButton->setScale(leftRightScale, leftRightScale);
+	leftButton->setPosition(pos.x / 2.f - 250.f, buttonHeight * 5 + pos.y / 10.f);
+	leftButton->setCallback([this] (){
+		std::cerr << "Left\n";
+	});
+
+	mVolumeText.setFillColor(sf::Color::White);
+	mVolumeText.setPosition(pos.x - 300.f, rightButton->getPosition().y);
+	centerOrigin(mVolumeText);
+
 	mGUIContainer.pack(backButton);
+	mGUIContainer.pack(leftButton);
+	mGUIContainer.pack(rightButton);
 }
 
 void SettingsState::draw()
@@ -49,6 +78,8 @@ void SettingsState::draw()
 	window.draw(mGUIContainer);
     for(sf::Text tmp : textHold)
         window.draw(tmp);
+	window.draw(mText);
+	window.draw(mVolumeText);
 }
 
 bool SettingsState::update(sf::Time dt)
@@ -123,7 +154,7 @@ void SettingsState::addButtonLabel(Player::Action action, float y, const std::st
     tmp.setFont(context.fonts->get(Fonts::Main));
     tmp.setString(text);
     setCenterOrigin(tmp);
-    tmp.setPosition({position.x + 300.f, position.y});
+    tmp.setPosition({mView.getSize().x - 300.f, position.y});
     tmp.setCharacterSize(25);
 	tmp.setFillColor(sf::Color::White);
     textHold.push_back(tmp);

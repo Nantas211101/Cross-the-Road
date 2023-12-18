@@ -35,4 +35,6 @@ class SettingsState : public State
 		std::array<GUI::Button::Ptr, Player::ActionCount>	mBindingButtons;
 		std::array<GUI::Label::Ptr, Player::ActionCount> 	mBindingLabels;
         std::vector<sf::Text> textHold;
+		sf::Text											mText;
+		sf::Text											mVolumeText;
 };

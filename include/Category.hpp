@@ -21,6 +21,9 @@ namespace Category {
 
 		// lane
 		Ground	= 1 << 8,
-		Road	= 1 << 9
+		Road	= 1 << 9,
+
+		// sound node
+		SoundEffect = 1 << 10,
 	};
 }

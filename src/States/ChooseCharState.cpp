@@ -11,8 +11,10 @@
 #include <iostream>
 
 const float scaleCharacter = 5.f;
-const float startSpeedUp = 1000.f;
-float speedUp = 1000.f;
+const float limitSpeed = 5000.f;
+const float startSpeedUp = 200.f;
+sf::Vector2f speedMoving = {0, 0};
+float speedUp = startSpeedUp;
 const std::string Error_Do_Not_Have_This_Character = "You do not have this character!";
 
 ChooseCharState::ChooseCharState(StateStack &stack, Context context)
@@ -82,7 +84,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	backButton->setPosition(350.f, mWorldBounds.height - 100.f);
 	backButton->setScale(0.8, 0.8);
 	backButton->setCallback([this, context](){
-		BackToLogin();
+		BackToMenu();
 	});
 
 	auto displayCharButton = std::make_shared<GUI::Button>(context, Textures::displayButton);
@@ -120,6 +122,8 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 bool ChooseCharState::update(sf::Time elapsedTime){
     if(!isFocus)
         return false;
+	if(!isMove)
+		speedUp = startSpeedUp;
 
     impleChangeChar(elapsedTime);
 
@@ -129,6 +133,7 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 	if (position.x <= mWorldBounds.left //150.f
 	 || position.x >= mWorldBounds.width)
 	{
+		speedMoving = {0, 0};
 		mPlayer->setVelocity(0, 0);
 		tmpPlayer->setVelocity(0, 0);
 
@@ -139,13 +144,14 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 		isMove = 0;
 		// speedUp = startSpeedUp;
 	}
-    mPlayer->setAnimationDown();
+	mPlayer->setAnimationDown();	
 	if(tmpPlayer)
 		tmpPlayer->setAnimationDown();
 	
 	// Apply movements
 	mSceneGraph.update(elapsedTime);
     updateCharID();
+	
     return true;
 }
 
@@ -174,7 +180,7 @@ bool ChooseCharState::handleEvent(const sf::Event &event){
         handlePlayerInput(event.key.code, true);
     else 
         if(event.type == sf::Event::KeyReleased)
-            handlePlayerInput(event.key.code, false);
+		    handlePlayerInput(event.key.code, false);
 	sf::RenderWindow &mWindow = *getContext().window;
 	mGUIContainerSet.handleRealTimeInput(mWindow);
 	mGUIContainerSet.handleEvent(event);
@@ -194,7 +200,9 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {0, mPlayer->getPosition().y}));
 			tmpPlayer = leader.get();
 			mSceneLayers[Air]->attachChild(std::move(leader));
-			tmpPlayer->setVelocity(0, 0);
+			speedMoving = {speedUp, 0};
+			tmpPlayer->setVelocity(speedUp, 0);
+			mPlayer->setVelocity(speedUp, 0);
 			tmpPlayer->setScale(0, 0);
             tmpPlayer->setCenterOriginMainChar();
 			tmpPlayer->setAnimationDown();
@@ -209,7 +217,9 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {mWorldBounds.width, mPlayer->getPosition().y}));
 			tmpPlayer = leader.get();
 			mSceneLayers[Air]->attachChild(std::move(leader));
-			tmpPlayer->setVelocity(0, 0);
+			speedMoving = {-speedUp, 0};
+			tmpPlayer->setVelocity(-speedUp, 0);
+			mPlayer->setVelocity(-speedUp, 0);
 			tmpPlayer->setScale(0, 0);
             tmpPlayer->setCenterOriginMainChar();
 			tmpPlayer->setAnimationDown();
@@ -224,8 +234,7 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 
 	if(!isPressed && isPressing && key == isChangeKey)
 		isPressing = 0;
-	if(!isPressed && key == isChangeKey)
-		speedUp = startSpeedUp;
+
 }
 
 void ChooseCharState::startRight(){
@@ -238,7 +247,9 @@ void ChooseCharState::startRight(){
         MainChar::Type newID = changeTexture(mPlayer->getMainCharType(), 0);
 		std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {mWorldBounds.width, mPlayer->getPosition().y}));
 		tmpPlayer = leader.get();
-		tmpPlayer->setVelocity(0, 0);
+		speedMoving = {-speedUp, 0};
+		tmpPlayer->setVelocity(-speedUp, 0);
+		mPlayer->setVelocity(-speedUp, 0);
 		tmpPlayer->setScale(0, 0);
         tmpPlayer->setCenterOriginMainChar();
 		tmpPlayer->setAnimationDown();
@@ -259,7 +270,9 @@ void ChooseCharState::startLeft(){
         MainChar::Type newID = changeTexture(mPlayer->getMainCharType(), 1);
 		std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {0, mPlayer->getPosition().y}));
 		tmpPlayer = leader.get();
-		tmpPlayer->setVelocity(0, 0);
+		speedMoving = {speedUp, 0};
+		tmpPlayer->setVelocity(speedUp, 0);
+		mPlayer->setVelocity(speedUp, 0);
         tmpPlayer->setCenterOriginMainChar();
 		tmpPlayer->setScale(0, 0);
 		tmpPlayer->setAnimationDown();
@@ -273,26 +286,23 @@ void ChooseCharState::startLeft(){
 void ChooseCharState::impleChangeChar(sf::Time dt){
     if(!isMove)
 		return;
-	if(speedUp < 100000.f)
+	if(speedUp < limitSpeed)
 		speedUp += speedUp * dt.asSeconds();
-	sf::Vector2f position = mPlayer->getPosition();
-	sf::Vector2f velocity = mPlayer->getVelocity();
-	int dist, naturalDist;
-	float tmp;
 	if(isChangeKey == sf::Keyboard::Right)
 		changeRight(dt);
 	else 
 		if(isChangeKey == sf::Keyboard::Left)
 			changeLeft(dt);
+	mPlayer->setVelocity(speedMoving);
+	tmpPlayer->setVelocity(speedMoving);
 }
 
 void ChooseCharState::changeRight(sf::Time dt){
+	speedMoving = {-speedUp, 0};
 	int dist, naturalDist;
 	float tmp;
 	sf::Vector2f position = mPlayer->getPosition();
-	sf::Vector2f velocity = mPlayer->getVelocity();
 	// mPlayer
-	mPlayer->accelerate(-speedUp * dt.asSeconds(), 0);
 	dist = position.x - mWorldBounds.left;
 	naturalDist = mSpawnPosition.x - mWorldBounds.left;
 	tmp = dist * 1.0 / naturalDist;
@@ -302,10 +312,8 @@ void ChooseCharState::changeRight(sf::Time dt){
 	////////////////////////////
 
 	position = tmpPlayer->getPosition();
-	velocity = tmpPlayer->getVelocity();
 	
 	// tmp
-	tmpPlayer->accelerate(-speedUp * dt.asSeconds(), 0);
 	dist = position.x - mSpawnPosition.x;
 	naturalDist = mWorldBounds.width - mSpawnPosition.x;
 	tmp = 1 - (dist * 1.0 / naturalDist);
@@ -315,12 +323,11 @@ void ChooseCharState::changeRight(sf::Time dt){
 }
 
 void ChooseCharState::changeLeft(sf::Time dt){
+	speedMoving = {speedUp, 0};
 	int dist, naturalDist;
 	float tmp;
 	sf::Vector2f position = mPlayer->getPosition();
-	sf::Vector2f velocity = mPlayer->getVelocity();
 	// mPlayer
-	mPlayer->accelerate(speedUp * dt.asSeconds(), 0);
 	dist = mWorldBounds.width - position.x;
 	naturalDist = mWorldBounds.width - mSpawnPosition.x;
 	tmp = dist * 1.0 / naturalDist;
@@ -330,10 +337,8 @@ void ChooseCharState::changeLeft(sf::Time dt){
 	/////////////////////////////////////
 
 	position = tmpPlayer->getPosition();
-	velocity = tmpPlayer->getVelocity();
 
 	// tmpPlayer
-	tmpPlayer->accelerate(speedUp * dt.asSeconds(), 0);
 	dist = mSpawnPosition.x - position.x;
 	naturalDist = mSpawnPosition.x - 0;
 	tmp = 1 - (dist * 1.0 / naturalDist);
@@ -406,9 +411,9 @@ void ChooseCharState::updateCharID(){
 	getContext().player->setMainCharID(tmp->getMainCharType());
 }
 
-void ChooseCharState::BackToLogin(){
+void ChooseCharState::BackToMenu(){
 	requestStackPop();
-	requestStackPush(States::Login);
+	requestStackPush(States::Menu);
 }
 
 void ChooseCharState::callError(const std::string& error)

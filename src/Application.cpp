@@ -77,7 +77,7 @@ void Application::registerStates(){
     mStateStack.registerState<LoginState>(States::Login);
     mStateStack.registerState<RegisterState>(States::Register);
     mStateStack.registerState<ConfirmRegisterState>(States::ConfirmRegister);
-    // mStateStack.registerState<DisplayCharState>(States::DisplayCharState);
+    mStateStack.registerState<DisplayCharState>(States::DisplayCharState);
 }
 
 void Application::processInput(){

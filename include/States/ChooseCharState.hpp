@@ -33,7 +33,7 @@ private:
 
 private:
     void PlayGame();
-    void BackToLogin();
+    void BackToMenu();
 
     void callError(const std::string& error);
 
