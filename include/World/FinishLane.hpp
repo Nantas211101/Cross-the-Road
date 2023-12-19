@@ -18,6 +18,7 @@ class FinishLane: public Lane{
             Level3,
             Theme1,
             Theme2,
+            Theme3,
             TypeCount
         };
         FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeFinishLane);

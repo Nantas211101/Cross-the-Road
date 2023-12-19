@@ -187,6 +187,7 @@ void Application::loadResources(){
     // Road
     mTextures.load(Textures::Road, "Media/Textures/Road/Road.png");
 	mTextures.load(Textures::LavaRoad, "Media/Textures/Road/LavaRoad.png");
+    mTextures.load(Textures::SnowRoad, "Media/Textures/Road/SnowRoad.png");
 	mTextures.load(Textures::Road1, "Media/Textures/Road/Road1.png");
 	mTextures.load(Textures::Soil, "Media/Textures/Road/Soil.png");
 
@@ -214,22 +215,26 @@ void Application::loadResources(){
 	mTextures.load(Textures::Log1, "Media/Textures/River/Log1.png");
     mTextures.load(Textures::River, "Media/Textures/River/River.png");
 	mTextures.load(Textures::LavaRiver, "Media/Textures/River/LavaRiver.png");
+    mTextures.load(Textures::SnowRiver, "Media/Textures/River/SnowRiver.png");
     // mTextures.load(Textures::LavaRiver1, "Media/Textures/LavaRiver1.png");
 	//mTextures.load(Textures::Eagle, "Media/Textures/Eagle.png"); // crocodile
 
 	// Ground
     mTextures.load(Textures::Grass, "Media/Textures/Ground/Grass.png");
 	mTextures.load(Textures::LavaGround, "Media/Textures/Ground/LavaGround.png");
+    mTextures.load(Textures::SnowGround, "Media/Textures/Ground/SnowGround.png");
 	mTextures.load(Textures::LightGrass, "Media/Textures/Ground/LightGrass.png");
 	mTextures.load(Textures::Tree1, "Media/Textures/Obstacle/Tree1.png");
 	mTextures.load(Textures::Tree2, "Media/Textures/Obstacle/Tree2.png");
 	mTextures.load(Textures::Tree3, "Media/Textures/Obstacle/Tree3.png");
+    mTextures.load(Textures::SnowTree, "Media/Textures/Obstacle/SnowTree.png");
 	mTextures.load(Textures::Rock1, "Media/Textures/Obstacle/Rock1.png");
 	mTextures.load(Textures::Rock2, "Media/Textures/Obstacle/Rock2.png");
 	mTextures.load(Textures::Ruin1, "Media/Textures/Obstacle/Ruin1.png");
 	mTextures.load(Textures::Ruin2, "Media/Textures/Obstacle/Ruin2.png");
 	mTextures.load(Textures::Vocalno, "Media/Textures/Obstacle/Volcano.png");
 	mTextures.load(Textures::Fire, "Media/Textures/Obstacle/Fire.png");
+    mTextures.load(Textures::SnowMan, "Media/Textures/Obstacle/SnowMan.png");
 	// Railway
 	mTextures.load(Textures::Railway, "Media/Textures/Railway/Railway.png");
 	mTextures.load(Textures::RailwayLight, "Media/Textures/Railway/RailwayLight.png");

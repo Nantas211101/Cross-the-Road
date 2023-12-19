@@ -96,6 +96,23 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Fire].numOfFrames = 7;
     data[Obstacle::Fire].pictureWidth = 667;   
     data[Obstacle::Fire].pictureHeight = 205;
+
+    data[Obstacle::SnowTree].dmg = 5;
+    data[Obstacle::SnowTree].speed = 0.f;
+    data[Obstacle::SnowTree].texture = Textures::SnowTree;
+    data[Obstacle::SnowTree].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::SnowTree].numOfFrames = 1;
+    data[Obstacle::SnowTree].pictureWidth = 118;   
+    data[Obstacle::SnowTree].pictureHeight = 188;
+
+
+    data[Obstacle::SnowMan].dmg = 5;
+    data[Obstacle::SnowMan].speed = 0.f;
+    data[Obstacle::SnowMan].texture = Textures::SnowMan;
+    data[Obstacle::SnowMan].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::SnowMan].numOfFrames = 1;
+    data[Obstacle::SnowMan].pictureWidth = 157;   
+    data[Obstacle::SnowMan].pictureHeight = 176;
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){

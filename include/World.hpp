@@ -4,6 +4,7 @@
 #include <LaneFactory.hpp>
 #include <LaneFactoryTheme1.hpp>
 #include <LaneFactoryTheme2.hpp>
+#include <LaneFactoryTheme3.hpp>
 #include <Decorator.hpp>
 #include <CommandQueue.hpp>
 #include <MainChar.hpp>

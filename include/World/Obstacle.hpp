@@ -13,12 +13,14 @@ class Obstacle : public Entity {
             Tree1,
             Tree2,
             Tree3,
+            SnowTree,
             Rock1,
             Rock2,
             Ruin1,
             Ruin2,
             Volcano,
             Fire,
+            SnowMan,
             TypeCount
     };
 
