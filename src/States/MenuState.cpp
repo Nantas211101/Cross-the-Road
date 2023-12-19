@@ -3,6 +3,13 @@
 #include "TextureManipulate.hpp"
 #include "GUI_Button.hpp"
 
+namespace canvaPosition{
+    const sf::Vector2f playButtonPos = sf::Vector2f(573, 569);
+    const sf::Vector2f settingsButtonPos = sf::Vector2f(174, 610);
+    const sf::Vector2f logoutButtonPos = sf::Vector2f(177, 723);
+    const sf::Vector2f exitButtonPos = sf::Vector2f(174, 850);
+}
+
 MenuState::MenuState(StateStack& stack, Context context)
 : State(stack, context)
 , mGUIContainer()
@@ -12,43 +19,35 @@ MenuState::MenuState(StateStack& stack, Context context)
     sf::Vector2f pos = context.window->getView().getSize();
     float add_y = pos.y / 5;
 
-	auto playButton = std::make_shared<GUI::Button>(context);
-	playButton->centerOrigin();
-    playButton->setPosition(pos.x / 2.f, add_y * 2);
-	playButton->setText("PLAY");
-    playButton->setScale(0.8, 0.8);
-    playButton->setColor(sf::Color::Cyan);
+	auto playButton = std::make_shared<GUI::Button>(context, Textures::PlayButton);
+    playButton->centerOrigin();
+    playButton->setPosition(canvaPosition::playButtonPos);
 	playButton->setCallback([this] ()
 	{
 		requestStackPop();
-		// requestStackPush(States::Login);
         requestStackPush(States::ChooseChar);
-        // requestStackPush(States::Game);
     });
 
-    mText.setFont(context.fonts->get(Fonts::Main));
-    mText.setString("Crossy the road");
-    mText.setCharacterSize(75);
-    setCenterOrigin(mText);
-    mText.setPosition({pos.x / 2.f, add_y - playButton->getSize().y / 2});
-
-	auto settingsButton = std::make_shared<GUI::Button>(context);
+	auto settingsButton = std::make_shared<GUI::Button>(context, Textures::SettingButton);
     settingsButton->centerOrigin();
-	settingsButton->setPosition(pos.x / 2.f, add_y * 3);
-	settingsButton->setText("SETTINGS");
-    settingsButton->setScale(0.8, 0.8);
-    settingsButton->setColor(sf::Color::Cyan);
+    settingsButton->setPosition(canvaPosition::settingsButtonPos);
 	settingsButton->setCallback([this] ()
 	{   
 		requestStackPush(States::Settings);
 	});
 
-	auto exitButton = std::make_shared<GUI::Button>(context);
-	exitButton->centerOrigin();
-    exitButton->setPosition(pos.x / 2.f, add_y * 4);
-	exitButton->setText("Exit");
-    exitButton->setScale(0.8, 0.8);
-    exitButton->setColor(sf::Color::Cyan);
+    auto LogoutButton = std::make_shared<GUI::Button>(context, Textures::LogoutButton);
+    LogoutButton->centerOrigin();
+    LogoutButton->setPosition(canvaPosition::logoutButtonPos);
+    LogoutButton->setCallback([this] ()
+    {
+        requestStackPop();
+        requestStackPush(States::Login);
+    });
+
+	auto exitButton = std::make_shared<GUI::Button>(context, Textures::ExitButton);
+    exitButton->centerOrigin();
+    exitButton->setPosition(canvaPosition::exitButtonPos);
 	exitButton->setCallback([this] ()
 	{
 		requestStackPop();
@@ -56,6 +55,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 
 	mGUIContainer.pack(playButton);
 	mGUIContainer.pack(settingsButton);
+    mGUIContainer.pack(LogoutButton);
 	mGUIContainer.pack(exitButton);
 
     buildScene();
@@ -68,7 +68,6 @@ void MenuState::draw()
     // window.draw(mBackgroundSprite);
     window.draw(mSceneGraph);
     window.draw(mGUIContainer);
-    window.draw(mText);
 }
 
 bool MenuState::update(sf::Time dt)
@@ -95,7 +94,7 @@ void MenuState::buildScene(){
     }
 
 	// Prepare the tiled background
-    sf::Texture& texture = (*getContext().textures).get(Textures::ChooseCharScreen);
+    sf::Texture& texture = (*getContext().textures).get(Textures::MenuScreen);
     sf::IntRect textureRect(mWorldBounds);
     texture.setRepeated(true);
 

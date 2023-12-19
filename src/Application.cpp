@@ -12,7 +12,8 @@
 #include "ConfirmRegisterState.hpp"
 #include "DisplayCharState.hpp"
 
-const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.jpg";
+const std::string Path_MenuScreen = "Media/Textures/State/MenuScreen.png";
+const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.png";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
 const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
 const std::string Path_ChooseCharScreen = "Media/Textures/State/bluebackground.jpg";
@@ -26,7 +27,7 @@ const std::string Path_Normal = "Media/Textures/Button/ButtonNormal.png";
 const std::string Path_Pressed = "Media/Textures/Button/ButtonPressed.png";
 const std::string Path_Selected = "Media/Textures/Button/ButtonSelected.png";
 const std::string Path_InputButton = "Media/Textures/Button/purpleInputBox.png";
-const std::string Path_loginBG = "Media/Textures/State/LoginBG.jpg";
+const std::string Path_loginBG = "Media/Textures/State/LoginBG.png";
 const std::string Path_registerBG = "Media/Textures/State/RegisterBG.jpg";
 const std::string Path_VisiblePassword = "Media/Textures/Button/visible.png";
 const std::string Path_InvisiblePassword = "Media/Textures/Button/invisible.png";
@@ -62,9 +63,10 @@ Application::Application()
 
         registerStates();
         // start with the title state
+        mMusic.setVolume(30.f);
+        mSound.setVolume(100.f);
         mStateStack.pushState(States::Title);
 
-        mMusic.setVolume(25.f);
 }
 
 void Application::registerStates(){
@@ -144,6 +146,7 @@ void Application::loadResources(){
     mFonts.load(Fonts::Label, Path_Input_Font);
     mTextures.load(Textures::TitleScreen, Path_TitleScreen);
     mTextures.load(Textures::ChooseCharScreen, Path_ChooseCharScreen);
+    mTextures.load(Textures::MenuScreen, Path_MenuScreen);
     mTextures.load(Textures::Chicken, Path_chickenMain);
     mTextures.load(Textures::Penguin, Path_penguinMain);
     mTextures.load(Textures::Sheep, Path_sheepMain);
@@ -250,4 +253,11 @@ void Application::loadResources(){
 	mTextures.load(Textures::DecoTree1, "Media/Textures/Decorator/DecoTree1.png");
 	mTextures.load(Textures::DecoTree2, "Media/Textures/Decorator/DecoTree2.png");
 	mTextures.load(Textures::DecoFlower1, "Media/Textures/Decorator/DecoFlower1.png");
+
+
+    // Special Button
+    mTextures.load(Textures::PlayButton, "Media/Textures/Button/playButton.png");
+    mTextures.load(Textures::SettingButton, "Media/Textures/Button/settingButton.png");
+    mTextures.load(Textures::ExitButton, "Media/Textures/Button/exitButton.png");
+    mTextures.load(Textures::LogoutButton, "Media/Textures/Button/logOutButton.png");
 }

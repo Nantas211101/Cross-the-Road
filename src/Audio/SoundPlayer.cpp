@@ -56,3 +56,8 @@ sf::Vector2f SoundPlayer::getListenerPosition() const
     sf::Vector3f position = sf::Listener::getPosition();
     return sf::Vector2f(position.x, -position.y);
 }
+
+void SoundPlayer::setVolume(float volume)
+{
+    sf::Listener::setGlobalVolume(volume);
+}

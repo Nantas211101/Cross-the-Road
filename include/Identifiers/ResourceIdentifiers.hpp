@@ -112,6 +112,7 @@ namespace Textures
 		background,
         TitleScreen,
         ChooseCharScreen,
+		MenuScreen,
         RightButton,
         LeftButton,
         ButtonNormal,
@@ -124,6 +125,12 @@ namespace Textures
         InvisiblePassword,
         backButton,
         displayButton,
+
+		// Special button
+		PlayButton,
+		SettingButton,
+		ExitButton,
+		LogoutButton,
         
         Heart,
         Thunder,

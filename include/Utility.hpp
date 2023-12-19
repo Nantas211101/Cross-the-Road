@@ -24,6 +24,7 @@ std::string toString(sf::Keyboard::Key key);
 void centerOrigin(sf::Sprite& sprite);
 void centerOrigin(Animation& animation);
 void centerOrigin(sf::Text& text);
+void centerOrigin(sf::RectangleShape& rectangle);
 float length(sf::Vector2f vector);
 
 #include <Utility.inl>

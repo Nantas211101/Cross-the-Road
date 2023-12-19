@@ -125,7 +125,7 @@ void Button::select()
 	Component::select();
 	mScale = getScale();
 	if(mIsOnlyOneTexture){
-		setScale(mScale.x * 1.2 , mScale.y * 1.2);
+		setScale(mScale.x * 1.1 , mScale.y * 1.1);
 		mScale = getScale();
 	}
 	mSprite.setTexture(mSelectedTexture);
@@ -136,7 +136,7 @@ void Button::deselect()
 {
 	Component::deselect();
 	if(mIsOnlyOneTexture){
-		setScale(mScale.x / 1.2 , mScale.y / 1.2);
+		setScale(mScale.x / 1.1 , mScale.y / 1.1);
 		mScale = getScale();
 	}
 	mSprite.setTexture(mNormalTexture);

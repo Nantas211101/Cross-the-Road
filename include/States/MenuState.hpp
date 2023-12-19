@@ -2,6 +2,7 @@
 
 #include "State.hpp"
 #include "GUI_Container.hpp"
+#include "GUI_ContainerSET.hpp"
 #include "SceneNode.hpp"
 #include "SpriteNode.hpp"
 
@@ -33,6 +34,5 @@ private:
     std::array<SceneNode*, LayerCount>  mSceneLayers;
     sf::View                            mWorldView;
     sf::FloatRect                       mWorldBounds;
-    GUI::Container			            mGUIContainer;
-    sf::Text                            mText;
+    GUI::ContainerSet			        mGUIContainer;
 };

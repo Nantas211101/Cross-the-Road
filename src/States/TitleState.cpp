@@ -17,9 +17,9 @@ TitleState::TitleState(StateStack &stack, Context context)
     //
     mText.setFont(context.fonts->get(Fonts::Main));
     mText.setString("Press any key to begin");
-    mText.setCharacterSize(75);
+    mText.setCharacterSize(50);
     setCenterOrigin(mText);
-    mText.setPosition({pos.x / 2.f, pos.y / 2.f + 200.f});
+    mText.setPosition({pos.x / 2.f, pos.y / 2.f + 200.f - 25});
     //
 
     //

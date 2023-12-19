@@ -9,7 +9,6 @@
 
 #include <fstream>
 
-const std::string Main_text = "Login to your account";
 const std::string Error_Wrong_Information = "Wrong username or password!\n Please try again!";
 const std::string Error_Account_Not_Exist = "Account does not exist!\n Please try again!";
 const std::string Error_Not_Fill_Enough = "Please fill in all the information!";
@@ -21,7 +20,6 @@ LoginState::LoginState(StateStack &stack, Context context)
 , mGUIContainer()
 , mGUIContainerVisibility()
 , mBackground()
-, mText(Main_text, context.fonts->get(Fonts::Main), 75)
 , errorText("", context.fonts->get(Fonts::Main), 50)
 , mTextUsername()
 , mTextPassword()
@@ -30,9 +28,6 @@ LoginState::LoginState(StateStack &stack, Context context)
     sf::Vector2f pos = context.window->getView().getCenter();
     mBackground.setTexture(context.textures->get(Textures::LoginBG));
     mBackground.setPosition(0, 0);
-    setCenterOrigin(mText);
-    mText.setPosition({pos.x, 100.f});
-    mText.setFillColor(sf::Color::White);
 
     auto username = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Username");
     username->centerOrigin();
@@ -119,7 +114,6 @@ void LoginState::draw()
     window.draw(mGUIContainer);
     window.draw(mGUIContainerInputButton);
     window.draw(mGUIContainerVisibility);
-    window.draw(mText);
     window.draw(errorText);
 }
 
