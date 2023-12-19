@@ -1,12 +1,21 @@
 #include <RiverTheme3.hpp>
 
+namespace {
+    const std::vector<LogData> TableLog = initializeLogData();
+}
+
+namespace {
+    const std::vector<RiverData> TableRiver = initializeRiverData();
+}
+
 RiverTheme3::RiverTheme3(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : River(textureHolder, spawnPos)
 , riverLog()
 {   
-    animation.setTexture(textureHolder->get(Textures::SnowRiver));
-    animation.setFrameSize(sf::Vector2i(8512/5, 100));
-	animation.setNumFrames(5);
+    type = River::SnowRiver;
+    animation.setTexture(textureHolder->get(TableRiver[type].texture));
+    animation.setFrameSize(sf::Vector2i(TableRiver[type].pictureWidth/TableRiver[type].numOfFrames, TableRiver[type].pictureHeight));
+	animation.setNumFrames(TableRiver[type].numOfFrames);
 	animation.setDuration(sf::seconds(1));
     buildLane();
 }
@@ -30,7 +39,7 @@ void RiverTheme3::buildLane() {
     int distance = 0;
     int randomKindLog = 1 + rand() % 3;
     Log::Type kind;
-    switch(randomKindLog) {
+    switch(3) {
     case 1:
         kind = Log::Log1;
         break;
@@ -38,7 +47,7 @@ void RiverTheme3::buildLane() {
         kind = Log::Log2;
         break;
     case 3:
-        kind = Log::Log3;
+        kind = Log::SnowLog;
         break;
     }
     int randSpawnPos = rand() % 200;

@@ -30,3 +30,7 @@ void RailwayLight::updateCurrent(sf::Time dt) {
 int RailwayLight::getRailwayLightState(){
     return sta;
 }
+
+void RailwayLight::setTimeCount(){
+    timeCount = sf::Time::Zero;
+}

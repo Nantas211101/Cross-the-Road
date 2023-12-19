@@ -10,8 +10,9 @@ typeRoad(typeRoad)
             sprite.setTexture(textureHolder->get(Textures::Soil));
             break;
         case RoadTheme3::VehicleRoad:
-            if (checkLine == 0) sprite.setTexture(textureHolder->get(Textures::SnowRoad));
-            else sprite.setTexture(textureHolder->get(Textures::SnowRoad));
+            textureHolder->get(Textures::SnowRoad).setRepeated(true);
+            sprite.setTexture(textureHolder->get(Textures::SnowRoad));
+           
             break;
     }
 

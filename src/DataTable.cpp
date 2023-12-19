@@ -12,10 +12,10 @@ std::vector<LogData> initializeLogData() {
     data[Log::Log2].texture = Textures::Log1;
     data[Log::Log2].scaling = sf::Vector2f(0.5, 0.6);
 
-    data[Log::Log3].speed = 200.f;
-    data[Log::Log3].distanceBetweenLog = 400;
-    data[Log::Log3].texture = Textures::Log1;
-    data[Log::Log3].scaling = sf::Vector2f(0.5, 0.6);
+    data[Log::SnowLog].speed = 200.f;
+    data[Log::SnowLog].distanceBetweenLog = 400;
+    data[Log::SnowLog].texture = Textures::SnowLog;
+    data[Log::SnowLog].scaling = sf::Vector2f(0.5, 0.25);
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
@@ -100,10 +100,10 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree].dmg = 5;
     data[Obstacle::SnowTree].speed = 0.f;
     data[Obstacle::SnowTree].texture = Textures::SnowTree;
-    data[Obstacle::SnowTree].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::SnowTree].scaling = sf::Vector2f(0.3, 0.3);
     data[Obstacle::SnowTree].numOfFrames = 1;
-    data[Obstacle::SnowTree].pictureWidth = 118;   
-    data[Obstacle::SnowTree].pictureHeight = 188;
+    data[Obstacle::SnowTree].pictureWidth = 338;   
+    data[Obstacle::SnowTree].pictureHeight = 322;
 
 
     data[Obstacle::SnowMan].dmg = 5;
@@ -246,7 +246,7 @@ std::vector<VehicleData> initializeVehicleData(){
 
 std::vector<TrainData> initializeTrainData(){
     std::vector<TrainData> data(Train::TypeCount);
-    data[Train::Train1].speed = 700.f;
+    data[Train::Train1].speed = 800.f;
     data[Train::Train1].texture = Textures::Train1;
     data[Train::Train1].scaling = sf::Vector2f(0.7, 0.7);
     
@@ -254,11 +254,11 @@ std::vector<TrainData> initializeTrainData(){
     data[Train::Train2].texture = Textures::Train2;
     data[Train::Train2].scaling = sf::Vector2f(0.8, 0.8);
     
-    data[Train::Train3].speed = 700.f;
+    data[Train::Train3].speed = 800.f;
     data[Train::Train3].texture = Textures::Train3;
     data[Train::Train3].scaling = sf::Vector2f(0.75, 0.75);
 
-    data[Train::Train4].speed = 700.f;
+    data[Train::Train4].speed = 800.f;
     data[Train::Train4].texture = Textures::Train4;
     data[Train::Train4].scaling = sf::Vector2f(0.8, 0.8);
 
@@ -326,5 +326,24 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Mallard].speed = 200.f;
     data[MainChar::Mallard].texture = Textures::Mallard;
 
+    return data;
+}
+
+std::vector<RiverData> initializeRiverData(){
+    std::vector<RiverData> data(River::TypeCount);
+    data[River::WaterRiver].texture = Textures::River;
+    data[River::WaterRiver].numOfFrames = 4;
+    data[River::WaterRiver].pictureWidth = 7024;
+    data[River::WaterRiver].pictureHeight = 100;
+
+    data[River::LavaRiver].texture = Textures::LavaRiver;
+    data[River::LavaRiver].numOfFrames = 4;
+    data[River::LavaRiver].pictureWidth = 8218;
+    data[River::LavaRiver].pictureHeight = 100;
+    
+    data[River::SnowRiver].texture = Textures::SnowRiver;
+    data[River::SnowRiver].numOfFrames = 5;
+    data[River::SnowRiver].pictureWidth = 8512;
+    data[River::SnowRiver].pictureHeight = 100;
     return data;
 }

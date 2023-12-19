@@ -11,6 +11,7 @@
 #include <Decorator.hpp>
 #include <Obstacle.hpp>
 #include <MainChar.hpp>
+#include <River.hpp>
 
 struct LogData {
 	float speed;
@@ -82,6 +83,13 @@ struct CharData {
 };
 
 
+struct RiverData {
+	Textures::ID texture;
+	int pictureWidth;
+	int pictureHeight;
+	int numOfFrames;
+};
+
 std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
 std::vector<VehicleData> initializeVehicleData();
@@ -89,3 +97,4 @@ std::vector<TrainData> initializeTrainData();
 std::vector<ObstacleData> initializeObstacleData();
 std::vector<DecoratorData> initializeDecoratorData();
 std::vector<CharData> initializeCharData();
+std::vector<RiverData> initializeRiverData();

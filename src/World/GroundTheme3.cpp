@@ -56,10 +56,10 @@ void GroundTheme3::buildLane() {
             std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::SnowTree, *textureHolder));
             obstacles.push_back(obstacle.get());
             if(j <=1){
-                obstacle->setPosition(j * 100 + 500 + obstacle->getBoundingRect().width/2 ,0);
+                obstacle->setPosition(j * 100 + 500,-15);
             }
             else{
-                obstacle->setPosition((17-j) * 100 + 500 + obstacle->getBoundingRect().width/2 ,0);
+                obstacle->setPosition((18-j) * 100 + 500,-15);
             }
             this->attachChild(std::move(obstacle));
         }
@@ -69,11 +69,21 @@ void GroundTheme3::buildLane() {
         std::mt19937 gen(rd());
         std::uniform_int_distribution<int> dist(3, 7);
         int numObstacles = dist(gen);
+        Obstacle::Type kind;
+        int randObtacle = rand()%2;
+        switch (randObtacle) {
+            case 0:
+                kind = Obstacle::SnowMan;
+                break;
+            case 1:
+                kind = Obstacle::SnowTree;
+                break;
+        }
         for(int j = 0; j < numObstacles; j++) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::SnowMan, *textureHolder));
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(kind, *textureHolder));
             obstacles.push_back(obstacle.get());
             int randNum = rand() % 17;
-            obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 ,0);
+            obstacle->setPosition( randNum * 100 + 500,0);
             this->attachChild(std::move(obstacle));
         }
     }

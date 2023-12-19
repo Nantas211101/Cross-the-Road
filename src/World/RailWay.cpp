@@ -18,8 +18,19 @@ Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 }
 
 void Railway::updateCurrent(sf::Time dt){
-    if(train->getPosition().x >= 2500){
+    switch (railwayLight->getRailwayLightState())
+    {
+    case 0:
+        train->setVelocity(0,0);
+        break;
+    
+    case 1:
+        train->setVelocity(1.0 * TableTrain[train->getType()].speed, 0);
+        break;
+    }
+    if(train->getPosition().x >= 2200){
         train->setPosition(-300, -100);
+        railwayLight->setTimeCount();
     }
 }
 

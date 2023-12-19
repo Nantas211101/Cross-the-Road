@@ -17,7 +17,8 @@ namespace Textures
 		SnowRiver,
 		Log,
 		Log1,
-
+		SnowLog,
+		
 		// Ground
 		Ground,
 		Grass,

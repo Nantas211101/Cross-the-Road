@@ -13,6 +13,7 @@ class River : public Lane {
         enum Type{
             WaterRiver,
             LavaRiver,
+            SnowRiver,
             TypeCount
         };
 
@@ -31,6 +32,3 @@ class River : public Lane {
         Type type;
 };
 
-namespace {
-    const std::vector<LogData> TableLog = initializeLogData();
-}

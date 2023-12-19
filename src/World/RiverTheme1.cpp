@@ -1,12 +1,21 @@
 #include <RiverTheme1.hpp>
 
+namespace {
+    const std::vector<LogData> TableLog = initializeLogData();
+}
+
+namespace {
+    const std::vector<RiverData> TableRiver = initializeRiverData();
+}
+
 RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : River(textureHolder, spawnPos)
 , riverLog()
-{
-    animation.setTexture(textureHolder->get(Textures::River));
-    animation.setFrameSize(sf::Vector2i(7026/4, 100));
-	animation.setNumFrames(4);
+{   
+    type = River::WaterRiver;
+    animation.setTexture(textureHolder->get(TableRiver[type].texture));
+    animation.setFrameSize(sf::Vector2i(TableRiver[type].pictureWidth/TableRiver[type].numOfFrames, TableRiver[type].pictureHeight));
+	animation.setNumFrames(TableRiver[type].numOfFrames);
 	animation.setDuration(sf::seconds(1.5));
     buildLane();
 }
