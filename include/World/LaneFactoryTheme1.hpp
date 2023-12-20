@@ -4,10 +4,9 @@
 class LaneFactoryTheme1 : public LaneFactory {
 private:
 
-    void templateLevelFinish1(int num);
-    void templateLevelFinish2(int num);
-    void templateLevelFinish3(int num);
-    void templateFinishTheme(int num);
+    void templateFinishLevel(int num);
+    void templateFinishTheme1(int num);
+    void templateFinishTheme2(int num);
     void templateGround(int num);
     void templateRoad(int num);
     void templateAnimalRoad(int num);
@@ -20,7 +19,7 @@ private:
     void templateLane4();
     void templateLane5();
     void templateLane6();
-    void templateFinishLevel();
+
 
 public:
     LaneFactoryTheme1(TextureHolder* textureHolder, sf::Vector2f startPos);

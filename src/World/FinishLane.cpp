@@ -5,26 +5,24 @@
  , decorators()
  , typeFinishLane(typeFinishLane)
  {
+    num = 1;
     switch (this->typeFinishLane){
-        case FinishLane::Level1:
-            sprite.setTexture(textureHolder->get(Textures::FinishLevel1));
-            break;
-        case FinishLane::Level2:
-            sprite.setTexture(textureHolder->get(Textures::FinishLevel2));
-            break;
-        case FinishLane::Level3:
-            sprite.setTexture(textureHolder->get(Textures::FinishLevel3));
+        case FinishLane::Level:
+            sprite.setTexture(textureHolder->get(Textures::FinishLevel));
+            num = 3;
             break;
         case FinishLane::Theme1:
-            textureHolder->get(Textures::FinishTheme1).setRepeated(true);
             sprite.setTexture(textureHolder->get(Textures::FinishTheme1));
+            num = 5;
             break;
         case FinishLane::Theme2:
             textureHolder->get(Textures::FinishTheme2).setRepeated(true);
             sprite.setTexture(textureHolder->get(Textures::FinishTheme2));
             break;
     }
-    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
+    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane*num);
+    sf::FloatRect bounds = sprite.getLocalBounds();
+	sprite.setOrigin(0, bounds.height - distanceBetweenLane);
     sprite.setTextureRect(textureRect);
     buildLane();
  }
@@ -34,3 +32,7 @@
  void FinishLane::buildLane() {
     //create some decorators if need
  }
+
+int FinishLane::getNum(){
+    return num;
+}

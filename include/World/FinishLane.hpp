@@ -13,21 +13,20 @@
 class FinishLane: public Lane{
     public:
         enum Type{
-            Level1,
-            Level2,
-            Level3,
+            Level,
             Theme1,
             Theme2,
             Theme3,
             TypeCount
         };
         FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeFinishLane);
-
+        int getNum();
     private:
         void buildLane();
         void updateCurrent(sf::Time dt);
 
     private:
         Type typeFinishLane;
+        int num;
         std::vector<Decorator*> decorators;
 };
