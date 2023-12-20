@@ -199,6 +199,7 @@ void Application::loadResources(){
     mTextures.load(Textures::Green_Dragon, "Media/Textures/Animal/Green_Dragon.png");
     mTextures.load(Textures::Blue_Twin_Head_Dragon, "Media/Textures/Animal/Blue_Twin_Head_Dragon.png");
     mTextures.load(Textures::Monster1, "Media/Textures/Animal/Monster1.png");
+    mTextures.load(Textures::Reindeer, "Media/Textures/Animal/Reindeer.png");
 
     mTextures.load(Textures::Traffic, "Media/Textures/Road/Traffic.png");
     mTextures.load(Textures::Truck, "Media/Textures/Vehicle/Truck.png");
@@ -229,6 +230,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::Tree2, "Media/Textures/Obstacle/Tree2.png");
 	mTextures.load(Textures::Tree3, "Media/Textures/Obstacle/Tree3.png");
     mTextures.load(Textures::SnowTree, "Media/Textures/Obstacle/SnowTree.png");
+    mTextures.load(Textures::SnowTree1, "Media/Textures/Obstacle/SnowTree1.png");
 	mTextures.load(Textures::Rock1, "Media/Textures/Obstacle/Rock1.png");
 	mTextures.load(Textures::Rock2, "Media/Textures/Obstacle/Rock2.png");
 	mTextures.load(Textures::Ruin1, "Media/Textures/Obstacle/Ruin1.png");
@@ -256,4 +258,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::DecoTree1, "Media/Textures/Decorator/DecoTree1.png");
 	mTextures.load(Textures::DecoTree2, "Media/Textures/Decorator/DecoTree2.png");
 	mTextures.load(Textures::DecoFlower1, "Media/Textures/Decorator/DecoFlower1.png");
+    mTextures.load(Textures::DecoFlower2, "Media/Textures/Decorator/DecoFlower2.png");
+    mTextures.load(Textures::DecoIce1, "Media/Textures/Decorator/DecoIce1.png");
+    mTextures.load(Textures::DecoSnow1, "Media/Textures/Decorator/DecoSnow1.png");
 }

@@ -105,6 +105,13 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree].pictureWidth = 338;   
     data[Obstacle::SnowTree].pictureHeight = 322;
 
+    data[Obstacle::SnowTree1].dmg = 5;
+    data[Obstacle::SnowTree1].speed = 0.f;
+    data[Obstacle::SnowTree1].texture = Textures::SnowTree1;
+    data[Obstacle::SnowTree1].scaling = sf::Vector2f(0.5, 0.4);
+    data[Obstacle::SnowTree1].numOfFrames = 1;
+    data[Obstacle::SnowTree1].pictureWidth = 201;   
+    data[Obstacle::SnowTree1].pictureHeight = 265;
 
     data[Obstacle::SnowMan].dmg = 5;
     data[Obstacle::SnowMan].speed = 0.f;
@@ -188,6 +195,14 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Monster1].pictureWidth = 4019;
     data[Animal::Monster1].pictureHeight = 394;    
 
+    data[Animal::Reindeer].dmg = 85;
+    data[Animal::Reindeer].speed = 200.f;
+    data[Animal::Reindeer].distanceBetweenAnimal = 1000;
+    data[Animal::Reindeer].texture = Textures::Reindeer;
+    data[Animal::Reindeer].scaling = sf::Vector2f(0.3, 0.2);
+    data[Animal::Reindeer].numOfFrames = 12;
+    data[Animal::Reindeer].pictureWidth = 6764;
+    data[Animal::Reindeer].pictureHeight = 447;
     return data;
 }
 
@@ -250,7 +265,7 @@ std::vector<TrainData> initializeTrainData(){
     data[Train::Train1].texture = Textures::Train1;
     data[Train::Train1].scaling = sf::Vector2f(0.7, 0.7);
     
-    data[Train::Train2].speed = 600.f;
+    data[Train::Train2].speed = 1000.f;
     data[Train::Train2].texture = Textures::Train2;
     data[Train::Train2].scaling = sf::Vector2f(0.8, 0.8);
     
@@ -277,6 +292,18 @@ std::vector<DecoratorData> initializeDecoratorData() {
     data[Decorator::DecoFlower1].speed = 0.f;
     data[Decorator::DecoFlower1].texture = Textures::DecoFlower1;
     data[Decorator::DecoFlower1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoFlower2].speed = 0.f;
+    data[Decorator::DecoFlower2].texture = Textures::DecoFlower2;
+    data[Decorator::DecoFlower2].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoIce1].speed = 0.f;
+    data[Decorator::DecoIce1].texture = Textures::DecoIce1;
+    data[Decorator::DecoIce1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoSnow1].speed = 0.f;
+    data[Decorator::DecoSnow1].texture = Textures::DecoSnow1;
+    data[Decorator::DecoSnow1].scaling = sf::Vector2f(0.7, 0.7);
     return data;
 }
 

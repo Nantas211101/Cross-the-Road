@@ -161,7 +161,7 @@ void World::buildScene(MainChar::Type id)
 		mSceneGraph.attachChild(std::move(layer));
 	}
 	mSceneLayers[Title]->setReverse();
-	LaneFactoryTheme3 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 10; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;

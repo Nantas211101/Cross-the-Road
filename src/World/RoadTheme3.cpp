@@ -51,9 +51,9 @@ void RoadTheme3::generateAnimal(){
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
 
-    switch(randomKindAnimal) {
+    switch(1) {
     case 1:
-        kind = Animal::Elephant;
+        kind = Animal::Reindeer;
         break;
     case 2:
         kind = Animal::Cow;

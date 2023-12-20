@@ -13,7 +13,7 @@ public:
       Elephant,
       Rhinoceros,
       Cow,
-
+      Reindeer,
       Small_Dragon,
       Green_Dragon,
       Red_Dragon,

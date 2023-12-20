@@ -16,7 +16,9 @@ class Decorator : public Entity {
             DecoTree1,
             DecoTree2,
             DecoFlower1,
-
+            DecoFlower2,
+            DecoIce1,
+            DecoSnow1,
             DecoFire1,
             DecoFire2,
             TypeCount

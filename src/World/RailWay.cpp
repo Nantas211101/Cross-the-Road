@@ -29,7 +29,7 @@ void Railway::updateCurrent(sf::Time dt){
         break;
     }
     if(train->getPosition().x >= 2200){
-        train->setPosition(-300, -100);
+        train->setPosition(-800, -100);
         railwayLight->setTimeCount();
     }
 }
@@ -41,7 +41,7 @@ void Railway::buildLane(){
     std::uniform_int_distribution<int> dist(1, 3);
     int randomKindTrain = dist(gen);
     Train::Type kind;
-    switch(4) {
+    switch(2) {
     case 1:
         kind = Train::Train1;
         break;
@@ -63,7 +63,7 @@ void Railway::buildLane(){
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
     newTrain->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
 
-    newTrain->setPosition(-300, -100);
+    newTrain->setPosition(-800, -100);
     this->attachChild(std::move(newTrain));
 }
 

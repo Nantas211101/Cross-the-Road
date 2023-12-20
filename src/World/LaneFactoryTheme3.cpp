@@ -143,6 +143,8 @@ void LaneFactoryTheme3::templateLane1() {
     templateGround(2);
     templateRiver(2);
     templateRoad(2);
+    templateRailway(1);
+    templateAnimalRoad(2);
 }
 
 void LaneFactoryTheme3::templateLane2() {
