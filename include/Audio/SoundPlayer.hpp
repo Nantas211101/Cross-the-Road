@@ -19,7 +19,7 @@ public:
     sf::Vector2f getListenerPosition() const;
 
     void setVolume(float volume);
-    // float getVolume() const;
+    float getVolume() const;
 
 private:
     SoundBufferHolder mSoundBuffers;

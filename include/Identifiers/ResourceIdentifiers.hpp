@@ -123,7 +123,6 @@ namespace Textures
         RegisterBG,
         VisiblePassword,
         InvisiblePassword,
-        backButton,
         displayButton,
 
 		// Special button
@@ -131,6 +130,13 @@ namespace Textures
 		SettingButton,
 		ExitButton,
 		LogoutButton,
+		RegisterButton,
+		InputButton,
+		LoginButton,
+		AcceptButton, 
+		InfoButton,
+		BackButton,
+		RegisterAccept,
         
         Heart,
         Thunder,

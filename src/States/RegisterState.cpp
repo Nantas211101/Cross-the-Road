@@ -9,6 +9,16 @@
 
 #include <fstream>
 
+namespace canvaPosition{
+    const sf::Vector2f usernamePos = sf::Vector2f(850, 397.5);
+    const sf::Vector2f passwordPos = sf::Vector2f(850, 597.5);
+    const sf::Vector2f passwordConfirmPos = sf::Vector2f(850, 797.5);
+    const sf::Vector2f visibility1ButtonPos = sf::Vector2f(passwordPos.x + 300.f, passwordPos.y);
+    const sf::Vector2f visibility2ButtonPos = sf::Vector2f(passwordConfirmPos.x + 300.f, passwordConfirmPos.y);
+    const sf::Vector2f registerAcceptButtonPos = sf::Vector2f(1412.5, 816);
+    const sf::Vector2f backButtonPos = sf::Vector2f(178.5, 95);
+}
+
 const std::pair<int, int> limitUsername = {4, 12};
 const std::pair<int, int> limitPassword = {4, 12};
 
@@ -30,7 +40,6 @@ RegisterState::RegisterState(StateStack &stack, Context context)
 , mGUIContainer()
 , mGUIContainerVisibility()
 , mBackground()
-, mText(Main_text, context.fonts->get(Fonts::Main), 75)
 , errorText("", context.fonts->get(Fonts::Main), 50)
 , errorTextUsername("", context.fonts->get(Fonts::Main), 30)
 , errorTextPassword("", context.fonts->get(Fonts::Main), 30)
@@ -49,32 +58,22 @@ RegisterState::RegisterState(StateStack &stack, Context context)
 {
     sf::Vector2f pos = context.window->getView().getCenter();
     mBackground.setTexture(context.textures->get(Textures::RegisterBG));
-    // centerOrigin(mBackground);
-    // mBackground.setPosition(pos);
 
-    setCenterOrigin(mText);
-    mText.setPosition({pos.x, 100.f});
-    mText.setFillColor(sf::Color(209, 209, 209, 255));
-
-    auto username = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Username");
+    auto username = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, Textures::InputButton,"Username");
     username->centerOrigin();
-    username->setScale(0.3, 0.3);
-    username->setPosition(pos.x, pos.y - 250.f);
+    username->setPosition(canvaPosition::usernamePos);
     username->setToggle(true);
-    username->setColor(sf::Color(96, 130, 182, 200));
     username->setCallback([this](std::string st){
         mTextUsername = st;
         isChangeUsername = true;
     });
 
-    posErrorUsername = {pos.x, pos.y - 125.f};
+    posErrorUsername = {canvaPosition::usernamePos.x, canvaPosition::usernamePos.y + 100.f};
 
-    auto password = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Password");
+    auto password = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, Textures::InputButton,"Password");
     password->centerOrigin();
-    password->setScale(0.3, 0.3);
-    password->setPosition(pos.x, pos.y);
+    password->setPosition(canvaPosition::passwordPos);
     password->setToggle(true);
-    password->setColor(sf::Color(96, 130, 182, 200));
     password->setFlagHidden(true);
     password->setCallback([this](std::string st){
         mTextPassword = st;
@@ -83,8 +82,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
 
     auto visibility1 = std::make_shared<GUI::StateButton>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
     visibility1->centerOrigin();
-    visibility1->setPosition(pos.x + 300.f, pos.y);
-    visibility1->setColor(sf::Color(96, 130, 182, 200));
+    visibility1->setPosition(canvaPosition::visibility1ButtonPos);
     visibility1->setCallback([this, password](){
         if(isFocusPassword){
             password->setFlagHidden(false);
@@ -96,14 +94,12 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         }
     });
 
-    posErrorPassword = {pos.x, pos.y + 125.f};
+    posErrorPassword = {canvaPosition::passwordPos.x, canvaPosition::passwordPos.y + 100.f};
 
-    auto passwordConfirm = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Confirm Password");
+    auto passwordConfirm = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, Textures::InputButton,"Confirm Password");
     passwordConfirm->centerOrigin();
-    passwordConfirm->setScale(0.3, 0.3);
-    passwordConfirm->setPosition(pos.x, pos.y + 250.f);
+    passwordConfirm->setPosition(canvaPosition::passwordConfirmPos);
     passwordConfirm->setToggle(true);
-    passwordConfirm->setColor(sf::Color(96, 130, 182, 200));
     passwordConfirm->setFlagHidden(true);
     passwordConfirm->setCallback([this](std::string st){
         mTextPasswordConfirm = st;
@@ -112,8 +108,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
 
     auto visibility2 = std::make_shared<GUI::StateButton>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
     visibility2->centerOrigin();
-    visibility2->setPosition(pos.x + 300.f, pos.y + 250.f);
-    visibility2->setColor(sf::Color(96, 130, 182, 200));
+    visibility2->setPosition(canvaPosition::visibility2ButtonPos);
     visibility2->setCallback([this, passwordConfirm](){
         if(isFocusPasswordConfirm){
             passwordConfirm->setFlagHidden(false);
@@ -125,26 +120,20 @@ RegisterState::RegisterState(StateStack &stack, Context context)
         }
     });
 
-    posErrorPasswordConfirm = {pos.x, pos.y + 375.f};
+    posErrorPasswordConfirm = {canvaPosition::passwordConfirmPos.x, canvaPosition::passwordConfirmPos.y + 100.f};
 
     errorText.setFillColor(sf::Color::Red);
 
-    auto registerButton = std::make_shared<GUI::Button>(context);
+    auto registerButton = std::make_shared<GUI::Button>(context, Textures::RegisterAccept);
     registerButton->centerOrigin();
-    registerButton->setScale(0.3, 0.3);
-    registerButton->setPosition(pos.x + 400.f, pos.y + 500.f);
-    registerButton->setText("Register");
-    registerButton->setColor(sf::Color(96, 130, 182, 200));
+    registerButton->setPosition(canvaPosition::registerAcceptButtonPos);
     registerButton->setCallback([this](){
         registerAccount();
     });
 
-    auto backButton = std::make_shared<GUI::Button>(context);
+    auto backButton = std::make_shared<GUI::Button>(context, Textures::BackButton);
     backButton->centerOrigin();
-    backButton->setScale(0.3, 0.3);
-    backButton->setPosition(pos.x - 400.f, pos.y - 500.f);
-    backButton->setText("Back");
-    backButton->setColor(sf::Color(96, 130, 182, 200));
+    backButton->setPosition(canvaPosition::backButtonPos);
     backButton->setCallback([this](){
         requestStackPop();
         requestStackPush(States::Login);
@@ -168,7 +157,6 @@ void RegisterState::draw()
     window.draw(mGUIContainer);
     window.draw(mGUIContainerInputButton);
     window.draw(mGUIContainerVisibility);
-    window.draw(mText);
     window.draw(errorText);
     window.draw(errorTextUsername);
     window.draw(errorTextPassword);

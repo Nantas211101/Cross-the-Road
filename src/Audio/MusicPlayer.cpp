@@ -45,7 +45,7 @@ void MusicPlayer::setImmediateVolume(float volume)
     mMusic.setVolume(volume);
 }
 
-float MusicPlayer::getVolume()
+float MusicPlayer::getVolume() const
 {
     return mVolume;
 }

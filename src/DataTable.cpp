@@ -276,6 +276,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].pictureWidth = 256;
     data[MainChar::Player1].numOfFrames = 4;
     data[MainChar::Player1].timeEachFrame = 0.6;
+    data[MainChar::Player1].name = "Player1";
 
     data[MainChar::Player2].hitpoints = 100.f;
     data[MainChar::Player2].speed = 200.f;
@@ -288,6 +289,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player2].pictureWidth = 256;
     data[MainChar::Player2].numOfFrames = 4;
     data[MainChar::Player2].timeEachFrame = 0.6;
+    data[MainChar::Player2].name = "Player2";
 
     data[MainChar::Player3].hitpoints = 150.f;
     data[MainChar::Player3].speed = 250.f;
@@ -300,6 +302,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player3].pictureWidth = 273;
     data[MainChar::Player3].numOfFrames = 4;
     data[MainChar::Player3].timeEachFrame = 0.5;
+    data[MainChar::Player3].name = "Player3";
 
     data[MainChar::Sheep].hitpoints = 300;
     data[MainChar::Sheep].speed = 150.f;

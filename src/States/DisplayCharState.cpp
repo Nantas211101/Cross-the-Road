@@ -7,6 +7,10 @@
 #include "SpriteNode.hpp"
 #include "DataTable.hpp"
 
+namespace canvaPosition{
+    const sf::Vector2f StartPos = sf::Vector2f(850, 626);
+}
+
 const float speedx = 500.f;
 const float scaleCharacte = 5.f;
 sf::Vector2f speedMove = {0, 0};
@@ -140,7 +144,7 @@ void DisplayCharState::buildScene(){
 }
 
 void DisplayCharState::createMainChar(){
-    std::unique_ptr<MainChar> leader(new MainChar(getContext().player->getMainCharID(), *getContext().textures, mWorldView.getSize() / 2.f));
+    std::unique_ptr<MainChar> leader(new MainChar(getContext().player->getMainCharID(), *getContext().textures, canvaPosition::StartPos));
     mPlayer = leader.get();
     mPlayer->setVelocity(-speedx, 0);
     speedMove = mPlayer->getVelocity();
@@ -148,4 +152,15 @@ void DisplayCharState::createMainChar(){
     mPlayer->setCenterOriginMainChar();
     mPlayer->setScale(scaleCharacte, scaleCharacte);
     mSceneLayers[Moving]->attachChild(std::move(leader));
+
+    std::cerr << Table[getContext().player->getMainCharID()].name << std::endl;
+    std::unique_ptr<TextNode> text(new TextNode(*getContext().fonts, Table[getContext().player->getMainCharID()].name));
+    mTextMove = text.get();
+    mPlayer->attachChild(std::move(text));
+    mTextMove->setRelativePosition({0, 0});
+    mTextMove->setPosition({0, -65});
+    mTextMove->setCharacterSize(50);
+    mTextMove->setScale(1/scaleCharacte, 1/scaleCharacte);
+    mTextMove->setFillColor(sf::Color::Black);
+
 }

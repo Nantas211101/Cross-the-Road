@@ -16,7 +16,7 @@ const std::string Path_MenuScreen = "Media/Textures/State/MenuScreen.png";
 const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.png";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
 const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
-const std::string Path_ChooseCharScreen = "Media/Textures/State/bluebackground.jpg";
+const std::string Path_ChooseCharScreen = "Media/Textures/State/ChooseCharScreen.png";
 const std::string Path_chickenMain = "Media/Textures/Player/Chicken.png";
 const std::string Path_penguinMain = "Media/Textures/Player/Penguin.png";
 const std::string Path_sheepMain = "Media/Textures/Player/Sheep.png";
@@ -28,13 +28,19 @@ const std::string Path_Pressed = "Media/Textures/Button/ButtonPressed.png";
 const std::string Path_Selected = "Media/Textures/Button/ButtonSelected.png";
 const std::string Path_InputButton = "Media/Textures/Button/purpleInputBox.png";
 const std::string Path_loginBG = "Media/Textures/State/LoginBG.png";
-const std::string Path_registerBG = "Media/Textures/State/RegisterBG.jpg";
+const std::string Path_registerBG = "Media/Textures/State/RegisterBG.png";
 const std::string Path_VisiblePassword = "Media/Textures/Button/visible.png";
 const std::string Path_InvisiblePassword = "Media/Textures/Button/invisible.png";
-const std::string Path_backButton = "Media/Textures/Button/backButton.png";
 const std::string Path_displayButton = "Media/Textures/Button/DisplayPlayer.png";
 const std::string Path_heart = "Media/Textures/Icon/heart.png";
 const std::string Path_Thunder = "Media/Textures/Icon/Thunder.png";
+const std::string Path_registerButton = "Media/Textures/Button/RegisterButton.png";
+const std::string Path_InputtButton = "Media/Textures/Button/InputButton.png";
+const std::string Path_LoginButton = "Media/Textures/Button/loginButton.png";
+const std::string Path_AcceptButton = "Media/Textures/Button/AcceptButton.png";
+const std::string Path_InfoButton = "Media/Textures/Button/InfoButton.png";
+const std::string Path_BackButton = "Media/Textures/Button/backButton.png";
+const std::string Path_RegisterAccept = "Media/Textures/Button/RegisterAccept.png";
 
 // Application quite similar to the Game.cpp
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
@@ -161,7 +167,6 @@ void Application::loadResources(){
     mTextures.load(Textures::RegisterBG, Path_registerBG);
     mTextures.load(Textures::VisiblePassword, Path_VisiblePassword);
     mTextures.load(Textures::InvisiblePassword, Path_InvisiblePassword);
-    mTextures.load(Textures::backButton, Path_backButton);
     mTextures.load(Textures::displayButton, Path_displayButton);
     mTextures.load(Textures::Heart, Path_heart);
     mTextures.load(Textures::Thunder, Path_Thunder);
@@ -260,4 +265,11 @@ void Application::loadResources(){
     mTextures.load(Textures::SettingButton, "Media/Textures/Button/settingButton.png");
     mTextures.load(Textures::ExitButton, "Media/Textures/Button/exitButton.png");
     mTextures.load(Textures::LogoutButton, "Media/Textures/Button/logOutButton.png");
+    mTextures.load(Textures::RegisterButton, Path_registerButton);
+    mTextures.load(Textures::InputButton, Path_InputtButton);
+    mTextures.load(Textures::LoginButton, Path_LoginButton);
+    mTextures.load(Textures::AcceptButton, Path_AcceptButton);
+    mTextures.load(Textures::InfoButton, Path_InfoButton);
+    mTextures.load(Textures::BackButton, Path_BackButton);
+    mTextures.load(Textures::RegisterAccept, Path_RegisterAccept);
 }

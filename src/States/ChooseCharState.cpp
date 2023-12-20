@@ -10,16 +10,23 @@
 #include <memory>
 #include <iostream>
 
+namespace canvaPosition{
+	const sf::Vector2f rightButtonPos = sf::Vector2f(1355, 626);
+	const sf::Vector2f leftButtonPos = sf::Vector2f(345, 626);
+	const sf::Vector2f chooseButtonPos = sf::Vector2f(850, 865);
+	const sf::Vector2f backButtonPos = sf::Vector2f(178.5, 95);
+	const sf::Vector2f displayCharButtonPos = sf::Vector2f(1180, 865);
+};
+
 const float scaleCharacter = 5.f;
 const float limitSpeed = 5000.f;
-const float startSpeedUp = 200.f;
+const float startSpeedUp = 1000.f;
 sf::Vector2f speedMoving = {0, 0};
 float speedUp = startSpeedUp;
 const std::string Error_Do_Not_Have_This_Character = "You do not have this character!";
 
 ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 : State(stack, context)
-, mText("Choose your character", context.fonts->get(Fonts::Main), 75)
 , mWorldView(context.window->getDefaultView())
 , mSceneGraph()
 , mSceneLayers()
@@ -38,13 +45,10 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 , ErrorText("", context.fonts->get(Fonts::Main), 50)
 {
     sf::Vector2f pos = context.window->getView().getSize();
-    setCenterOrigin(mText);
-    mText.setPosition({pos.x / 2.f, 50.f});
 	
 	auto rightButton = std::make_shared<GUI::Button>(context, Textures::RightButton);
 	rightButton->centerOrigin();
-	rightButton->setScale(0.5, 0.5);
-	rightButton->setPosition(mWorldBounds.width - 150.f, mSpawnPosition.y);
+	rightButton->setPosition(canvaPosition::rightButtonPos);
 	rightButton->setCallback([this] ()
 	{
 		speedUp = startSpeedUp;
@@ -55,8 +59,7 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 
 	auto leftButton = std::make_shared<GUI::Button>(context, Textures::LeftButton);
 	leftButton->centerOrigin();
-	leftButton->setScale(0.5, 0.5);
-	leftButton->setPosition(150.f, mSpawnPosition.y);
+	leftButton->setPosition(canvaPosition::leftButtonPos);
 	leftButton->setCallback([this]()
 	{
 		speedUp = startSpeedUp;
@@ -68,32 +71,23 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	centerOrigin(ErrorText);
 	ErrorText.setPosition(mSpawnPosition.x, mWorldBounds.height - 200.f);
 
-	auto chooseButton = std::make_shared<GUI::Button>(context);
+	auto chooseButton = std::make_shared<GUI::Button>(context, Textures::AcceptButton);
 	chooseButton->centerOrigin();
-	chooseButton->setColor(sf::Color::Cyan);
-	chooseButton->setPosition(mSpawnPosition.x, mWorldBounds.height - 100.f);
-	chooseButton->setText("Accept");
-	chooseButton->setScale(0.8, 0.8);
+	chooseButton->setPosition(canvaPosition::chooseButtonPos);
 	chooseButton->setCallback([this, context](){
 		PlayGame();
 	});
 
-	auto backButton = std::make_shared<GUI::Button>(context, Textures::backButton);
+	auto backButton = std::make_shared<GUI::Button>(context, Textures::BackButton);
 	backButton->centerOrigin();
-	// backButton->setColor(sf::Color::Cyan);
-	backButton->setPosition(350.f, mWorldBounds.height - 100.f);
-	backButton->setScale(0.8, 0.8);
+	backButton->setPosition(canvaPosition::backButtonPos);
 	backButton->setCallback([this, context](){
 		BackToMenu();
 	});
 
-	auto displayCharButton = std::make_shared<GUI::Button>(context, Textures::displayButton);
+	auto displayCharButton = std::make_shared<GUI::Button>(context, Textures::InfoButton);
 	displayCharButton->centerOrigin();
-	sf::Vector2f sizee = displayCharButton->getSize();
-	sf::Vector2f needSize = {mWorldBounds.width / 30.f, mWorldBounds.height / 15.f};
-	displayCharButton->setScale({needSize.x / sizee.x, needSize.y / sizee.y});
-	displayCharButton->setPosition(mWorldBounds.width - displayCharButton->getSize().x / 1.8, mWorldBounds.height / 6.f);
-	
+	displayCharButton->setPosition(canvaPosition::displayCharButtonPos);
 	displayCharButton->setCallback([this](){
 		requestStackPush(States::DisplayCharState);
 	});
@@ -140,7 +134,7 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 		mSceneLayers[Air]->detachChild(*mPlayer);
 		mPlayer = tmpPlayer;
         // tmpPlayer = nullptr;
-		mPlayer->setPosition(mSpawnPosition);
+		mPlayer->setPosition(mSpawnPosition.x, canvaPosition::leftButtonPos.y);
 		isMove = 0;
 		// speedUp = startSpeedUp;
 	}
@@ -160,7 +154,6 @@ void ChooseCharState::draw(){
     mWindow.draw(mSceneGraph);
 	// mWindow.draw(mGUIContainer);
 	mWindow.draw(mGUIContainerSet);
-    mWindow.draw(mText);
 	mWindow.draw(uidDisplay);
 	mWindow.draw(ErrorText);
 }
@@ -197,7 +190,7 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			isChangeKey = key;
 			isChange = isMove = isPressing = 1;
             MainChar::Type newID = changeTexture(mPlayer->getMainCharType(), 1);
-			std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {0, mPlayer->getPosition().y}));
+			std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {0, mSpawnPosition.y/*mPlayer->getPosition().y*/}));
 			tmpPlayer = leader.get();
 			mSceneLayers[Air]->attachChild(std::move(leader));
 			speedMoving = {speedUp, 0};
@@ -214,7 +207,7 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			isChangeKey = key;
 			isChange = isMove = isPressing = 1;
             MainChar::Type newID = changeTexture(mPlayer->getMainCharType(), 0);
-			std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {mWorldBounds.width, mPlayer->getPosition().y}));
+			std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {mWorldBounds.width, mSpawnPosition.y /*mPlayer->getPosition().y*/}));
 			tmpPlayer = leader.get();
 			mSceneLayers[Air]->attachChild(std::move(leader));
 			speedMoving = {-speedUp, 0};
@@ -245,7 +238,7 @@ void ChooseCharState::startRight(){
 		isChangeKey = sf::Keyboard::Right;
 		isChange = isMove = isPressing = 1;
         MainChar::Type newID = changeTexture(mPlayer->getMainCharType(), 0);
-		std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {mWorldBounds.width, mPlayer->getPosition().y}));
+		std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {mWorldBounds.width, mSpawnPosition.y /*mPlayer->getPosition().y*/}));
 		tmpPlayer = leader.get();
 		speedMoving = {-speedUp, 0};
 		tmpPlayer->setVelocity(-speedUp, 0);
@@ -268,7 +261,7 @@ void ChooseCharState::startLeft(){
 		isChangeKey = sf::Keyboard::Left;
 		isChange = isMove = isPressing = 1;
         MainChar::Type newID = changeTexture(mPlayer->getMainCharType(), 1);
-		std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {0, mPlayer->getPosition().y}));
+		std::unique_ptr<MainChar> leader(new MainChar(newID, *getContext().textures, {0, mSpawnPosition.y /*mPlayer->getPosition().y*/}));
 		tmpPlayer = leader.get();
 		speedMoving = {speedUp, 0};
 		tmpPlayer->setVelocity(speedUp, 0);
@@ -286,15 +279,22 @@ void ChooseCharState::startLeft(){
 void ChooseCharState::impleChangeChar(sf::Time dt){
     if(!isMove)
 		return;
-	if(speedUp < limitSpeed)
-		speedUp += speedUp * dt.asSeconds();
+	// if(speedUp < limitSpeed)
+	// 	speedUp += speedUp * dt.asSeconds();
 	if(isChangeKey == sf::Keyboard::Right)
 		changeRight(dt);
 	else 
 		if(isChangeKey == sf::Keyboard::Left)
 			changeLeft(dt);
-	mPlayer->setVelocity(speedMoving);
-	tmpPlayer->setVelocity(speedMoving);
+	if(speedMoving.x < 0){
+		mPlayer->setVelocity(speedMoving.x, mSpawnPosition.y - canvaPosition::leftButtonPos.y - 50.f);
+		tmpPlayer->setVelocity(speedMoving.x, canvaPosition::leftButtonPos.y - mSpawnPosition.y + 50.f);
+	}
+	else{
+		mPlayer->setVelocity(speedMoving.x, mSpawnPosition.y - canvaPosition::leftButtonPos.y - 50.f);
+		tmpPlayer->setVelocity(speedMoving.x, canvaPosition::leftButtonPos.y - mSpawnPosition.y + 50.f);
+	
+	}
 }
 
 void ChooseCharState::changeRight(sf::Time dt){
@@ -378,7 +378,7 @@ void ChooseCharState::buildScene(){
 }
 
 void ChooseCharState::createMainChar(){
-    std::unique_ptr<MainChar> leader(new MainChar(MainChar::Player1, *getContext().textures, mSpawnPosition));
+    std::unique_ptr<MainChar> leader(new MainChar(MainChar::Player1, *getContext().textures, {mSpawnPosition.x, canvaPosition::leftButtonPos.y}));
     mPlayer = leader.get();
 	mPlayer->setVelocity(0, 0);
     mPlayer->setAnimationDown();

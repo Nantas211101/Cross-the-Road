@@ -79,6 +79,7 @@ struct CharData {
 	float timeEachFrame;
 	static const int MaxHitpoints = 300;
 	static const int MaxSpeed = 300;
+	std::string name;
 };
 
 

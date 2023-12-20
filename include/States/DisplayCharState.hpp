@@ -5,7 +5,8 @@
 #include <State.hpp>
 #include <SceneNode.hpp>
 #include <MainChar.hpp>
-#include "GUI_ContainerSET.hpp"
+#include <GUI_ContainerSET.hpp>
+#include <TextNode.hpp>
 
 #include <array>
 
@@ -58,5 +59,7 @@ private:
     sf::Text HPText;
     sf::Text SpeedText;
     sf::Text AbilityText;
+
+    TextNode* mTextMove;
 
 };

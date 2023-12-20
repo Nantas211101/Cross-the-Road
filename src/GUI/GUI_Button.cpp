@@ -72,7 +72,7 @@ void Button::setText(const std::string& text, int size)
 	mText.setString(text);
 	mText.setCharacterSize(size);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f * size / 100.f);
 }
 
 void Button::setToggle(bool flag)
@@ -192,6 +192,10 @@ sf::Vector2f Button::getSize() const{
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 	sf::Vector2f mScale = getScale();
 	return sf::Vector2f(bounds.width * mScale.x, bounds.height * mScale.y);
+}
+
+void Button::setFlagSelection(bool flag){
+	mIsOnlyOneTexture = flag;
 }
 
 }

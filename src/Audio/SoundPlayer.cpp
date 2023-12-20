@@ -61,3 +61,8 @@ void SoundPlayer::setVolume(float volume)
 {
     sf::Listener::setGlobalVolume(volume);
 }
+
+float SoundPlayer::getVolume() const
+{
+    return sf::Listener::getGlobalVolume();
+}

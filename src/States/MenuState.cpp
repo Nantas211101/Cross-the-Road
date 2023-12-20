@@ -6,7 +6,7 @@
 namespace canvaPosition{
     const sf::Vector2f playButtonPos = sf::Vector2f(573, 569);
     const sf::Vector2f settingsButtonPos = sf::Vector2f(174, 610);
-    const sf::Vector2f logoutButtonPos = sf::Vector2f(177, 723);
+    const sf::Vector2f logoutButtonPos = sf::Vector2f(177, 733);
     const sf::Vector2f exitButtonPos = sf::Vector2f(174, 850);
 }
 

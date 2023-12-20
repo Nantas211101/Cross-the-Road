@@ -49,7 +49,6 @@ private:
     };
 
 private:
-    sf::Text mText;
     sf::View mWorldView;
 
     SceneNode mSceneGraph;

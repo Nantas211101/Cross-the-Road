@@ -29,8 +29,8 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 , mSoundText("Total Volume", context.fonts->get(Fonts::Main), 25)
 , mSounds(*context.sounds)
 , mMusic(*context.music)
-, currentVolume(2)
-, currentSound(9)
+, currentVolume(mMusic.getVolume() / 10 - 1)
+, currentSound(mSounds.getVolume() / 10 - 1)
 {
     
     mBackground.setFillColor(sf::Color(0, 0, 0, 255));

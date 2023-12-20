@@ -25,7 +25,7 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures)
 
 	mText.setFillColor(sf::Color::Yellow);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 13.f);
 }
 
 InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures, Textures::ID id, const std::string& text)
@@ -34,8 +34,8 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 , mSelectedTexture(textures.get(id))
 , mPressedTexture(textures.get(id))
 , mSprite()
-, mText("", fonts.get(Fonts::Label), 100) 
-, mTextHidden("", fonts.get(Fonts::Label), 100)
+, mText(text, fonts.get(Fonts::Label), 50) 
+, mTextHidden("", fonts.get(Fonts::Label), 50)
 , mIsBlink(false)
 , mIsToggle(false)
 , hiddenFlag(false)
@@ -46,9 +46,10 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 	// setCenterOrigin(mSprite);
     sf::FloatRect bounds = mSprite.getGlobalBounds();
 	
-	mText.setFillColor(sf::Color(229, 218, 218));
+	mText.setFillColor(sf::Color::White);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 13.f);
+	mTextHidden = mText;
 }
 
 InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures, const std::string& text)
@@ -68,9 +69,9 @@ InputButton::InputButton(const FontHolder& fonts, const TextureHolder& textures,
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 	
-	mText.setFillColor(sf::Color(229, 218, 218));
+	mText.setFillColor(sf::Color::White);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 13.f);
 
 	mTextHidden = mText;
 	// fillHiddenText(text);
@@ -86,7 +87,7 @@ void InputButton::setText(const std::string& text)
     sf::FloatRect bounds = mSprite.getGlobalBounds();
 	mText.setString(text);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 13.f);
 }
 
 void InputButton::setToggle(bool flag)
@@ -135,8 +136,8 @@ void InputButton::deselect()
 	Component::deselect();
 
 	mSprite.setTexture(mNormalTexture);
-	mText.setFillColor(sf::Color(229, 218, 218));
-	mTextHidden.setFillColor(sf::Color(229, 218, 218));
+	mText.setFillColor(sf::Color::White);
+	mTextHidden.setFillColor(sf::Color::White);
 }
 
 void InputButton::activate()
@@ -245,7 +246,7 @@ void InputButton::fillHiddenText(const std::string &currentText)
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 	mTextHidden.setString(hiddenText);
 	setCenterOrigin(mTextHidden);
-	mTextHidden.setPosition(bounds.width / 2.f, bounds.height / 2.f - 30.f);
+	mTextHidden.setPosition(bounds.width / 2.f, bounds.height / 2.f - 13.f);
 	mTextHidden.setFillColor(mText.getFillColor());
 }
 
