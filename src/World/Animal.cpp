@@ -11,7 +11,7 @@ Animal::Animal(Type type, const TextureHolder& texture)
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.setFrameSize(sf::Vector2i(Table[type].pictureWidth/Table[type].numOfFrames, Table[type].pictureHeight));
 	sprite.setNumFrames(Table[type].numOfFrames);
-	sprite.setDuration(sf::seconds(1));
+	sprite.setDuration(sf::seconds(Table[type].duration));
 }   
 
 Animal::Type Animal::getType(){

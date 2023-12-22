@@ -37,7 +37,7 @@ void RoadTheme2::generateAnimal(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(4, 4);
+    std::uniform_int_distribution<int> dist(0, 4);
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
 
@@ -56,8 +56,6 @@ void RoadTheme2::generateAnimal(){
         break;
     case 4:
         kind = Animal::Monster1;
-        break;
-    default:
         break;
     }
     std::uniform_int_distribution<int> dist2(0, 199);
@@ -151,12 +149,12 @@ void RoadTheme2::updateCurrent(sf::Time dt){
             break;
         case 1:
             if(!this->isReverse() && animals[firstObjectIndex]->getPosition().x >= 0) {
-                animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, startPos.y);
+                animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, -20);
                 firstObjectIndex = lastObjectIndex;
                 lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
             }
             if(this->isReverse() && animals[lastObjectIndex]->getPosition().x <= 2500) {
-                animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, startPos.y);
+                animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, -20);
                 lastObjectIndex = firstObjectIndex;
                 firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
             }

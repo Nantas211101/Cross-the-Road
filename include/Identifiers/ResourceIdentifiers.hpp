@@ -53,6 +53,7 @@ namespace Textures
     	Blue_Twin_Head_Dragon,
 		Monster1,
 		Reindeer,
+		SnowBear,
 
 		Traffic,
         Truck,
@@ -83,10 +84,13 @@ namespace Textures
 		//Decorator
 		DecoTree1,
 		DecoTree2,
+		DecoStone,
 		DecoFlower1,
 		DecoFlower2,
 		DecoSnow1,
 		DecoIce1,
+		Skullcap1,
+		Skullcap2,
         DecoRock1,
 		DecoRock2,
 		DecoFire1,

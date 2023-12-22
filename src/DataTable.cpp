@@ -132,6 +132,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Elephant].numOfFrames = 3;
     data[Animal::Elephant].pictureWidth = 288;
     data[Animal::Elephant].pictureHeight = 79;
+    data[Animal::Elephant].duration = 1;
 
     data[Animal::Cow].dmg = 20;
     data[Animal::Cow].speed = 120.f;
@@ -141,6 +142,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Cow].numOfFrames = 4;
     data[Animal::Cow].pictureWidth = 1075;
     data[Animal::Cow].pictureHeight = 191;
+    data[Animal::Cow].duration = 1;
 
     data[Animal::Small_Dragon].dmg = 30;
     data[Animal::Small_Dragon].speed = 260.f;
@@ -150,6 +152,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Small_Dragon].numOfFrames = 3;
     data[Animal::Small_Dragon].pictureWidth = 192;
     data[Animal::Small_Dragon].pictureHeight = 66;
+    data[Animal::Small_Dragon].duration = 1;
 
     data[Animal::Green_Dragon].dmg = 40;
     data[Animal::Green_Dragon].speed = 180.f;
@@ -159,6 +162,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Green_Dragon].numOfFrames = 3;
     data[Animal::Green_Dragon].pictureWidth = 365;
     data[Animal::Green_Dragon].pictureHeight = 96;
+    data[Animal::Green_Dragon].duration = 1;
 
     data[Animal::Red_Dragon].dmg = 40;
     data[Animal::Red_Dragon].speed = 200.f;
@@ -168,6 +172,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Red_Dragon].numOfFrames = 3;
     data[Animal::Red_Dragon].pictureWidth = 432;
     data[Animal::Red_Dragon].pictureHeight = 96;
+    data[Animal::Red_Dragon].duration = 1;
 
     data[Animal::Blue_Twin_Head_Dragon].dmg = 50;
     data[Animal::Blue_Twin_Head_Dragon].speed = 150.f;
@@ -177,6 +182,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Blue_Twin_Head_Dragon].numOfFrames = 3;
     data[Animal::Blue_Twin_Head_Dragon].pictureWidth = 432;
     data[Animal::Blue_Twin_Head_Dragon].pictureHeight = 94;
+    data[Animal::Blue_Twin_Head_Dragon].duration = 1;
 
     data[Animal::Rhinoceros].speed = 150.f;
     data[Animal::Rhinoceros].distanceBetweenAnimal = 700;
@@ -185,6 +191,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Rhinoceros].numOfFrames = 4;
     data[Animal::Rhinoceros].pictureWidth = 615;
     data[Animal::Rhinoceros].pictureHeight = 90;
+    data[Animal::Rhinoceros].duration = 1;
 
     data[Animal::Monster1].dmg = 85;
     data[Animal::Monster1].speed = 150.f;
@@ -193,7 +200,8 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Monster1].scaling = sf::Vector2f(0.4, 0.3);
     data[Animal::Monster1].numOfFrames = 11;
     data[Animal::Monster1].pictureWidth = 4019;
-    data[Animal::Monster1].pictureHeight = 394;    
+    data[Animal::Monster1].pictureHeight = 394;  
+    data[Animal::Monster1].duration = 1;  
 
     data[Animal::Reindeer].dmg = 85;
     data[Animal::Reindeer].speed = 200.f;
@@ -203,6 +211,17 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Reindeer].numOfFrames = 12;
     data[Animal::Reindeer].pictureWidth = 6764;
     data[Animal::Reindeer].pictureHeight = 447;
+    data[Animal::Reindeer].duration = 0.5;
+
+    data[Animal::SnowBear].dmg = 85;
+    data[Animal::SnowBear].speed = 400.f;
+    data[Animal::SnowBear].distanceBetweenAnimal = 1000;
+    data[Animal::SnowBear].texture = Textures::SnowBear;
+    data[Animal::SnowBear].scaling = sf::Vector2f(0.3, 0.2);
+    data[Animal::SnowBear].numOfFrames = 14;
+    data[Animal::SnowBear].pictureWidth = 9152;
+    data[Animal::SnowBear].pictureHeight = 476;
+    data[Animal::SnowBear].duration = 0.5;
     return data;
 }
 
@@ -304,6 +323,18 @@ std::vector<DecoratorData> initializeDecoratorData() {
     data[Decorator::DecoSnow1].speed = 0.f;
     data[Decorator::DecoSnow1].texture = Textures::DecoSnow1;
     data[Decorator::DecoSnow1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoStone].speed = 0.f;
+    data[Decorator::DecoStone].texture = Textures::DecoStone;
+    data[Decorator::DecoStone].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::Skullcap1].speed = 0.f;
+    data[Decorator::Skullcap1].texture = Textures::Skullcap1;
+    data[Decorator::Skullcap1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::Skullcap2].speed = 0.f;
+    data[Decorator::Skullcap2].texture = Textures::Skullcap2;
+    data[Decorator::Skullcap2].scaling = sf::Vector2f(0.7, 0.7);
     return data;
 }
 

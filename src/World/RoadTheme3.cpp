@@ -51,15 +51,13 @@ void RoadTheme3::generateAnimal(){
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
 
-    switch(1) {
-    case 1:
-        kind = Animal::Reindeer;
-        break;
-    case 2:
-        kind = Animal::Cow;
-        break;
-    default:
-        break;
+    switch(randomKindAnimal) {
+        case 1:
+            kind = Animal::Reindeer;
+            break;
+        case 2:
+            kind = Animal::SnowBear;
+            break;
     }
     
     std::uniform_int_distribution<int> dist2(0, 199);

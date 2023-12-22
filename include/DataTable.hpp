@@ -39,6 +39,7 @@ struct AnimalData {
 	int pictureWidth;
 	int pictureHeight;
 	int numOfFrames;
+	float duration;
 };
 
 struct VehicleData {

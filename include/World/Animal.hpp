@@ -14,6 +14,7 @@ public:
       Rhinoceros,
       Cow,
       Reindeer,
+      SnowBear,
       Small_Dragon,
       Green_Dragon,
       Red_Dragon,

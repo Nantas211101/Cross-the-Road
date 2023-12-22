@@ -25,6 +25,31 @@
 void GroundTheme2::updateCurrent(sf::Time dt){}
 
 void GroundTheme2::buildLane() {
+    std::random_device rd2;
+    std::mt19937 gen2(rd2());
+    std::uniform_int_distribution<int> dist2(0,5);
+    int numDecorators = dist2(gen2);
+    Decorator::Type randType;
+    for(int j = 0; j < numDecorators; j++) {
+        int randDeco = rand()%3;
+        switch (randDeco) {
+            case 0:
+                randType = Decorator::DecoStone;
+                break;
+            case 1:
+                randType = Decorator::Skullcap1;
+                break;
+            case 2:
+                randType = Decorator::Skullcap2;
+                break;
+        }
+        std::unique_ptr<Decorator> decorator(new Decorator(randType, *textureHolder));
+        decorators.push_back(decorator.get());
+        int randNum = rand() % 1700;
+        decorator->setPosition( randNum + decorator->getBoundingRect().width/2 , 0);
+        this->attachChild(std::move(decorator));
+    }
+
     if(isStartLane){
         for(int j = 0; j < 4; j++) {
             std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Volcano, *textureHolder));

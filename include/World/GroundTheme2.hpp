@@ -18,4 +18,5 @@ class GroundTheme2 : public Ground {
         Type typeGround;
         bool isStartLane;
         std::vector<Obstacle*> obstacles;
+        std::vector<Decorator*> decorators;
 };

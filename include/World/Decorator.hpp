@@ -13,6 +13,9 @@ class Decorator : public Entity {
         enum Type{
             DecoRock1,
             DecoRock2,
+            DecoStone,
+            Skullcap1,
+            Skullcap2,
             DecoTree1,
             DecoTree2,
             DecoFlower1,
