@@ -252,6 +252,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::FinishLevel, "Media/Textures/FinishLane/LevelFinish.png");
 	mTextures.load(Textures::FinishTheme1, "Media/Textures/FinishLane/FinishTheme1.png");
 	mTextures.load(Textures::FinishTheme2, "Media/Textures/FinishLane/FinishTheme2.png");
+    mTextures.load(Textures::FinishTheme3, "Media/Textures/FinishLane/FinishTheme3.png");
 
 	//Decorator
 	mTextures.load(Textures::DecoTree1, "Media/Textures/Decorator/DecoTree1.png");

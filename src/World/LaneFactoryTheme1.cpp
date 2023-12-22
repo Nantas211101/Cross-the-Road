@@ -31,7 +31,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::randomTemplateLane() {
         break;
     }
     templateFinishLevel(1);
-    templateFinishTheme1(1);
+    templateFinishTheme(1);
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
@@ -55,16 +55,9 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::templateStartLane(){
     return randLanes;
 }
 
-void LaneFactoryTheme1::templateFinishLevel(int num){
-    for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, FinishLane::Level));
-        lane->setPosition(startPos);
-        startPos.y -= Lane::distanceBetweenLane * 3;
-        lanes.push_back(std::move(lane));
-    }
-}
 
-void LaneFactoryTheme1::templateFinishTheme1(int num){
+
+void LaneFactoryTheme1::templateFinishTheme(int num){
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, FinishLane::Theme1));
         lane->setPosition(startPos);

@@ -23,6 +23,7 @@ protected:
     int theme;
     
 public:
+    void templateFinishLevel(int num);
     LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos, int theme);
     virtual std::vector<std::unique_ptr<Lane>> randomTemplateLane() = 0;
 };

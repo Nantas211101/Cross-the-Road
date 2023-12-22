@@ -4,9 +4,7 @@
 class LaneFactoryTheme1 : public LaneFactory {
 private:
 
-    void templateFinishLevel(int num);
-    void templateFinishTheme1(int num);
-    void templateFinishTheme2(int num);
+    void templateFinishTheme(int num);
     void templateGround(int num);
     void templateRoad(int num);
     void templateAnimalRoad(int num);

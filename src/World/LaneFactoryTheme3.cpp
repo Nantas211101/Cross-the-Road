@@ -30,7 +30,8 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme3::randomTemplateLane() {
         templateLane6();
         break;
     }
-    // templateFinishLevel();
+    templateFinishLevel(1);
+    templateFinishTheme(1);
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
@@ -54,20 +55,11 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme3::templateStartLane(){
     return randLanes;
 }
 
-void LaneFactoryTheme3::templateLevelFinish(int num){
-    for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, FinishLane::Level));
-        lane->setPosition(startPos);
-        startPos.y -= Lane::distanceBetweenLane;
-        lanes.push_back(std::move(lane));
-    }
-}
-
 void LaneFactoryTheme3::templateFinishTheme(int num){
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, FinishLane::Theme3));
         lane->setPosition(startPos);
-        startPos.y -= Lane::distanceBetweenLane;
+        startPos.y -= Lane::distanceBetweenLane*7;
         lanes.push_back(std::move(lane));
     }
 }
@@ -155,8 +147,4 @@ void LaneFactoryTheme3::templateLane5() {
 void LaneFactoryTheme3::templateLane6() {
     templateGround(1);
     templateRailway(1);
-}
-
-void LaneFactoryTheme3::templateFinishLevel(){
-    templateLevelFinish(1);
 }

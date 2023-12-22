@@ -77,6 +77,7 @@ namespace Textures
 		FinishLevel,
 		FinishTheme1,
 		FinishTheme2,
+		FinishTheme3,
 
 
 		//Decorator

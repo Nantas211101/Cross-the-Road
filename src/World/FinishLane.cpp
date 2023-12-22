@@ -16,8 +16,12 @@
             num = 5;
             break;
         case FinishLane::Theme2:
-            textureHolder->get(Textures::FinishTheme2).setRepeated(true);
             sprite.setTexture(textureHolder->get(Textures::FinishTheme2));
+            num = 8;
+            break;
+        case FinishLane::Theme3:
+            sprite.setTexture(textureHolder->get(Textures::FinishTheme3));
+            num = 7;
             break;
     }
     sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane*num);
