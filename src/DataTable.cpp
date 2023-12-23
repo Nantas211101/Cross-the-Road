@@ -380,12 +380,12 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].downTexture = Textures::Down1;
     data[MainChar::Player1].leftTexture = Textures::Left1;
     data[MainChar::Player1].rightTexture = Textures::Right1;
-    data[MainChar::Player1].pictureHeight = 31;
-    data[MainChar::Player1].pictureWidth = 287;
-    data[MainChar::Player1].numOfFrames = 6;
+    data[MainChar::Player1].pictureHeight = 52;
+    data[MainChar::Player1].pictureWidth = 156;
+    data[MainChar::Player1].numOfFrames = 4;
     data[MainChar::Player1].timeEachFrameInGame = 0.6;
     data[MainChar::Player1].timeEachFrameInMenu = 1;
-    data[MainChar::Player1].scaling = 3;
+    data[MainChar::Player1].scaling = 1.5;
 
     data[MainChar::Player2].hitpoints = 100.f;
     data[MainChar::Player2].speed = 200.f;
@@ -395,8 +395,8 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player2].downTexture = Textures::Down2;
     data[MainChar::Player2].leftTexture = Textures::Left2;
     data[MainChar::Player2].rightTexture = Textures::Right2;
-    data[MainChar::Player2].pictureHeight = 63;
-    data[MainChar::Player2].pictureWidth = 256;
+    data[MainChar::Player2].pictureHeight = 52;
+    data[MainChar::Player2].pictureWidth = 136;
     data[MainChar::Player2].numOfFrames = 4;
     data[MainChar::Player2].timeEachFrameInGame = 0.6;
     data[MainChar::Player2].timeEachFrameInMenu = 1;

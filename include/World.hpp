@@ -35,6 +35,7 @@ class World : private sf::NonCopyable
 		void								buildScene(MainChar::Type id);
 		void 								adaptPlayerPosition();
 		void								handleCollisions();
+		void								scroll(sf::Time dt);
 		
 	private:
 		enum Layer
@@ -49,19 +50,19 @@ class World : private sf::NonCopyable
 		sf::View							mWorldView;
 		TextureHolder&						mTextures;
 		FontHolder&							mFonts;
+		const float							scrollSpeed = -400.f;
+		const float							scrollSpeedToPlayer = -50.f;
+		float								scrollDistance;
+		int									playerLaneIndex;
 
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
 		CommandQueue						mCommandQueue;
 
 		sf::Time							timeToNextInput;
-		sf::Clock							invulnerableTime;
-		sf::Time							timeFromLastInvulnerable;
 
 		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
 		std::vector<Lane*> 					lanes;
 		MainChar*							mainChar;
-		bool								needAlign;
-		bool								isOnLog;
 };
