@@ -158,7 +158,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Green_Dragon].speed = 180.f;
     data[Animal::Green_Dragon].distanceBetweenAnimal = 800;
     data[Animal::Green_Dragon].texture = Textures::Green_Dragon;
-    data[Animal::Green_Dragon].scaling = sf::Vector2f(1.7, 1.7);
+    data[Animal::Green_Dragon].scaling = sf::Vector2f(1.45, 1.45);
     data[Animal::Green_Dragon].numOfFrames = 3;
     data[Animal::Green_Dragon].pictureWidth = 365;
     data[Animal::Green_Dragon].pictureHeight = 96;
@@ -178,7 +178,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Blue_Twin_Head_Dragon].speed = 150.f;
     data[Animal::Blue_Twin_Head_Dragon].distanceBetweenAnimal = 500;
     data[Animal::Blue_Twin_Head_Dragon].texture = Textures::Blue_Twin_Head_Dragon;
-    data[Animal::Blue_Twin_Head_Dragon].scaling = sf::Vector2f(1.4, 1.4);
+    data[Animal::Blue_Twin_Head_Dragon].scaling = sf::Vector2f(1.33, 1.33);
     data[Animal::Blue_Twin_Head_Dragon].numOfFrames = 3;
     data[Animal::Blue_Twin_Head_Dragon].pictureWidth = 432;
     data[Animal::Blue_Twin_Head_Dragon].pictureHeight = 94;
@@ -294,19 +294,23 @@ std::vector<TrainData> initializeTrainData(){
     std::vector<TrainData> data(Train::TypeCount);
     data[Train::Train1].speed = 800.f;
     data[Train::Train1].texture = Textures::Train1;
-    data[Train::Train1].scaling = sf::Vector2f(0.7, 0.7);
+    data[Train::Train1].scaling = sf::Vector2f(0.48, 0.48);
     
-    data[Train::Train2].speed = 1000.f;
-    data[Train::Train2].texture = Textures::Train2;
-    data[Train::Train2].scaling = sf::Vector2f(0.8, 0.7);
+    data[Train::SnowTrain].speed = 1000.f;
+    data[Train::SnowTrain].texture = Textures::SnowTrain;
+    data[Train::SnowTrain].scaling = sf::Vector2f(0.5, 0.5);
     
-    data[Train::Train3].speed = 800.f;
-    data[Train::Train3].texture = Textures::Train3;
-    data[Train::Train3].scaling = sf::Vector2f(0.75, 0.75);
+    data[Train::WoodTrain].speed = 800.f;
+    data[Train::WoodTrain].texture = Textures::WoodTrain;
+    data[Train::WoodTrain].scaling = sf::Vector2f(0.62, 0.53);
 
-    data[Train::Train4].speed = 800.f;
-    data[Train::Train4].texture = Textures::Train4;
-    data[Train::Train4].scaling = sf::Vector2f(0.8, 0.8);
+    data[Train::LavaTrain].speed = 800.f;
+    data[Train::LavaTrain].texture = Textures::LavaTrain;
+    data[Train::LavaTrain].scaling = sf::Vector2f(0.85, 0.85);
+
+    data[Train::SantaTrain].speed = 800.f;
+    data[Train::SantaTrain].texture = Textures::SantaTrain;
+    data[Train::SantaTrain].scaling = sf::Vector2f(0.45, 0.45);
 
     return data;
 }

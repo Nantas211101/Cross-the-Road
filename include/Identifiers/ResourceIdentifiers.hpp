@@ -72,9 +72,10 @@ namespace Textures
 		Railway,
 		RailwayLight,
 		Train1,
-		Train2,
-		Train3,
-		Train4,
+		SnowTrain,
+		WoodTrain,
+		LavaTrain,
+		SantaTrain,
 
 		// FinishLane
 		FinishLevel,

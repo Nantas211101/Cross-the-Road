@@ -106,7 +106,7 @@ void LaneFactoryTheme2::templateRiver(int num) {
 
 void LaneFactoryTheme2::templateRailway(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos));
+        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos, Railway::LavaTrain));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

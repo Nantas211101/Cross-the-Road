@@ -4,8 +4,9 @@ namespace {
     const std::vector<TrainData> TableTrain = initializeTrainData();
 }
 
-Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: Lane(textureHolder, spawnPos)
+Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type type)
+: Lane(textureHolder, spawnPos),
+type(type)
 {
     textureHolder->get(Textures::Railway).setRepeated(true);
     sprite.setTexture(textureHolder->get(Textures::Railway));
@@ -29,41 +30,37 @@ void Railway::updateCurrent(sf::Time dt){
         break;
     }
     if(train->getPosition().x >= 2200){
-        train->setPosition(-800, -100);
+        train->setPosition(-800, 0);
         railwayLight->setTimeCount();
     }
 }
 
 void Railway::buildLane(){
-    int distance = 0;
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 3);
-    int randomKindTrain = dist(gen);
     Train::Type kind;
-    switch(2) {
-    case 1:
+    switch(type) {
+    case Type::Train1:
         kind = Train::Train1;
         break;
-    case 2:
-        kind = Train::Train2;
+    case Type::SnowTrain:
+        kind = Train::SnowTrain;
         break;
-    case 3:
-        kind = Train::Train3;
+    case Type::WoodTrain:
+        kind = Train::WoodTrain;
         break;
-     case 4:
-        kind = Train::Train4;
+    case Type::LavaTrain:
+        kind = Train::LavaTrain;
         break;
-    default:
+    case Type::SantaTrain:
+        kind = Train::SantaTrain;
         break;
     }
 
     std::unique_ptr<Train> newTrain(new Train(kind, *textureHolder));
     train = newTrain.get();
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
-    newTrain->scale(TableTrain[kind].scaling.x,TableTrain[kind].scaling.y);
+    newTrain->scale(TableTrain[kind].scaling);
 
-    newTrain->setPosition(-800, -100);
+    newTrain->setPosition(-800, 0);
     this->attachChild(std::move(newTrain));
 }
 

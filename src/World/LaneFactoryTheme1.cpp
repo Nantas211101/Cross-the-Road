@@ -30,8 +30,8 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::randomTemplateLane() {
         templateLane6();
         break;
     }
-    templateFinishLevel(1);
-    templateFinishTheme(1);
+    //templateFinishLevel(1);
+    //templateFinishTheme(1);
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
@@ -108,7 +108,17 @@ void LaneFactoryTheme1::templateRiver(int num) {
 
 void LaneFactoryTheme1::templateRailway(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos));
+        int kind = rand()%2;
+        Railway::Type kindTrain;
+        switch(kind){
+            case 0:
+                kindTrain = Railway::WoodTrain;
+                break;
+            case 1:
+                kindTrain = Railway::Train1;
+                break;
+        }
+        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos, kindTrain));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

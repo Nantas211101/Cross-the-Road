@@ -15,20 +15,9 @@ RoadTheme2::RoadTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
 void RoadTheme2::buildLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(0, 1);
+    std::uniform_int_distribution<int> dist(1, 1);
     typeRoad = dist(gen);
-
-    switch (typeRoad){
-        case 0:
-            generateVehicle();
-            break;
-        case 1:
-            generateAnimal();
-            break;
-        default:
-            break;
-    }
-
+    generateAnimal();
     firstObjectIndex = 0;
     lastObjectIndex = numOfObject - 1;
 }

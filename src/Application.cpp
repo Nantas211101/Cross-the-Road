@@ -247,10 +247,10 @@ void Application::loadResources(){
 	mTextures.load(Textures::RailwayLight, "Media/Textures/Railway/RailwayLight.png");
     //mTextures.load(Textures::Traffic, "Media/Textures/Railway/Traffic.png");
     mTextures.load(Textures::Train1, "Media/Textures/Railway/Train1.png");
-    mTextures.load(Textures::Train2, "Media/Textures/Railway/Train2.png");
-    mTextures.load(Textures::Train3, "Media/Textures/Railway/Train3.png");
-	mTextures.load(Textures::Train4, "Media/Textures/Railway/Train4.png");
-
+    mTextures.load(Textures::LavaTrain, "Media/Textures/Railway/LavaTrain.png");
+    mTextures.load(Textures::SnowTrain, "Media/Textures/Railway/SnowTrain.png");
+	mTextures.load(Textures::WoodTrain, "Media/Textures/Railway/WoodTrain.png");
+    mTextures.load(Textures::SantaTrain, "Media/Textures/Railway/SantaTrain.png");
 	// FinishLane
 	mTextures.load(Textures::FinishLevel, "Media/Textures/FinishLane/LevelFinish.png");
 	mTextures.load(Textures::FinishTheme1, "Media/Textures/FinishLane/FinishTheme1.png");
