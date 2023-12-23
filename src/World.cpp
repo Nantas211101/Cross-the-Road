@@ -251,5 +251,4 @@ void World::updateHealthBar() {
 	healthBar->setTextureRect(healthBar->getPosition(), curHP * 309 / maxHP, 41);
 	
 	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
-	// mHealthDisplay->setRotation(-mainChar->getRotation());
 }

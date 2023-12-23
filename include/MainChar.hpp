@@ -17,8 +17,8 @@ public:
         Player1,
         Player2,
         Player3,
-        Sheep,
-        Mallard,
+        Player4,
+        Player5,
         TypeCount,
     };
 

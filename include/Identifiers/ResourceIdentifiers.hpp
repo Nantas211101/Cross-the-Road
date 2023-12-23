@@ -131,6 +131,22 @@ namespace Textures
 		Left3,
 		Right3,
 		
+		// Player4
+		Standing4,
+		Rest4,
+		Up4,
+		Down4,
+		Left4,
+		Right4,
+
+		// Player4
+		Standing5,
+		Rest5,
+		Up5,
+		Down5,
+		Left5,
+		Right5,
+
 		Chicken,
 		Mallard,
 		Penguin,

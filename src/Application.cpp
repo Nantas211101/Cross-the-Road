@@ -190,7 +190,23 @@ void Application::loadResources(){
     mTextures.load(Textures::Down3, "Media/Textures/Player/Player3/Down.png");
     mTextures.load(Textures::Left3, "Media/Textures/Player/Player3/Left.png");
     mTextures.load(Textures::Right3, "Media/Textures/Player/Player3/Right.png");
+    
+    // Player4
+    mTextures.load(Textures::Standing4, "Media/Textures/Player/Player4/Standing.png");
+    mTextures.load(Textures::Rest4, "Media/Textures/Player/Player4/Rest.png");
+    mTextures.load(Textures::Up4, "Media/Textures/Player/Player4/Up.png");
+    mTextures.load(Textures::Down4, "Media/Textures/Player/Player4/Down.png");
+    mTextures.load(Textures::Left4, "Media/Textures/Player/Player4/Left.png");
+    mTextures.load(Textures::Right4, "Media/Textures/Player/Player4/Right.png");
 
+    // Player5
+    mTextures.load(Textures::Standing5, "Media/Textures/Player/Player5/Standing.png");
+    mTextures.load(Textures::Rest5, "Media/Textures/Player/Player5/Rest.png");
+    mTextures.load(Textures::Up5, "Media/Textures/Player/Player5/Up.png");
+    mTextures.load(Textures::Down5, "Media/Textures/Player/Player5/Down.png");
+    mTextures.load(Textures::Left5, "Media/Textures/Player/Player5/Left.png");
+    mTextures.load(Textures::Right5, "Media/Textures/Player/Player5/Right.png");
+    
     // Road
     mTextures.load(Textures::Road, "Media/Textures/Road/Road.png");
 	mTextures.load(Textures::LavaRoad, "Media/Textures/Road/LavaRoad.png");

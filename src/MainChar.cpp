@@ -36,10 +36,10 @@ MainChar::Type toMainCharID(Textures::ID id)
     case Textures::Up3:
         return MainChar::Player3;
 
-    case Textures::Sheep:
-        return MainChar::Sheep;
-    case Textures::Mallard:
-        return MainChar::Mallard;
+    case Textures::Standing4:
+        return MainChar::Player4;
+    case Textures::Standing5:
+        return MainChar::Player5;
     }
     return MainChar::TypeCount;
 }
@@ -53,9 +53,9 @@ MainChar::Type numToID(int num){
         case 2:
             return MainChar::Player3;
         case 3:
-            return MainChar::Sheep;
+            return MainChar::Player4;
         case 4:
-            return MainChar::Mallard;
+            return MainChar::Player5;
         default:
             break;
     }
@@ -71,9 +71,9 @@ int IDToNum(MainChar::Type type){
             return 1;
         case MainChar::Player3:
             return 2;
-        case MainChar::Sheep:
+        case MainChar::Player4:
             return 3;
-        case MainChar::Mallard:
+        case MainChar::Player5:
             return 4;
         default:
             break;
@@ -231,8 +231,8 @@ unsigned int MainChar::getCategory() const
         case Player1:
 		case Player2:
         case Player3:
-        case Sheep:
-        case Mallard:
+        case Player4:
+        case Player5:
 			return Category::Player;
 
 		default:
@@ -310,7 +310,10 @@ void MainChar::setInLane() {
 }
 
 void MainChar::resetState() {
-    curLane = 0;
+    setPosition(500, 0);
+    curLane = 1;
+    setInLane();
+    lastPosSinceMoving = getPosition();
     state = State::Standing;
 }
 
@@ -368,18 +371,14 @@ int convertToMaskID(MainChar::Type type)
     {
         case MainChar::Player1:
             return Mask(0);
-            break;
         case MainChar::Player2:
             return Mask(1);
-            break;
         case MainChar::Player3:
             return Mask(2);
-            break;
-        case MainChar::Mallard:
+        case MainChar::Player4:
             return Mask(3);
-            break;
-        default:
-            break;
+        case MainChar::Player5:
+            return Mask(0);
     }
     return 0;
 }

@@ -417,13 +417,35 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player3].timeEachFrameInMenu = 1;
     data[MainChar::Player3].scaling = 1.5;
 
-    data[MainChar::Sheep].hitpoints = 300;
-    data[MainChar::Sheep].speed = 150.f;
-    data[MainChar::Sheep].texture = Textures::Sheep;
+    data[MainChar::Player4].hitpoints = 100.f;
+    data[MainChar::Player4].speed = 250.f;
+    data[MainChar::Player4].texture = Textures::Standing4;
+    data[MainChar::Player4].restTexture = Textures::Rest4;
+    data[MainChar::Player4].upTexture = Textures::Up4;
+    data[MainChar::Player4].downTexture = Textures::Down4;
+    data[MainChar::Player4].leftTexture = Textures::Left4;
+    data[MainChar::Player4].rightTexture = Textures::Right4;
+    data[MainChar::Player4].pictureHeight = 54;
+    data[MainChar::Player4].pictureWidth = 160;
+    data[MainChar::Player4].numOfFrames = 3;
+    data[MainChar::Player4].timeEachFrameInGame = 0.6;
+    data[MainChar::Player4].timeEachFrameInMenu = 1;
+    data[MainChar::Player4].scaling = 1.5;
 
-    data[MainChar::Mallard].hitpoints = 250;
-    data[MainChar::Mallard].speed = 200.f;
-    data[MainChar::Mallard].texture = Textures::Mallard;
+    data[MainChar::Player5].hitpoints = 100.f;
+    data[MainChar::Player5].speed = 250.f;
+    data[MainChar::Player5].texture = Textures::Standing5;
+    data[MainChar::Player5].restTexture = Textures::Rest5;
+    data[MainChar::Player5].upTexture = Textures::Up5;
+    data[MainChar::Player5].downTexture = Textures::Down5;
+    data[MainChar::Player5].leftTexture = Textures::Left5;
+    data[MainChar::Player5].rightTexture = Textures::Right5;
+    data[MainChar::Player5].pictureHeight = 57;
+    data[MainChar::Player5].pictureWidth = 272;
+    data[MainChar::Player5].numOfFrames = 4;
+    data[MainChar::Player5].timeEachFrameInGame = 0.6;
+    data[MainChar::Player5].timeEachFrameInMenu = 1;
+    data[MainChar::Player5].scaling = 1.5;
 
     return data;
 }
