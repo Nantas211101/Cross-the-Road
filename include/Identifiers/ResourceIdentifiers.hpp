@@ -102,6 +102,10 @@ namespace Textures
 		Gemstone1,
 		Gemstone2,
 		Gemstone3,
+
+		// Player
+		HealthBar,
+		BoundHealthBar,
 		
 		// Player1
 		Standing1,
