@@ -27,6 +27,8 @@ public:
    };
 public:
    Animal(Type type, const TextureHolder& texture);
+   virtual sf::FloatRect getBoundingRect() const;
+   virtual unsigned int getCategory() const;
    int getDamage();
    Type getType();
     

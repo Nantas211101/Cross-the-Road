@@ -1,3 +1,4 @@
+#include "Obstacle.hpp"
 #include <World.hpp>
 #include <iostream>
 
@@ -112,6 +113,8 @@ void World::handleCollisions()
 		}
 
 		if (matchesCategories(pair, Category::Player, Category::Obstacle)) {
+			auto& obstacle = static_cast<Obstacle&>(*pair.second);
+			mainChar->damage(obstacle.getDamage());
 			mainChar->backTolastPos();
 			mainChar->stopMoving();
 		}
@@ -155,7 +158,7 @@ void World::buildScene(MainChar::Type id)
 		mSceneGraph.attachChild(std::move(layer));
 	}
 	mSceneLayers[Title]->setReverse();
-	LaneFactoryTheme3 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 60; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;

@@ -10,7 +10,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme3::randomTemplateLane() {
     std::uniform_int_distribution<int> dist(1, 6);
     int random = dist(gen);
     lanes.clear();
-    switch(6) {
+    switch(random) {
     case 1:
         templateLane1();
         break;

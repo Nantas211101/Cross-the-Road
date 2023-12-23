@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <ctime>
+#include <math.h>
 
 class Lane : public SceneNode {
     public:

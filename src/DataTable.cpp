@@ -163,6 +163,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Green_Dragon].pictureWidth = 365;
     data[Animal::Green_Dragon].pictureHeight = 96;
     data[Animal::Green_Dragon].duration = 1;
+    data[Animal::Green_Dragon].deltaWidthBound = 4;
 
     data[Animal::Red_Dragon].dmg = 40;
     data[Animal::Red_Dragon].speed = 200.f;
@@ -173,6 +174,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Red_Dragon].pictureWidth = 432;
     data[Animal::Red_Dragon].pictureHeight = 96;
     data[Animal::Red_Dragon].duration = 1;
+    data[Animal::Red_Dragon].deltaWidthBound = 10;
 
     data[Animal::Blue_Twin_Head_Dragon].dmg = 50;
     data[Animal::Blue_Twin_Head_Dragon].speed = 150.f;
@@ -183,6 +185,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Blue_Twin_Head_Dragon].pictureWidth = 432;
     data[Animal::Blue_Twin_Head_Dragon].pictureHeight = 94;
     data[Animal::Blue_Twin_Head_Dragon].duration = 1;
+    data[Animal::Blue_Twin_Head_Dragon].deltaWidthBound = 10;
 
     data[Animal::Rhinoceros].speed = 150.f;
     data[Animal::Rhinoceros].distanceBetweenAnimal = 700;
@@ -201,7 +204,8 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Monster1].numOfFrames = 11;
     data[Animal::Monster1].pictureWidth = 4019;
     data[Animal::Monster1].pictureHeight = 394;  
-    data[Animal::Monster1].duration = 1;  
+    data[Animal::Monster1].duration = 1;
+    data[Animal::Monster1].deltaWidthBound = 10;
 
     data[Animal::Reindeer].dmg = 85;
     data[Animal::Reindeer].speed = 200.f;

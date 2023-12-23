@@ -1,3 +1,5 @@
+#include "Lane.hpp"
+#include "SFML/Graphics/Rect.hpp"
 #include <Animal.hpp>
 
 namespace{
@@ -16,6 +18,19 @@ Animal::Animal(Type type, const TextureHolder& texture)
 
 Animal::Type Animal::getType(){
     return type;
+}
+
+unsigned int Animal::getCategory() const {
+    return Category::Animal;
+}
+
+sf::FloatRect Animal::getBoundingRect() const {
+    sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
+    bound.width -= Table[type].deltaWidthBound;
+    bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane);
+    bound.left += 10;
+    bound.top += 20;
+    return bound;
 }
 
 void Animal::drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const{
