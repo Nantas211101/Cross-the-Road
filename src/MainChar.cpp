@@ -81,21 +81,21 @@ int IDToNum(MainChar::Type type){
     return MainChar::TypeCount;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, int curGrid, const std::vector<Lane*>& lanes)
+MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, std::vector<Lane*>& lanes)
 : mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
 , leftAnimation(textures.get(Table[type].leftTexture))
 , rightAnimation(textures.get(Table[type].rightTexture))
+, ownerFlag(true)
+, state(State::Standing)
+, lanes(&lanes)
+, lastPosSinceMoving(500, Lane::distanceBetweenLane * curLane)
+, curLane(curLane)
 , mHP(Table[type].hitpoints)
 , mHealthDisplay(nullptr)
-, curLane(curLane)
-, curGrid(curGrid)
-, prevLane(curLane)
-, prevGrid(curGrid)
-, lastPosSinceMoving(Lane::distanceBetweenTile * curGrid, Lane::distanceBetweenLane * curLane)
-, state(State::Standing)
-, ownerFlag(true)
+, movingVelocity(Table[type].speed)
+, timeSinceLastDamage()
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -105,11 +105,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
     //centerOrigin(mSprite);
 
     setPosition(lastPosSinceMoving);
-    setInLane(lanes);
-    setInGrid();
-
-    std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
-	mHealthDisplay = healthDisplay.get();
+    setInLane();
 
     centerOrigin(upAnimation);
     upAnimation.setFrameSize(sf::Vector2i(frameWidth, frameHeight));
@@ -135,6 +131,8 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 	rightAnimation.setDuration(sf::seconds(Table[type].timeEachFrameInGame));
     rightAnimation.scale(Table[type].scaling, Table[type].scaling);
 	
+    std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
+	mHealthDisplay = healthDisplay.get();
     this->attachChild(std::move(healthDisplay));
     updateTexts();
 }
@@ -142,11 +140,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
 : mType(type)
 , restAnimation(textures.get(Table[type].restTexture))
-, mHP(Table[type].hitpoints)
-, mHealthDisplay(nullptr)
-, lastPosSinceMoving(pos)
 , state(State::Rest)
-, curLane()
 , ownerFlag(true)
 {
     setPosition(pos);
@@ -166,6 +160,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
 }
 
 void MainChar::updateCurrent(sf::Time dt) {
+    // Animation
     if(state == State::Rest) {
         restAnimation.setOwnerFlag(ownerFlag);
         restAnimation.update(dt);
@@ -178,25 +173,29 @@ void MainChar::updateCurrent(sf::Time dt) {
     if(state == State::Up) {
         upAnimation.update(dt);
         upAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
+        mSprite.setTextureRect(sf::IntRect(0, frameHeight * state, frameWidth, frameHeight));
     }
     else if(state == State::Down) {
-        downAnimation.setOwnerFlag(ownerFlag);
         downAnimation.update(dt);
         downAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
+        mSprite.setTextureRect(sf::IntRect(0, frameHeight * state, frameWidth, frameHeight));
     }
     else if(state == State::Left) {
         leftAnimation.update(dt);
         leftAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
+        mSprite.setTextureRect(sf::IntRect(0, frameHeight * state, frameWidth, frameHeight));
     }
     else if(state == State::Right) {
         rightAnimation.update(dt);
         rightAnimation.setRepeating(true);
-        mSprite.setTextureRect(sf::IntRect(frameWidth * state, 0, frameWidth, frameHeight));
+        mSprite.setTextureRect(sf::IntRect(0, frameHeight * state, frameWidth, frameHeight));
     }
+
+    // logic game
     makeStop();
+    if(isStanding()) {
+        setInLane();
+    }
     updateTexts();
     Entity::updateCurrent(dt);
 }
@@ -263,8 +262,11 @@ void MainChar::heal(int points) {
 
 void MainChar::damage(int points) {
 	assert(points > 0);
-
-	mHP -= points;
+    sf::Time elapseTime = timeSinceLastDamage.getElapsedTime();
+    if(elapseTime >= damageGap) {
+	    mHP -= points;
+        timeSinceLastDamage.restart();
+    }
 }
 
 void MainChar::destroy() {
@@ -278,33 +280,21 @@ bool MainChar::isDestroyed() const {
 void MainChar::goUp() {
     setVelocity(0, -movingVelocity);
     state = State::Up;
-    prevGrid = curGrid;
-    prevLane = curLane;
-    ++curLane;
 }
 
 void MainChar::goDown() {
     setVelocity(0, movingVelocity);
     state = State::Down;
-    prevGrid = curGrid;
-    prevLane = curLane;
-    --curLane;
 }
 
 void MainChar::goLeft() {
     setVelocity(-movingVelocity, 0);
     state = State::Left;
-    prevLane = curLane;
-    prevGrid = curGrid;
-    --curGrid;
 }
 
 void MainChar::goRight() {
     setVelocity(movingVelocity, 0);
     state = State::Right;
-    prevLane = curLane;
-    prevGrid = curGrid;
-    ++curGrid;
 }
 
 void MainChar::stopMoving() {
@@ -313,58 +303,48 @@ void MainChar::stopMoving() {
 }
 
 bool MainChar::isStanding() {
-    if(state == State::Standing)
-        return true;
-    return false;
-}
-
-sf::Vector2f MainChar::getLastPos() {
-    return lastPosSinceMoving;
+    return state == State::Standing;
 }
 
 int MainChar::getCurLane() {
     return curLane;
 }
 
-void MainChar::setInLane(const std::vector<Lane*>& lanes) {
-    setPosition(getPosition().x, lanes[curLane]->getPosition().y + 25);
-}
-
-void MainChar::setInGrid() {
-    setPosition(Lane::distanceBetweenTile * curGrid + 15, getPosition().y);
-}
-
-void MainChar::fixInPos(const std::vector<Lane*>& lanes) {
-    setInLane(lanes);
-    setInGrid();
+void MainChar::setInLane() {
+    setPosition(getPosition().x, (*lanes)[curLane]->getPosition().y + 25);
+    lastPosSinceMoving = getPosition();
 }
 
 void MainChar::resetState() {
     curLane = 0;
-    prevLane = 0;
-    curGrid = 5;
-    prevGrid = 5;
     state = State::Standing;
 }
 
-void MainChar::backTolastPos(const std::vector<Lane*>& lanes) {
-    curLane = prevLane;
-    curGrid = prevGrid;
-    fixInPos(lanes);
-    lastPosSinceMoving = getPosition();
+void MainChar::backTolastPos() {
+    setPosition(lastPosSinceMoving);
 }
 
 void MainChar::makeStop() {
 	sf::Vector2f newPos = getPosition();
 	sf::Vector2f diff = lastPosSinceMoving - newPos;
-	if(diff.y >= Lane::distanceBetweenLane - 1 ||
-       diff.y <= -Lane::distanceBetweenLane + 1 || 
-       diff.x >= Lane::distanceBetweenTile - 1 ||
-       diff.x <= -Lane::distanceBetweenTile + 1) 
-    {
+    bool goUpDone = diff.y >= Lane::distanceBetweenLane - 1;
+    bool goDownDone = diff.y <= -Lane::distanceBetweenLane + 1;
+    bool goLeftDone = diff.x >= 10;
+    bool goRightDone = diff.x <= -10;
+	if(goUpDone) {
+        ++curLane;
         stopMoving();
         lastPosSinceMoving = newPos;
 	}
+    else if(goDownDone) {
+        --curLane;
+        stopMoving();
+        lastPosSinceMoving = newPos;
+    }
+    else if(goLeftDone || goRightDone) {
+        stopMoving();
+        lastPosSinceMoving = newPos;
+    }
 }
 
 void MainChar::updateTexts()
@@ -423,36 +403,6 @@ MainChar::Type changeTexture(MainChar::Type type, bool isLeft){
     id = (id + shift + MainChar::TypeCount) % MainChar::TypeCount;
     MainChar::Type ans = numToID(id);
     return ans;
-}
-
-void MainChar::whatIsCurrentState()
-{
-    switch (state)
-    {
-        case State::Up:
-            std::cerr << "Up" << std::endl;
-            break;
-        
-        case State::Down:
-            std::cerr << "Down" << std::endl;
-            break;
-        
-        case State::Left:
-            std::cerr << "Left" << std::endl;
-            break;
-
-        case State::Right:
-            std::cerr << "Right" << std::endl;
-            break;
-
-        case State::Standing:
-            std::cerr << "Standing" << std::endl;
-            break;
-        
-        default:
-            break;
-    }
-    // std::cout << "Current state: " << state << std::endl;
 }
 
 void MainChar::setOwnerShip(bool flag)

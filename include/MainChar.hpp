@@ -31,13 +31,12 @@ private:
     void                updateCurrent(sf::Time dt);
 
     void                makeStop();
-    void                setInLane(const std::vector<Lane*>& lanes);
-    void                setInGrid();
+    void                setInLane();
 
     void                setOwnerShip(bool flag);
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, int curGrid, const std::vector<Lane*>& lanes);
+    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, std::vector<Lane*>& lanes);
     explicit            MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
@@ -61,9 +60,7 @@ public:
 
     void                resetState();
     int                 getCurLane();
-    void                fixInPos(const std::vector<Lane*>& lanes);
-    void                backTolastPos(const std::vector<Lane*>& lanes);
-    sf::Vector2f        getLastPos();
+    void                backTolastPos();
     
     Type getMainCharType();
     int getThisMaskID();
@@ -71,40 +68,36 @@ public:
 
     void setCenterOriginMainChar();
 
-    // Ham de fix bug
-    void whatIsCurrentState();
-
 
 private:
     enum State {
-        Up,
         Down,
-        Right,
         Left,
+        Right,
+        Up,
         Standing,
         Rest
     };
     Type mType;
     sf::Sprite mSprite;
-    bool ownerFlag;
-
-    TextNode* mHealthDisplay;
-    int mHP;
-
-    const int movingVelocity = 350;
     Animation upAnimation;
     Animation downAnimation;
     Animation leftAnimation;
     Animation rightAnimation;
     Animation restAnimation;
     Animation deathAnimation;
+    bool ownerFlag;
 
     State state;
+    std::vector<Lane*>* lanes;
 	sf::Vector2f lastPosSinceMoving;
     int curLane;
-    int prevLane;
-    int curGrid;
-    int prevGrid;
+
+    TextNode* mHealthDisplay;
+    int mHP;
+    int movingVelocity;
+    sf::Clock timeSinceLastDamage;
+    const sf::Time damageGap = sf::seconds(1);
     // Animation healingAnimation;
     // Animation takingDamageAnimation;
 };
