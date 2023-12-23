@@ -10,6 +10,7 @@
 #include <ResourceIdentifiers.hpp>
 #include <ResourceHolder.hpp>
 #include <State.hpp>
+#include <SpriteNode.hpp>
 
 #include <random>
 #include <array>
@@ -25,7 +26,7 @@ namespace sf
 class World : private sf::NonCopyable
 {
 	public:
-		explicit		 							World(State::Context context);
+		explicit		 					World(State::Context context);
 		void								update(sf::Time dt);
 		void								draw();
 		CommandQueue&						getCommandQueue();
@@ -35,7 +36,9 @@ class World : private sf::NonCopyable
 		void 								adaptPlayerPosition();
 		void								handleCollisions();
 		void								scroll(sf::Time dt);
-		
+		void								buildHealthBar();
+		void								updateHealthBar();
+
 	private:
 		enum Layer
 		{
@@ -47,9 +50,10 @@ class World : private sf::NonCopyable
 	private:
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
+		sf::FloatRect						mWorldBounds;
 		TextureHolder&						mTextures;
 		FontHolder&							mFonts;
-		const float							scrollSpeed = -400.f;
+		const float							scrollSpeed = -200.f;
 		const float							scrollSpeedToPlayer = -50.f;
 		float								scrollDistance;
 		int									playerLaneIndex;
@@ -58,10 +62,11 @@ class World : private sf::NonCopyable
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
 		CommandQueue						mCommandQueue;
 
-		sf::Time							timeToNextInput;
-
-		sf::FloatRect						mWorldBounds;
 		sf::Vector2f						mSpawnPosition;
 		std::vector<Lane*> 					lanes;
 		MainChar*							mainChar;
+
+		SpriteNode*							boundHealthBar;
+		SpriteNode*							healthBar;
+    	TextNode* 							mHealthDisplay;
 };

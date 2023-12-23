@@ -163,6 +163,10 @@ void Application::loadResources(){
     mTextures.load(Textures::Heart, Path_heart);
     mTextures.load(Textures::Thunder, Path_Thunder);
 
+    // Player
+    mTextures.load(Textures::HealthBar, "Media/Textures/Player/HealthBar.png");
+    mTextures.load(Textures::BoundHealthBar, "Media/Textures/Player/BoundHPBar.png");
+
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
     mTextures.load(Textures::Rest1, "Media/Textures/Player/Player1/Rest.png");

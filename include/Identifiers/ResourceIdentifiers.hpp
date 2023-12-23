@@ -80,6 +80,10 @@ namespace Textures
 		DecoRock2,
 		DecoFire1,
 		DecoFire2,
+
+		// Player
+		HealthBar,
+		BoundHealthBar,
 		
 		// Player1
 		Standing1,

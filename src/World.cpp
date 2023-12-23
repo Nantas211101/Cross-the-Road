@@ -1,21 +1,26 @@
 #include <World.hpp>
+#include <iostream>
 
 World::World(State::Context context)
 : mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
 , scrollDistance(0)
-, lanes()
 , mSceneGraph()
 , mSceneLayers()
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
+, lanes()
+, mainChar(nullptr)
+, boundHealthBar(nullptr)
+, healthBar(nullptr)
+, mHealthDisplay(nullptr)
 {
 	buildScene(context.player->getMainCharID());
-
 	// Prepare the view
 	mWorldView.setCenter(mSpawnPosition);
+	buildHealthBar();
 }
 
 
@@ -37,11 +42,9 @@ void World::update(sf::Time dt)
 	}
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
-	timeToNextInput += dt;
 	while (!mCommandQueue.isEmpty()){
 		if(mainChar->isStanding()) {
 			mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-			timeToNextInput = sf::Time::Zero;
 		}
 		else {
 			mCommandQueue.pop();
@@ -57,6 +60,7 @@ void World::update(sf::Time dt)
 		// Gameover
 	}
 	adaptPlayerPosition();
+	updateHealthBar();
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
@@ -102,13 +106,15 @@ void World::handleCollisions()
 		else if (matchesCategories(pair, Category::Player, Category::River)) {
 			onRiver = true;
 		}
-		else if (matchesCategories(pair, Category::Player, Category::Obstacle)) {
+		else if(matchesCategories(pair, Category::Player, Category::Lane)) {
+			onRiver = false;
+			break;
+		}
+
+		if (matchesCategories(pair, Category::Player, Category::Obstacle)) {
 			mainChar->backTolastPos();
 			mainChar->stopMoving();
 		}
-		// else if(matchesCategories(pair, Category::Player, Category::Lane)) {
-		// 	onRiver = false;
-		// }
 		else if(matchesCategories(pair, Category::Player, Category::Vehicle)) {
 			auto& vehicle = static_cast<Vehicle&>(*pair.second);
 			mainChar->damage(vehicle.getDamage());
@@ -117,14 +123,13 @@ void World::handleCollisions()
 			auto& animal = static_cast<Animal&>(*pair.second);
 			mainChar->damage(animal.getDamage());
 		}
+		else if(matchesCategories(pair, Category::Player, Category::Train)) {
+			auto& train = static_cast<Train&>(*pair.second);
+			//mainChar->damage(train.getDamage());
+		}
 	}
-	// timeFromLastInvulnerable = invulnerableTime.getElapsedTime();
-	// 		if(timeFromLastInvulnerable > sf::seconds(0.1)){
-	// 			player.damage(5);
-	// 			invulnerableTime.restart();
-	// 		}
 	if(onRiver) {
-		// Game over
+	// Game over
 	}
 }
 
@@ -166,7 +171,7 @@ void World::buildScene(MainChar::Type id)
 		}
 	}
 	playerLaneIndex = 1;
-	std::unique_ptr<MainChar> character(new MainChar(id, mTextures, mFonts, playerLaneIndex, lanes));
+	std::unique_ptr<MainChar> character(new MainChar(id, mTextures, playerLaneIndex, lanes));
 	mainChar = character.get();
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
@@ -212,4 +217,39 @@ void World::scroll(sf::Time dt) {
 		scrollDistance += step;
 		mWorldView.move(0, step);
 	}
+}
+
+void World::buildHealthBar() {
+	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+	sf::Vector2f healthBarPos(0, viewBounds.top);
+
+	std::unique_ptr<SpriteNode> boundingHP(new SpriteNode(mTextures.get(Textures::BoundHealthBar)));
+	boundingHP->setPosition(healthBarPos);
+	boundHealthBar = boundingHP.get();
+	mSceneLayers[AboveTitle]->attachChild(std::move(boundingHP));
+
+	std::unique_ptr<SpriteNode> hpBar(new SpriteNode(mTextures.get(Textures::HealthBar)));
+	hpBar->setTextureRect(healthBarPos, 309, 41);
+	hpBar->setPosition(78, 16.5);
+	healthBar = hpBar.get();
+	boundHealthBar->attachChild(std::move(hpBar));
+
+	std::unique_ptr<TextNode> healthDisplay(new TextNode(mFonts, ""));
+	healthDisplay->setPosition(340, -13);
+	mHealthDisplay = healthDisplay.get();
+    boundHealthBar->attachChild(std::move(healthDisplay));
+    updateHealthBar();
+}
+
+void World::updateHealthBar() {
+	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+	sf::Vector2f healthBarPos(0, viewBounds.top);
+	boundHealthBar->setPosition(healthBarPos);
+
+	float curHP = mainChar->getHitpoints();
+	float maxHP = mainChar->getMaxHP();
+	healthBar->setTextureRect(healthBar->getPosition(), curHP * 309 / maxHP, 41);
+	
+	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
+	// mHealthDisplay->setRotation(-mainChar->getRotation());
 }

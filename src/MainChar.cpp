@@ -81,7 +81,7 @@ int IDToNum(MainChar::Type type){
     return MainChar::TypeCount;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, std::vector<Lane*>& lanes)
+MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::vector<Lane*>& lanes)
 : mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
@@ -93,7 +93,7 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 , lastPosSinceMoving(500, Lane::distanceBetweenLane * curLane)
 , curLane(curLane)
 , mHP(Table[type].hitpoints)
-, mHealthDisplay(nullptr)
+, maxHP(Table[type].hitpoints)
 , movingVelocity(Table[type].speed)
 , timeSinceLastDamage()
 {
@@ -130,11 +130,6 @@ MainChar::MainChar(Type type, const TextureHolder& textures, const FontHolder& f
 	rightAnimation.setNumFrames(Table[type].numOfFrames);
 	rightAnimation.setDuration(sf::seconds(Table[type].timeEachFrameInGame));
     rightAnimation.scale(Table[type].scaling, Table[type].scaling);
-	
-    std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
-	mHealthDisplay = healthDisplay.get();
-    this->attachChild(std::move(healthDisplay));
-    updateTexts();
 }
 
 MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
@@ -196,7 +191,6 @@ void MainChar::updateCurrent(sf::Time dt) {
     if(isStanding()) {
         setInLane();
     }
-    updateTexts();
     Entity::updateCurrent(dt);
 }
 
@@ -254,26 +248,26 @@ int MainChar::getHitpoints() const {
 	return mHP;
 }
 
+int MainChar::getMaxHP() const {
+    return maxHP;
+}
+
 void MainChar::heal(int points) {
 	assert(points > 0);
-
 	mHP += points;
 }
 
 void MainChar::damage(int points) {
-	assert(points > 0);
+	assert(points >= 0);
     sf::Time elapseTime = timeSinceLastDamage.getElapsedTime();
     if(elapseTime >= damageGap) {
 	    mHP -= points;
+        mHP = std::max(mHP, 0);
         timeSinceLastDamage.restart();
     }
 }
 
-void MainChar::destroy() {
-	mHP = 0;
-}
-
-bool MainChar::isDestroyed() const {
+bool MainChar::isDead() const {
 	return mHP <= 0;
 }
 
@@ -345,13 +339,6 @@ void MainChar::makeStop() {
         stopMoving();
         lastPosSinceMoving = newPos;
     }
-}
-
-void MainChar::updateTexts()
-{
-	mHealthDisplay->setString(std::to_string(getHitpoints()) + " HP");
-	mHealthDisplay->setPosition(0.f, 50.f);
-	mHealthDisplay->setRotation(-getRotation());
 }
 
 auto MainChar::getMainCharType() -> MainChar::Type{

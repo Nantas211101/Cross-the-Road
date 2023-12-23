@@ -27,7 +27,6 @@ public:
 private:
     virtual void        drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::FloatRect       getBoundingRect() const;
-    void                updateTexts();
     void                updateCurrent(sf::Time dt);
 
     void                makeStop();
@@ -36,7 +35,7 @@ private:
     void                setOwnerShip(bool flag);
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, std::vector<Lane*>& lanes);
+    explicit            MainChar(Type type, const TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
     explicit            MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
@@ -46,10 +45,10 @@ public:
     Textures::ID        getTextureID();
 
     int					getHitpoints() const;
+    int                 getMaxHP() const;
     void				heal(int points);
     void				damage(int points);
-    void				destroy();
-    virtual bool		isDestroyed() const;
+    bool	        	isDead() const;
     
     void                goUp();
     void                goDown();
@@ -93,8 +92,8 @@ private:
 	sf::Vector2f lastPosSinceMoving;
     int curLane;
 
-    TextNode* mHealthDisplay;
     int mHP;
+    int maxHP;
     int movingVelocity;
     sf::Clock timeSinceLastDamage;
     const sf::Time damageGap = sf::seconds(1);
