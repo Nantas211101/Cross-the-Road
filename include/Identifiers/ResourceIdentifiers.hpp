@@ -80,9 +80,14 @@ namespace Textures
 		DecoRock2,
 		DecoFire1,
 		DecoFire2,
+
+		// Player
+		HealthBar,
+		BoundHealthBar,
 		
 		// Player1
 		Standing1,
+		Rest1,
 		Up1,
 		Down1,
 		Left1,
@@ -90,6 +95,7 @@ namespace Textures
 
 		// Player2
 		Standing2,
+		Rest2,
 		Up2,
 		Down2,
 		Left2,
@@ -97,11 +103,28 @@ namespace Textures
 
 		// Player3
 		Standing3,
+		Rest3,
 		Up3,
 		Down3,
 		Left3,
 		Right3,
 		
+		// Player4
+		Standing4,
+		Rest4,
+		Up4,
+		Down4,
+		Left4,
+		Right4,
+
+		// Player4
+		Standing5,
+		Rest5,
+		Up5,
+		Down5,
+		Left5,
+		Right5,
+
 		Chicken,
 		Mallard,
 		Penguin,

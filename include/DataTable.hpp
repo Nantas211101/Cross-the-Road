@@ -69,6 +69,7 @@ struct CharData {
     int hitpoints;
     float speed;
     Textures::ID texture;
+	Textures::ID restTexture;
     Textures::ID upTexture;
     Textures::ID downTexture;
     Textures::ID leftTexture;
@@ -76,9 +77,11 @@ struct CharData {
 	int pictureWidth;
 	int pictureHeight;
 	int numOfFrames;
-	float timeEachFrame;
+	float timeEachFrameInGame;
+	float timeEachFrameInMenu;
 	static const int MaxHitpoints = 300;
 	static const int MaxSpeed = 300;
+	int scaling;
 };
 
 

@@ -139,9 +139,6 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 		isMove = 0;
 		// speedUp = startSpeedUp;
 	}
-    mPlayer->setAnimationDown();
-	if(tmpPlayer)
-		tmpPlayer->setAnimationDown();
 	
 	// Apply movements
 	mSceneGraph.update(elapsedTime);
@@ -197,7 +194,6 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			tmpPlayer->setVelocity(0, 0);
 			tmpPlayer->setScale(0, 0);
             tmpPlayer->setCenterOriginMainChar();
-			tmpPlayer->setAnimationDown();
 			if((tmpPlayer->getThisMaskID() | maskID) != maskID)
 				tmpPlayer->setOwnerFlag(false);
 		}
@@ -212,7 +208,6 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 			tmpPlayer->setVelocity(0, 0);
 			tmpPlayer->setScale(0, 0);
             tmpPlayer->setCenterOriginMainChar();
-			tmpPlayer->setAnimationDown();
 			if((tmpPlayer->getThisMaskID() | maskID) != maskID)
 				tmpPlayer->setOwnerFlag(false);
 		}
@@ -241,7 +236,6 @@ void ChooseCharState::startRight(){
 		tmpPlayer->setVelocity(0, 0);
 		tmpPlayer->setScale(0, 0);
         tmpPlayer->setCenterOriginMainChar();
-		tmpPlayer->setAnimationDown();
 		mSceneLayers[Air]->attachChild(std::move(leader));
 		if((tmpPlayer->getThisMaskID() | maskID) != maskID)
 			tmpPlayer->setOwnerFlag(false);
@@ -262,7 +256,6 @@ void ChooseCharState::startLeft(){
 		tmpPlayer->setVelocity(0, 0);
         tmpPlayer->setCenterOriginMainChar();
 		tmpPlayer->setScale(0, 0);
-		tmpPlayer->setAnimationDown();
 		mSceneLayers[Air]->attachChild(std::move(leader));
 		if((tmpPlayer->getThisMaskID() | maskID) != maskID)
 			tmpPlayer->setOwnerFlag(false);
@@ -376,7 +369,6 @@ void ChooseCharState::createMainChar(){
     std::unique_ptr<MainChar> leader(new MainChar(MainChar::Player1, *getContext().textures, mSpawnPosition));
     mPlayer = leader.get();
 	mPlayer->setVelocity(0, 0);
-    mPlayer->setAnimationDown();
     mPlayer->setCenterOriginMainChar();
     mPlayer->setScale(scaleCharacter, scaleCharacter);
 	mSceneLayers[Air]->attachChild(std::move(leader));

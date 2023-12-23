@@ -163,8 +163,13 @@ void Application::loadResources(){
     mTextures.load(Textures::Heart, Path_heart);
     mTextures.load(Textures::Thunder, Path_Thunder);
 
+    // Player
+    mTextures.load(Textures::HealthBar, "Media/Textures/Player/HealthBar.png");
+    mTextures.load(Textures::BoundHealthBar, "Media/Textures/Player/BoundHPBar.png");
+
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
+    mTextures.load(Textures::Rest1, "Media/Textures/Player/Player1/Rest.png");
 	mTextures.load(Textures::Up1, "Media/Textures/Player/Player1/Up.png");
 	mTextures.load(Textures::Down1, "Media/Textures/Player/Player1/Down.png");
 	mTextures.load(Textures::Left1, "Media/Textures/Player/Player1/Left.png");
@@ -172,6 +177,7 @@ void Application::loadResources(){
 
     // Player2
     mTextures.load(Textures::Standing2, "Media/Textures/Player/Player2/Standing.png");
+    mTextures.load(Textures::Rest2, "Media/Textures/Player/Player2/Rest.png");
 	mTextures.load(Textures::Up2, "Media/Textures/Player/Player2/Up.png");
 	mTextures.load(Textures::Down2, "Media/Textures/Player/Player2/Down.png");
 	mTextures.load(Textures::Left2, "Media/Textures/Player/Player2/Left.png");
@@ -179,11 +185,28 @@ void Application::loadResources(){
     
     // Player3
     mTextures.load(Textures::Standing3, "Media/Textures/Player/Player3/Standing.png");
+    mTextures.load(Textures::Rest3, "Media/Textures/Player/Player3/Rest.png");
     mTextures.load(Textures::Up3, "Media/Textures/Player/Player3/Up.png");
     mTextures.load(Textures::Down3, "Media/Textures/Player/Player3/Down.png");
     mTextures.load(Textures::Left3, "Media/Textures/Player/Player3/Left.png");
     mTextures.load(Textures::Right3, "Media/Textures/Player/Player3/Right.png");
+    
+    // Player4
+    mTextures.load(Textures::Standing4, "Media/Textures/Player/Player4/Standing.png");
+    mTextures.load(Textures::Rest4, "Media/Textures/Player/Player4/Rest.png");
+    mTextures.load(Textures::Up4, "Media/Textures/Player/Player4/Up.png");
+    mTextures.load(Textures::Down4, "Media/Textures/Player/Player4/Down.png");
+    mTextures.load(Textures::Left4, "Media/Textures/Player/Player4/Left.png");
+    mTextures.load(Textures::Right4, "Media/Textures/Player/Player4/Right.png");
 
+    // Player5
+    mTextures.load(Textures::Standing5, "Media/Textures/Player/Player5/Standing.png");
+    mTextures.load(Textures::Rest5, "Media/Textures/Player/Player5/Rest.png");
+    mTextures.load(Textures::Up5, "Media/Textures/Player/Player5/Up.png");
+    mTextures.load(Textures::Down5, "Media/Textures/Player/Player5/Down.png");
+    mTextures.load(Textures::Left5, "Media/Textures/Player/Player5/Left.png");
+    mTextures.load(Textures::Right5, "Media/Textures/Player/Player5/Right.png");
+    
     // Road
     mTextures.load(Textures::Road, "Media/Textures/Road/Road.png");
 	mTextures.load(Textures::LavaRoad, "Media/Textures/Road/LavaRoad.png");

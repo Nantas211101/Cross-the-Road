@@ -17,8 +17,8 @@ public:
         Player1,
         Player2,
         Player3,
-        Sheep,
-        Mallard,
+        Player4,
+        Player5,
         TypeCount,
     };
 
@@ -27,15 +27,15 @@ public:
 private:
     virtual void        drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::FloatRect       getBoundingRect() const;
-    void                updateTexts();
     void                updateCurrent(sf::Time dt);
 
     void                makeStop();
+    void                setInLane();
 
     void                setOwnerShip(bool flag);
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, const FontHolder& fonts, int curLane, const std::vector<Lane*>& lanes);
+    explicit            MainChar(Type type, const TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
     explicit            MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
@@ -45,10 +45,10 @@ public:
     Textures::ID        getTextureID();
 
     int					getHitpoints() const;
+    int                 getMaxHP() const;
     void				heal(int points);
     void				damage(int points);
-    void				destroy();
-    virtual bool		isDestroyed() const;
+    bool	        	isDead() const;
     
     void                goUp();
     void                goDown();
@@ -57,50 +57,46 @@ public:
     void                stopMoving();
     bool                isStanding();
 
-    void                setInLane(const std::vector<Lane*>& lanes);
     void                resetState();
     int                 getCurLane();
-    void                backTolastLane();
-    sf::Vector2f        getLastPos();
-    void                alignChar();
+    void                backTolastPos();
     
     Type getMainCharType();
     int getThisMaskID();
     void setOwnerFlag(bool flag);
 
-    void setAnimationDown();
     void setCenterOriginMainChar();
-
-    // Ham de fix bug
-    void whatIsCurrentState();
 
 
 private:
     enum State {
-        Up,
         Down,
-        Right,
         Left,
+        Right,
+        Up,
         Standing,
+        Rest
     };
     Type mType;
     sf::Sprite mSprite;
-    bool ownerFlag;
-
-    TextNode* mHealthDisplay;
-    int mHP;
-
-    const int movingVelocity = 350;
     Animation upAnimation;
     Animation downAnimation;
     Animation leftAnimation;
     Animation rightAnimation;
+    Animation restAnimation;
+    Animation deathAnimation;
+    bool ownerFlag;
 
     State state;
+    std::vector<Lane*>* lanes;
 	sf::Vector2f lastPosSinceMoving;
     int curLane;
-    int prevLane;
-    // Animation deathAnimation;
+
+    int mHP;
+    int maxHP;
+    int movingVelocity;
+    sf::Clock timeSinceLastDamage;
+    const sf::Time damageGap = sf::seconds(1);
     // Animation healingAnimation;
     // Animation takingDamageAnimation;
 };
