@@ -89,12 +89,16 @@ namespace Textures
 		DecoFlower2,
 		DecoSnow1,
 		DecoIce1,
+		DeadSign,
 		Skullcap1,
 		Skullcap2,
         DecoRock1,
 		DecoRock2,
 		DecoFire1,
 		DecoFire2,
+		Gemstone1,
+		Gemstone2,
+		Gemstone3,
 		
 		// Player1
 		Standing1,

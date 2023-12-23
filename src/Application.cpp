@@ -265,4 +265,8 @@ void Application::loadResources(){
     mTextures.load(Textures::DecoStone, "Media/Textures/Decorator/DecoStone.png");
     mTextures.load(Textures::Skullcap1, "Media/Textures/Decorator/Skullcap1.png");
     mTextures.load(Textures::Skullcap2, "Media/Textures/Decorator/Skullcap2.png");
+    mTextures.load(Textures::DeadSign, "Media/Textures/Decorator/DeadSign.png");
+    mTextures.load(Textures::Gemstone1, "Media/Textures/Decorator/Gemstone1.png");
+    mTextures.load(Textures::Gemstone2, "Media/Textures/Decorator/Gemstone2.png");
+    mTextures.load(Textures::Gemstone3, "Media/Textures/Decorator/Gemstone3.png");
 }

@@ -286,7 +286,7 @@ std::vector<TrainData> initializeTrainData(){
     
     data[Train::Train2].speed = 1000.f;
     data[Train::Train2].texture = Textures::Train2;
-    data[Train::Train2].scaling = sf::Vector2f(0.8, 0.8);
+    data[Train::Train2].scaling = sf::Vector2f(0.8, 0.7);
     
     data[Train::Train3].speed = 800.f;
     data[Train::Train3].texture = Textures::Train3;
@@ -335,6 +335,22 @@ std::vector<DecoratorData> initializeDecoratorData() {
     data[Decorator::Skullcap2].speed = 0.f;
     data[Decorator::Skullcap2].texture = Textures::Skullcap2;
     data[Decorator::Skullcap2].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DeadSign].speed = 0.f;
+    data[Decorator::DeadSign].texture = Textures::DeadSign;
+    data[Decorator::DeadSign].scaling = sf::Vector2f(0.3, 0.3);
+
+    data[Decorator::Gemstone1].speed = 0.f;
+    data[Decorator::Gemstone1].texture = Textures::Gemstone1;
+    data[Decorator::Gemstone1].scaling = sf::Vector2f(0.2, 0.2);
+
+    data[Decorator::Gemstone2].speed = 0.f;
+    data[Decorator::Gemstone2].texture = Textures::Gemstone2;
+    data[Decorator::Gemstone2].scaling = sf::Vector2f(0.2, 0.2);
+
+    data[Decorator::Gemstone3].speed = 0.f;
+    data[Decorator::Gemstone3].texture = Textures::Gemstone3;
+    data[Decorator::Gemstone3].scaling = sf::Vector2f(0.2, 0.2);
     return data;
 }
 

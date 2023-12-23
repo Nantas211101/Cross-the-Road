@@ -31,7 +31,7 @@ void GroundTheme2::buildLane() {
     int numDecorators = dist2(gen2);
     Decorator::Type randType;
     for(int j = 0; j < numDecorators; j++) {
-        int randDeco = rand()%3;
+        int randDeco = rand()%7;
         switch (randDeco) {
             case 0:
                 randType = Decorator::DecoStone;
@@ -41,6 +41,18 @@ void GroundTheme2::buildLane() {
                 break;
             case 2:
                 randType = Decorator::Skullcap2;
+                break;
+            case 3:
+                randType = Decorator::DeadSign;
+                break;
+            case 4:
+                randType = Decorator::Gemstone1;
+                break;
+            case 5:
+                randType = Decorator::Gemstone2;
+                break;
+            case 6:
+                randType = Decorator::Gemstone3;
                 break;
         }
         std::unique_ptr<Decorator> decorator(new Decorator(randType, *textureHolder));
