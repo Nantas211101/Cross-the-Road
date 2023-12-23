@@ -42,6 +42,7 @@ namespace Textures
 		Road1,
 		LavaRoad,
 		SnowRoad,
+		IceRoad,
 		Soil,
 		Elephant,
 		Bird,
@@ -64,6 +65,8 @@ namespace Textures
         SuperCar,
 		YellowCar,
         OldCar,
+		IceCreamTruck,
+		SantaClaus,
 
 		// Railway
 		Railway,

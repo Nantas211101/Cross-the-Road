@@ -15,7 +15,7 @@ std::vector<LogData> initializeLogData() {
     data[Log::SnowLog].speed = 200.f;
     data[Log::SnowLog].distanceBetweenLog = 400;
     data[Log::SnowLog].texture = Textures::SnowLog;
-    data[Log::SnowLog].scaling = sf::Vector2f(0.5, 0.25);
+    data[Log::SnowLog].scaling = sf::Vector2f(1.0, 1.0);
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
@@ -274,6 +274,18 @@ std::vector<VehicleData> initializeVehicleData(){
     data[Vehicle::SuperCar].distanceBetweenVehicle = 1000;
     data[Vehicle::SuperCar].texture = Textures::SuperCar;
     data[Vehicle::SuperCar].scaling = sf::Vector2f(1.2,1.2);
+    
+    data[Vehicle::IceCreamTruck].dmg = 45;
+    data[Vehicle::IceCreamTruck].speed = 500.f;
+    data[Vehicle::IceCreamTruck].distanceBetweenVehicle = 950;
+    data[Vehicle::IceCreamTruck].texture = Textures::IceCreamTruck;
+    data[Vehicle::IceCreamTruck].scaling = sf::Vector2f(0.5,0.5);
+
+    data[Vehicle::SantaClaus].dmg = 30;
+    data[Vehicle::SantaClaus].speed = 350.f;
+    data[Vehicle::SantaClaus].distanceBetweenVehicle = 700;
+    data[Vehicle::SantaClaus].texture = Textures::SantaClaus;
+    data[Vehicle::SantaClaus].scaling = sf::Vector2f(0.55,0.55);
 
     return data;
 }

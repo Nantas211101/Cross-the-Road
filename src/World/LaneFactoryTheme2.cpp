@@ -10,7 +10,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::randomTemplateLane() {
     std::uniform_int_distribution<int> dist(1, 6);
     int random = dist(gen);
     lanes.clear();
-    switch(1) {
+    switch(random) {
     case 1:
         templateLane1();
         break;
@@ -30,8 +30,8 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::randomTemplateLane() {
         templateLane6();
         break;
     }
-    templateFinishLevel(1);
-    templateFinishTheme(1);
+    //templateFinishLevel(1);
+    //templateFinishTheme(1);
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));

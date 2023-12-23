@@ -6,8 +6,8 @@ typeRoad(typeRoad)
 {
     switch (this->typeRoad){
         case RoadTheme3::AnimalRoad:
-            textureHolder->get(Textures::Soil).setRepeated(true);
-            sprite.setTexture(textureHolder->get(Textures::Soil));
+            textureHolder->get(Textures::IceRoad).setRepeated(true);
+            sprite.setTexture(textureHolder->get(Textures::IceRoad));
             break;
         case RoadTheme3::VehicleRoad:
             textureHolder->get(Textures::SnowRoad).setRepeated(true);
@@ -47,7 +47,7 @@ void RoadTheme3::generateAnimal(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 2);
+    std::uniform_int_distribution<int> dist(2, 2);
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
 
@@ -84,34 +84,16 @@ void RoadTheme3::generateVehicle(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 8);
+    std::uniform_int_distribution<int> dist(1, 2);
     int randomKindVehicle = dist(gen);
     Vehicle::Type kind; 
 
     switch(randomKindVehicle) {
     case 1:
-        kind = Vehicle::Truck;
+        kind = Vehicle::IceCreamTruck;
         break;
     case 2:
-        kind = Vehicle::SmallCar;
-        break;
-    case 3:
-        kind = Vehicle::BlueCar;
-        break;
-    case 4:
-        kind = Vehicle::Ambulance;
-        break;
-    case 5:
-        kind = Vehicle::PoliceCar;
-        break;
-    case 6:
-        kind = Vehicle::YellowCar;
-        break;
-    case 7:
-        kind = Vehicle::OldCar;
-        break;
-    case 8:
-        kind = Vehicle::SuperCar;
+        kind = Vehicle::SantaClaus;
         break;
     }
 

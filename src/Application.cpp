@@ -190,6 +190,7 @@ void Application::loadResources(){
     mTextures.load(Textures::SnowRoad, "Media/Textures/Road/SnowRoad.png");
 	mTextures.load(Textures::Road1, "Media/Textures/Road/Road1.png");
 	mTextures.load(Textures::Soil, "Media/Textures/Road/Soil.png");
+    mTextures.load(Textures::IceRoad, "Media/Textures/Road/IceRoad.png");
 
     mTextures.load(Textures::Elephant, "Media/Textures/Animal/Elephant.png");
     mTextures.load(Textures::Rhinoceros, "Media/Textures/Animal/Rhinoceros.png");
@@ -211,6 +212,8 @@ void Application::loadResources(){
     mTextures.load(Textures::YellowCar, "Media/Textures/Vehicle/YellowCar.png");
     mTextures.load(Textures::OldCar, "Media/Textures/Vehicle/OldCar.png");
     mTextures.load(Textures::SuperCar, "Media/Textures/Vehicle/SuperCar.png");
+    mTextures.load(Textures::IceCreamTruck, "Media/Textures/Vehicle/IceCreamTruck.png");
+    mTextures.load(Textures::SantaClaus, "Media/Textures/Vehicle/SantaClaus.png");
 
 	// River
 	mTextures.load(Textures::Log, "Media/Textures/River/Log.png");

@@ -163,7 +163,7 @@ void World::buildScene(MainChar::Type id)
 	mSceneLayers[Title]->setReverse();
 	LaneFactoryTheme3 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
-	for(int i = 0; i < 10; i++) {
+	for(int i = 0; i < 60; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;
 		if(i == 0){
 			randLanes = laneFactory.templateStartLane();
