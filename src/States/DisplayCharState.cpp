@@ -153,7 +153,6 @@ void DisplayCharState::createMainChar(){
     mPlayer->setScale(scaleCharacte, scaleCharacte);
     mSceneLayers[Moving]->attachChild(std::move(leader));
 
-    std::cerr << Table[getContext().player->getMainCharID()].name << std::endl;
     std::unique_ptr<TextNode> text(new TextNode(*getContext().fonts, Table[getContext().player->getMainCharID()].name));
     mTextMove = text.get();
     mPlayer->attachChild(std::move(text));

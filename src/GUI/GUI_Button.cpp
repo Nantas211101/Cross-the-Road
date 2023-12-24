@@ -28,7 +28,7 @@ Button::Button(State::Context context, Textures::ID id)
 Button::Button(State::Context context, Textures::ID id1, Textures::ID id2)
 : mCallback()
 , mNormalTexture(context.textures->get(id1))
-, mSelectedTexture(context.textures->get(id1))
+, mSelectedTexture(context.textures->get(id2))
 , mPressedTexture(context.textures->get(id2))
 , mSprite()
 , mText("", context.fonts->get(Fonts::Main), 100)
@@ -40,6 +40,23 @@ Button::Button(State::Context context, Textures::ID id1, Textures::ID id2)
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 }
+
+Button::Button(State::Context context, Textures::ID id1, Textures::ID id2, Textures::ID id3)
+: mCallback()
+, mNormalTexture(context.textures->get(id1))
+, mSelectedTexture(context.textures->get(id2))
+, mPressedTexture(context.textures->get(id3))
+, mSprite()
+, mText("", context.fonts->get(Fonts::Main), 100)
+, mIsToggle(false)
+, mIsToggleRelease(false)
+, mIsOnlyOneTexture(false)
+, mSounds(*context.sounds)
+{
+	mSprite.setTexture(mNormalTexture);
+	sf::FloatRect bounds = mSprite.getGlobalBounds();
+}
+
 
 Button::Button(State::Context context)
 : mCallback()

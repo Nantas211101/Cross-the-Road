@@ -33,9 +33,9 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 , currentSound(mSounds.getVolume() / 10 - 1)
 {
     
-    mBackground.setFillColor(sf::Color(0, 0, 0, 255));
-    mBackground.setSize(sf::Vector2f(context.window->getSize()));
-	// mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
+    // mBackground.setFillColor(sf::Color(0, 0, 0, 255));
+    // mBackground.setSize(sf::Vector2f(context.window->getSize()));
+	mBackgroundSprite.setTexture(context.textures->get(Textures::SettingScreen));
 	
 	sf::Vector2f pos = context.window->getView().getSize();
 	// Build key binding buttons and labels
@@ -72,8 +72,8 @@ void SettingsState::draw()
 	sf::RenderWindow& window = *getContext().window;
 
 	window.setView(window.getDefaultView());
-	// window.draw(mBackgroundSprite);
-    window.draw(mBackground);
+	window.draw(mBackgroundSprite);
+    // window.draw(mBackground);
 	window.draw(mGUIContainer);
     for(sf::Text tmp : textHold)
         window.draw(tmp);

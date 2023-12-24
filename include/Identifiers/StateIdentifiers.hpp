@@ -14,5 +14,9 @@ namespace States{
         Register,
         ConfirmRegister,
         DisplayCharState,
+        GameOver,
+        ChooseWorldState,
+        ChooseLevelState,
+        Victory,
     };
 }

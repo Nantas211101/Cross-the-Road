@@ -65,7 +65,7 @@ LoginState::LoginState(StateStack &stack, Context context)
     });
 
     setCenterOrigin(errorText);
-    errorText.setPosition(pos.x, pos.y + 300.f);
+    errorText.setPosition(pos.x, pos.y + 200.f);
     errorText.setFillColor(sf::Color::Red);
 
     auto visibility = std::make_shared<GUI::StateButton>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
@@ -86,6 +86,7 @@ LoginState::LoginState(StateStack &stack, Context context)
     auto Login = std::make_shared<GUI::Button>(context, Textures::LoginButton);
     Login->centerOrigin();
     Login->setPosition(canvaPosition::loginButtonPos);
+    Login->setScale(0.8f, 0.8f);
     // Login->setFlagSelection(false);
     // Login->setColor(sf::Color(96, 130, 182, 200));
     Login->setCallback([this](){
@@ -97,6 +98,8 @@ LoginState::LoginState(StateStack &stack, Context context)
     mGUIContainerInputButton.pack(username);
     mGUIContainerInputButton.pack(password);
     mGUIContainerVisibility.pack(visibility);
+    
+    context.music->play(Music::MenuTheme);
 }
 
 void LoginState::draw()

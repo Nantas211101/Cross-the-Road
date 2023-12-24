@@ -82,7 +82,8 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 	backButton->centerOrigin();
 	backButton->setPosition(canvaPosition::backButtonPos);
 	backButton->setCallback([this, context](){
-		BackToMenu();
+		requestStackPop();
+		requestStackPush(States::ChooseLevelState);
 	});
 
 	auto displayCharButton = std::make_shared<GUI::Button>(context, Textures::InfoButton);
@@ -411,10 +412,6 @@ void ChooseCharState::updateCharID(){
 	getContext().player->setMainCharID(tmp->getMainCharType());
 }
 
-void ChooseCharState::BackToMenu(){
-	requestStackPop();
-	requestStackPush(States::Menu);
-}
 
 void ChooseCharState::callError(const std::string& error)
 {

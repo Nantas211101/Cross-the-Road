@@ -7,12 +7,6 @@
 #include <StateIdentifiers.hpp>
 #include <SoundPlayer.hpp>
 
-// const std::string Path_MenuScreen = "resource/Textures/Menu.jpg";
-// const std::string Path_WhiteBackground = "resource/Textures/WhiteBackground.jpg";
-// const std::string Path_ButtonNormal = "resource/Textures/ButtonNormal.png";
-// const std::string Path_ButtonSelected = "resource/Textures/ButtonSelected.png";
-// const std::string Path_ButtonPressed = "resource/Textures/ButtonPressed.png";
-
 class Application{
 
 public:
@@ -40,6 +34,9 @@ private:
     
     MusicPlayer             mMusic;
     SoundPlayer             mSound;
+    int                     theme;
+    int                     limitLevel;
+    int                     curLevel;
     StateStack				mStateStack;
 
     sf::Text				mStayText;

@@ -14,7 +14,8 @@ class State{
     public:
         typedef std::unique_ptr<State> S_Ptr;
         struct Context{
-            Context(sf::RenderWindow &window, TextureHolder &textures, FontHolder &fonts, Player& player, MusicPlayer& music, SoundPlayer& sound);
+            Context(sf::RenderWindow &window, TextureHolder &textures, FontHolder &fonts,
+            Player& player, MusicPlayer& music, SoundPlayer& sound, int& Theme, int& limitLevel, int& currentLevel);
             
             sf::RenderWindow* window;
             TextureHolder* textures;
@@ -22,6 +23,9 @@ class State{
             Player* player;
             MusicPlayer* music;
             SoundPlayer* sounds;
+            int* theme;
+            int* limitLevel;
+            int* currentLevel;
 
         };
     

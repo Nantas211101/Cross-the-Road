@@ -22,4 +22,5 @@ class MusicPlayer : private sf::NonCopyable
         // The sf::Music object have to be alive if we want the music be playe normarly
 		std::map<Music::ID, std::string>	mFilenames;
 		float								mVolume;
+		Music::ID 							mCurrentTheme;
 };

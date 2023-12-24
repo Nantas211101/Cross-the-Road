@@ -127,6 +127,7 @@ RegisterState::RegisterState(StateStack &stack, Context context)
     auto registerButton = std::make_shared<GUI::Button>(context, Textures::RegisterAccept);
     registerButton->centerOrigin();
     registerButton->setPosition(canvaPosition::registerAcceptButtonPos);
+    registerButton->setScale(0.8f, 0.8f);
     registerButton->setCallback([this](){
         registerAccount();
     });
@@ -146,6 +147,8 @@ RegisterState::RegisterState(StateStack &stack, Context context)
     mGUIContainer.pack(backButton);
     mGUIContainerVisibility.pack(visibility1);
     mGUIContainerVisibility.pack(visibility2);
+
+    context.music->play(Music::MenuTheme);
 }
 
 void RegisterState::draw()

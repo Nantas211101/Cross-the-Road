@@ -25,7 +25,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	playButton->setCallback([this] ()
 	{
 		requestStackPop();
-        requestStackPush(States::ChooseChar);
+        requestStackPush(States::ChooseWorldState);
     });
 
 	auto settingsButton = std::make_shared<GUI::Button>(context, Textures::SettingButton);
@@ -59,6 +59,8 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(exitButton);
 
     buildScene();
+
+    context.music->play(Music::MenuTheme);
 }
 
 void MenuState::draw()
@@ -72,6 +74,7 @@ void MenuState::draw()
 
 bool MenuState::update(sf::Time dt)
 {
+    mGUIContainer.update(dt);
     return true;
 }
 

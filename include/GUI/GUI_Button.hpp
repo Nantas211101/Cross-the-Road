@@ -25,6 +25,7 @@ public:
 public:
     Button(State::Context context, Textures::ID id);
     Button(State::Context context, Textures::ID id1, Textures::ID id2);
+    Button(State::Context context, Textures::ID id1, Textures::ID id2, Textures::ID id3);
     Button(State::Context context);
     void setCallback(Callback callback);
     void setText(const std::string& text, int size = 100);

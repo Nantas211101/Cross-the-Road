@@ -3,6 +3,8 @@
 #include "State.hpp"
 #include "World.hpp"
 #include "Player.hpp"
+#include <GUI_ContainerSet.hpp>
+#include <GUI_Button.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -21,4 +23,7 @@ class GameState : public State
 	private:
 		World				mWorld;
 		Player&				mPlayer;
+		GUI::ContainerSet	mGUIContainer;
+		GUI::Button::Ptr 	mPauseButton;
+		sf::RectangleShape 	mBackground;
 };
