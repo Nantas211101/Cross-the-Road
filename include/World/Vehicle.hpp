@@ -17,6 +17,8 @@ public:
       PoliceCar,
       SuperCar,
       OldCar,
+      IceCreamTruck,
+      SantaClaus,
       TypeCount
    };
    

@@ -15,20 +15,9 @@ RoadTheme2::RoadTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool
 void RoadTheme2::buildLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(0, 1);
+    std::uniform_int_distribution<int> dist(1, 1);
     typeRoad = dist(gen);
-
-    switch (typeRoad){
-        case 0:
-            generateVehicle();
-            break;
-        case 1:
-            generateAnimal();
-            break;
-        default:
-            break;
-    }
-
+    generateAnimal();
     firstObjectIndex = 0;
     lastObjectIndex = numOfObject - 1;
 }
@@ -57,8 +46,6 @@ void RoadTheme2::generateAnimal(){
     case 4:
         kind = Animal::Monster1;
         break;
-    default:
-        break;
     }
     std::uniform_int_distribution<int> dist2(0, 199);
     int randSpawnPos = dist2(gen);
@@ -73,7 +60,7 @@ void RoadTheme2::generateAnimal(){
             animal->setVelocity(-1.0 * TableAnimal[kind].speed, 0);
             animal->scale(-TableAnimal[kind].scaling.x,TableAnimal[kind].scaling.y);
         }
-        animal->setPosition(startPos.x + randSpawnPos + distance, startPos.y - 25);
+        animal->setPosition(randSpawnPos + distance, -20);
         distance += TableAnimal[kind].distanceBetweenAnimal;
         animals.push_back(animal.get());
         this->attachChild(std::move(animal));
@@ -151,12 +138,12 @@ void RoadTheme2::updateCurrent(sf::Time dt){
             break;
         case 1:
             if(!this->isReverse() && animals[firstObjectIndex]->getPosition().x >= 0) {
-                animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, startPos.y);
+                animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, -20);
                 firstObjectIndex = lastObjectIndex;
                 lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
             }
             if(this->isReverse() && animals[lastObjectIndex]->getPosition().x <= 2500) {
-                animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, startPos.y);
+                animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, -20);
                 lastObjectIndex = firstObjectIndex;
                 firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
             }

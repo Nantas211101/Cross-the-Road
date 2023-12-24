@@ -30,6 +30,8 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::randomTemplateLane() {
         templateLane6();
         break;
     }
+    //templateFinishLevel(1);
+    //templateFinishTheme(1);
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
@@ -51,6 +53,15 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::templateStartLane(){
         randLanes.push_back(std::move(x));
     }
     return randLanes;
+}
+
+void LaneFactoryTheme2::templateFinishTheme(int num){
+    for(int i = 0; i < num; i++) {
+        std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, FinishLane::Theme2));
+        lane->setPosition(startPos);
+        startPos.y -= Lane::distanceBetweenLane * 8;
+        lanes.push_back(std::move(lane));
+    }
 }
 
 void LaneFactoryTheme2::templateGround(int num) {
@@ -87,7 +98,7 @@ void LaneFactoryTheme2::templateAnimalRoad(int num) {
 void LaneFactoryTheme2::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
         std::unique_ptr<Lane> lane(new RiverTheme2(textureHolder, startPos));
-        lane->setPosition(startPos);
+        lane->setPosition(0,startPos.y);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
@@ -95,7 +106,7 @@ void LaneFactoryTheme2::templateRiver(int num) {
 
 void LaneFactoryTheme2::templateRailway(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos));
+        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos, Railway::LavaTrain));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

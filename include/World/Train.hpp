@@ -11,9 +11,10 @@ class Train : public Entity {
     public:
         enum Type{
             Train1,
-            Train2,
-            Train3,
-            Train4,
+            SnowTrain,
+            WoodTrain,
+            LavaTrain,
+            SantaTrain,
             TypeCount
         };
 
