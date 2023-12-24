@@ -378,7 +378,7 @@ int convertToMaskID(MainChar::Type type)
         case MainChar::Player4:
             return Mask(3);
         case MainChar::Player5:
-            return Mask(0);
+            return Mask(4);
     }
     return 0;
 }

@@ -30,7 +30,6 @@ private:
     
     sf::Sprite mBackground;
 
-    sf::Text mText;
     sf::Text errorText;
     std::string mTextUsername;
     std::string mTextPassword;

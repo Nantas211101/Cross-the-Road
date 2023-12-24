@@ -38,7 +38,6 @@ private:
     GUI::Container mGUIContainerVisibility;
     sf::Sprite mBackground;
 
-    sf::Text mText;
     sf::Text errorText;
     sf::Text errorTextUsername;
     sf::Text errorTextPassword;

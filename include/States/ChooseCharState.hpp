@@ -33,7 +33,6 @@ private:
 
 private:
     void PlayGame();
-    void BackToLogin();
 
     void callError(const std::string& error);
 
@@ -49,7 +48,6 @@ private:
     };
 
 private:
-    sf::Text mText;
     sf::View mWorldView;
 
     SceneNode mSceneGraph;

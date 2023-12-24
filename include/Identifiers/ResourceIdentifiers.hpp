@@ -157,6 +157,8 @@ namespace Textures
 		background,
         TitleScreen,
         ChooseCharScreen,
+		SettingScreen,
+		MenuScreen,
         RightButton,
         LeftButton,
         ButtonNormal,
@@ -167,11 +169,79 @@ namespace Textures
         RegisterBG,
         VisiblePassword,
         InvisiblePassword,
-        backButton,
         displayButton,
+
+		// Special button
+		PlayButton,
+		SettingButton,
+		ExitButton,
+		LogoutButton,
+		RegisterButton,
+		InputButton,
+		LoginButton,
+		AcceptButton, 
+		InfoButton,
+		BackButton,
+		RegisterAccept,
         
         Heart,
         Thunder,
+
+		// Choose World 
+		World1,
+		World2,
+		World3,
+
+		ChooseWorldScreen,
+
+		// Choose Level Screen
+		Theme1Screen,
+		Theme2Screen,
+		Theme3Screen,
+
+		// Theme 1 button
+		Theme1NormalButton,
+		Theme1SelectedButton,
+		Theme1BackButton,
+
+		// Theme 2 button
+		Theme2NormalButton,
+		Theme2SelectedButton,
+		Theme2BackButton,
+
+		// Theme 3 button
+		Theme3NormalButton,
+		Theme3SelectedButton,
+		Theme3BackButton,
+
+		// Level Texture
+		Level1,
+		Level2,
+		Level3,
+		Level4,
+		Level5,
+
+		// Victory State		
+		VictoryIcon,
+		VictoryPlayAgainButton,
+		VictoryNextLevelButton,
+		VictoryBackToMenuButton,
+
+		// GameOver State
+		GameOverBG,
+		GameOverMenuButton,
+		GameOverPlayAgainButton,
+
+		// Pause State
+		PauseBG,
+		PauseResumeButton,
+		PauseMenuButton,
+		PauseSettingsButton,
+
+		// Support Pause Button
+		NormalPauseButton,
+		PressedPauseButton,
+
 	};
 }
 namespace Fonts
@@ -185,6 +255,7 @@ namespace Fonts
 
 namespace Music{
     enum ID{
+		None,
         MenuTheme,
         ChooseCharTheme,
         GameTheme1,

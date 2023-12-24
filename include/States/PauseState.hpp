@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "State.hpp"
 #include "StateStack.hpp"
+#include <GUI_ContainerSET.hpp>
 
 const std::string Paused_text = "World Stopbu";
 const std::string Instruction_text = "(Press Backspace to return to the menu)\n(Press Escape to return to the game)\n(Press Space to turn on settings)";
@@ -17,6 +18,6 @@ class PauseState : public State{
 
     private:
         sf::RectangleShape mBackground;
-        sf::Text mPausedText;
-        sf::Text mInstructionText;
+        sf::Sprite mPausedSprite;
+        GUI::ContainerSet mGUIContainer;
 };

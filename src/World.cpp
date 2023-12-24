@@ -17,6 +17,7 @@ World::World(State::Context context)
 , boundHealthBar(nullptr)
 , healthBar(nullptr)
 , mHealthDisplay(nullptr)
+, mContext(context)
 {
 	buildScene(context.player->getMainCharID());
 	// Prepare the view
@@ -158,6 +159,7 @@ void World::buildScene(MainChar::Type id)
 		mSceneGraph.attachChild(std::move(layer));
 	}
 	mSceneLayers[Title]->setReverse();
+
 	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 60; i++) {

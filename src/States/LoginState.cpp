@@ -9,7 +9,14 @@
 
 #include <fstream>
 
-const std::string Main_text = "Login to your account";
+namespace canvaPosition{
+    const sf::Vector2f usernamePos = sf::Vector2f(850, 435);
+    const sf::Vector2f passwordPos = sf::Vector2f(850, 608);
+    const sf::Vector2f visibilityButtonPos = sf::Vector2f(passwordPos.x + 300.f, passwordPos.y);
+    const sf::Vector2f loginButtonPos = sf::Vector2f(1412.5, 816);
+    const sf::Vector2f registerButtonPos = sf::Vector2f(220, 816);
+}
+
 const std::string Error_Wrong_Information = "Wrong username or password!\n Please try again!";
 const std::string Error_Account_Not_Exist = "Account does not exist!\n Please try again!";
 const std::string Error_Not_Fill_Enough = "Please fill in all the information!";
@@ -21,7 +28,6 @@ LoginState::LoginState(StateStack &stack, Context context)
 , mGUIContainer()
 , mGUIContainerVisibility()
 , mBackground()
-, mText(Main_text, context.fonts->get(Fonts::Main), 75)
 , errorText("", context.fonts->get(Fonts::Main), 50)
 , mTextUsername()
 , mTextPassword()
@@ -30,50 +36,41 @@ LoginState::LoginState(StateStack &stack, Context context)
     sf::Vector2f pos = context.window->getView().getCenter();
     mBackground.setTexture(context.textures->get(Textures::LoginBG));
     mBackground.setPosition(0, 0);
-    setCenterOrigin(mText);
-    mText.setPosition({pos.x, 100.f});
-    mText.setFillColor(sf::Color::White);
 
-    auto username = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Username");
+    auto username = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, Textures::InputButton, "Username");
     username->centerOrigin();
-    username->setScale(0.5, 0.5);
-    username->setPosition(pos.x, pos.y - 150);
+    username->setPosition(canvaPosition::usernamePos);
     username->setToggle(true);
-    username->setColor(sf::Color(96, 130, 182, 200));
+    // username->setColor(sf::Color(96, 130, 182, 200));
     username->setCallback([this](std::string st){
         mTextUsername = st;
     });
 
-    auto password = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, "Password");
+    auto password = std::make_shared<GUI::InputButton>(*context.fonts, *context.textures, Textures::InputButton,"Password");
     password->centerOrigin();
-    password->setScale(0.5, 0.5);
-    password->setPosition(pos.x, pos.y + 150);
+    password->setPosition(canvaPosition::passwordPos);
     password->setToggle(true);
-    password->setColor(sf::Color(96, 130, 182, 200));
+    // password->setColor(sf::Color(96, 130, 182, 200));
     password->setFlagHidden(true);
     password->setCallback([this](std::string st){
         mTextPassword = st;
     });
 
-    auto registerButton = std::make_shared<GUI::Button>(context);
+    auto registerButton = std::make_shared<GUI::Button>(context, Textures::RegisterButton);
     registerButton->centerOrigin();
-    registerButton->setScale(0.5, 0.5);
-    registerButton->setPosition(pos.x - 700.f, pos.y + 351.f);
-    registerButton->setText("Register");
-    // registerButton->setToggle(true);
-    registerButton->setColor(sf::Color(96, 130, 182, 200));
+    registerButton->setPosition(canvaPosition::registerButtonPos);
     registerButton->setCallback([this](){
         requestStackPop();
         requestStackPush(States::Register);
     });
 
     setCenterOrigin(errorText);
-    errorText.setPosition(pos.x, pos.y + 300.f);
+    errorText.setPosition(pos.x, pos.y + 200.f);
     errorText.setFillColor(sf::Color::Red);
 
     auto visibility = std::make_shared<GUI::StateButton>(*context.fonts, *context.textures, Textures::InvisiblePassword, Textures::VisiblePassword);
     visibility->centerOrigin();
-    visibility->setPosition(pos.x + 400.f, pos.y + 150.f);
+    visibility->setPosition(canvaPosition::visibilityButtonPos);
     visibility->setColor(sf::Color(96, 130, 182, 200)); 
     visibility->setCallback([this, password](){
         if(isFocus){
@@ -86,20 +83,14 @@ LoginState::LoginState(StateStack &stack, Context context)
         }
     });
 
-    // auto label = std::make_shared<GUI::Label>("", *context.fonts);
-    // label->setPosition(pos.x + 400.f, pos.y + 175.5);
-    // label->setColor(sf::Color::White);
-
-    auto Login = std::make_shared<GUI::Button>(context);
+    auto Login = std::make_shared<GUI::Button>(context, Textures::LoginButton);
     Login->centerOrigin();
-    Login->setScale(0.5, 0.5);
-    Login->setPosition(pos.x + 700.f, pos.y + 351.f);
-    Login->setText("Login");
-    Login->setColor(sf::Color(96, 130, 182, 200));
+    Login->setPosition(canvaPosition::loginButtonPos);
+    Login->setScale(0.8f, 0.8f);
+    // Login->setFlagSelection(false);
+    // Login->setColor(sf::Color(96, 130, 182, 200));
     Login->setCallback([this](){
         loginSolver();
-        // requestStackPop();
-        // requestStackPush(States::ChooseChar);
     });
 
     mGUIContainer.pack(Login);
@@ -107,6 +98,8 @@ LoginState::LoginState(StateStack &stack, Context context)
     mGUIContainerInputButton.pack(username);
     mGUIContainerInputButton.pack(password);
     mGUIContainerVisibility.pack(visibility);
+    
+    context.music->play(Music::MenuTheme);
 }
 
 void LoginState::draw()
@@ -119,7 +112,6 @@ void LoginState::draw()
     window.draw(mGUIContainer);
     window.draw(mGUIContainerInputButton);
     window.draw(mGUIContainerVisibility);
-    window.draw(mText);
     window.draw(errorText);
 }
 

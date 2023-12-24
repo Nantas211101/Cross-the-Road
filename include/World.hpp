@@ -70,4 +70,5 @@ class World : private sf::NonCopyable
 		SpriteNode*							boundHealthBar;
 		SpriteNode*							healthBar;
     	TextNode* 							mHealthDisplay;
+		State::Context 						mContext;
 };

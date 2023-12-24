@@ -13,7 +13,9 @@ class TextNode : public SceneNode
 		explicit			TextNode(const FontHolder& fonts, const std::string& text);
 
 		void				setString(const std::string& text);
-
+		void 				setFillColor(sf::Color color);
+		void 				setCharacterSize(int size);
+		void 				setRelativePosition(sf::Vector2f pos);
 
 	private:
 		virtual void		drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -21,4 +23,5 @@ class TextNode : public SceneNode
 
 	private:
 		sf::Text			mText;
+		sf::Vector2f 		mPosition;
 };

@@ -85,6 +85,7 @@ struct CharData {
 	static const int MaxHitpoints = 300;
 	static const int MaxSpeed = 300;
 	int scaling;
+	std::string name;
 };
 
 

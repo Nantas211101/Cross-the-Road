@@ -40,24 +40,24 @@ void ContainerSet::handleEvent(const sf::Event& event)
 	{
 		mChildren[mSelectedChild]->handleEvent(event);
 	}
-	else if (event.type == sf::Event::KeyReleased)
-	{
-		if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
-		{
-			isSelectByMouse = false;
-			selectPrev();
-		}
-		else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
-		{
-			isSelectByMouse = false;
-			selectNext();
-		}
-		else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
-		{
-			if (hasSelection())
-				mChildren[mSelectedChild]->activate();
-		}
-	}
+	// else if (event.type == sf::Event::KeyReleased)
+	// {
+	// 	if (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up)
+	// 	{
+	// 		isSelectByMouse = false;
+	// 		selectPrev();
+	// 	}
+	// 	else if (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down)
+	// 	{
+	// 		isSelectByMouse = false;
+	// 		selectNext();
+	// 	}
+	// 	else if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
+	// 	{
+	// 		if (hasSelection())
+	// 			mChildren[mSelectedChild]->activate();
+	// 	}
+	// }
 	isJustStart = 0;
 }
 

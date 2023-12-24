@@ -2,7 +2,8 @@
 #include "StateStack.hpp"
 
 State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
-                        Player& player, MusicPlayer& music, SoundPlayer& sound)
+                        Player& player, MusicPlayer& music, SoundPlayer& sound, int& Theme,
+                        int& limitLevel, int& currentLevel)
 : window(&window) // using & because the variable is a pointer (pointer
                     // save address)
 , textures(&textures)
@@ -10,6 +11,9 @@ State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontH
 , player(&player)
 , music(&music)
 , sounds(&sound)
+, theme(&Theme)
+, limitLevel(&limitLevel)
+, currentLevel(&currentLevel)
 {
     
 }

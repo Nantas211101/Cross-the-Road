@@ -28,7 +28,7 @@ Button::Button(State::Context context, Textures::ID id)
 Button::Button(State::Context context, Textures::ID id1, Textures::ID id2)
 : mCallback()
 , mNormalTexture(context.textures->get(id1))
-, mSelectedTexture(context.textures->get(id1))
+, mSelectedTexture(context.textures->get(id2))
 , mPressedTexture(context.textures->get(id2))
 , mSprite()
 , mText("", context.fonts->get(Fonts::Main), 100)
@@ -40,6 +40,23 @@ Button::Button(State::Context context, Textures::ID id1, Textures::ID id2)
 	mSprite.setTexture(mNormalTexture);
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 }
+
+Button::Button(State::Context context, Textures::ID id1, Textures::ID id2, Textures::ID id3)
+: mCallback()
+, mNormalTexture(context.textures->get(id1))
+, mSelectedTexture(context.textures->get(id2))
+, mPressedTexture(context.textures->get(id3))
+, mSprite()
+, mText("", context.fonts->get(Fonts::Main), 100)
+, mIsToggle(false)
+, mIsToggleRelease(false)
+, mIsOnlyOneTexture(false)
+, mSounds(*context.sounds)
+{
+	mSprite.setTexture(mNormalTexture);
+	sf::FloatRect bounds = mSprite.getGlobalBounds();
+}
+
 
 Button::Button(State::Context context)
 : mCallback()
@@ -72,7 +89,7 @@ void Button::setText(const std::string& text, int size)
 	mText.setString(text);
 	mText.setCharacterSize(size);
 	setCenterOrigin(mText);
-	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f);
+	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f - 38.f * size / 100.f);
 }
 
 void Button::setToggle(bool flag)
@@ -125,7 +142,7 @@ void Button::select()
 	Component::select();
 	mScale = getScale();
 	if(mIsOnlyOneTexture){
-		setScale(mScale.x * 1.2 , mScale.y * 1.2);
+		setScale(mScale.x * 1.1 , mScale.y * 1.1);
 		mScale = getScale();
 	}
 	mSprite.setTexture(mSelectedTexture);
@@ -136,7 +153,7 @@ void Button::deselect()
 {
 	Component::deselect();
 	if(mIsOnlyOneTexture){
-		setScale(mScale.x / 1.2 , mScale.y / 1.2);
+		setScale(mScale.x / 1.1 , mScale.y / 1.1);
 		mScale = getScale();
 	}
 	mSprite.setTexture(mNormalTexture);
@@ -192,6 +209,10 @@ sf::Vector2f Button::getSize() const{
 	sf::FloatRect bounds = mSprite.getGlobalBounds();
 	sf::Vector2f mScale = getScale();
 	return sf::Vector2f(bounds.width * mScale.x, bounds.height * mScale.y);
+}
+
+void Button::setFlagSelection(bool flag){
+	mIsOnlyOneTexture = flag;
 }
 
 }

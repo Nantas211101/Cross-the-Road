@@ -4,6 +4,7 @@ MusicPlayer::MusicPlayer()
 : mMusic()
 , mFilenames()
 , mVolume(100.f)
+, mCurrentTheme(Music::None)
 {
     mFilenames[Music::MenuTheme] = "Media/Music/MenuTheme.ogg";
     mFilenames[Music::ChooseCharTheme] = "Media/Music/ChooseCharTheme.ogg";
@@ -11,6 +12,11 @@ MusicPlayer::MusicPlayer()
 
 void MusicPlayer::play(Music::ID theme)
 {
+    if(theme == mCurrentTheme)
+        return;
+
+    mCurrentTheme = theme;
+    
     std::string filename = mFilenames[theme];
 
     if(!mMusic.openFromFile(filename))
@@ -36,5 +42,16 @@ void MusicPlayer::setPaused(bool paused)
 
 void MusicPlayer::setVolume(float volume)
 {
+    setImmediateVolume(volume);
     mVolume = volume;
+}
+
+void MusicPlayer::setImmediateVolume(float volume)
+{
+    mMusic.setVolume(volume);
+}
+
+float MusicPlayer::getVolume() const
+{
+    return mVolume;
 }

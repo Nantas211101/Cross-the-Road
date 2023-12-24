@@ -138,6 +138,12 @@ void centerOrigin(Animation& animation)
 	animation.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
 }
 
+void centerOrigin(sf::RectangleShape& rectangle)
+{
+	sf::FloatRect bounds = rectangle.getLocalBounds();
+	rectangle.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+}
+
 float length(sf::Vector2f vector)
 {
 	return std::sqrt(vector.x * vector.x + vector.y * vector.y);

@@ -1,21 +1,26 @@
-#include "Application.hpp"
+#include <Application.hpp>
 
 // Include all the state
-#include "TitleState.hpp"
-#include "MenuState.hpp"
-#include "ChooseCharState.hpp"
-#include "PauseState.hpp"
-#include "GameState.hpp"
-#include "SettingsState.hpp"
-#include "LoginState.hpp"
-#include "RegisterState.hpp"
-#include "ConfirmRegisterState.hpp"
-#include "DisplayCharState.hpp"
+#include <TitleState.hpp>
+#include <MenuState.hpp>
+#include <ChooseCharState.hpp>
+#include <PauseState.hpp>
+#include <GameState.hpp>
+#include <SettingsState.hpp>
+#include <LoginState.hpp>
+#include <RegisterState.hpp>
+#include <ConfirmRegisterState.hpp>
+#include <DisplayCharState.hpp>
+#include <GameOverState.hpp>
+#include <ChooseWorldState.hpp>
+#include <ChooseLevelState.hpp>
+#include <VictoryState.hpp>
 
-const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.jpg";
+const std::string Path_MenuScreen = "Media/Textures/State/MenuScreen.png";
+const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.png";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
 const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
-const std::string Path_ChooseCharScreen = "Media/Textures/State/bluebackground.jpg";
+const std::string Path_ChooseCharScreen = "Media/Textures/State/ChooseCharScreen.png";
 const std::string Path_chickenMain = "Media/Textures/Player/Chicken.png";
 const std::string Path_penguinMain = "Media/Textures/Player/Penguin.png";
 const std::string Path_sheepMain = "Media/Textures/Player/Sheep.png";
@@ -26,14 +31,55 @@ const std::string Path_Normal = "Media/Textures/Button/ButtonNormal.png";
 const std::string Path_Pressed = "Media/Textures/Button/ButtonPressed.png";
 const std::string Path_Selected = "Media/Textures/Button/ButtonSelected.png";
 const std::string Path_InputButton = "Media/Textures/Button/purpleInputBox.png";
-const std::string Path_loginBG = "Media/Textures/State/LoginBG.jpg";
-const std::string Path_registerBG = "Media/Textures/State/RegisterBG.jpg";
+const std::string Path_loginBG = "Media/Textures/State/LoginBG.png";
+const std::string Path_registerBG = "Media/Textures/State/RegisterBG.png";
 const std::string Path_VisiblePassword = "Media/Textures/Button/visible.png";
 const std::string Path_InvisiblePassword = "Media/Textures/Button/invisible.png";
-const std::string Path_backButton = "Media/Textures/Button/backButton.png";
 const std::string Path_displayButton = "Media/Textures/Button/DisplayPlayer.png";
 const std::string Path_heart = "Media/Textures/Icon/heart.png";
 const std::string Path_Thunder = "Media/Textures/Icon/Thunder.png";
+const std::string Path_registerButton = "Media/Textures/Button/RegisterButton.png";
+const std::string Path_InputtButton = "Media/Textures/Button/InputButton.png";
+const std::string Path_LoginButton = "Media/Textures/Button/loginButton.png";
+const std::string Path_AcceptButton = "Media/Textures/Button/AcceptButton.png";
+const std::string Path_InfoButton = "Media/Textures/Button/InfoButton.png";
+const std::string Path_BackButton = "Media/Textures/Button/backButton.png";
+const std::string Path_RegisterAccept = "Media/Textures/Button/RegisterAccept.png";
+const std::string Path_SettingScreen = "Media/Textures/State/SettingScreen.png";
+const std::string Path_ChooseWorldScreen = "Media/Textures/State/ChooseWorldScreen.png";
+const std::string Path_ChooseWorldButton1 = "Media/Textures/Button/ThemeButton/Theme1/Country.png";
+const std::string Path_ChooseWorldButton2 = "Media/Textures/Button/ThemeButton/Theme2/Snow.png";
+const std::string Path_ChooseWorldButton3 = "Media/Textures/Button/ThemeButton/Theme3/Volcano.png";
+const std::string Path_Theme1Screen = "Media/Textures/State/Theme/Theme1BG.png";
+const std::string Path_Theme2Screen = "Media/Textures/State/Theme/Theme2BG.png";
+const std::string Path_Theme3Screen = "Media/Textures/State/Theme/Theme3BG.png"; 
+const std::string Path_Theme1NormalButton = "Media/Textures/Button/ThemeButton/Theme1/Normal.png";
+const std::string Path_Theme1SelectedButton = "Media/Textures/Button/ThemeButton/Theme1/Selected.png";
+const std::string Path_Theme1BackButton = "Media/Textures/Button/ThemeButton/Theme1/Back.png";
+const std::string Path_Theme2NormalButton = "Media/Textures/Button/ThemeButton/Theme2/Normal.png";
+const std::string Path_Theme2SelectedButton = "Media/Textures/Button/ThemeButton/Theme2/Selected.png";
+const std::string Path_Theme2BackButton = "Media/Textures/Button/ThemeButton/Theme2/Back.png";
+const std::string Paht_Theme3NormalButton = "Media/Textures/Button/ThemeButton/Theme3/Normal.png";
+const std::string Path_Theme3SelectedButton = "Media/Textures/Button/ThemeButton/Theme3/Selected.png";
+const std::string Path_Theme3BackButton = "Media/Textures/Button/ThemeButton/Theme3/Back.png";
+const std::string Path_ThemeLv1Button = "Media/Textures/Button/ThemeButton/Lv1.png";
+const std::string Path_ThemeLv2Button = "Media/Textures/Button/ThemeButton/Lv2.png";
+const std::string Path_ThemeLv3Button = "Media/Textures/Button/ThemeButton/Lv3.png";
+const std::string Path_ThemeLv4Button = "Media/Textures/Button/ThemeButton/Lv4.png";
+const std::string Path_ThemeLv5Button = "Media/Textures/Button/ThemeButton/Lv5.png";
+const std::string Path_VictoryIcon = "Media/Textures/State/VictoryIcon.png";
+const std::string Path_VictoryMenuButton = "Media/Textures/Button/VictoryState/Menu.png";
+const std::string Path_VictoryNextButton = "Media/Textures/Button/VictoryState/Next.png";
+const std::string Path_VictoryPlayAgainButton = "Media/Textures/Button/VictoryState/PlayAgain.png";
+const std::string Path_GameOverBG = "Media/Textures/State/GameOverBG.png";
+const std::string Path_GameOverMenuButton = "Media/Textures/Button/GameOverState/Menu.png";
+const std::string Path_GameOverPlayAgainButton = "Media/Textures/Button/GameOverState/PlayAgain.png";
+const std::string Path_PauseBG = "Media/Textures/State/PauseBG.png";
+const std::string Path_PauseResumeButton = "Media/Textures/Button/PauseState/Resume.png";
+const std::string Path_PauseMenuButton = "Media/Textures/Button/PauseState/Menu.png";
+const std::string Path_PauseSettingButton = "Media/Textures/Button/PauseState/Setting.png";
+const std::string Path_NormalPauseButton = "Media/Textures/Button/PauseNormal.png";
+const std::string Path_PressedPauseButton = "Media/Textures/Button/PausePressed.png";
 
 // Application quite similar to the Game.cpp
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
@@ -45,7 +91,10 @@ Application::Application()
 , mPlayer()
 , mMusic()
 , mSound()
-, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound))
+, theme(0)
+, limitLevel(4)
+, curLevel(0)
+, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel))
 , mStayText()
 , mStayUpdateTime()
 , mStayNumFrames(0){
@@ -62,9 +111,10 @@ Application::Application()
 
         registerStates();
         // start with the title state
+        mMusic.setVolume(10.f);
+        mSound.setVolume(50.f);
         mStateStack.pushState(States::Title);
 
-        mMusic.setVolume(25.f);
 }
 
 void Application::registerStates(){
@@ -77,7 +127,11 @@ void Application::registerStates(){
     mStateStack.registerState<LoginState>(States::Login);
     mStateStack.registerState<RegisterState>(States::Register);
     mStateStack.registerState<ConfirmRegisterState>(States::ConfirmRegister);
-    // mStateStack.registerState<DisplayCharState>(States::DisplayCharState);
+    mStateStack.registerState<DisplayCharState>(States::DisplayCharState);
+    mStateStack.registerState<GameOverState>(States::GameOver);
+    mStateStack.registerState<ChooseWorldState>(States::ChooseWorldState);
+    mStateStack.registerState<ChooseLevelState>(States::ChooseLevelState);
+    mStateStack.registerState<VictoryState>(States::Victory);
 }
 
 void Application::processInput(){
@@ -144,6 +198,7 @@ void Application::loadResources(){
     mFonts.load(Fonts::Label, Path_Input_Font);
     mTextures.load(Textures::TitleScreen, Path_TitleScreen);
     mTextures.load(Textures::ChooseCharScreen, Path_ChooseCharScreen);
+    mTextures.load(Textures::MenuScreen, Path_MenuScreen);
     mTextures.load(Textures::Chicken, Path_chickenMain);
     mTextures.load(Textures::Penguin, Path_penguinMain);
     mTextures.load(Textures::Sheep, Path_sheepMain);
@@ -158,7 +213,6 @@ void Application::loadResources(){
     mTextures.load(Textures::RegisterBG, Path_registerBG);
     mTextures.load(Textures::VisiblePassword, Path_VisiblePassword);
     mTextures.load(Textures::InvisiblePassword, Path_InvisiblePassword);
-    mTextures.load(Textures::backButton, Path_backButton);
     mTextures.load(Textures::displayButton, Path_displayButton);
     mTextures.load(Textures::Heart, Path_heart);
     mTextures.load(Textures::Thunder, Path_Thunder);
@@ -294,4 +348,53 @@ void Application::loadResources(){
     mTextures.load(Textures::Gemstone1, "Media/Textures/Decorator/Gemstone1.png");
     mTextures.load(Textures::Gemstone2, "Media/Textures/Decorator/Gemstone2.png");
     mTextures.load(Textures::Gemstone3, "Media/Textures/Decorator/Gemstone3.png");
+
+
+    // Special Button
+    mTextures.load(Textures::PlayButton, "Media/Textures/Button/playButton.png");
+    mTextures.load(Textures::SettingButton, "Media/Textures/Button/settingButton.png");
+    mTextures.load(Textures::ExitButton, "Media/Textures/Button/exitButton.png");
+    mTextures.load(Textures::LogoutButton, "Media/Textures/Button/logOutButton.png");
+    mTextures.load(Textures::RegisterButton, Path_registerButton);
+    mTextures.load(Textures::InputButton, Path_InputtButton);
+    mTextures.load(Textures::LoginButton, Path_LoginButton);
+    mTextures.load(Textures::AcceptButton, Path_AcceptButton);
+    mTextures.load(Textures::InfoButton, Path_InfoButton);
+    mTextures.load(Textures::BackButton, Path_BackButton);
+    mTextures.load(Textures::RegisterAccept, Path_RegisterAccept);
+    mTextures.load(Textures::SettingScreen, Path_SettingScreen);
+    mTextures.load(Textures::ChooseWorldScreen, Path_ChooseWorldScreen);
+    mTextures.load(Textures::World1, Path_ChooseWorldButton1);
+    mTextures.load(Textures::World2, Path_ChooseWorldButton2);
+    mTextures.load(Textures::World3, Path_ChooseWorldButton3);
+    mTextures.load(Textures::Theme1Screen, Path_Theme1Screen);
+    mTextures.load(Textures::Theme2Screen, Path_Theme2Screen);
+    mTextures.load(Textures::Theme3Screen, Path_Theme3Screen);
+    mTextures.load(Textures::Theme1NormalButton, Path_Theme1NormalButton);
+    mTextures.load(Textures::Theme1SelectedButton, Path_Theme1SelectedButton);
+    mTextures.load(Textures::Theme1BackButton, Path_Theme1BackButton);
+    mTextures.load(Textures::Theme2NormalButton, Path_Theme2NormalButton);
+    mTextures.load(Textures::Theme2SelectedButton, Path_Theme2SelectedButton);
+    mTextures.load(Textures::Theme2BackButton, Path_Theme2BackButton);
+    mTextures.load(Textures::Theme3NormalButton, Paht_Theme3NormalButton);
+    mTextures.load(Textures::Theme3SelectedButton, Path_Theme3SelectedButton);
+    mTextures.load(Textures::Theme3BackButton, Path_Theme3BackButton);
+    mTextures.load(Textures::Level1, Path_ThemeLv1Button);
+    mTextures.load(Textures::Level2, Path_ThemeLv2Button);
+    mTextures.load(Textures::Level3, Path_ThemeLv3Button);
+    mTextures.load(Textures::Level4, Path_ThemeLv4Button);
+    mTextures.load(Textures::Level5, Path_ThemeLv5Button);
+    mTextures.load(Textures::VictoryIcon, Path_VictoryIcon);
+    mTextures.load(Textures::VictoryBackToMenuButton, Path_VictoryMenuButton);
+    mTextures.load(Textures::VictoryNextLevelButton, Path_VictoryNextButton);
+    mTextures.load(Textures::VictoryPlayAgainButton, Path_VictoryPlayAgainButton);
+    mTextures.load(Textures::GameOverBG, Path_GameOverBG);
+    mTextures.load(Textures::GameOverMenuButton, Path_GameOverMenuButton);
+    mTextures.load(Textures::GameOverPlayAgainButton, Path_GameOverPlayAgainButton);
+    mTextures.load(Textures::PauseBG, Path_PauseBG);
+    mTextures.load(Textures::PauseResumeButton, Path_PauseResumeButton);
+    mTextures.load(Textures::PauseMenuButton, Path_PauseMenuButton);
+    mTextures.load(Textures::PauseSettingsButton, Path_PauseSettingButton);
+    mTextures.load(Textures::NormalPauseButton, Path_NormalPauseButton);
+    mTextures.load(Textures::PressedPauseButton, Path_PressedPauseButton);
 }

@@ -390,6 +390,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].timeEachFrameInGame = 0.6;
     data[MainChar::Player1].timeEachFrameInMenu = 1;
     data[MainChar::Player1].scaling = 1.5;
+    data[MainChar::Player1].name = "Player1";
 
     data[MainChar::Player2].hitpoints = 100.f;
     data[MainChar::Player2].speed = 200.f;
@@ -405,6 +406,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player2].timeEachFrameInGame = 0.6;
     data[MainChar::Player2].timeEachFrameInMenu = 1;
     data[MainChar::Player2].scaling = 1.5;
+    data[MainChar::Player2].name = "Player2";
 
     data[MainChar::Player3].hitpoints = 50.f;
     data[MainChar::Player3].speed = 250.f;
@@ -417,9 +419,10 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player3].pictureHeight = 52;
     data[MainChar::Player3].pictureWidth = 292;
     data[MainChar::Player3].numOfFrames = 4;
-    data[MainChar::Player3].timeEachFrameInGame = 0.6;
+    data[MainChar::Player3].timeEachFrameInGame = 0.6;    
     data[MainChar::Player3].timeEachFrameInMenu = 1;
     data[MainChar::Player3].scaling = 1.5;
+    data[MainChar::Player3].name = "Player3";
 
     data[MainChar::Player4].hitpoints = 100.f;
     data[MainChar::Player4].speed = 250.f;
@@ -435,6 +438,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player4].timeEachFrameInGame = 0.6;
     data[MainChar::Player4].timeEachFrameInMenu = 1;
     data[MainChar::Player4].scaling = 1.5;
+    data[MainChar::Player4].name = "Player4";
 
     data[MainChar::Player5].hitpoints = 100.f;
     data[MainChar::Player5].speed = 250.f;
@@ -450,6 +454,7 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player5].timeEachFrameInGame = 0.6;
     data[MainChar::Player5].timeEachFrameInMenu = 1;
     data[MainChar::Player5].scaling = 1.5;
+    data[MainChar::Player5].name = "Player5";
 
     return data;
 }
