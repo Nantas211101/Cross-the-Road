@@ -217,8 +217,13 @@ void Application::loadResources(){
     mTextures.load(Textures::Heart, Path_heart);
     mTextures.load(Textures::Thunder, Path_Thunder);
 
+    // Player
+    mTextures.load(Textures::HealthBar, "Media/Textures/Player/HealthBar.png");
+    mTextures.load(Textures::BoundHealthBar, "Media/Textures/Player/BoundHPBar.png");
+
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
+    mTextures.load(Textures::Rest1, "Media/Textures/Player/Player1/Rest.png");
 	mTextures.load(Textures::Up1, "Media/Textures/Player/Player1/Up.png");
 	mTextures.load(Textures::Down1, "Media/Textures/Player/Player1/Down.png");
 	mTextures.load(Textures::Left1, "Media/Textures/Player/Player1/Left.png");
@@ -226,6 +231,7 @@ void Application::loadResources(){
 
     // Player2
     mTextures.load(Textures::Standing2, "Media/Textures/Player/Player2/Standing.png");
+    mTextures.load(Textures::Rest2, "Media/Textures/Player/Player2/Rest.png");
 	mTextures.load(Textures::Up2, "Media/Textures/Player/Player2/Up.png");
 	mTextures.load(Textures::Down2, "Media/Textures/Player/Player2/Down.png");
 	mTextures.load(Textures::Left2, "Media/Textures/Player/Player2/Left.png");
@@ -233,16 +239,35 @@ void Application::loadResources(){
     
     // Player3
     mTextures.load(Textures::Standing3, "Media/Textures/Player/Player3/Standing.png");
+    mTextures.load(Textures::Rest3, "Media/Textures/Player/Player3/Rest.png");
     mTextures.load(Textures::Up3, "Media/Textures/Player/Player3/Up.png");
     mTextures.load(Textures::Down3, "Media/Textures/Player/Player3/Down.png");
     mTextures.load(Textures::Left3, "Media/Textures/Player/Player3/Left.png");
     mTextures.load(Textures::Right3, "Media/Textures/Player/Player3/Right.png");
+    
+    // Player4
+    mTextures.load(Textures::Standing4, "Media/Textures/Player/Player4/Standing.png");
+    mTextures.load(Textures::Rest4, "Media/Textures/Player/Player4/Rest.png");
+    mTextures.load(Textures::Up4, "Media/Textures/Player/Player4/Up.png");
+    mTextures.load(Textures::Down4, "Media/Textures/Player/Player4/Down.png");
+    mTextures.load(Textures::Left4, "Media/Textures/Player/Player4/Left.png");
+    mTextures.load(Textures::Right4, "Media/Textures/Player/Player4/Right.png");
 
+    // Player5
+    mTextures.load(Textures::Standing5, "Media/Textures/Player/Player5/Standing.png");
+    mTextures.load(Textures::Rest5, "Media/Textures/Player/Player5/Rest.png");
+    mTextures.load(Textures::Up5, "Media/Textures/Player/Player5/Up.png");
+    mTextures.load(Textures::Down5, "Media/Textures/Player/Player5/Down.png");
+    mTextures.load(Textures::Left5, "Media/Textures/Player/Player5/Left.png");
+    mTextures.load(Textures::Right5, "Media/Textures/Player/Player5/Right.png");
+    
     // Road
     mTextures.load(Textures::Road, "Media/Textures/Road/Road.png");
 	mTextures.load(Textures::LavaRoad, "Media/Textures/Road/LavaRoad.png");
+    mTextures.load(Textures::SnowRoad, "Media/Textures/Road/SnowRoad.png");
 	mTextures.load(Textures::Road1, "Media/Textures/Road/Road1.png");
 	mTextures.load(Textures::Soil, "Media/Textures/Road/Soil.png");
+    mTextures.load(Textures::IceRoad, "Media/Textures/Road/IceRoad.png");
 
     mTextures.load(Textures::Elephant, "Media/Textures/Animal/Elephant.png");
     mTextures.load(Textures::Rhinoceros, "Media/Textures/Animal/Rhinoceros.png");
@@ -252,6 +277,8 @@ void Application::loadResources(){
     mTextures.load(Textures::Green_Dragon, "Media/Textures/Animal/Green_Dragon.png");
     mTextures.load(Textures::Blue_Twin_Head_Dragon, "Media/Textures/Animal/Blue_Twin_Head_Dragon.png");
     mTextures.load(Textures::Monster1, "Media/Textures/Animal/Monster1.png");
+    mTextures.load(Textures::Reindeer, "Media/Textures/Animal/Reindeer.png");
+    mTextures.load(Textures::SnowBear, "Media/Textures/Animal/SnowBear.png");
 
     mTextures.load(Textures::Traffic, "Media/Textures/Road/Traffic.png");
     mTextures.load(Textures::Truck, "Media/Textures/Vehicle/Truck.png");
@@ -262,48 +289,65 @@ void Application::loadResources(){
     mTextures.load(Textures::YellowCar, "Media/Textures/Vehicle/YellowCar.png");
     mTextures.load(Textures::OldCar, "Media/Textures/Vehicle/OldCar.png");
     mTextures.load(Textures::SuperCar, "Media/Textures/Vehicle/SuperCar.png");
+    mTextures.load(Textures::IceCreamTruck, "Media/Textures/Vehicle/IceCreamTruck.png");
+    mTextures.load(Textures::SantaClaus, "Media/Textures/Vehicle/SantaClaus.png");
 
 	// River
 	mTextures.load(Textures::Log, "Media/Textures/River/Log.png");
 	mTextures.load(Textures::Log1, "Media/Textures/River/Log1.png");
+    mTextures.load(Textures::SnowLog, "Media/Textures/River/SnowLog.png");
     mTextures.load(Textures::River, "Media/Textures/River/River.png");
 	mTextures.load(Textures::LavaRiver, "Media/Textures/River/LavaRiver.png");
+    mTextures.load(Textures::SnowRiver, "Media/Textures/River/SnowRiver.png");
     // mTextures.load(Textures::LavaRiver1, "Media/Textures/LavaRiver1.png");
 	//mTextures.load(Textures::Eagle, "Media/Textures/Eagle.png"); // crocodile
 
 	// Ground
     mTextures.load(Textures::Grass, "Media/Textures/Ground/Grass.png");
 	mTextures.load(Textures::LavaGround, "Media/Textures/Ground/LavaGround.png");
+    mTextures.load(Textures::SnowGround, "Media/Textures/Ground/SnowGround.png");
 	mTextures.load(Textures::LightGrass, "Media/Textures/Ground/LightGrass.png");
 	mTextures.load(Textures::Tree1, "Media/Textures/Obstacle/Tree1.png");
 	mTextures.load(Textures::Tree2, "Media/Textures/Obstacle/Tree2.png");
 	mTextures.load(Textures::Tree3, "Media/Textures/Obstacle/Tree3.png");
+    mTextures.load(Textures::SnowTree, "Media/Textures/Obstacle/SnowTree.png");
+    mTextures.load(Textures::SnowTree1, "Media/Textures/Obstacle/SnowTree1.png");
 	mTextures.load(Textures::Rock1, "Media/Textures/Obstacle/Rock1.png");
 	mTextures.load(Textures::Rock2, "Media/Textures/Obstacle/Rock2.png");
 	mTextures.load(Textures::Ruin1, "Media/Textures/Obstacle/Ruin1.png");
 	mTextures.load(Textures::Ruin2, "Media/Textures/Obstacle/Ruin2.png");
 	mTextures.load(Textures::Vocalno, "Media/Textures/Obstacle/Volcano.png");
 	mTextures.load(Textures::Fire, "Media/Textures/Obstacle/Fire.png");
+    mTextures.load(Textures::SnowMan, "Media/Textures/Obstacle/SnowMan.png");
 	// Railway
 	mTextures.load(Textures::Railway, "Media/Textures/Railway/Railway.png");
 	mTextures.load(Textures::RailwayLight, "Media/Textures/Railway/RailwayLight.png");
     //mTextures.load(Textures::Traffic, "Media/Textures/Railway/Traffic.png");
     mTextures.load(Textures::Train1, "Media/Textures/Railway/Train1.png");
-    mTextures.load(Textures::Train2, "Media/Textures/Railway/Train2.png");
-    mTextures.load(Textures::Train3, "Media/Textures/Railway/Train3.png");
-	mTextures.load(Textures::Train4, "Media/Textures/Railway/Train4.png");
-
+    mTextures.load(Textures::LavaTrain, "Media/Textures/Railway/LavaTrain.png");
+    mTextures.load(Textures::SnowTrain, "Media/Textures/Railway/SnowTrain.png");
+	mTextures.load(Textures::WoodTrain, "Media/Textures/Railway/WoodTrain.png");
+    mTextures.load(Textures::SantaTrain, "Media/Textures/Railway/SantaTrain.png");
 	// FinishLane
-	mTextures.load(Textures::FinishLevel1, "Media/Textures/FinishLane/FinishLevel1.png");
-	mTextures.load(Textures::FinishLevel2, "Media/Textures/FinishLane/FinishLevel2.png");
-	mTextures.load(Textures::FinishLevel3, "Media/Textures/FinishLane/FinishLevel3.png");
+	mTextures.load(Textures::FinishLevel, "Media/Textures/FinishLane/LevelFinish.png");
 	mTextures.load(Textures::FinishTheme1, "Media/Textures/FinishLane/FinishTheme1.png");
 	mTextures.load(Textures::FinishTheme2, "Media/Textures/FinishLane/FinishTheme2.png");
+    mTextures.load(Textures::FinishTheme3, "Media/Textures/FinishLane/FinishTheme3.png");
 
 	//Decorator
 	mTextures.load(Textures::DecoTree1, "Media/Textures/Decorator/DecoTree1.png");
 	mTextures.load(Textures::DecoTree2, "Media/Textures/Decorator/DecoTree2.png");
 	mTextures.load(Textures::DecoFlower1, "Media/Textures/Decorator/DecoFlower1.png");
+    mTextures.load(Textures::DecoFlower2, "Media/Textures/Decorator/DecoFlower2.png");
+    mTextures.load(Textures::DecoIce1, "Media/Textures/Decorator/DecoIce1.png");
+    mTextures.load(Textures::DecoSnow1, "Media/Textures/Decorator/DecoSnow1.png");
+    mTextures.load(Textures::DecoStone, "Media/Textures/Decorator/DecoStone.png");
+    mTextures.load(Textures::Skullcap1, "Media/Textures/Decorator/Skullcap1.png");
+    mTextures.load(Textures::Skullcap2, "Media/Textures/Decorator/Skullcap2.png");
+    mTextures.load(Textures::DeadSign, "Media/Textures/Decorator/DeadSign.png");
+    mTextures.load(Textures::Gemstone1, "Media/Textures/Decorator/Gemstone1.png");
+    mTextures.load(Textures::Gemstone2, "Media/Textures/Decorator/Gemstone2.png");
+    mTextures.load(Textures::Gemstone3, "Media/Textures/Decorator/Gemstone3.png");
 
 
     // Special Button

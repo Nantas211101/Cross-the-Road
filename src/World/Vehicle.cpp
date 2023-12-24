@@ -1,3 +1,4 @@
+#include "SFML/Graphics/Rect.hpp"
 #include <Vehicle.hpp>
 
 namespace{

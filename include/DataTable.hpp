@@ -11,6 +11,7 @@
 #include <Decorator.hpp>
 #include <Obstacle.hpp>
 #include <MainChar.hpp>
+#include <River.hpp>
 
 struct LogData {
 	float speed;
@@ -38,6 +39,8 @@ struct AnimalData {
 	int pictureWidth;
 	int pictureHeight;
 	int numOfFrames;
+	float duration;
+	int deltaWidthBound;
 };
 
 struct VehicleData {
@@ -69,6 +72,7 @@ struct CharData {
     int hitpoints;
     float speed;
     Textures::ID texture;
+	Textures::ID restTexture;
     Textures::ID upTexture;
     Textures::ID downTexture;
     Textures::ID leftTexture;
@@ -76,12 +80,21 @@ struct CharData {
 	int pictureWidth;
 	int pictureHeight;
 	int numOfFrames;
-	float timeEachFrame;
+	float timeEachFrameInGame;
+	float timeEachFrameInMenu;
 	static const int MaxHitpoints = 300;
 	static const int MaxSpeed = 300;
+	int scaling;
 	std::string name;
 };
 
+
+struct RiverData {
+	Textures::ID texture;
+	int pictureWidth;
+	int pictureHeight;
+	int numOfFrames;
+};
 
 std::vector<LogData> initializeLogData();
 std::vector<AnimalData> initializeAnimalData();
@@ -90,3 +103,4 @@ std::vector<TrainData> initializeTrainData();
 std::vector<ObstacleData> initializeObstacleData();
 std::vector<DecoratorData> initializeDecoratorData();
 std::vector<CharData> initializeCharData();
+std::vector<RiverData> initializeRiverData();

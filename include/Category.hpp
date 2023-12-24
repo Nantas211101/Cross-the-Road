@@ -19,11 +19,10 @@ namespace Category {
 		// Railway
 		Train   = 1 << 7,
 
-		// lane
-		Ground	= 1 << 8,
-		Road	= 1 << 9,
+		// lane -> Road, Ground
+		Lane	= 1 << 8,
 
 		// sound node
-		SoundEffect = 1 << 10,
+		SoundEffect = 1 << 9,
 	};
 }

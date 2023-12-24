@@ -56,10 +56,10 @@ void GroundTheme1::buildLane() {
             std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
             obstacles.push_back(obstacle.get());
             if(j <=1){
-                obstacle->setPosition(j * 100 + 500 + obstacle->getBoundingRect().width/2 ,0);
+                obstacle->setPosition(j * distanceBetweenLane + 500 ,0);
             }
             else{
-                obstacle->setPosition((17-j) * 100 + 500 + obstacle->getBoundingRect().width/2 ,0);
+                obstacle->setPosition((18-j) * distanceBetweenLane + 500,0);
             }
             this->attachChild(std::move(obstacle));
         }
@@ -73,7 +73,7 @@ void GroundTheme1::buildLane() {
             std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
             obstacles.push_back(obstacle.get());
             int randNum = rand() % 17;
-            obstacle->setPosition( randNum * 100 + obstacle->getBoundingRect().width/2 ,0);
+            obstacle->setPosition( randNum * distanceBetweenLane + 500,0);
             this->attachChild(std::move(obstacle));
         }
     }

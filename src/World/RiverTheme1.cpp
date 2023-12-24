@@ -1,13 +1,22 @@
 #include <RiverTheme1.hpp>
 
+namespace {
+    const std::vector<LogData> TableLog = initializeLogData();
+}
+
+namespace {
+    const std::vector<RiverData> TableRiver = initializeRiverData();
+}
+
 RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos)
 : River(textureHolder, spawnPos)
 , riverLog()
-{
-    textureHolder->get(Textures::River).setRepeated(true);
-    sprite.setTexture(textureHolder->get(Textures::River));
-    sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane);
-    sprite.setTextureRect(textureRect);
+{   
+    type = River::WaterRiver;
+    animation.setTexture(textureHolder->get(TableRiver[type].texture));
+    animation.setFrameSize(sf::Vector2i(TableRiver[type].pictureWidth/TableRiver[type].numOfFrames, TableRiver[type].pictureHeight));
+	animation.setNumFrames(TableRiver[type].numOfFrames);
+	animation.setDuration(sf::seconds(1.5));
     buildLane();
 }
 
@@ -22,11 +31,13 @@ void RiverTheme1::updateCurrent(sf::Time dt) {
         lastLogIndex = firstLogIndex;
         firstLogIndex = (firstLogIndex + 1) % numOfLog;
     }
+    animation.update(dt);
+    animation.setRepeating(true);
 }
 
 void RiverTheme1::buildLane() {
     int distance = 0;
-    int randomKindLog = 1 + rand() % 3;
+    int randomKindLog = 1 + rand() % 2;
     Log::Type kind;
     switch(randomKindLog) {
     case 1:
@@ -34,9 +45,6 @@ void RiverTheme1::buildLane() {
         break;
     case 2:
         kind = Log::Log2;
-        break;
-    case 3:
-        kind = Log::Log3;
         break;
     }
     int randSpawnPos = rand() % 200;

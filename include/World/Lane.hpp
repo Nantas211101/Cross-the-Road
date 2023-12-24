@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <ctime>
+#include <math.h>
 
 class Lane : public SceneNode {
     public:
@@ -36,4 +37,5 @@ class Lane : public SceneNode {
         sf::Vector2f startPos;
         sf::Sprite sprite;
         TextureHolder* textureHolder;
+        Animation animation;
 };

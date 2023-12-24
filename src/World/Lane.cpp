@@ -12,5 +12,7 @@ bool Lane::isReverse() {
 }
 
 void Lane::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(animation, states);
     target.draw(sprite, states);
+    
 }

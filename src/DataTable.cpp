@@ -12,10 +12,10 @@ std::vector<LogData> initializeLogData() {
     data[Log::Log2].texture = Textures::Log1;
     data[Log::Log2].scaling = sf::Vector2f(0.5, 0.6);
 
-    data[Log::Log3].speed = 200.f;
-    data[Log::Log3].distanceBetweenLog = 400;
-    data[Log::Log3].texture = Textures::Log1;
-    data[Log::Log3].scaling = sf::Vector2f(0.5, 0.6);
+    data[Log::SnowLog].speed = 200.f;
+    data[Log::SnowLog].distanceBetweenLog = 400;
+    data[Log::SnowLog].texture = Textures::SnowLog;
+    data[Log::SnowLog].scaling = sf::Vector2f(1.0, 1.0);
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
@@ -96,6 +96,30 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Fire].numOfFrames = 7;
     data[Obstacle::Fire].pictureWidth = 667;   
     data[Obstacle::Fire].pictureHeight = 205;
+
+    data[Obstacle::SnowTree].dmg = 5;
+    data[Obstacle::SnowTree].speed = 0.f;
+    data[Obstacle::SnowTree].texture = Textures::SnowTree;
+    data[Obstacle::SnowTree].scaling = sf::Vector2f(0.3, 0.3);
+    data[Obstacle::SnowTree].numOfFrames = 1;
+    data[Obstacle::SnowTree].pictureWidth = 338;   
+    data[Obstacle::SnowTree].pictureHeight = 322;
+
+    data[Obstacle::SnowTree1].dmg = 5;
+    data[Obstacle::SnowTree1].speed = 0.f;
+    data[Obstacle::SnowTree1].texture = Textures::SnowTree1;
+    data[Obstacle::SnowTree1].scaling = sf::Vector2f(0.5, 0.4);
+    data[Obstacle::SnowTree1].numOfFrames = 1;
+    data[Obstacle::SnowTree1].pictureWidth = 201;   
+    data[Obstacle::SnowTree1].pictureHeight = 265;
+
+    data[Obstacle::SnowMan].dmg = 5;
+    data[Obstacle::SnowMan].speed = 0.f;
+    data[Obstacle::SnowMan].texture = Textures::SnowMan;
+    data[Obstacle::SnowMan].scaling = sf::Vector2f(0.5, 0.5);
+    data[Obstacle::SnowMan].numOfFrames = 1;
+    data[Obstacle::SnowMan].pictureWidth = 157;   
+    data[Obstacle::SnowMan].pictureHeight = 176;
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){
@@ -108,6 +132,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Elephant].numOfFrames = 3;
     data[Animal::Elephant].pictureWidth = 288;
     data[Animal::Elephant].pictureHeight = 79;
+    data[Animal::Elephant].duration = 1;
 
     data[Animal::Cow].dmg = 20;
     data[Animal::Cow].speed = 120.f;
@@ -117,6 +142,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Cow].numOfFrames = 4;
     data[Animal::Cow].pictureWidth = 1075;
     data[Animal::Cow].pictureHeight = 191;
+    data[Animal::Cow].duration = 1;
 
     data[Animal::Small_Dragon].dmg = 30;
     data[Animal::Small_Dragon].speed = 260.f;
@@ -126,15 +152,18 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Small_Dragon].numOfFrames = 3;
     data[Animal::Small_Dragon].pictureWidth = 192;
     data[Animal::Small_Dragon].pictureHeight = 66;
+    data[Animal::Small_Dragon].duration = 1;
 
     data[Animal::Green_Dragon].dmg = 40;
     data[Animal::Green_Dragon].speed = 180.f;
     data[Animal::Green_Dragon].distanceBetweenAnimal = 800;
     data[Animal::Green_Dragon].texture = Textures::Green_Dragon;
-    data[Animal::Green_Dragon].scaling = sf::Vector2f(1.7, 1.7);
+    data[Animal::Green_Dragon].scaling = sf::Vector2f(1.45, 1.45);
     data[Animal::Green_Dragon].numOfFrames = 3;
     data[Animal::Green_Dragon].pictureWidth = 365;
     data[Animal::Green_Dragon].pictureHeight = 96;
+    data[Animal::Green_Dragon].duration = 1;
+    data[Animal::Green_Dragon].deltaWidthBound = 4;
 
     data[Animal::Red_Dragon].dmg = 40;
     data[Animal::Red_Dragon].speed = 200.f;
@@ -144,15 +173,19 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Red_Dragon].numOfFrames = 3;
     data[Animal::Red_Dragon].pictureWidth = 432;
     data[Animal::Red_Dragon].pictureHeight = 96;
+    data[Animal::Red_Dragon].duration = 1;
+    data[Animal::Red_Dragon].deltaWidthBound = 10;
 
     data[Animal::Blue_Twin_Head_Dragon].dmg = 50;
     data[Animal::Blue_Twin_Head_Dragon].speed = 150.f;
     data[Animal::Blue_Twin_Head_Dragon].distanceBetweenAnimal = 500;
     data[Animal::Blue_Twin_Head_Dragon].texture = Textures::Blue_Twin_Head_Dragon;
-    data[Animal::Blue_Twin_Head_Dragon].scaling = sf::Vector2f(1.4, 1.4);
+    data[Animal::Blue_Twin_Head_Dragon].scaling = sf::Vector2f(1.33, 1.33);
     data[Animal::Blue_Twin_Head_Dragon].numOfFrames = 3;
     data[Animal::Blue_Twin_Head_Dragon].pictureWidth = 432;
     data[Animal::Blue_Twin_Head_Dragon].pictureHeight = 94;
+    data[Animal::Blue_Twin_Head_Dragon].duration = 1;
+    data[Animal::Blue_Twin_Head_Dragon].deltaWidthBound = 10;
 
     data[Animal::Rhinoceros].speed = 150.f;
     data[Animal::Rhinoceros].distanceBetweenAnimal = 700;
@@ -161,6 +194,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Rhinoceros].numOfFrames = 4;
     data[Animal::Rhinoceros].pictureWidth = 615;
     data[Animal::Rhinoceros].pictureHeight = 90;
+    data[Animal::Rhinoceros].duration = 1;
 
     data[Animal::Monster1].dmg = 85;
     data[Animal::Monster1].speed = 150.f;
@@ -169,8 +203,29 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Monster1].scaling = sf::Vector2f(0.4, 0.3);
     data[Animal::Monster1].numOfFrames = 11;
     data[Animal::Monster1].pictureWidth = 4019;
-    data[Animal::Monster1].pictureHeight = 394;    
+    data[Animal::Monster1].pictureHeight = 394;  
+    data[Animal::Monster1].duration = 1;
+    data[Animal::Monster1].deltaWidthBound = 10;
 
+    data[Animal::Reindeer].dmg = 85;
+    data[Animal::Reindeer].speed = 200.f;
+    data[Animal::Reindeer].distanceBetweenAnimal = 1000;
+    data[Animal::Reindeer].texture = Textures::Reindeer;
+    data[Animal::Reindeer].scaling = sf::Vector2f(0.3, 0.2);
+    data[Animal::Reindeer].numOfFrames = 12;
+    data[Animal::Reindeer].pictureWidth = 6764;
+    data[Animal::Reindeer].pictureHeight = 447;
+    data[Animal::Reindeer].duration = 0.5;
+
+    data[Animal::SnowBear].dmg = 85;
+    data[Animal::SnowBear].speed = 400.f;
+    data[Animal::SnowBear].distanceBetweenAnimal = 1000;
+    data[Animal::SnowBear].texture = Textures::SnowBear;
+    data[Animal::SnowBear].scaling = sf::Vector2f(0.3, 0.2);
+    data[Animal::SnowBear].numOfFrames = 14;
+    data[Animal::SnowBear].pictureWidth = 9152;
+    data[Animal::SnowBear].pictureHeight = 476;
+    data[Animal::SnowBear].duration = 0.5;
     return data;
 }
 
@@ -223,27 +278,43 @@ std::vector<VehicleData> initializeVehicleData(){
     data[Vehicle::SuperCar].distanceBetweenVehicle = 1000;
     data[Vehicle::SuperCar].texture = Textures::SuperCar;
     data[Vehicle::SuperCar].scaling = sf::Vector2f(1.2,1.2);
+    
+    data[Vehicle::IceCreamTruck].dmg = 45;
+    data[Vehicle::IceCreamTruck].speed = 500.f;
+    data[Vehicle::IceCreamTruck].distanceBetweenVehicle = 950;
+    data[Vehicle::IceCreamTruck].texture = Textures::IceCreamTruck;
+    data[Vehicle::IceCreamTruck].scaling = sf::Vector2f(0.5,0.5);
+
+    data[Vehicle::SantaClaus].dmg = 30;
+    data[Vehicle::SantaClaus].speed = 350.f;
+    data[Vehicle::SantaClaus].distanceBetweenVehicle = 700;
+    data[Vehicle::SantaClaus].texture = Textures::SantaClaus;
+    data[Vehicle::SantaClaus].scaling = sf::Vector2f(0.55,0.55);
 
     return data;
 }
 
 std::vector<TrainData> initializeTrainData(){
     std::vector<TrainData> data(Train::TypeCount);
-    data[Train::Train1].speed = 700.f;
+    data[Train::Train1].speed = 800.f;
     data[Train::Train1].texture = Textures::Train1;
-    data[Train::Train1].scaling = sf::Vector2f(0.7, 0.7);
+    data[Train::Train1].scaling = sf::Vector2f(0.48, 0.48);
     
-    data[Train::Train2].speed = 600.f;
-    data[Train::Train2].texture = Textures::Train2;
-    data[Train::Train2].scaling = sf::Vector2f(0.8, 0.8);
+    data[Train::SnowTrain].speed = 1000.f;
+    data[Train::SnowTrain].texture = Textures::SnowTrain;
+    data[Train::SnowTrain].scaling = sf::Vector2f(0.5, 0.5);
     
-    data[Train::Train3].speed = 700.f;
-    data[Train::Train3].texture = Textures::Train3;
-    data[Train::Train3].scaling = sf::Vector2f(0.75, 0.75);
+    data[Train::WoodTrain].speed = 800.f;
+    data[Train::WoodTrain].texture = Textures::WoodTrain;
+    data[Train::WoodTrain].scaling = sf::Vector2f(0.62, 0.53);
 
-    data[Train::Train4].speed = 700.f;
-    data[Train::Train4].texture = Textures::Train4;
-    data[Train::Train4].scaling = sf::Vector2f(0.8, 0.8);
+    data[Train::LavaTrain].speed = 800.f;
+    data[Train::LavaTrain].texture = Textures::LavaTrain;
+    data[Train::LavaTrain].scaling = sf::Vector2f(0.85, 0.85);
+
+    data[Train::SantaTrain].speed = 800.f;
+    data[Train::SantaTrain].texture = Textures::SantaTrain;
+    data[Train::SantaTrain].scaling = sf::Vector2f(0.45, 0.45);
 
     return data;
 }
@@ -260,6 +331,46 @@ std::vector<DecoratorData> initializeDecoratorData() {
     data[Decorator::DecoFlower1].speed = 0.f;
     data[Decorator::DecoFlower1].texture = Textures::DecoFlower1;
     data[Decorator::DecoFlower1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoFlower2].speed = 0.f;
+    data[Decorator::DecoFlower2].texture = Textures::DecoFlower2;
+    data[Decorator::DecoFlower2].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoIce1].speed = 0.f;
+    data[Decorator::DecoIce1].texture = Textures::DecoIce1;
+    data[Decorator::DecoIce1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoSnow1].speed = 0.f;
+    data[Decorator::DecoSnow1].texture = Textures::DecoSnow1;
+    data[Decorator::DecoSnow1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DecoStone].speed = 0.f;
+    data[Decorator::DecoStone].texture = Textures::DecoStone;
+    data[Decorator::DecoStone].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::Skullcap1].speed = 0.f;
+    data[Decorator::Skullcap1].texture = Textures::Skullcap1;
+    data[Decorator::Skullcap1].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::Skullcap2].speed = 0.f;
+    data[Decorator::Skullcap2].texture = Textures::Skullcap2;
+    data[Decorator::Skullcap2].scaling = sf::Vector2f(0.7, 0.7);
+
+    data[Decorator::DeadSign].speed = 0.f;
+    data[Decorator::DeadSign].texture = Textures::DeadSign;
+    data[Decorator::DeadSign].scaling = sf::Vector2f(0.3, 0.3);
+
+    data[Decorator::Gemstone1].speed = 0.f;
+    data[Decorator::Gemstone1].texture = Textures::Gemstone1;
+    data[Decorator::Gemstone1].scaling = sf::Vector2f(0.2, 0.2);
+
+    data[Decorator::Gemstone2].speed = 0.f;
+    data[Decorator::Gemstone2].texture = Textures::Gemstone2;
+    data[Decorator::Gemstone2].scaling = sf::Vector2f(0.2, 0.2);
+
+    data[Decorator::Gemstone3].speed = 0.f;
+    data[Decorator::Gemstone3].texture = Textures::Gemstone3;
+    data[Decorator::Gemstone3].scaling = sf::Vector2f(0.2, 0.2);
     return data;
 }
 
@@ -268,49 +379,101 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].hitpoints = 100.f;
     data[MainChar::Player1].speed = 100.f;
     data[MainChar::Player1].texture = Textures::Standing1;
+    data[MainChar::Player1].restTexture = Textures::Rest1;
     data[MainChar::Player1].upTexture = Textures::Up1;
     data[MainChar::Player1].downTexture = Textures::Down1;
     data[MainChar::Player1].leftTexture = Textures::Left1;
     data[MainChar::Player1].rightTexture = Textures::Right1;
-    data[MainChar::Player1].pictureHeight = 56;
-    data[MainChar::Player1].pictureWidth = 256;
+    data[MainChar::Player1].pictureHeight = 52;
+    data[MainChar::Player1].pictureWidth = 156;
     data[MainChar::Player1].numOfFrames = 4;
-    data[MainChar::Player1].timeEachFrame = 0.6;
+    data[MainChar::Player1].timeEachFrameInGame = 0.6;
+    data[MainChar::Player1].timeEachFrameInMenu = 1;
+    data[MainChar::Player1].scaling = 1.5;
     data[MainChar::Player1].name = "Player1";
 
     data[MainChar::Player2].hitpoints = 100.f;
     data[MainChar::Player2].speed = 200.f;
     data[MainChar::Player2].texture = Textures::Standing2;
+    data[MainChar::Player2].restTexture = Textures::Rest2;
     data[MainChar::Player2].upTexture = Textures::Up2;
     data[MainChar::Player2].downTexture = Textures::Down2;
     data[MainChar::Player2].leftTexture = Textures::Left2;
     data[MainChar::Player2].rightTexture = Textures::Right2;
-    data[MainChar::Player2].pictureHeight = 70;
-    data[MainChar::Player2].pictureWidth = 256;
+    data[MainChar::Player2].pictureHeight = 52;
+    data[MainChar::Player2].pictureWidth = 136;
     data[MainChar::Player2].numOfFrames = 4;
-    data[MainChar::Player2].timeEachFrame = 0.6;
+    data[MainChar::Player2].timeEachFrameInGame = 0.6;
+    data[MainChar::Player2].timeEachFrameInMenu = 1;
+    data[MainChar::Player2].scaling = 1.5;
     data[MainChar::Player2].name = "Player2";
 
-    data[MainChar::Player3].hitpoints = 150.f;
+    data[MainChar::Player3].hitpoints = 50.f;
     data[MainChar::Player3].speed = 250.f;
     data[MainChar::Player3].texture = Textures::Standing3;
+    data[MainChar::Player3].restTexture = Textures::Rest3;
     data[MainChar::Player3].upTexture = Textures::Up3;
     data[MainChar::Player3].downTexture = Textures::Down3;
     data[MainChar::Player3].leftTexture = Textures::Left3;
     data[MainChar::Player3].rightTexture = Textures::Right3;
-    data[MainChar::Player3].pictureHeight = 73;
-    data[MainChar::Player3].pictureWidth = 273;
+    data[MainChar::Player3].pictureHeight = 52;
+    data[MainChar::Player3].pictureWidth = 292;
     data[MainChar::Player3].numOfFrames = 4;
-    data[MainChar::Player3].timeEachFrame = 0.5;
+    data[MainChar::Player3].timeEachFrameInGame = 0.6;    
+    data[MainChar::Player3].timeEachFrameInMenu = 1;
+    data[MainChar::Player3].scaling = 1.5;
     data[MainChar::Player3].name = "Player3";
 
-    data[MainChar::Sheep].hitpoints = 300;
-    data[MainChar::Sheep].speed = 150.f;
-    data[MainChar::Sheep].texture = Textures::Sheep;
+    data[MainChar::Player4].hitpoints = 100.f;
+    data[MainChar::Player4].speed = 250.f;
+    data[MainChar::Player4].texture = Textures::Standing4;
+    data[MainChar::Player4].restTexture = Textures::Rest4;
+    data[MainChar::Player4].upTexture = Textures::Up4;
+    data[MainChar::Player4].downTexture = Textures::Down4;
+    data[MainChar::Player4].leftTexture = Textures::Left4;
+    data[MainChar::Player4].rightTexture = Textures::Right4;
+    data[MainChar::Player4].pictureHeight = 54;
+    data[MainChar::Player4].pictureWidth = 160;
+    data[MainChar::Player4].numOfFrames = 3;
+    data[MainChar::Player4].timeEachFrameInGame = 0.6;
+    data[MainChar::Player4].timeEachFrameInMenu = 1;
+    data[MainChar::Player4].scaling = 1.5;
+    data[MainChar::Player4].name = "Player4";
 
-    data[MainChar::Mallard].hitpoints = 250;
-    data[MainChar::Mallard].speed = 200.f;
-    data[MainChar::Mallard].texture = Textures::Mallard;
+    data[MainChar::Player5].hitpoints = 100.f;
+    data[MainChar::Player5].speed = 250.f;
+    data[MainChar::Player5].texture = Textures::Standing5;
+    data[MainChar::Player5].restTexture = Textures::Rest5;
+    data[MainChar::Player5].upTexture = Textures::Up5;
+    data[MainChar::Player5].downTexture = Textures::Down5;
+    data[MainChar::Player5].leftTexture = Textures::Left5;
+    data[MainChar::Player5].rightTexture = Textures::Right5;
+    data[MainChar::Player5].pictureHeight = 57;
+    data[MainChar::Player5].pictureWidth = 272;
+    data[MainChar::Player5].numOfFrames = 4;
+    data[MainChar::Player5].timeEachFrameInGame = 0.6;
+    data[MainChar::Player5].timeEachFrameInMenu = 1;
+    data[MainChar::Player5].scaling = 1.5;
+    data[MainChar::Player5].name = "Player5";
 
+    return data;
+}
+
+std::vector<RiverData> initializeRiverData(){
+    std::vector<RiverData> data(River::TypeCount);
+    data[River::WaterRiver].texture = Textures::River;
+    data[River::WaterRiver].numOfFrames = 4;
+    data[River::WaterRiver].pictureWidth = 7024;
+    data[River::WaterRiver].pictureHeight = 100;
+
+    data[River::LavaRiver].texture = Textures::LavaRiver;
+    data[River::LavaRiver].numOfFrames = 4;
+    data[River::LavaRiver].pictureWidth = 8218;
+    data[River::LavaRiver].pictureHeight = 100;
+    
+    data[River::SnowRiver].texture = Textures::SnowRiver;
+    data[River::SnowRiver].numOfFrames = 5;
+    data[River::SnowRiver].pictureWidth = 8512;
+    data[River::SnowRiver].pictureHeight = 100;
     return data;
 }

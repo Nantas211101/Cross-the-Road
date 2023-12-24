@@ -10,6 +10,14 @@
 
 class River : public Lane {
     public:
+        enum Type{
+            WaterRiver,
+            LavaRiver,
+            SnowRiver,
+            TypeCount
+        };
+
+    public:
         River(TextureHolder* textureHolder, sf::Vector2f spawnPos);
 
     private:
@@ -21,8 +29,6 @@ class River : public Lane {
         const int numOfLog = 10;
         int lastLogIndex;
         int firstLogIndex;
+        Type type;
 };
 
-namespace {
-    const std::vector<LogData> TableLog = initializeLogData();
-}

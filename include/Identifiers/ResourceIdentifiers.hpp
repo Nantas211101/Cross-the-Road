@@ -14,27 +14,35 @@ namespace Textures
 		// River
 		River,
 		LavaRiver,
+		SnowRiver,
 		Log,
 		Log1,
-
+		SnowLog,
+		
 		// Ground
 		Ground,
 		Grass,
 		LavaGround,
+		SnowGround,
 		LightGrass,
 		Tree1,
 		Tree2,
 		Tree3,
+		SnowTree,
+		SnowTree1,
 		Rock1,
 		Rock2,
 		Ruin1,
 		Ruin2,
 		Vocalno,
 		Fire,
+		SnowMan,
 		// Road
 		Road,
 		Road1,
 		LavaRoad,
+		SnowRoad,
+		IceRoad,
 		Soil,
 		Elephant,
 		Bird,
@@ -45,6 +53,8 @@ namespace Textures
     	Red_Dragon,
     	Blue_Twin_Head_Dragon,
 		Monster1,
+		Reindeer,
+		SnowBear,
 
 		Traffic,
         Truck,
@@ -55,34 +65,51 @@ namespace Textures
         SuperCar,
 		YellowCar,
         OldCar,
+		IceCreamTruck,
+		SantaClaus,
 
 		// Railway
 		Railway,
 		RailwayLight,
 		Train1,
-		Train2,
-		Train3,
-		Train4,
+		SnowTrain,
+		WoodTrain,
+		LavaTrain,
+		SantaTrain,
 
 		// FinishLane
-		FinishLevel1,
-		FinishLevel2,
-		FinishLevel3,
+		FinishLevel,
 		FinishTheme1,
 		FinishTheme2,
+		FinishTheme3,
 
 
 		//Decorator
 		DecoTree1,
 		DecoTree2,
+		DecoStone,
 		DecoFlower1,
+		DecoFlower2,
+		DecoSnow1,
+		DecoIce1,
+		DeadSign,
+		Skullcap1,
+		Skullcap2,
         DecoRock1,
 		DecoRock2,
 		DecoFire1,
 		DecoFire2,
+		Gemstone1,
+		Gemstone2,
+		Gemstone3,
+
+		// Player
+		HealthBar,
+		BoundHealthBar,
 		
 		// Player1
 		Standing1,
+		Rest1,
 		Up1,
 		Down1,
 		Left1,
@@ -90,6 +117,7 @@ namespace Textures
 
 		// Player2
 		Standing2,
+		Rest2,
 		Up2,
 		Down2,
 		Left2,
@@ -97,11 +125,28 @@ namespace Textures
 
 		// Player3
 		Standing3,
+		Rest3,
 		Up3,
 		Down3,
 		Left3,
 		Right3,
 		
+		// Player4
+		Standing4,
+		Rest4,
+		Up4,
+		Down4,
+		Left4,
+		Right4,
+
+		// Player4
+		Standing5,
+		Rest5,
+		Up5,
+		Down5,
+		Left5,
+		Right5,
+
 		Chicken,
 		Mallard,
 		Penguin,

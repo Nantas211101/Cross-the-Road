@@ -98,7 +98,6 @@ bool DisplayCharState::update(sf::Time dt){
         speedMove = {0, 0};
         mPlayer->setVelocity(0, 0);
     }
-    mPlayer->setAnimationDown();
     mPlayer->setVelocity(speedMove);
     mSceneGraph.update(dt);
     return false;
@@ -148,7 +147,6 @@ void DisplayCharState::createMainChar(){
     mPlayer = leader.get();
     mPlayer->setVelocity(-speedx, 0);
     speedMove = mPlayer->getVelocity();
-    mPlayer->setAnimationDown();
     mPlayer->setCenterOriginMainChar();
     mPlayer->setScale(scaleCharacte, scaleCharacte);
     mSceneLayers[Moving]->attachChild(std::move(leader));
