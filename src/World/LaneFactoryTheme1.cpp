@@ -1,8 +1,10 @@
 #include <LaneFactoryTheme1.hpp>
-
-LaneFactoryTheme1::LaneFactoryTheme1(TextureHolder* textureHolder, sf::Vector2f startPos) 
-: LaneFactory(textureHolder, startPos, 1)
-{}
+#include <iostream>
+LaneFactoryTheme1::LaneFactoryTheme1(TextureHolder* textureHolder, sf::Vector2f startPos, int level) 
+: LaneFactory(textureHolder, startPos, level)
+{
+    std::cerr << "hello constructor" << '\n';
+}
 
 std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::randomTemplateLane() {
     std::random_device rd;
@@ -43,7 +45,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::templateStartLane(){
     lanes.clear();
     for(int i = 0; i < 3; i++) {
         bool isStart = 1;
-        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass,isStart));
+        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass,isStart, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -59,7 +61,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::templateStartLane(){
 
 void LaneFactoryTheme1::templateFinishTheme(int num){
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, FinishLane::Theme1));
+        std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane * 5;
         lanes.push_back(std::move(lane));
@@ -69,7 +71,7 @@ void LaneFactoryTheme1::templateFinishTheme(int num){
 void LaneFactoryTheme1::templateGround(int num) {
     for(int i = 0; i < num; i++) {
         bool isStart = 0;
-        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass,isStart));
+        std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass,isStart, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -80,7 +82,7 @@ void LaneFactoryTheme1::templateRoad(int num) {
     for(int i = 0; i < num; i++) {
         bool checkLine = 1;
         if (num == 1 || i == num - 1) checkLine = 0;
-        std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine, RoadTheme1::VehicleRoad));
+        std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine, RoadTheme1::VehicleRoad, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -90,7 +92,7 @@ void LaneFactoryTheme1::templateRoad(int num) {
 void LaneFactoryTheme1::templateAnimalRoad(int num) {
     for(int i = 0; i < num; i++) {
         bool checkLine = 0;
-        std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine, RoadTheme1::AnimalRoad));
+        std::unique_ptr<Lane> lane(new RoadTheme1(textureHolder, startPos, checkLine, RoadTheme1::AnimalRoad, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -99,7 +101,7 @@ void LaneFactoryTheme1::templateAnimalRoad(int num) {
 
 void LaneFactoryTheme1::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new RiverTheme1(textureHolder, startPos));
+        std::unique_ptr<Lane> lane(new RiverTheme1(textureHolder, startPos, level));
         lane->setPosition(0,startPos.y);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -118,7 +120,7 @@ void LaneFactoryTheme1::templateRailway(int num) {
                 kindTrain = Railway::Train1;
                 break;
         }
-        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos, kindTrain));
+        std::unique_ptr<Lane> lane(new Railway(textureHolder, startPos, kindTrain, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

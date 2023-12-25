@@ -1,7 +1,7 @@
 #include <GroundTheme1.hpp>
 
- GroundTheme1::GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart)
-: Ground(textureHolder, spawnPos)
+ GroundTheme1::GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart, int difficulty)
+: Ground(textureHolder, spawnPos, difficulty)
 , obstacles()
 , typeGround(typeGround)
 , isStartLane(isStart)

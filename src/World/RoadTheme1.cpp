@@ -1,7 +1,10 @@
+#include "Animal.hpp"
+#include "SFML/System/Vector2.hpp"
 #include <RoadTheme1.hpp>
+#include <random>
 
-RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine, Type typeRoad)
-:Road(textureHolder, spawnPos),
+RoadTheme1::RoadTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, bool checkLine, Type typeRoad, int difficulty)
+:Road(textureHolder, spawnPos, difficulty),
 typeRoad(typeRoad)
 {
     switch (this->typeRoad){
@@ -37,6 +40,7 @@ void RoadTheme1::buildLane() {
             generateAnimal();
             break;
     }
+    setLaneVelocity();
 
     firstObjectIndex = 0;
     lastObjectIndex = numOfObject - 1;
@@ -46,10 +50,14 @@ void RoadTheme1::generateAnimal(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 2);
+    std::uniform_int_distribution<int> dist;
+    if (difficulty>=3) 
+        dist = std::uniform_int_distribution<int>(1, 2);
+    else 
+        dist = std::uniform_int_distribution<int>(1, 1);
+
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
-
     switch(randomKindAnimal) {
     case 1:
         kind = Animal::Elephant;
@@ -207,5 +215,15 @@ void RoadTheme1::updateCurrent(sf::Time dt){
             lastObjectIndex = firstObjectIndex;
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }
+    }
+}
+
+void RoadTheme1::setLaneVelocity(){
+    
+    for (auto& it:animals){
+        it->setVelocity(transformVelocity(it->getVelocity()));
+    }
+    for (auto& it:vehicles){
+        it->setVelocity(transformVelocity(it->getVelocity()));
     }
 }

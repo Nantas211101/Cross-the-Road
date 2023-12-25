@@ -4,11 +4,11 @@
 class GroundTheme3 : public Ground {
     public:
         enum Type{
-            Snow,
+            Lava,
             Soil,
             TypeCount
         };
-        GroundTheme3(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart);
+        GroundTheme3(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart, int difficulty);
     
     private:
         void buildLane();

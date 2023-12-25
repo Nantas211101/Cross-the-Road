@@ -1,7 +1,7 @@
 #include <River.hpp>
 
-River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: Lane(textureHolder, spawnPos){}
+River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty)
+: Lane(textureHolder, spawnPos, difficulty){}
 
 unsigned int River::getCategory() const {
     return Category::River;

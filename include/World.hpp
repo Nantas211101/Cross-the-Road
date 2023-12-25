@@ -39,7 +39,7 @@ class World : private sf::NonCopyable
 		void								scroll(sf::Time dt);
 		void								buildHealthBar();
 		void								updateHealthBar();
-
+		void								buildMap();
 	private:
 		enum Layer
 		{

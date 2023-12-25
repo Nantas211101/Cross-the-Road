@@ -19,7 +19,7 @@ private:
     void templateLane6();
 
 public:
-    LaneFactoryTheme2(TextureHolder* textureHolder, sf::Vector2f startPos);
+    LaneFactoryTheme2(TextureHolder* textureHolder, sf::Vector2f startPos, int level);
     
     std::vector<std::unique_ptr<Lane>> randomTemplateLane();
     std::vector<std::unique_ptr<Lane>> templateStartLane();

@@ -1,11 +1,13 @@
+#include "LaneFactoryTheme1.hpp"
 #include "Obstacle.hpp"
 #include <World.hpp>
 #include <iostream>
+#include <memory>
 
 World::World(State::Context context)
 : mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 5000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
 , scrollDistance(0)
@@ -160,25 +162,28 @@ void World::buildScene(MainChar::Type id)
 	}
 	mSceneLayers[Title]->setReverse();
 
-	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	buildMap();
+	std::cerr << "Hello" << '\n';
+	// LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
-	for(int i = 0; i < 60; i++) {
-		std::vector<std::unique_ptr<Lane>> randLanes;
-		if(i == 0){
-			randLanes = laneFactory.templateStartLane();
-		}
-		else{
-			randLanes = laneFactory.randomTemplateLane();
-		} 
-		for(auto& x : randLanes) {
-			lanes.push_back(x.get());
-			mSceneLayers[Title]->attachChild(std::move(x));
-		}
-	}
+	// for(int i = 0; i < 60; i++) {
+	// 	std::vector<std::unique_ptr<Lane>> randLanes;
+	// 	if(i == 0){
+	// 		randLanes = laneFactory.templateStartLane();
+	// 	}
+	// 	else{
+	// 		randLanes = laneFactory.randomTemplateLane();
+	// 	} 
+	// 	for(auto& x : randLanes) {
+	// 		lanes.push_back(x.get());
+	// 		mSceneLayers[Title]->attachChild(std::move(x));
+	// 	}
+	// }
 	playerLaneIndex = 1;
 	std::unique_ptr<MainChar> character(new MainChar(id, mTextures, playerLaneIndex, lanes));
 	mainChar = character.get();
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
+	std::cerr << "Hello" << '\n';
 }
 
 void World::adaptPlayerPosition() {
@@ -256,4 +261,39 @@ void World::updateHealthBar() {
 	healthBar->setTextureRect(healthBar->getPosition(), curHP * 309 / maxHP, 41);
 	
 	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
+}
+
+void World::buildMap(){
+	int theme = *mContext.theme;
+	int level = *mContext.currentLevel;
+	std::cerr << theme << ' ' << level << '\n';
+	std::unique_ptr<LaneFactory> laneFactory;
+	switch(theme){
+		case 1:
+			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme1(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));
+			break;
+		case 2:
+			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme2(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));
+			break;
+		case 3:
+			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme3(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));
+			break;
+	}
+	std::cerr << theme << ' ' << level << '\n';
+	for(int i = 0; i < 12; i++) {
+		std::vector<std::unique_ptr<Lane>> randLanes;
+		if(i == 0){
+			randLanes = laneFactory->templateStartLane();
+		}
+		else{
+			randLanes = laneFactory->randomTemplateLane();
+		} 
+		for(auto& x : randLanes) {
+			lanes.push_back(x.get());
+			mSceneLayers[Title]->attachChild(std::move(x));
+		}
+	}
+	std::cerr << theme << ' ' << level << '\n';
+	std::cerr << "hello" << '\n';
+	return;
 }

@@ -14,6 +14,7 @@ file(GLOB SRCS CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/src/GUI/*.cpp
     ${CMAKE_SOURCE_DIR}/src/States/*.cpp
     ${CMAKE_SOURCE_DIR}/src/World/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/World/Level/*.cpp
     ${CMAKE_SOURCE_DIR}/src/Audio/*.cpp
 )
 
@@ -27,6 +28,7 @@ target_include_directories(game PRIVATE
     ${CMAKE_SOURCE_DIR}/include/Identifiers/
     ${CMAKE_SOURCE_DIR}/template/
     ${CMAKE_SOURCE_DIR}/include/World/
+    ${CMAKE_SOURCE_DIR}/include/World/Level/
     ${CMAKE_SOURCE_DIR}/include/Audio/
 )
 

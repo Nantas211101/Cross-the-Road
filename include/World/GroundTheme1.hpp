@@ -8,7 +8,7 @@ class GroundTheme1 : public Ground {
             Soil,
             TypeCount
         };
-        GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart);
+        GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart, int difficulty);
     
     private:
         void buildLane();

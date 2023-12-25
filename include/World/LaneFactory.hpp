@@ -20,10 +20,12 @@ protected:
     std::vector<std::unique_ptr<Lane>> lanes;
     sf::Vector2f startPos;
     TextureHolder* textureHolder;
-    int theme;
+    int level;
     
 public:
+    LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos, int level);
+    virtual ~LaneFactory(){};
     void templateFinishLevel(int num);
-    LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos, int theme);
+    virtual std::vector<std::unique_ptr<Lane>> templateStartLane() = 0;
     virtual std::vector<std::unique_ptr<Lane>> randomTemplateLane() = 0;
 };

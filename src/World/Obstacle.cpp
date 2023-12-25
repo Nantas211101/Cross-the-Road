@@ -27,7 +27,10 @@ void Obstacle::updateCurrent(sf::Time dt) {
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const {
-    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+    sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
+    bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane);
+    bound.top += Table[type].deltaHeightBound;
+    return bound;
 }
 
 Obstacle::Type Obstacle::getType() {

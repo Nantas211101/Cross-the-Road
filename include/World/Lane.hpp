@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SFML/System/Vector2.hpp"
 #include <SceneNode.hpp>
 #include <ResourceHolder.hpp>
 #include <ResourceIdentifiers.hpp>
@@ -19,11 +20,14 @@ class Lane : public SceneNode {
         };
 
     public:
-        Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos);
+        Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty);
         bool isReverse();
+        virtual void setLaneVelocity() = 0;
+
         static const int distanceBetweenLane = 100;
         static const int distanceBetweenTile = 100;
         static const int widthOfLane = 2800;
+        static const int maxLevel = 5;
         
     private:
         void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -38,4 +42,6 @@ class Lane : public SceneNode {
         sf::Sprite sprite;
         TextureHolder* textureHolder;
         Animation animation;
+        int difficulty;
+        sf::Vector2f transformVelocity(sf::Vector2f v);
 };

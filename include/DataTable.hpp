@@ -28,6 +28,7 @@ struct ObstacleData {
 	int pictureWidth;
 	int pictureHeight;
 	int numOfFrames;
+	int deltaHeightBound;
 };
 
 struct AnimalData {
@@ -41,6 +42,8 @@ struct AnimalData {
 	int numOfFrames;
 	float duration;
 	int deltaWidthBound;
+	int deltaHeightBound;
+	int deltaLeftBound;
 };
 
 struct VehicleData {

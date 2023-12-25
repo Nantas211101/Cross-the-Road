@@ -19,7 +19,8 @@ class FinishLane: public Lane{
             Theme3,
             TypeCount
         };
-        FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeFinishLane);
+        FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty);
+        void setLaneVelocity(){}
         int getNum();
     private:
         void buildLane();
