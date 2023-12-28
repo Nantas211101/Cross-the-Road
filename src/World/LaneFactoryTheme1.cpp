@@ -1,39 +1,31 @@
 #include <LaneFactoryTheme1.hpp>
-#include <iostream>
 LaneFactoryTheme1::LaneFactoryTheme1(TextureHolder* textureHolder, sf::Vector2f startPos, int level) 
 : LaneFactory(textureHolder, startPos, level)
 {
-    std::cerr << "hello constructor" << '\n';
 }
 
-std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::randomTemplateLane() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 6);
-    int random = dist(gen);
+std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::templateLane() {
     lanes.clear();
-    switch(random) {
+    templateStartLane(3);
+    switch(level) {
     case 1:
-        templateLane1();
+        templateLevel1();
         break;
     case 2:
-        templateLane2();
+        templateLevel2();
         break;
     case 3:
-        templateLane3();
+        templateLevel3();
         break;
     case 4:
-        templateLane4();
+        templateLevel4();
         break;
     case 5:
-        templateLane5();
-        break;
-    case 6:
-        templateLane6();
+        templateLevel5();
         break;
     }
-    //templateFinishLevel(1);
-    //templateFinishTheme(1);
+    templateFinishLevel(1);
+    if (level ==5) templateFinishTheme(1);
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
@@ -41,20 +33,14 @@ std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::randomTemplateLane() {
     return randLanes;
 }
 
-std::vector<std::unique_ptr<Lane>> LaneFactoryTheme1::templateStartLane(){
-    lanes.clear();
-    for(int i = 0; i < 3; i++) {
+void LaneFactoryTheme1::templateStartLane(int num){
+    for(int i = 0; i < num; i++) {
         bool isStart = 1;
         std::unique_ptr<Lane> lane(new GroundTheme1(textureHolder, startPos, GroundTheme1::Grass,isStart, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
-    std::vector<std::unique_ptr<Lane>> randLanes;
-    for(auto&x : lanes) {
-        randLanes.push_back(std::move(x));
-    }
-    return randLanes;
 }
 
 
@@ -101,7 +87,7 @@ void LaneFactoryTheme1::templateAnimalRoad(int num) {
 
 void LaneFactoryTheme1::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new RiverTheme1(textureHolder, startPos, level));
+        std::unique_ptr<Lane> lane(new RiverTheme1(textureHolder, startPos, level, i%2));
         lane->setPosition(0,startPos.y);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
@@ -158,4 +144,82 @@ void LaneFactoryTheme1::templateLane5() {
 void LaneFactoryTheme1::templateLane6() {
     templateGround(1);
     templateRailway(1);
+}
+
+void LaneFactoryTheme1::templateLevel1(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,2);
+    int randomTemplate;
+    for (int i=1; i<=6; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
+}
+
+void LaneFactoryTheme1::templateLevel2(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(3,4);
+    int randomTemplate;
+    for (int i=1; i<=8; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
+}
+
+void LaneFactoryTheme1::templateLevel3(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,4);
+    int randomTemplate;
+    for (int i=1; i<=12; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
+}
+
+void LaneFactoryTheme1::templateLevel4(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,5);
+    int randomTemplate;
+    for (int i=1; i<=12; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
+}
+
+void LaneFactoryTheme1::templateLevel5(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,5);
+    int randomTemplate;
+    for (int i=1; i<=14; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
+}
+
+void LaneFactoryTheme1::callTemplateX(int x){
+    switch(x){
+        case 1:
+            templateLane1();
+            break;
+        case 2:
+            templateLane2();
+            break;
+        case 3:
+            templateLane3();
+            break;
+        case 4:
+            templateLane4();
+            break;
+        case 5:
+            templateLane5();
+            break;
+        case 6:
+            templateLane6();
+            break;
+    }
 }

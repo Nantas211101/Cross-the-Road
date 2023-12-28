@@ -3,7 +3,7 @@
 
 class RiverTheme2 : public River {
     public:
-        RiverTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty);
+        RiverTheme2(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse);
         void setLaneVelocity();
     private:
         void buildLane();

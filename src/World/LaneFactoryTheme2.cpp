@@ -4,7 +4,7 @@ LaneFactoryTheme2::LaneFactoryTheme2(TextureHolder* textureHolder, sf::Vector2f 
 : LaneFactory(textureHolder, startPos, level)
 {}
 
-std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::randomTemplateLane() {
+std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::templateLane() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(1, 6);
@@ -97,7 +97,7 @@ void LaneFactoryTheme2::templateAnimalRoad(int num) {
 
 void LaneFactoryTheme2::templateRiver(int num) {
     for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new RiverTheme2(textureHolder, startPos, level));
+        std::unique_ptr<Lane> lane(new RiverTheme2(textureHolder, startPos, level, i%2));
         lane->setPosition(0,startPos.y);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));

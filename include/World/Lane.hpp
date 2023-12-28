@@ -4,6 +4,7 @@
 #include <SceneNode.hpp>
 #include <ResourceHolder.hpp>
 #include <ResourceIdentifiers.hpp>
+#include <random>
 
 #include <SFML/Graphics.hpp>
 #include <ctime>
@@ -21,6 +22,7 @@ class Lane : public SceneNode {
 
     public:
         Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty);
+        Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse);
         bool isReverse();
         virtual void setLaneVelocity() = 0;
 

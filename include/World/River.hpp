@@ -18,8 +18,8 @@ class River : public Lane {
         };
 
     public:
-        River(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty);
-
+        River(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse);
+        
     private:
         virtual void updateCurrent(sf::Time dt) = 0;
         unsigned int getCategory() const;

@@ -8,8 +8,8 @@ namespace {
     const std::vector<RiverData> TableRiver = initializeRiverData();
 }
 
-RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty)
-: River(textureHolder, spawnPos, difficulty)
+RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse)
+: River(textureHolder, spawnPos, difficulty, reverse)
 , riverLog()
 {   
     type = River::WaterRiver;

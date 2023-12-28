@@ -54,7 +54,7 @@ void RoadTheme1::generateAnimal(){
     if (difficulty>=3) 
         dist = std::uniform_int_distribution<int>(1, 2);
     else 
-        dist = std::uniform_int_distribution<int>(1, 1);
+        dist = std::uniform_int_distribution<int>(2, 2);
 
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
@@ -93,13 +93,31 @@ void RoadTheme1::generateVehicle(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 8);
+    std::uniform_int_distribution<int> dist;
+    switch(difficulty){
+        case 1:
+            dist = std::uniform_int_distribution<int>(2, 4);
+            break;
+        case 2:
+            dist = std::uniform_int_distribution<int>(1, 4);
+            break;
+        case 3:
+            dist = std::uniform_int_distribution<int>(1, 6);
+            break;
+        case 4:
+            dist = std::uniform_int_distribution<int>(1, 8);
+            break;
+        case 5:
+            dist = std::uniform_int_distribution<int>(4, 8);
+            break;
+    }
+
     int randomKindVehicle = dist(gen);
     Vehicle::Type kind; 
 
     switch(randomKindVehicle) {
     case 1:
-        kind = Vehicle::Truck;
+        kind = Vehicle::OldCar;
         break;
     case 2:
         kind = Vehicle::SmallCar;
@@ -108,7 +126,7 @@ void RoadTheme1::generateVehicle(){
         kind = Vehicle::BlueCar;
         break;
     case 4:
-        kind = Vehicle::Ambulance;
+        kind = Vehicle::Truck;
         break;
     case 5:
         kind = Vehicle::PoliceCar;
@@ -117,7 +135,7 @@ void RoadTheme1::generateVehicle(){
         kind = Vehicle::YellowCar;
         break;
     case 7:
-        kind = Vehicle::OldCar;
+        kind = Vehicle::Ambulance;
         break;
     case 8:
         kind = Vehicle::SuperCar;

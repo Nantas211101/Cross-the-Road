@@ -26,6 +26,5 @@ public:
     LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos, int level);
     virtual ~LaneFactory(){};
     void templateFinishLevel(int num);
-    virtual std::vector<std::unique_ptr<Lane>> templateStartLane() = 0;
-    virtual std::vector<std::unique_ptr<Lane>> randomTemplateLane() = 0;
+    virtual std::vector<std::unique_ptr<Lane>> templateLane() = 0;
 };
