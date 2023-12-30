@@ -28,6 +28,7 @@ struct ObstacleData {
 	int pictureWidth;
 	int pictureHeight;
 	int numOfFrames;
+	SoundEffect::ID collisionEffect;
 };
 
 struct AnimalData {
@@ -41,6 +42,7 @@ struct AnimalData {
 	int numOfFrames;
 	float duration;
 	int deltaWidthBound;
+	SoundEffect::ID collisionEffect;
 };
 
 struct VehicleData {
@@ -49,6 +51,7 @@ struct VehicleData {
 	int distanceBetweenVehicle;
 	Textures::ID texture;
 	sf::Vector2f scaling;
+	SoundEffect::ID collisionEffect;
 };
 
 struct TrainData{

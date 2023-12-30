@@ -274,6 +274,34 @@ namespace SoundEffect{
 		TouchRiver,
 		TouchTree,
 		Button,
+
+		// River
+		River,
+		LavaRiver,
+
+		// Animal
+		Elephant,
+		Cow,
+		Dragon,
+		Rhino,
+		Monster,
+		Reindeer,
+		Bear,
+		SnowBear,
+
+		// Vehicle
+		Truck,
+		Car,
+		Ambulance,
+		PoliceCar,
+		OldCar,
+		IceCreamTruck,
+		SantaClaus,
+
+		// Obstacle
+		Rock,
+		Tree,
+		Volcano,
 	};
 }
 

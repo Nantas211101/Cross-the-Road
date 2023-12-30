@@ -95,7 +95,6 @@ MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::v
 , mHP(Table[type].hitpoints)
 , maxHP(Table[type].hitpoints)
 , movingVelocity(Table[type].speed)
-, timeSinceLastDamage()
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -259,12 +258,8 @@ void MainChar::heal(int points) {
 
 void MainChar::damage(int points) {
 	assert(points >= 0);
-    sf::Time elapseTime = timeSinceLastDamage.getElapsedTime();
-    if(elapseTime >= damageGap) {
-	    mHP -= points;
-        mHP = std::max(mHP, 0);
-        timeSinceLastDamage.restart();
-    }
+    mHP -= points;
+    mHP = std::max(mHP, 0);
 }
 
 bool MainChar::isDead() const {

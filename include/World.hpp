@@ -12,6 +12,8 @@
 #include <ResourceHolder.hpp>
 #include <State.hpp>
 #include <SpriteNode.hpp>
+#include <SoundNode.hpp>
+#include <SoundPlayer.hpp>
 
 #include <random>
 #include <array>
@@ -39,6 +41,7 @@ class World : private sf::NonCopyable
 		void								scroll(sf::Time dt);
 		void								buildHealthBar();
 		void								updateHealthBar();
+		void								updateSound();
 
 	private:
 		enum Layer
@@ -54,6 +57,8 @@ class World : private sf::NonCopyable
 		sf::FloatRect						mWorldBounds;
 		TextureHolder&						mTextures;
 		FontHolder&							mFonts;
+		SoundPlayer&						mSound;
+
 		const float							scrollSpeed = -200.f;
 		const float							scrollSpeedToPlayer = -50.f;
 		float								scrollDistance;
@@ -62,6 +67,7 @@ class World : private sf::NonCopyable
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
 		CommandQueue						mCommandQueue;
+		CommandQueue						soundCommandQueue;
 
 		sf::Vector2f						mSpawnPosition;
 		std::vector<Lane*> 					lanes;
@@ -71,4 +77,7 @@ class World : private sf::NonCopyable
 		SpriteNode*							healthBar;
     	TextNode* 							mHealthDisplay;
 		State::Context 						mContext;
+
+		sf::Clock							timeSinceLastDamage;
+		const sf::Time						damageGap = sf::seconds(1);
 };

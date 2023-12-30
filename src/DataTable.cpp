@@ -30,6 +30,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Tree1].numOfFrames = 1;
     data[Obstacle::Tree1].pictureWidth = 270;
     data[Obstacle::Tree1].pictureHeight = 270;
+    data[Obstacle::Tree1].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::Tree2].dmg = 0;
     data[Obstacle::Tree2].speed = 0.f;
@@ -38,6 +39,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Tree2].numOfFrames = 1;
     data[Obstacle::Tree2].pictureWidth = 308;
     data[Obstacle::Tree2].pictureHeight = 456;
+    data[Obstacle::Tree2].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::Tree3].dmg = 0;
     data[Obstacle::Tree3].speed = 0.f;
@@ -46,7 +48,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Tree3].numOfFrames = 1;
     data[Obstacle::Tree3].pictureWidth = 188;
     data[Obstacle::Tree3].pictureHeight = 222;
-
+    data[Obstacle::Tree3].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::Rock1].dmg = 0;
     data[Obstacle::Rock1].speed = 0.f;
@@ -55,6 +57,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Rock1].numOfFrames = 1;
     data[Obstacle::Rock1].pictureWidth = 210;
     data[Obstacle::Rock1].pictureHeight = 208;
+    data[Obstacle::Rock1].collisionEffect = SoundEffect::Rock;
 
     data[Obstacle::Rock2].dmg = 0;
     data[Obstacle::Rock2].speed = 0.f;
@@ -63,6 +66,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Rock2].numOfFrames = 1;
     data[Obstacle::Rock2].pictureWidth = 148;   
     data[Obstacle::Rock2].pictureHeight = 176;
+    data[Obstacle::Rock2].collisionEffect = SoundEffect::Rock;
 
     data[Obstacle::Ruin1].dmg = 0;
     data[Obstacle::Ruin1].speed = 0.f;
@@ -71,6 +75,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Ruin1].numOfFrames = 1;
     data[Obstacle::Ruin1].pictureWidth = 160;   
     data[Obstacle::Ruin1].pictureHeight = 186;
+    data[Obstacle::Ruin1].collisionEffect = SoundEffect::Rock;
 
     data[Obstacle::Ruin1].dmg = 0;
     data[Obstacle::Ruin2].speed = 0.f;
@@ -79,6 +84,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Ruin2].numOfFrames = 1;
     data[Obstacle::Ruin2].pictureWidth = 200;   
     data[Obstacle::Ruin2].pictureHeight = 182;
+    data[Obstacle::Ruin2].collisionEffect = SoundEffect::Rock;
 
 
     data[Obstacle::Volcano].dmg = 5;
@@ -88,6 +94,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Volcano].numOfFrames = 1;
     data[Obstacle::Volcano].pictureWidth = 280;   
     data[Obstacle::Volcano].pictureHeight = 269;
+    data[Obstacle::Volcano].collisionEffect = SoundEffect::Volcano;
 
     data[Obstacle::Fire].dmg = 5;
     data[Obstacle::Fire].speed = 0.f;
@@ -96,6 +103,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Fire].numOfFrames = 7;
     data[Obstacle::Fire].pictureWidth = 667;   
     data[Obstacle::Fire].pictureHeight = 205;
+    data[Obstacle::Fire].collisionEffect = SoundEffect::Volcano;
 
     data[Obstacle::SnowTree].dmg = 5;
     data[Obstacle::SnowTree].speed = 0.f;
@@ -104,6 +112,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree].numOfFrames = 1;
     data[Obstacle::SnowTree].pictureWidth = 338;   
     data[Obstacle::SnowTree].pictureHeight = 322;
+    data[Obstacle::SnowTree].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::SnowTree1].dmg = 5;
     data[Obstacle::SnowTree1].speed = 0.f;
@@ -112,14 +121,16 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree1].numOfFrames = 1;
     data[Obstacle::SnowTree1].pictureWidth = 201;   
     data[Obstacle::SnowTree1].pictureHeight = 265;
+    data[Obstacle::SnowTree].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::SnowMan].dmg = 5;
     data[Obstacle::SnowMan].speed = 0.f;
     data[Obstacle::SnowMan].texture = Textures::SnowMan;
     data[Obstacle::SnowMan].scaling = sf::Vector2f(0.5, 0.5);
     data[Obstacle::SnowMan].numOfFrames = 1;
-    data[Obstacle::SnowMan].pictureWidth = 157;   
+    data[Obstacle::SnowMan].pictureWidth = 157;  
     data[Obstacle::SnowMan].pictureHeight = 176;
+    data[Obstacle::SnowTree].collisionEffect = SoundEffect::Tree;
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){
@@ -133,6 +144,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Elephant].pictureWidth = 288;
     data[Animal::Elephant].pictureHeight = 79;
     data[Animal::Elephant].duration = 1;
+    data[Animal::Elephant].collisionEffect = SoundEffect::Elephant;
 
     data[Animal::Cow].dmg = 20;
     data[Animal::Cow].speed = 120.f;
@@ -143,6 +155,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Cow].pictureWidth = 1075;
     data[Animal::Cow].pictureHeight = 191;
     data[Animal::Cow].duration = 1;
+    data[Animal::Cow].collisionEffect = SoundEffect::Cow;
 
     data[Animal::Small_Dragon].dmg = 30;
     data[Animal::Small_Dragon].speed = 260.f;
@@ -153,6 +166,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Small_Dragon].pictureWidth = 192;
     data[Animal::Small_Dragon].pictureHeight = 66;
     data[Animal::Small_Dragon].duration = 1;
+    data[Animal::Small_Dragon].collisionEffect = SoundEffect::Dragon;
 
     data[Animal::Green_Dragon].dmg = 40;
     data[Animal::Green_Dragon].speed = 180.f;
@@ -164,6 +178,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Green_Dragon].pictureHeight = 96;
     data[Animal::Green_Dragon].duration = 1;
     data[Animal::Green_Dragon].deltaWidthBound = 4;
+    data[Animal::Green_Dragon].collisionEffect = SoundEffect::Dragon;
 
     data[Animal::Red_Dragon].dmg = 40;
     data[Animal::Red_Dragon].speed = 200.f;
@@ -175,6 +190,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Red_Dragon].pictureHeight = 96;
     data[Animal::Red_Dragon].duration = 1;
     data[Animal::Red_Dragon].deltaWidthBound = 10;
+    data[Animal::Red_Dragon].collisionEffect = SoundEffect::Dragon;
 
     data[Animal::Blue_Twin_Head_Dragon].dmg = 50;
     data[Animal::Blue_Twin_Head_Dragon].speed = 150.f;
@@ -186,6 +202,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Blue_Twin_Head_Dragon].pictureHeight = 94;
     data[Animal::Blue_Twin_Head_Dragon].duration = 1;
     data[Animal::Blue_Twin_Head_Dragon].deltaWidthBound = 10;
+    data[Animal::Blue_Twin_Head_Dragon].collisionEffect = SoundEffect::Dragon;
 
     data[Animal::Rhinoceros].speed = 150.f;
     data[Animal::Rhinoceros].distanceBetweenAnimal = 700;
@@ -195,6 +212,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Rhinoceros].pictureWidth = 615;
     data[Animal::Rhinoceros].pictureHeight = 90;
     data[Animal::Rhinoceros].duration = 1;
+    data[Animal::Rhinoceros].collisionEffect = SoundEffect::Rhino;
 
     data[Animal::Monster1].dmg = 85;
     data[Animal::Monster1].speed = 150.f;
@@ -206,6 +224,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Monster1].pictureHeight = 394;  
     data[Animal::Monster1].duration = 1;
     data[Animal::Monster1].deltaWidthBound = 10;
+    data[Animal::Monster1].collisionEffect = SoundEffect::Monster;
 
     data[Animal::Reindeer].dmg = 85;
     data[Animal::Reindeer].speed = 200.f;
@@ -216,6 +235,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Reindeer].pictureWidth = 6764;
     data[Animal::Reindeer].pictureHeight = 447;
     data[Animal::Reindeer].duration = 0.5;
+    data[Animal::Reindeer].collisionEffect = SoundEffect::Reindeer;
 
     data[Animal::SnowBear].dmg = 85;
     data[Animal::SnowBear].speed = 400.f;
@@ -226,6 +246,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::SnowBear].pictureWidth = 9152;
     data[Animal::SnowBear].pictureHeight = 476;
     data[Animal::SnowBear].duration = 0.5;
+    data[Animal::SnowBear].collisionEffect = SoundEffect::SnowBear;
     return data;
 }
 
@@ -236,60 +257,70 @@ std::vector<VehicleData> initializeVehicleData(){
     data[Vehicle::Truck].distanceBetweenVehicle = 800;
     data[Vehicle::Truck].texture = Textures::Truck;
     data[Vehicle::Truck].scaling = sf::Vector2f(0.8, 0.8);
+    data[Vehicle::Truck].collisionEffect = SoundEffect::Truck;
     
     data[Vehicle::BlueCar].dmg = 30;
     data[Vehicle::BlueCar].speed = 300.f;
     data[Vehicle::BlueCar].distanceBetweenVehicle = 600;
     data[Vehicle::BlueCar].texture = Textures::BlueCar;
     data[Vehicle::BlueCar].scaling = sf::Vector2f(1.2,1.2);
+    data[Vehicle::BlueCar].collisionEffect = SoundEffect::Car;
 
     data[Vehicle::SmallCar].dmg = 25;
     data[Vehicle::SmallCar].speed = 300.f;
     data[Vehicle::SmallCar].distanceBetweenVehicle = 600;
     data[Vehicle::SmallCar].texture = Textures::SmallCar;
     data[Vehicle::SmallCar].scaling = sf::Vector2f(1.15,1.15);
+    data[Vehicle::SmallCar].collisionEffect = SoundEffect::Car;
 
     data[Vehicle::Ambulance].dmg = 40;
     data[Vehicle::Ambulance].speed = 1200.f;
     data[Vehicle::Ambulance].distanceBetweenVehicle = 1500;
     data[Vehicle::Ambulance].texture = Textures::Ambulance;
     data[Vehicle::Ambulance].scaling = sf::Vector2f(1.2,1.2);
+    data[Vehicle::Ambulance].collisionEffect = SoundEffect::Ambulance;
 
     data[Vehicle::PoliceCar].dmg = 40;
     data[Vehicle::PoliceCar].speed = 1200.f;
     data[Vehicle::PoliceCar].distanceBetweenVehicle = 1500;
     data[Vehicle::PoliceCar].texture = Textures::PoliceCar;
     data[Vehicle::PoliceCar].scaling = sf::Vector2f(0.25,0.25);
+    data[Vehicle::PoliceCar].collisionEffect = SoundEffect::PoliceCar;
 
     data[Vehicle::YellowCar].dmg = 30;
     data[Vehicle::YellowCar].speed = 200.f;
     data[Vehicle::YellowCar].distanceBetweenVehicle = 520;
     data[Vehicle::YellowCar].texture = Textures::YellowCar;
     data[Vehicle::YellowCar].scaling = sf::Vector2f(1.1,1.1);
+    data[Vehicle::YellowCar].collisionEffect = SoundEffect::Car;
 
     data[Vehicle::OldCar].dmg = 0;
     data[Vehicle::OldCar].speed = 100.f;
     data[Vehicle::OldCar].distanceBetweenVehicle = 450;
     data[Vehicle::OldCar].texture = Textures::OldCar;
     data[Vehicle::OldCar].scaling = sf::Vector2f(1.1,1.1);
+    data[Vehicle::OldCar].collisionEffect = SoundEffect::OldCar;
 
     data[Vehicle::SuperCar].dmg = 35;
     data[Vehicle::SuperCar].speed = 900.f;
     data[Vehicle::SuperCar].distanceBetweenVehicle = 1000;
     data[Vehicle::SuperCar].texture = Textures::SuperCar;
     data[Vehicle::SuperCar].scaling = sf::Vector2f(1.2,1.2);
+    data[Vehicle::SuperCar].collisionEffect = SoundEffect::Car;
     
     data[Vehicle::IceCreamTruck].dmg = 45;
     data[Vehicle::IceCreamTruck].speed = 500.f;
     data[Vehicle::IceCreamTruck].distanceBetweenVehicle = 950;
     data[Vehicle::IceCreamTruck].texture = Textures::IceCreamTruck;
     data[Vehicle::IceCreamTruck].scaling = sf::Vector2f(0.5,0.5);
+    data[Vehicle::IceCreamTruck].collisionEffect = SoundEffect::IceCreamTruck;
 
     data[Vehicle::SantaClaus].dmg = 30;
     data[Vehicle::SantaClaus].speed = 350.f;
     data[Vehicle::SantaClaus].distanceBetweenVehicle = 700;
     data[Vehicle::SantaClaus].texture = Textures::SantaClaus;
     data[Vehicle::SantaClaus].scaling = sf::Vector2f(0.55,0.55);
+    data[Vehicle::SantaClaus].collisionEffect = SoundEffect::SantaClaus;
 
     return data;
 }

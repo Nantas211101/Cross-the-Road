@@ -95,8 +95,7 @@ private:
     int mHP;
     int maxHP;
     int movingVelocity;
-    sf::Clock timeSinceLastDamage;
-    const sf::Time damageGap = sf::seconds(1);
+
     // Animation healingAnimation;
     // Animation takingDamageAnimation;
 };

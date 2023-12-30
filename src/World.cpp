@@ -1,6 +1,5 @@
 #include "Obstacle.hpp"
 #include <World.hpp>
-#include <iostream>
 
 World::World(State::Context context)
 : mWindow(*context.window)
@@ -8,6 +7,7 @@ World::World(State::Context context)
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
+, mSound(*context.sounds)
 , scrollDistance(0)
 , mSceneGraph()
 , mSceneLayers()
@@ -18,6 +18,7 @@ World::World(State::Context context)
 , healthBar(nullptr)
 , mHealthDisplay(nullptr)
 , mContext(context)
+, timeSinceLastDamage()
 {
 	buildScene(context.player->getMainCharID());
 	// Prepare the view
@@ -52,6 +53,9 @@ void World::update(sf::Time dt)
 			mCommandQueue.pop();
 		}
 	}
+	while(!soundCommandQueue.isEmpty()) {
+		mSceneGraph.onCommand(soundCommandQueue.pop(), dt);
+	}
 
 	// Collision detection and response (may destroy entities)
 	handleCollisions();
@@ -63,6 +67,7 @@ void World::update(sf::Time dt)
 	}
 	adaptPlayerPosition();
 	updateHealthBar();
+	updateSound();
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
@@ -97,6 +102,7 @@ void World::handleCollisions()
 		mainChar->checkSceneCollision(*lanes[curLane - 1], collisionPairs);
 
 	bool onRiver = false;
+    sf::Time timeFromLastDamage = timeSinceLastDamage.getElapsedTime();
 	for(SceneNode::Pair pair : collisionPairs) {
 		if (matchesCategories(pair, Category::Player, Category::Log)) {
 			auto& log = static_cast<Log&>(*pair.second);
@@ -112,20 +118,31 @@ void World::handleCollisions()
 			onRiver = false;
 			break;
 		}
-
 		if (matchesCategories(pair, Category::Player, Category::Obstacle)) {
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
-			mainChar->damage(obstacle.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				mainChar->damage(obstacle.getDamage());
+				obstacle.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 			mainChar->backTolastPos();
 			mainChar->stopMoving();
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Vehicle)) {
 			auto& vehicle = static_cast<Vehicle&>(*pair.second);
-			mainChar->damage(vehicle.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				mainChar->damage(vehicle.getDamage());
+				vehicle.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Animal)) {
 			auto& animal = static_cast<Animal&>(*pair.second);
-			mainChar->damage(animal.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				mainChar->damage(animal.getDamage());
+				animal.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Train)) {
 			auto& train = static_cast<Train&>(*pair.second);
@@ -160,7 +177,11 @@ void World::buildScene(MainChar::Type id)
 	}
 	mSceneLayers[Title]->setReverse();
 
-	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	// Add sound effect node
+	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSound));
+	mSceneGraph.attachChild(std::move(soundNode));
+
+	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 60; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;
@@ -256,4 +277,9 @@ void World::updateHealthBar() {
 	healthBar->setTextureRect(healthBar->getPosition(), curHP * 309 / maxHP, 41);
 	
 	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
+}
+
+void World::updateSound() {
+	mSound.setListenerPosition(mainChar->getPosition());
+	mSound.removeStoppedSounds();
 }
