@@ -181,7 +181,7 @@ void World::buildScene(MainChar::Type id)
 	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSound));
 	mSceneGraph.attachChild(std::move(soundNode));
 
-	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	LaneFactoryTheme3 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 60; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;

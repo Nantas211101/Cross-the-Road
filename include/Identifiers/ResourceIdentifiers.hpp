@@ -302,6 +302,7 @@ namespace SoundEffect{
 		Rock,
 		Tree,
 		Volcano,
+		SnowMan,
 	};
 }
 

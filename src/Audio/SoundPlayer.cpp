@@ -41,7 +41,7 @@ SoundPlayer::SoundPlayer()
     mSoundBuffers.load(SoundEffect::Rock, "Media/Sound/ObstacleSound/Rock.wav");
     mSoundBuffers.load(SoundEffect::Tree, "Media/Sound/ObstacleSound/Tree.wav");
     mSoundBuffers.load(SoundEffect::Volcano, "Media/Sound/ObstacleSound/Volcano.wav");
-
+    mSoundBuffers.load(SoundEffect::SnowMan, "Media/Sound/ObstacleSound/SnowMan.wav");
 }
 
 void SoundPlayer::play(SoundEffect::ID effect)

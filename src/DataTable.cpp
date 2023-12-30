@@ -121,7 +121,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree1].numOfFrames = 1;
     data[Obstacle::SnowTree1].pictureWidth = 201;   
     data[Obstacle::SnowTree1].pictureHeight = 265;
-    data[Obstacle::SnowTree].collisionEffect = SoundEffect::Tree;
+    data[Obstacle::SnowTree1].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::SnowMan].dmg = 5;
     data[Obstacle::SnowMan].speed = 0.f;
@@ -130,7 +130,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowMan].numOfFrames = 1;
     data[Obstacle::SnowMan].pictureWidth = 157;  
     data[Obstacle::SnowMan].pictureHeight = 176;
-    data[Obstacle::SnowTree].collisionEffect = SoundEffect::Tree;
+    data[Obstacle::SnowMan].collisionEffect = SoundEffect::SnowMan;
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){
@@ -246,7 +246,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::SnowBear].pictureWidth = 9152;
     data[Animal::SnowBear].pictureHeight = 476;
     data[Animal::SnowBear].duration = 0.5;
-    data[Animal::SnowBear].collisionEffect = SoundEffect::SnowBear;
+    data[Animal::SnowBear].collisionEffect = SoundEffect::Bear;
     return data;
 }
 
