@@ -11,7 +11,14 @@
 
 #include <string>
 
+class Player1;
+class Player2;
+class Player3;
+
 class MainChar : public Entity{
+friend Player1;
+friend Player2;
+friend Player3;
 public:
     enum Type{
         Player1,
@@ -27,7 +34,7 @@ public:
 private:
     virtual void        drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::FloatRect       getBoundingRect() const;
-    void                updateCurrent(sf::Time dt);
+    virtual void        updateCurrent(sf::Time dt);
 
     void                makeStop();
     void                setInLane();
@@ -46,6 +53,10 @@ public:
 
     int					getHitpoints() const;
     int                 getMaxHP() const;
+    int                 getManaPoints() const;
+    int                 getMaxMP() const;
+
+    void                addMana(int points);
     void				heal(int points);
     void				damage(int points);
     bool	        	isDead() const;
@@ -56,6 +67,8 @@ public:
     void                goRight();
     void                stopMoving();
     bool                isStanding();
+    virtual void        useAbility();
+    bool                canUseAbility();
 
     void                resetState();
     int                 getCurLane();
@@ -84,7 +97,7 @@ private:
     Animation leftAnimation;
     Animation rightAnimation;
     Animation restAnimation;
-    Animation deathAnimation;
+    // Animation deathAnimation;
     bool ownerFlag;
 
     State state;
@@ -93,12 +106,12 @@ private:
     int curLane;
 
     int mHP;
-    int maxHP;
+    const int maxHP;
+    int mMP;
+    const int maxMP;
     int movingVelocity;
     sf::Clock timeSinceLastDamage;
     const sf::Time damageGap = sf::seconds(1);
-    // Animation healingAnimation;
-    // Animation takingDamageAnimation;
 };
 
 int convertToMaskID(MainChar::Type type);

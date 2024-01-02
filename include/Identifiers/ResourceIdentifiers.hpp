@@ -105,7 +105,8 @@ namespace Textures
 
 		// Player
 		HealthBar,
-		BoundHealthBar,
+		ManaBar,
+		BoundBar,
 		
 		// Player1
 		Standing1,
@@ -122,6 +123,7 @@ namespace Textures
 		Down2,
 		Left2,
 		Right2,
+		PowerShell,
 
 		// Player3
 		Standing3,

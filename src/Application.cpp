@@ -219,7 +219,8 @@ void Application::loadResources(){
 
     // Player
     mTextures.load(Textures::HealthBar, "Media/Textures/Player/HealthBar.png");
-    mTextures.load(Textures::BoundHealthBar, "Media/Textures/Player/BoundHPBar.png");
+    mTextures.load(Textures::ManaBar, "Media/Textures/Player/ManaBar.png");
+    mTextures.load(Textures::BoundBar, "Media/Textures/Player/BoundHPBar.png");
 
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
@@ -236,6 +237,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::Down2, "Media/Textures/Player/Player2/Down.png");
 	mTextures.load(Textures::Left2, "Media/Textures/Player/Player2/Left.png");
 	mTextures.load(Textures::Right2, "Media/Textures/Player/Player2/Right.png");
+	mTextures.load(Textures::PowerShell, "Media/Textures/Player/Player2/PowerShell.png");
     
     // Player3
     mTextures.load(Textures::Standing3, "Media/Textures/Player/Player3/Standing.png");

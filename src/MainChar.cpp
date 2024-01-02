@@ -94,6 +94,8 @@ MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::v
 , curLane(curLane)
 , mHP(Table[type].hitpoints)
 , maxHP(Table[type].hitpoints)
+, mMP(0)
+, maxMP(Table[type].manapoints)
 , movingVelocity(Table[type].speed)
 , timeSinceLastDamage()
 {
@@ -135,6 +137,9 @@ MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::v
 MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
 : mType(type)
 , restAnimation(textures.get(Table[type].restTexture))
+, maxHP(Table[type].hitpoints)
+, mMP(0)
+, maxMP(Table[type].manapoints)
 , state(State::Rest)
 , ownerFlag(true)
 {
@@ -252,9 +257,24 @@ int MainChar::getMaxHP() const {
     return maxHP;
 }
 
+int MainChar::getManaPoints() const {
+    return mMP;
+}
+
+int MainChar::getMaxMP() const {
+    return maxMP;
+}
+
+void MainChar::addMana(int points) {
+    assert(points > 0);
+    mMP += points;
+    mMP = std::min(maxMP, mMP);
+}
+
 void MainChar::heal(int points) {
-	assert(points > 0);
+    assert(points > 0);
 	mHP += points;
+    mHP = std::min(maxHP, mHP);
 }
 
 void MainChar::damage(int points) {
@@ -298,6 +318,16 @@ void MainChar::stopMoving() {
 
 bool MainChar::isStanding() {
     return state == State::Standing;
+}
+
+void MainChar::useAbility() {
+    if(canUseAbility()) {
+        mMP -= maxMP;
+    }
+}
+
+bool MainChar::canUseAbility() {
+    return mMP == maxMP;
 }
 
 int MainChar::getCurLane() {

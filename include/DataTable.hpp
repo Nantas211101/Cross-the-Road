@@ -70,6 +70,7 @@ struct DecoratorData {
 
 struct CharData {
     int hitpoints;
+	int manapoints;
     float speed;
     Textures::ID texture;
 	Textures::ID restTexture;
