@@ -4,55 +4,14 @@ LaneFactoryTheme2::LaneFactoryTheme2(TextureHolder* textureHolder, sf::Vector2f 
 : LaneFactory(textureHolder, startPos, level)
 {}
 
-std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::templateLane() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 6);
-    int random = dist(gen);
-    lanes.clear();
-    switch(random) {
-    case 1:
-        templateLane1();
-        break;
-    case 2:
-        templateLane2();
-        break;
-    case 3:
-        templateLane3();
-        break;
-    case 4:
-        templateLane4();
-        break;
-    case 5:
-        templateLane5();
-        break;
-    case 6:
-        templateLane6();
-        break;
-    }
-    //templateFinishLevel(1);
-    //templateFinishTheme(1);
-    std::vector<std::unique_ptr<Lane>> randLanes;
-    for(auto&x : lanes) {
-        randLanes.push_back(std::move(x));
-    }
-    return randLanes;
-}
-
-std::vector<std::unique_ptr<Lane>> LaneFactoryTheme2::templateStartLane(){
-    lanes.clear();
-    for(int i = 0; i < 3; i++) {
+void LaneFactoryTheme2::templateStartLane(int num){
+    for(int i = 0; i < num; i++) {
         bool isStart = 1;
         std::unique_ptr<Lane> lane(new GroundTheme2(textureHolder, startPos, GroundTheme2::Snow,isStart, level));
         lane->setPosition(startPos);
         startPos.y -= Lane::distanceBetweenLane;
         lanes.push_back(std::move(lane));
     }
-    std::vector<std::unique_ptr<Lane>> randLanes;
-    for(auto&x : lanes) {
-        randLanes.push_back(std::move(x));
-    }
-    return randLanes;
 }
 
 void LaneFactoryTheme2::templateFinishTheme(int num){
@@ -123,38 +82,57 @@ void LaneFactoryTheme2::templateRailway(int num) {
     }
 }
 
-void LaneFactoryTheme2::templateLane1() {
-    templateGround(2);
-    templateRiver(2);
-    templateRoad(2);
-    templateRailway(1);
-    templateAnimalRoad(2);
+void LaneFactoryTheme2::templateLevel1(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,2);
+    int randomTemplate;
+    for (int i=1; i<=6; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
 }
 
-void LaneFactoryTheme2::templateLane2() {
-    templateGround(3);
-    templateRoad(5);
+void LaneFactoryTheme2::templateLevel2(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(3,4);
+    int randomTemplate;
+    for (int i=1; i<=8; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
 }
 
-void LaneFactoryTheme2::templateLane3() {
-    templateGround(1);
-    templateAnimalRoad(2);
-    templateRailway(1);
+void LaneFactoryTheme2::templateLevel3(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,4);
+    int randomTemplate;
+    for (int i=1; i<=12; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
 }
 
-void LaneFactoryTheme2::templateLane4() {
-    templateGround(1);
-    templateRiver(2);
-    templateRailway(1);
+void LaneFactoryTheme2::templateLevel4(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,5);
+    int randomTemplate;
+    for (int i=1; i<=12; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
 }
 
-void LaneFactoryTheme2::templateLane5() {
-    templateGround(2);
-    templateRoad(4);
-    templateRailway(1);
-}
-
-void LaneFactoryTheme2::templateLane6() {
-    templateGround(1);
-    templateRailway(1);
+void LaneFactoryTheme2::templateLevel5(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(1,5);
+    int randomTemplate;
+    for (int i=1; i<=14; i++){
+        randomTemplate = dist(gen);
+        callTemplateX(randomTemplate);
+    }
 }

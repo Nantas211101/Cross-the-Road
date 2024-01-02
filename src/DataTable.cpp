@@ -3,14 +3,14 @@
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
     data[Log::Log1].speed = 200.f;
-    data[Log::Log1].distanceBetweenLog = 500;
+    data[Log::Log1].distanceBetweenLog = 380;
     data[Log::Log1].texture = Textures::Log1;
     data[Log::Log1].scaling = sf::Vector2f(0.5, 0.6);
 
     data[Log::Log2].speed = 200.f;
-    data[Log::Log2].distanceBetweenLog = 850;
+    data[Log::Log2].distanceBetweenLog = 530;
     data[Log::Log2].texture = Textures::Log1;
-    data[Log::Log2].scaling = sf::Vector2f(0.5, 0.6);
+    data[Log::Log2].scaling = sf::Vector2f(0.6, 0.6);
 
     data[Log::SnowLog].speed = 200.f;
     data[Log::SnowLog].distanceBetweenLog = 400;

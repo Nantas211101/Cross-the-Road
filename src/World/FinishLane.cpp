@@ -1,6 +1,6 @@
 #include <FinishLane.hpp>
 
- FinishLane::FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty)
+ FinishLane::FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool isForcedLevel)
  : Lane(textureHolder, spawnPos,difficulty)
  , decorators()
  {
@@ -8,6 +8,7 @@
     else if (difficulty == 10) typeFinishLane = Theme2;
     else if (difficulty == 15) typeFinishLane = Theme3;
     else typeFinishLane = Level;
+    if (isForcedLevel) typeFinishLane = Level;
     switch (this->typeFinishLane){
         case FinishLane::Level:
             sprite.setTexture(textureHolder->get(Textures::FinishLevel));

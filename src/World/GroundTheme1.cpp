@@ -67,7 +67,7 @@ void GroundTheme1::buildLane() {
     else{
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> dist(3, 7);
+        std::uniform_int_distribution<int> dist(2, 5);
         int numObstacles = dist(gen);
         for(int j = 0; j < numObstacles; j++) {
             std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
