@@ -279,6 +279,8 @@ void Application::loadResources(){
     mTextures.load(Textures::Monster1, "Media/Textures/Animal/Monster1.png");
     mTextures.load(Textures::Reindeer, "Media/Textures/Animal/Reindeer.png");
     mTextures.load(Textures::SnowBear, "Media/Textures/Animal/SnowBear.png");
+    mTextures.load(Textures::Penguin1, "Media/Textures/Animal/Penguin.png");
+    mTextures.load(Textures::Wolf, "Media/Textures/Animal/Wolf.png");
 
     mTextures.load(Textures::Traffic, "Media/Textures/Road/Traffic.png");
     mTextures.load(Textures::Truck, "Media/Textures/Vehicle/Truck.png");

@@ -15,6 +15,8 @@ public:
       Cow,
       Reindeer,
       SnowBear,
+      Penguin,
+      Wolf,
       Small_Dragon,
       Green_Dragon,
       Red_Dragon,

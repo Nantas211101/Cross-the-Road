@@ -55,6 +55,8 @@ namespace Textures
 		Monster1,
 		Reindeer,
 		SnowBear,
+		Penguin1,
+		Wolf,
 
 		Traffic,
         Truck,

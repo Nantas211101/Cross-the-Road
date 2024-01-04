@@ -47,17 +47,29 @@ void RoadTheme2::generateAnimal(){
     int distance = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 2);
+    std::uniform_int_distribution<int> dist;
+    if (difficulty>=3) 
+        dist = std::uniform_int_distribution<int>(2, 4);
+    else 
+        dist = std::uniform_int_distribution<int>(1, 2);
+
     int randomKindAnimal = dist(gen);
     Animal::Type kind; 
-
     switch(randomKindAnimal) {
-        case 1:
-            kind = Animal::Reindeer;
-            break;
-        case 2:
-            kind = Animal::SnowBear;
-            break;
+    case 1:
+        kind = Animal::Reindeer;
+        break;
+    case 2:
+        kind = Animal::Penguin;
+        break;
+    case 3:
+        kind = Animal::SnowBear;
+        break;
+    case 4:
+        kind = Animal::Wolf;
+        break;
+    default:
+        break;
     }
     
     std::uniform_int_distribution<int> dist2(0, 199);

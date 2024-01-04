@@ -67,10 +67,26 @@ void GroundTheme1::buildLane() {
     else{
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> dist(2, 5);
+        std::uniform_int_distribution<int> dist(3, 7);
         int numObstacles = dist(gen);
+        Obstacle::Type kind;
+        int randObtacle = rand()%3;
+        switch (randObtacle) {
+            case 0:
+                kind = Obstacle::Rock1;
+                break;
+            case 1:
+                kind = Obstacle::Ruin1;
+                break;
+            case 2:
+                kind = Obstacle::Ruin2;
+                break;
+            case 3:
+                kind = Obstacle::Tree3;
+                break;
+        }
         for(int j = 0; j < numObstacles; j++) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(kind, *textureHolder));
             obstacles.push_back(obstacle.get());
             int randNum = rand() % 17;
             obstacle->setPosition( randNum * distanceBetweenLane + 500,0);

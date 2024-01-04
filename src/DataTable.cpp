@@ -222,7 +222,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Reindeer].deltaHeightBound = 0;
 
     data[Animal::SnowBear].dmg = 85;
-    data[Animal::SnowBear].speed = 300.f;
+    data[Animal::SnowBear].speed = 400.f;
     data[Animal::SnowBear].distanceBetweenAnimal = 1000;
     data[Animal::SnowBear].texture = Textures::SnowBear;
     data[Animal::SnowBear].scaling = sf::Vector2f(0.3, 0.2);
@@ -231,6 +231,28 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::SnowBear].pictureHeight = 476;
     data[Animal::SnowBear].duration = 0.5;
     data[Animal::SnowBear].deltaHeightBound = 0;
+
+    data[Animal::Penguin].dmg = 30;
+    data[Animal::Penguin].speed = 300.f;
+    data[Animal::Penguin].distanceBetweenAnimal = 1000;
+    data[Animal::Penguin].texture = Textures::Penguin1;
+    data[Animal::Penguin].scaling = sf::Vector2f(0.15, 0.2);
+    data[Animal::Penguin].numOfFrames = 6;
+    data[Animal::Penguin].pictureWidth = 2909;
+    data[Animal::Penguin].pictureHeight = 485;  
+    data[Animal::Penguin].duration = 0.5;
+    data[Animal::Penguin].deltaHeightBound = 0;
+
+    data[Animal::Wolf].dmg = 50;
+    data[Animal::Wolf].speed = 400.f;
+    data[Animal::Wolf].distanceBetweenAnimal = 1000;
+    data[Animal::Wolf].texture = Textures::Wolf;
+    data[Animal::Wolf].scaling = sf::Vector2f(0.1, 0.15);
+    data[Animal::Wolf].numOfFrames = 8;
+    data[Animal::Wolf].pictureWidth = 8823;
+    data[Animal::Wolf].pictureHeight = 556;  
+    data[Animal::Wolf].duration = 0.5;
+    data[Animal::Wolf].deltaHeightBound = 0;
     return data;
 }
 
