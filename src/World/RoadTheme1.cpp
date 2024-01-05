@@ -99,10 +99,10 @@ void RoadTheme1::generateVehicle(){
             dist = std::uniform_int_distribution<int>(2, 4);
             break;
         case 2:
-            dist = std::uniform_int_distribution<int>(1, 4);
+            dist = std::uniform_int_distribution<int>(1, 6);
             break;
         case 3:
-            dist = std::uniform_int_distribution<int>(1, 6);
+            dist = std::uniform_int_distribution<int>(1, 8);
             break;
         case 4:
             dist = std::uniform_int_distribution<int>(1, 8);

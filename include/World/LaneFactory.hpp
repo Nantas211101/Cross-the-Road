@@ -72,8 +72,13 @@ private:
     void templateLane26();
     void templateLane27();
     void templateLane28();
-    // void templateLane29();
-    // void templateLane30();
+    void templateLane29();
+    void templateLane30();
+    void templateLane31();
+    void templateLane32();
+    void templateLane33();
+    void templateLane34();
+    void templateLane35();
 
     void callTemplateX(int x);
 public:

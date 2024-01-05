@@ -80,21 +80,20 @@ void LaneFactoryTheme1::templateRailway(int num) {
     }
 }
 
-
 void LaneFactoryTheme1::templateLevel1(){
-    std::vector<int> templates{1,2,3,4, 5, 10, 6};
+    std::vector<int> templates{1,2,3,4,5,6,7,8,23,25};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
     int randomTemplate;
-    for (int i=1; i<=5; i++){
+    for (int i=1; i<=6; i++){
         randomTemplate = dist(gen);
         callTemplateX(templates[randomTemplate]);
     }
 }
 
 void LaneFactoryTheme1::templateLevel2(){
-    std::vector<int> templates{1,2,3,5, 7, 10, 11, 14};
+    std::vector<int> templates{1,2,4,5,6,7,8,9,10,11,12,14,15,16,18,23,24,25,26,27,31};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
@@ -106,7 +105,7 @@ void LaneFactoryTheme1::templateLevel2(){
 }
 
 void LaneFactoryTheme1::templateLevel3(){
-    std::vector<int> templates{1,2,3,4,5, 6,8, 10, 11, 12,13,14, 15,16,18,20,21};
+    std::vector<int> templates{1,2,4,5,6,7,8,9,10,11,12,14,15,16,17,18,20,23,24,25,26,27,28,29,31,33,34,35};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
@@ -118,24 +117,24 @@ void LaneFactoryTheme1::templateLevel3(){
 }
 
 void LaneFactoryTheme1::templateLevel4(){
-    std::vector<int> templates{1,2,3,4,5, 6,8, 10, 11, 12,13,14, 15,16,17,18,20,21,24,25};
+    std::vector<int> templates{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1); 
     int randomTemplate;
-    for (int i=1; i<=14; i++){
+    for (int i=1; i<=9; i++){
         randomTemplate = dist(gen);
         callTemplateX(randomTemplate);
     }
 }
 
 void LaneFactoryTheme1::templateLevel5(){
-    std::vector<int> templates{5,6,8, 10, 11, 12,13,14, 15,16,17,18,20,21,22,23,24,25,26,27,28};
+    std::vector<int> templates{1,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);
     int randomTemplate;
-    for (int i=1; i<=14; i++){
+    for (int i=1; i<=11; i++){
         randomTemplate = dist(gen);
         callTemplateX(randomTemplate);
     }

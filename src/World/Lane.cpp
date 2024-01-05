@@ -30,9 +30,13 @@ void Lane::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const 
 }
 
 sf::Vector2f Lane::transformVelocity(sf::Vector2f v){
+    if (difficulty<=2){
+        v.x *= 0.9;
+        v.y *= 0.9;
+    }
     if (difficulty>3){
-        v.x *= 1.2;
-        v.y *= 1.2;
+        v.x *= 1.1;
+        v.y *= 1.1;
     }
     return v;
 }
