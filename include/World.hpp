@@ -39,6 +39,8 @@ class World : private sf::NonCopyable
 		void								scroll(sf::Time dt);
 		void								buildHealthBar();
 		void								updateHealthBar();
+		void								updateMana(sf::Time dt);
+		void								buildMainChar();
 
 	private:
 		enum Layer
@@ -67,8 +69,13 @@ class World : private sf::NonCopyable
 		std::vector<Lane*> 					lanes;
 		MainChar*							mainChar;
 
-		SpriteNode*							boundHealthBar;
+		SpriteNode*							boundBar;
 		SpriteNode*							healthBar;
+		SpriteNode*							manaBar;
     	TextNode* 							mHealthDisplay;
+		int									highestBound;
+		const sf::Time						timeEachAddMana = sf::seconds(0.2);
+		sf::Time							timeSinceLastAddMana;
+				
 		State::Context 						mContext;
 };

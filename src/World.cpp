@@ -1,11 +1,15 @@
 #include "Obstacle.hpp"
 #include <World.hpp>
-#include <iostream>
+#include <MainChar1.hpp>
+#include <MainChar2.hpp>
+#include <MainChar3.hpp>
+#include <MainChar4.hpp>
+#include <MainChar5.hpp>
 
 World::World(State::Context context)
 : mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 1000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
 , scrollDistance(0)
@@ -14,12 +18,14 @@ World::World(State::Context context)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 , lanes()
 , mainChar(nullptr)
-, boundHealthBar(nullptr)
+, boundBar(nullptr)
 , healthBar(nullptr)
+, manaBar(nullptr)
 , mHealthDisplay(nullptr)
 , mContext(context)
 {
 	buildScene(context.player->getMainCharID());
+	buildMainChar();
 	// Prepare the view
 	mWorldView.setCenter(mSpawnPosition);
 	buildHealthBar();
@@ -34,14 +40,14 @@ void World::update(sf::Time dt)
 	// Manipulating infinity scroll background.
 	sf::Vector2f ta =  mWorldView.getCenter();
 	sf::Vector2f viewSize = mWorldView.getSize();
-	if(ta.y <= viewSize.y / 2){
+	// if(ta.y <= viewSize.y / 2){
 
-		// keep the mplayer position while reset the scroll (to make it infinity)
-		mWorldView.setCenter(mSpawnPosition);
-		mainChar->resetState();
-		scrollDistance = 0;
-		playerLaneIndex = 1;
-	}
+	// 	// keep the mplayer position while reset the scroll (to make it infinity)
+	// 	mWorldView.setCenter(mSpawnPosition);
+	// 	mainChar->resetState();
+	// 	scrollDistance = 0;
+	// 	playerLaneIndex = highestBound = 1;
+	// }
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
 	while (!mCommandQueue.isEmpty()){
@@ -63,6 +69,7 @@ void World::update(sf::Time dt)
 	}
 	adaptPlayerPosition();
 	updateHealthBar();
+	updateMana(dt);
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
@@ -175,10 +182,6 @@ void World::buildScene(MainChar::Type id)
 			mSceneLayers[Title]->attachChild(std::move(x));
 		}
 	}
-	playerLaneIndex = 1;
-	std::unique_ptr<MainChar> character(new MainChar(id, mTextures, playerLaneIndex, lanes));
-	mainChar = character.get();
-	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
 
 void World::adaptPlayerPosition() {
@@ -228,32 +231,81 @@ void World::buildHealthBar() {
 	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
 	sf::Vector2f healthBarPos(0, viewBounds.top);
 
-	std::unique_ptr<SpriteNode> boundingHP(new SpriteNode(mTextures.get(Textures::BoundHealthBar)));
+	std::unique_ptr<SpriteNode> boundingHP(new SpriteNode(mTextures.get(Textures::BoundBar)));
 	boundingHP->setPosition(healthBarPos);
-	boundHealthBar = boundingHP.get();
+	boundBar = boundingHP.get();
 	mSceneLayers[AboveTitle]->attachChild(std::move(boundingHP));
 
 	std::unique_ptr<SpriteNode> hpBar(new SpriteNode(mTextures.get(Textures::HealthBar)));
-	hpBar->setTextureRect(healthBarPos, 309, 41);
-	hpBar->setPosition(78, 16.5);
+	hpBar->setTextureRect(healthBarPos, 306, 30.64);
+	hpBar->setPosition(78, 12);
 	healthBar = hpBar.get();
-	boundHealthBar->attachChild(std::move(hpBar));
+	boundBar->attachChild(std::move(hpBar));
+
+	std::unique_ptr<SpriteNode> mpBar(new SpriteNode(mTextures.get(Textures::ManaBar)));
+	mpBar->setTextureRect(healthBarPos, 306, 19);
+	mpBar->setPosition(78, 42);
+	manaBar = mpBar.get();
+	boundBar->attachChild(std::move(mpBar));
 
 	std::unique_ptr<TextNode> healthDisplay(new TextNode(mFonts, ""));
-	healthDisplay->setPosition(340, -13);
+	healthDisplay->setPosition(334, -25);
 	mHealthDisplay = healthDisplay.get();
-    boundHealthBar->attachChild(std::move(healthDisplay));
+    boundBar->attachChild(std::move(healthDisplay));
     updateHealthBar();
 }
 
 void World::updateHealthBar() {
 	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
 	sf::Vector2f healthBarPos(0, viewBounds.top);
-	boundHealthBar->setPosition(healthBarPos);
+	boundBar->setPosition(healthBarPos);
 
 	float curHP = mainChar->getHitpoints();
 	float maxHP = mainChar->getMaxHP();
-	healthBar->setTextureRect(healthBar->getPosition(), curHP * 309 / maxHP, 41);
+	healthBar->setTextureRect(healthBar->getPosition(), curHP * 306 / maxHP, 30.64);
+
+	float curMP = mainChar->getManaPoints();
+	float maxMP = mainChar->getMaxMP();
+	manaBar->setTextureRect(manaBar->getPosition(), curMP * 306 / maxMP, 19);
 	
 	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
+}
+
+void World::updateMana(sf::Time dt) {
+	int curLane = mainChar->getCurLane();
+	timeSinceLastAddMana += dt;
+	if(curLane > highestBound) {
+		mainChar->addMana(20);
+		highestBound = curLane;
+		timeSinceLastAddMana = sf::Time::Zero;
+	}
+	else if(timeSinceLastAddMana > timeEachAddMana) {
+		mainChar->addMana(1);
+		timeSinceLastAddMana = sf::Time::Zero;
+	}
+}
+
+#include <iostream>
+void World::buildMainChar() {
+	playerLaneIndex = highestBound = 1;
+	std::unique_ptr<MainChar> character;
+	auto id = mContext.player->getMainCharID();
+	std::cerr << id << std::endl;
+	if(id == MainChar::Type::Player1) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar1(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player2) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar2(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player3) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar3(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player4) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar4(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player5) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar5(mTextures, playerLaneIndex, lanes)));
+	}
+	mainChar = character.get();
+	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }

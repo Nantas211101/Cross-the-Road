@@ -11,7 +11,18 @@
 
 #include <string>
 
-class MainChar : public Entity{
+class MainChar1;
+class MainChar2;
+class MainChar3;
+class MainChar4;
+class MainChar5;
+
+class MainChar: public Entity{
+friend MainChar1;
+friend MainChar2;
+friend MainChar3;
+friend MainChar4;
+friend MainChar5;
 public:
     enum Type{
         Player1,
@@ -27,7 +38,7 @@ public:
 private:
     virtual void        drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::FloatRect       getBoundingRect() const;
-    void                updateCurrent(sf::Time dt);
+    virtual void        updateCurrent(sf::Time dt);
 
     void                makeStop();
     void                setInLane();
@@ -35,8 +46,8 @@ private:
     void                setOwnerShip(bool flag);
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
-    explicit            MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos);
+    explicit            MainChar(Type type, TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
+    explicit            MainChar(Type type, TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
     virtual unsigned int getCategory() const;
@@ -46,6 +57,10 @@ public:
 
     int					getHitpoints() const;
     int                 getMaxHP() const;
+    int                 getManaPoints() const;
+    int                 getMaxMP() const;
+
+    void                addMana(int points);
     void				heal(int points);
     void				damage(int points);
     bool	        	isDead() const;
@@ -56,6 +71,8 @@ public:
     void                goRight();
     void                stopMoving();
     bool                isStanding();
+    virtual void        useAbility();
+    bool                canUseAbility();
 
     void                resetState();
     int                 getCurLane();
@@ -69,6 +86,8 @@ public:
 
 
 private:
+    TextureHolder& textureHolder;
+
     enum State {
         Down,
         Left,
@@ -84,7 +103,7 @@ private:
     Animation leftAnimation;
     Animation rightAnimation;
     Animation restAnimation;
-    Animation deathAnimation;
+    // Animation deathAnimation;
     bool ownerFlag;
 
     State state;
@@ -93,12 +112,12 @@ private:
     int curLane;
 
     int mHP;
-    int maxHP;
+    const int maxHP;
+    int mMP;
+    const int maxMP;
     int movingVelocity;
     sf::Clock timeSinceLastDamage;
     const sf::Time damageGap = sf::seconds(1);
-    // Animation healingAnimation;
-    // Animation takingDamageAnimation;
 };
 
 int convertToMaskID(MainChar::Type type);

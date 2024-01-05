@@ -15,6 +15,7 @@ file(GLOB SRCS CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/src/States/*.cpp
     ${CMAKE_SOURCE_DIR}/src/World/*.cpp
     ${CMAKE_SOURCE_DIR}/src/Audio/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/Player/*.cpp
 )
 
 add_executable(game ${SRCS})
@@ -28,6 +29,7 @@ target_include_directories(game PRIVATE
     ${CMAKE_SOURCE_DIR}/template/
     ${CMAKE_SOURCE_DIR}/include/World/
     ${CMAKE_SOURCE_DIR}/include/Audio/
+    ${CMAKE_SOURCE_DIR}/include/Player/
 )
 
 if(WIN32)
