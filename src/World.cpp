@@ -1,8 +1,10 @@
 #include "Obstacle.hpp"
 #include <World.hpp>
-#include <Player1.hpp>
-#include <Player2.hpp>
-#include <Player3.hpp>
+#include <MainChar1.hpp>
+#include <MainChar2.hpp>
+#include <MainChar3.hpp>
+#include <MainChar4.hpp>
+#include <MainChar5.hpp>
 
 World::World(State::Context context)
 : mWindow(*context.window)
@@ -23,6 +25,7 @@ World::World(State::Context context)
 , mContext(context)
 {
 	buildScene(context.player->getMainCharID());
+	buildMainChar();
 	// Prepare the view
 	mWorldView.setCenter(mSpawnPosition);
 	buildHealthBar();
@@ -179,10 +182,6 @@ void World::buildScene(MainChar::Type id)
 			mSceneLayers[Title]->attachChild(std::move(x));
 		}
 	}
-	playerLaneIndex = highestBound = 1;
-	std::unique_ptr<MainChar> character(new Player2(mTextures, playerLaneIndex, lanes));
-	mainChar = character.get();
-	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }
 
 void World::adaptPlayerPosition() {
@@ -267,7 +266,7 @@ void World::updateHealthBar() {
 
 	float curMP = mainChar->getManaPoints();
 	float maxMP = mainChar->getMaxMP();
-	manaBar->setTextureRect(manaBar->getPosition(),  curMP * 306 / maxMP, 19);
+	manaBar->setTextureRect(manaBar->getPosition(), curMP * 306 / maxMP, 19);
 	
 	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
 }
@@ -281,7 +280,32 @@ void World::updateMana(sf::Time dt) {
 		timeSinceLastAddMana = sf::Time::Zero;
 	}
 	else if(timeSinceLastAddMana > timeEachAddMana) {
-		mainChar->addMana(5);
+		mainChar->addMana(1);
 		timeSinceLastAddMana = sf::Time::Zero;
 	}
+}
+
+#include <iostream>
+void World::buildMainChar() {
+	playerLaneIndex = highestBound = 1;
+	std::unique_ptr<MainChar> character;
+	auto id = mContext.player->getMainCharID();
+	std::cerr << id << std::endl;
+	if(id == MainChar::Type::Player1) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar1(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player2) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar2(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player3) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar3(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player4) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar4(mTextures, playerLaneIndex, lanes)));
+	}
+	else if(id == MainChar::Type::Player5) {
+		character = std::move(std::unique_ptr<MainChar>(new MainChar5(mTextures, playerLaneIndex, lanes)));
+	}
+	mainChar = character.get();
+	mSceneLayers[AboveTitle]->attachChild(std::move(character));
 }

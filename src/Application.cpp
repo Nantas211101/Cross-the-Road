@@ -21,10 +21,6 @@ const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.png";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
 const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
 const std::string Path_ChooseCharScreen = "Media/Textures/State/ChooseCharScreen.png";
-const std::string Path_chickenMain = "Media/Textures/Player/Chicken.png";
-const std::string Path_penguinMain = "Media/Textures/Player/Penguin.png";
-const std::string Path_sheepMain = "Media/Textures/Player/Sheep.png";
-const std::string Path_mallardMain = "Media/Textures/Player/Mallard.png";
 const std::string Path_RightButton = "Media/Textures/Button/Right.png";
 const std::string Path_LeftButton = "Media/Textures/Button/Left.png";
 const std::string Path_Normal = "Media/Textures/Button/ButtonNormal.png";
@@ -199,10 +195,6 @@ void Application::loadResources(){
     mTextures.load(Textures::TitleScreen, Path_TitleScreen);
     mTextures.load(Textures::ChooseCharScreen, Path_ChooseCharScreen);
     mTextures.load(Textures::MenuScreen, Path_MenuScreen);
-    mTextures.load(Textures::Chicken, Path_chickenMain);
-    mTextures.load(Textures::Penguin, Path_penguinMain);
-    mTextures.load(Textures::Sheep, Path_sheepMain);
-    mTextures.load(Textures::Mallard, Path_mallardMain);
     mTextures.load(Textures::RightButton, Path_RightButton);
     mTextures.load(Textures::LeftButton, Path_LeftButton);
     mTextures.load(Textures::ButtonNormal, Path_Normal);
@@ -237,7 +229,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::Down2, "Media/Textures/Player/Player2/Down.png");
 	mTextures.load(Textures::Left2, "Media/Textures/Player/Player2/Left.png");
 	mTextures.load(Textures::Right2, "Media/Textures/Player/Player2/Right.png");
-	mTextures.load(Textures::PowerShell, "Media/Textures/Player/Player2/PowerShell.png");
+	mTextures.load(Textures::Healing, "Media/Textures/Player/Player2/Healing.png");
     
     // Player3
     mTextures.load(Textures::Standing3, "Media/Textures/Player/Player3/Standing.png");
@@ -246,6 +238,7 @@ void Application::loadResources(){
     mTextures.load(Textures::Down3, "Media/Textures/Player/Player3/Down.png");
     mTextures.load(Textures::Left3, "Media/Textures/Player/Player3/Left.png");
     mTextures.load(Textures::Right3, "Media/Textures/Player/Player3/Right.png");
+	mTextures.load(Textures::PowerShell, "Media/Textures/Player/Player3/PowerShell.png");
     
     // Player4
     mTextures.load(Textures::Standing4, "Media/Textures/Player/Player4/Standing.png");

@@ -81,8 +81,9 @@ int IDToNum(MainChar::Type type){
     return MainChar::TypeCount;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::vector<Lane*>& lanes)
-: mType(type)
+MainChar::MainChar(Type type, TextureHolder& textures, int curLane, std::vector<Lane*>& lanes)
+: textureHolder(textures)
+, mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
 , leftAnimation(textures.get(Table[type].leftTexture))
@@ -134,8 +135,9 @@ MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::v
     rightAnimation.scale(Table[type].scaling, Table[type].scaling);
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
-: mType(type)
+MainChar::MainChar(Type type, TextureHolder& textures, sf::Vector2f pos)
+: textureHolder(textures)
+, mType(type)
 , restAnimation(textures.get(Table[type].restTexture))
 , maxHP(Table[type].hitpoints)
 , mMP(0)
@@ -246,7 +248,11 @@ unsigned int MainChar::getCategory() const
 }
 
 sf::FloatRect MainChar::getBoundingRect() const {
-    return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+    sf::FloatRect bound = getWorldTransform().transformRect(mSprite.getGlobalBounds());
+    bound.left += Table[mType].deltaLeftBound;
+    bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane - 25);
+    bound.width -= Table[mType].deltaWidthBound;
+    return bound;
 }
 
 int MainChar::getHitpoints() const {

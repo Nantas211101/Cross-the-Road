@@ -123,7 +123,7 @@ namespace Textures
 		Down2,
 		Left2,
 		Right2,
-		PowerShell,
+		Healing,
 
 		// Player3
 		Standing3,
@@ -132,6 +132,7 @@ namespace Textures
 		Down3,
 		Left3,
 		Right3,
+		PowerShell,
 		
 		// Player4
 		Standing4,
@@ -141,7 +142,7 @@ namespace Textures
 		Left4,
 		Right4,
 
-		// Player4
+		// Player5
 		Standing5,
 		Rest5,
 		Up5,
@@ -149,10 +150,6 @@ namespace Textures
 		Left5,
 		Right5,
 
-		Chicken,
-		Mallard,
-		Penguin,
-		Sheep,
 		none,
 
 		// Menu and State part

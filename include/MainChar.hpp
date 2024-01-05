@@ -11,14 +11,18 @@
 
 #include <string>
 
-class Player1;
-class Player2;
-class Player3;
+class MainChar1;
+class MainChar2;
+class MainChar3;
+class MainChar4;
+class MainChar5;
 
-class MainChar : public Entity{
-friend Player1;
-friend Player2;
-friend Player3;
+class MainChar: public Entity{
+friend MainChar1;
+friend MainChar2;
+friend MainChar3;
+friend MainChar4;
+friend MainChar5;
 public:
     enum Type{
         Player1,
@@ -42,8 +46,8 @@ private:
     void                setOwnerShip(bool flag);
 
 public:
-    explicit            MainChar(Type type, const TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
-    explicit            MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos);
+    explicit            MainChar(Type type, TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
+    explicit            MainChar(Type type, TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
     virtual unsigned int getCategory() const;
@@ -82,6 +86,8 @@ public:
 
 
 private:
+    TextureHolder& textureHolder;
+
     enum State {
         Down,
         Left,

@@ -87,6 +87,9 @@ struct CharData {
 	static const int MaxSpeed = 300;
 	int scaling;
 	std::string name;
+
+	int deltaLeftBound = 0;
+	int deltaWidthBound = 0;
 };
 
 
