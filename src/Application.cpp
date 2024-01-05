@@ -321,6 +321,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::Vocalno, "Media/Textures/Obstacle/Volcano.png");
 	mTextures.load(Textures::Fire, "Media/Textures/Obstacle/Fire.png");
     mTextures.load(Textures::SnowMan, "Media/Textures/Obstacle/SnowMan.png");
+    mTextures.load(Textures::Coin, "Media/Textures/Obstacle/Coin.png");
 	// Railway
 	mTextures.load(Textures::Railway, "Media/Textures/Railway/Railway.png");
 	mTextures.load(Textures::RailwayLight, "Media/Textures/Railway/RailwayLight.png");

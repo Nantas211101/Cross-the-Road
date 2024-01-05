@@ -22,6 +22,7 @@ class Obstacle : public Entity {
             Volcano,
             Fire,
             SnowMan,
+            Coin,
             TypeCount
     };
 

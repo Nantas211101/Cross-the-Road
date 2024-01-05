@@ -72,7 +72,7 @@ void GroundTheme1::buildLane() {
         Obstacle::Type kind;
         int tile = 0;
         while (tile < 17) {
-            int randObtacle = rand()%8;
+            int randObtacle = rand()%9;
             switch (randObtacle) {
                 case 0:
                     kind = Obstacle::Rock1;
@@ -97,6 +97,9 @@ void GroundTheme1::buildLane() {
                     break;   
                 case 7:
                     kind = Obstacle::Tree3;
+                    break;
+                case 8:
+                    kind = Obstacle::Coin;
                     break;             
             }
             std::unique_ptr<Obstacle> obstacle(new Obstacle(kind, *textureHolder));

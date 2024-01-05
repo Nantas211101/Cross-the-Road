@@ -37,6 +37,7 @@ namespace Textures
 		Vocalno,
 		Fire,
 		SnowMan,
+		Coin,
 		// Road
 		Road,
 		Road1,

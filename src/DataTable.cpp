@@ -123,6 +123,15 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowMan].pictureWidth = 157;   
     data[Obstacle::SnowMan].pictureHeight = 176;
     data[Obstacle::SnowMan].deltaHeightBound = 15;
+
+    data[Obstacle::Coin].dmg = 5;
+    data[Obstacle::Coin].speed = 0.f;
+    data[Obstacle::Coin].texture = Textures::Coin;
+    data[Obstacle::Coin].scaling = sf::Vector2f(0.1, 0.1);
+    data[Obstacle::Coin].numOfFrames = 6;
+    data[Obstacle::Coin].pictureWidth = 3878;   
+    data[Obstacle::Coin].pictureHeight = 557;
+    data[Obstacle::Coin].deltaHeightBound = 15;
     return data;
 }
 std::vector<AnimalData> initializeAnimalData(){
