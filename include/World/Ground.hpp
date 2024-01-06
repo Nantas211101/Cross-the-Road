@@ -14,8 +14,8 @@
 
 class Ground : public Lane {
     public:
-        Ground(TextureHolder* textureHolder, sf::Vector2f spawnPos);
-
+        Ground(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty);
+        void setLaneVelocity(){}
     private:
         virtual void updateCurrent(sf::Time dt) = 0;
 };

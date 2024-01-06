@@ -1,7 +1,7 @@
 #include <GroundTheme1.hpp>
 
- GroundTheme1::GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart)
-: Ground(textureHolder, spawnPos)
+ GroundTheme1::GroundTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type typeGround,bool isStart, int difficulty)
+: Ground(textureHolder, spawnPos, difficulty)
 , obstacles()
 , typeGround(typeGround)
 , isStartLane(isStart)
@@ -65,15 +65,47 @@ void GroundTheme1::buildLane() {
         }
     }
     else{
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> dist(3, 7);
-        int numObstacles = dist(gen);
-        for(int j = 0; j < numObstacles; j++) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Tree3, *textureHolder));
+        Obstacle::Type kind;
+        int tile = 0;
+        while (tile < 17) {
+            int randObtacle = rand()%10;
+            switch (randObtacle) {
+                case 0:
+                    kind = Obstacle::Rock1;
+                    break;
+                case 1:
+                    kind = Obstacle::Ruin1;
+                    break;
+                case 2:
+                    kind = Obstacle::Ruin2;
+                    break;
+                case 3:
+                    kind = Obstacle::Tree3;
+                    break;
+                case 4:
+                    kind = Obstacle::Tree3;
+                    break;
+                case 5:
+                    kind = Obstacle::Tree3;
+                    break;   
+                case 6:
+                    kind = Obstacle::Rock1;
+                    break;   
+                case 7:
+                    kind = Obstacle::Tree3;
+                    break;
+                case 8:
+                    kind = Obstacle::Coin;
+                    break;
+                case 9:
+                    kind = Obstacle::Coin;
+                    break;                
+            }
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(kind, *textureHolder));
             obstacles.push_back(obstacle.get());
-            int randNum = rand() % 17;
-            obstacle->setPosition( randNum * distanceBetweenLane + 500,0);
+            int randNum = rand() % 8 + 1;
+            tile += randNum; 
+            obstacle->setPosition( tile * distanceBetweenLane + 500,0);
             this->attachChild(std::move(obstacle));
         }
     }

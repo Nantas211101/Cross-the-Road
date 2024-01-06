@@ -5,7 +5,6 @@ namespace{
     std::vector<ObstacleData> Table = initializeObstacleData();  
 }
 
-
 Obstacle::Obstacle(Type type, const TextureHolder& texture) 
 : type(type)
 , sprite(texture.get(Table[type].texture)) {
@@ -42,7 +41,10 @@ void Obstacle::updateCurrent(sf::Time dt) {
 }
 
 sf::FloatRect Obstacle::getBoundingRect() const {
-    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+    sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
+    bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane);
+    bound.top += Table[type].deltaHeightBound;
+    return bound;
 }
 
 Obstacle::Type Obstacle::getType() {
@@ -50,6 +52,7 @@ Obstacle::Type Obstacle::getType() {
 }
 
 unsigned int Obstacle::getCategory() const {
+    if (type == Obstacle::Coin) return Category::Coin;
     return Category::Obstacle;
 }
 

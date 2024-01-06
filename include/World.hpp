@@ -41,6 +41,7 @@ class World : private sf::NonCopyable
 		void								scroll(sf::Time dt);
 		void								buildHealthBar();
 		void								updateHealthBar();
+		void								buildMap();	
 		void								updateMana(sf::Time dt);
 		void								buildMainChar();
 		void								updateSound();

@@ -18,7 +18,8 @@ class Railway : public Lane {
             SantaTrain,
             TypeCount
         };
-        Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type type);
+        Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type type, int difficulty);
+        void setLaneVelocity();
         Type getType(){
             return type;
         }

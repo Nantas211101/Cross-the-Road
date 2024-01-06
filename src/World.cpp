@@ -1,3 +1,4 @@
+#include "LaneFactoryTheme1.hpp"
 #include "Obstacle.hpp"
 #include <World.hpp>
 #include <MainChar1.hpp>
@@ -5,11 +6,12 @@
 #include <MainChar3.hpp>
 #include <MainChar4.hpp>
 #include <MainChar5.hpp>
+#include <memory>
 
 World::World(State::Context context)
 : mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 5000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 12000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
 , mSound(*context.sounds)
@@ -204,25 +206,10 @@ void World::buildScene(MainChar::Type id)
 	}
 	mSceneLayers[Title]->setReverse();
 
+	buildMap();
 	// Add sound effect node
 	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSound));
 	mSceneGraph.attachChild(std::move(soundNode));
-
-	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
-	
-	for(int i = 0; i < 60; i++) {
-		std::vector<std::unique_ptr<Lane>> randLanes;
-		if(i == 0){
-			randLanes = laneFactory.templateStartLane();
-		}
-		else{
-			randLanes = laneFactory.randomTemplateLane();
-		} 
-		for(auto& x : randLanes) {
-			lanes.push_back(x.get());
-			mSceneLayers[Title]->attachChild(std::move(x));
-		}
-	}
 }
 
 void World::adaptPlayerPosition() {
@@ -310,6 +297,30 @@ void World::updateHealthBar() {
 	manaBar->setTextureRect(manaBar->getPosition(), curMP * 306 / maxMP, 19);
 	
 	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
+}
+
+void World::buildMap(){
+	int theme = *mContext.theme;
+	int level = *mContext.currentLevel;
+	std::unique_ptr<LaneFactory> laneFactory;
+	switch(theme){
+		case 1:
+			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme1(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));
+			break;
+		case 2:
+			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme2(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));
+			break;
+		case 3:
+			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme3(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));
+			break;
+	}
+	std::vector<std::unique_ptr<Lane>> randLanes;
+	randLanes = laneFactory->templateLane();
+	for(auto& x : randLanes) {
+		lanes.push_back(x.get());
+		mSceneLayers[Title]->attachChild(std::move(x));
+	}
+	return;
 }
 
 void World::updateMana(sf::Time dt) {

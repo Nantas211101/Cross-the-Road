@@ -4,8 +4,8 @@ namespace {
     const std::vector<TrainData> TableTrain = initializeTrainData();
 }
 
-Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type type)
-: Lane(textureHolder, spawnPos),
+Railway::Railway(TextureHolder* textureHolder, sf::Vector2f spawnPos, Type type, int difficulty)
+: Lane(textureHolder, spawnPos, difficulty),
 type(type)
 {
     textureHolder->get(Textures::Railway).setRepeated(true);
@@ -30,7 +30,7 @@ void Railway::updateCurrent(sf::Time dt){
         break;
     }
     if(train->getPosition().x >= 2200){
-        train->setPosition(-800, 0);
+        train->setPosition(-800, -30);
         railwayLight->setTimeCount();
     }
 }
@@ -60,7 +60,7 @@ void Railway::buildLane(){
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
     newTrain->scale(TableTrain[kind].scaling);
 
-    newTrain->setPosition(-800, 0);
+    newTrain->setPosition(-800,-30);
     this->attachChild(std::move(newTrain));
 }
 
@@ -74,4 +74,8 @@ void Railway::buildLight(){
     railwayLight= light.get();
     light->setPosition(700, 30);
     this->attachChild(std::move(light));
+}
+
+void Railway::setLaneVelocity(){
+    train->setVelocity(transformVelocity(train->getVelocity()));
 }

@@ -4,6 +4,7 @@
 class LaneFactoryTheme3 : public LaneFactory {
 private:
 
+    void templateStartLane(int num);
     void templateFinishTheme(int num);
     void templateGround(int num);
     void templateRoad(int num);
@@ -11,16 +12,13 @@ private:
     void templateRiver(int num);
     void templateRailway(int num);
 
-    void templateLane1();
-    void templateLane2();
-    void templateLane3();
-    void templateLane4();
-    void templateLane5();
-    void templateLane6();
+    void templateLevel1();
+    void templateLevel2();
+    void templateLevel3();
+    void templateLevel4();
+    void templateLevel5();
+    void templateLevel6();
 
 public:
-    LaneFactoryTheme3(TextureHolder* textureHolder, sf::Vector2f startPos);
-    
-    std::vector<std::unique_ptr<Lane>> randomTemplateLane();
-    std::vector<std::unique_ptr<Lane>> templateStartLane();
+    LaneFactoryTheme3(TextureHolder* textureHolder, sf::Vector2f startPos, int level);
 };

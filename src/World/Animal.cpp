@@ -43,8 +43,8 @@ sf::FloatRect Animal::getBoundingRect() const {
     sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
     bound.width -= Table[type].deltaWidthBound;
     bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane);
-    bound.left += 10;
-    bound.top += 20;
+    bound.left += Table[type].deltaLeftBound;;
+    bound.top += Table[type].deltaHeightBound;
     return bound;
 }
 

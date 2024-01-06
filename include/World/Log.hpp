@@ -13,7 +13,8 @@ class Log : public Entity {
             Log1,
             Log2,
             Log3,
-            SnowLog,
+            SnowLog1,
+            SnowLog2,
             Crocodile,
             TypeCount
         };

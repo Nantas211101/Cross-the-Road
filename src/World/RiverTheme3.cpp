@@ -9,11 +9,11 @@ namespace {
     const std::vector<RiverData> TableRiver = initializeRiverData();
 }
 
-RiverTheme3::RiverTheme3(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: River(textureHolder, spawnPos)
+RiverTheme3::RiverTheme3(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty,bool reverse)
+: River(textureHolder, spawnPos, difficulty, reverse)
 , riverLog()
 {   
-    type = River::SnowRiver;
+    type = River::LavaRiver;
     animation.setTexture(textureHolder->get(TableRiver[type].texture));
     animation.setFrameSize(sf::Vector2i(TableRiver[type].pictureWidth/TableRiver[type].numOfFrames, TableRiver[type].pictureHeight));
 	animation.setNumFrames(TableRiver[type].numOfFrames);
@@ -38,17 +38,14 @@ void RiverTheme3::updateCurrent(sf::Time dt) {
 
 void RiverTheme3::buildLane() {
     int distance = 0;
-    int randomKindLog = 1 + rand() % 3;
+    int randomKindLog = 1 + rand() % 1;
     Log::Type kind;
-    switch(3) {
+    switch(randomKindLog) {
     case 1:
         kind = Log::Log1;
         break;
     case 2:
         kind = Log::Log2;
-        break;
-    case 3:
-        kind = Log::SnowLog;
         break;
     }
     int randSpawnPos = rand() % 200;
@@ -65,6 +62,13 @@ void RiverTheme3::buildLane() {
     }
     lastLogIndex = numOfLog - 1;
     firstLogIndex = 0;
+}
+
+void RiverTheme3::setLaneVelocity(){
+    
+    for (auto& it:riverLog){
+        it->setVelocity(transformVelocity(it->getVelocity()));
+    }
 }
 
 void RiverTheme3::playLocalSound(CommandQueue& commands) {

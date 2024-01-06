@@ -17,7 +17,8 @@ namespace Textures
 		SnowRiver,
 		Log,
 		Log1,
-		SnowLog,
+		SnowLog1,
+		SnowLog2,
 		
 		// Ground
 		Ground,
@@ -37,6 +38,7 @@ namespace Textures
 		Vocalno,
 		Fire,
 		SnowMan,
+		Coin,
 		// Road
 		Road,
 		Road1,
@@ -55,6 +57,8 @@ namespace Textures
 		Monster1,
 		Reindeer,
 		SnowBear,
+		Penguin1,
+		Wolf,
 
 		Traffic,
         Truck,

@@ -8,6 +8,8 @@ namespace {
 Train::Train(Type type, const TextureHolder& texture) 
 : type(type)
 , sprite(texture.get(Table[type].texture)) {
+    sf::FloatRect bounds = sprite.getLocalBounds();
+    //sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.scale(Table[type].scaling);
 }
 
@@ -41,6 +43,13 @@ void Train::updateCurrent(sf::Time dt) {
     Entity::updateCurrent(dt);
 }
 
+int Train::getDamage(){
+    return 75;
+}
+
 sf::FloatRect Train::getBoundingRect() const {
-    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+    sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
+    bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane);
+    bound.top += 30;
+    return bound;
 }

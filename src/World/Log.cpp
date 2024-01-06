@@ -27,5 +27,8 @@ void Log::updateCurrent(sf::Time dt) {
 }
 
 sf::FloatRect Log::getBoundingRect() const {
-    return getWorldTransform().transformRect(sprite.getGlobalBounds());
+    sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
+    bound.height = (float)Lane::distanceBetweenLane;
+    bound.top -= 25;
+    return bound;
 }

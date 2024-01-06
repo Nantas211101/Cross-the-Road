@@ -8,8 +8,8 @@ namespace {
     const std::vector<RiverData> TableRiver = initializeRiverData();
 }
 
-RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: River(textureHolder, spawnPos)
+RiverTheme1::RiverTheme1(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse)
+: River(textureHolder, spawnPos, difficulty, reverse)
 , riverLog()
 {   
     type = River::WaterRiver;
@@ -65,4 +65,12 @@ void RiverTheme1::buildLane() {
     }
     lastLogIndex = numOfLog - 1;
     firstLogIndex = 0;
+}
+
+void RiverTheme1::setLaneVelocity(){
+    
+    for (auto& it:riverLog){
+        it->setVelocity(transformVelocity(it->getVelocity()));
+    }
+
 }

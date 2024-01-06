@@ -23,6 +23,7 @@ class Train : public Entity {
         virtual sf::FloatRect getBoundingRect() const;
         unsigned int getCategory() const;
         Type getType();
+        int getDamage();
         void playLocalSound(CommandQueue& commands);
 
     private:

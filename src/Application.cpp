@@ -88,7 +88,7 @@ Application::Application()
 , mMusic()
 , mSound()
 , theme(0)
-, limitLevel(4)
+, limitLevel(15)
 , curLevel(0)
 , mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel))
 , mStayText()
@@ -274,6 +274,8 @@ void Application::loadResources(){
     mTextures.load(Textures::Monster1, "Media/Textures/Animal/Monster1.png");
     mTextures.load(Textures::Reindeer, "Media/Textures/Animal/Reindeer.png");
     mTextures.load(Textures::SnowBear, "Media/Textures/Animal/SnowBear.png");
+    mTextures.load(Textures::Penguin1, "Media/Textures/Animal/Penguin.png");
+    mTextures.load(Textures::Wolf, "Media/Textures/Animal/Wolf.png");
 
     mTextures.load(Textures::Traffic, "Media/Textures/Road/Traffic.png");
     mTextures.load(Textures::Truck, "Media/Textures/Vehicle/Truck.png");
@@ -290,7 +292,8 @@ void Application::loadResources(){
 	// River
 	mTextures.load(Textures::Log, "Media/Textures/River/Log.png");
 	mTextures.load(Textures::Log1, "Media/Textures/River/Log1.png");
-    mTextures.load(Textures::SnowLog, "Media/Textures/River/SnowLog.png");
+    mTextures.load(Textures::SnowLog1, "Media/Textures/River/SnowLog.png");
+    mTextures.load(Textures::SnowLog2, "Media/Textures/River/SnowLog.png");
     mTextures.load(Textures::River, "Media/Textures/River/River.png");
 	mTextures.load(Textures::LavaRiver, "Media/Textures/River/LavaRiver.png");
     mTextures.load(Textures::SnowRiver, "Media/Textures/River/SnowRiver.png");
@@ -314,6 +317,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::Vocalno, "Media/Textures/Obstacle/Volcano.png");
 	mTextures.load(Textures::Fire, "Media/Textures/Obstacle/Fire.png");
     mTextures.load(Textures::SnowMan, "Media/Textures/Obstacle/SnowMan.png");
+    mTextures.load(Textures::Coin, "Media/Textures/Obstacle/Coin.png");
 	// Railway
 	mTextures.load(Textures::Railway, "Media/Textures/Railway/Railway.png");
 	mTextures.load(Textures::RailwayLight, "Media/Textures/Railway/RailwayLight.png");

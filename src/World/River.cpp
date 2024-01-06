@@ -1,8 +1,8 @@
 #include <River.hpp>
 #include <SoundNode.hpp>
 
-River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos)
-: Lane(textureHolder, spawnPos){}
+River::River(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse)
+: Lane(textureHolder, spawnPos, difficulty, reverse){}
 
 unsigned int River::getCategory() const {
     return Category::River;

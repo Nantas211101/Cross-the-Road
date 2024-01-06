@@ -28,6 +28,7 @@ struct ObstacleData {
 	int pictureWidth;
 	int pictureHeight;
 	int numOfFrames;
+	int deltaHeightBound;
 	SoundEffect::ID collisionEffect;
 };
 
@@ -42,6 +43,8 @@ struct AnimalData {
 	int numOfFrames;
 	float duration;
 	int deltaWidthBound;
+	int deltaHeightBound;
+	int deltaLeftBound;
 	SoundEffect::ID collisionEffect;
 };
 

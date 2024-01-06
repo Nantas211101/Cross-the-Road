@@ -18,7 +18,7 @@ class River : public Lane {
         };
 
     public:
-        River(TextureHolder* textureHolder, sf::Vector2f spawnPos);
+        River(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse);
         virtual void playLocalSound(CommandQueue& commands);
 
     private:
