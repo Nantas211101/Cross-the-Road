@@ -413,7 +413,8 @@ std::vector<DecoratorData> initializeDecoratorData() {
 std::vector<CharData> initializeCharData() {
     std::vector<CharData> data(MainChar::TypeCount);
     data[MainChar::Player1].hitpoints = 100.f;
-    data[MainChar::Player1].speed = 100.f;
+    data[MainChar::Player1].manapoints = 100.f;
+    data[MainChar::Player1].speed = 250.f;
     data[MainChar::Player1].texture = Textures::Standing1;
     data[MainChar::Player1].restTexture = Textures::Rest1;
     data[MainChar::Player1].upTexture = Textures::Up1;
@@ -421,14 +422,17 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].leftTexture = Textures::Left1;
     data[MainChar::Player1].rightTexture = Textures::Right1;
     data[MainChar::Player1].pictureHeight = 52;
-    data[MainChar::Player1].pictureWidth = 156;
+    data[MainChar::Player1].pictureWidth = 256;
     data[MainChar::Player1].numOfFrames = 4;
     data[MainChar::Player1].timeEachFrameInGame = 0.6;
     data[MainChar::Player1].timeEachFrameInMenu = 1;
     data[MainChar::Player1].scaling = 1.5;
     data[MainChar::Player1].name = "Player1";
+    data[MainChar::Player1].deltaLeftBound = 10;
+    data[MainChar::Player1].deltaWidthBound = 20;
 
-    data[MainChar::Player2].hitpoints = 100.f;
+    data[MainChar::Player2].hitpoints = 125.f;
+    data[MainChar::Player2].manapoints = 100.f;
     data[MainChar::Player2].speed = 200.f;
     data[MainChar::Player2].texture = Textures::Standing2;
     data[MainChar::Player2].restTexture = Textures::Rest2;
@@ -436,16 +440,17 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player2].downTexture = Textures::Down2;
     data[MainChar::Player2].leftTexture = Textures::Left2;
     data[MainChar::Player2].rightTexture = Textures::Right2;
-    data[MainChar::Player2].pictureHeight = 52;
-    data[MainChar::Player2].pictureWidth = 136;
-    data[MainChar::Player2].numOfFrames = 4;
+    data[MainChar::Player2].pictureHeight = 54;
+    data[MainChar::Player2].pictureWidth = 160;
+    data[MainChar::Player2].numOfFrames = 3;
     data[MainChar::Player2].timeEachFrameInGame = 0.6;
     data[MainChar::Player2].timeEachFrameInMenu = 1;
     data[MainChar::Player2].scaling = 1.5;
     data[MainChar::Player2].name = "Player2";
 
-    data[MainChar::Player3].hitpoints = 50.f;
-    data[MainChar::Player3].speed = 250.f;
+    data[MainChar::Player3].hitpoints = 100.f;
+    data[MainChar::Player3].manapoints = 100.f;
+    data[MainChar::Player3].speed = 200.f;
     data[MainChar::Player3].texture = Textures::Standing3;
     data[MainChar::Player3].restTexture = Textures::Rest3;
     data[MainChar::Player3].upTexture = Textures::Up3;
@@ -459,8 +464,11 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player3].timeEachFrameInMenu = 1;
     data[MainChar::Player3].scaling = 1.5;
     data[MainChar::Player3].name = "Player3";
+    data[MainChar::Player3].deltaLeftBound = 10;
+    data[MainChar::Player3].deltaWidthBound = 20;
 
-    data[MainChar::Player4].hitpoints = 100.f;
+    data[MainChar::Player4].hitpoints = 150.f;
+    data[MainChar::Player4].manapoints = 100.f;
     data[MainChar::Player4].speed = 250.f;
     data[MainChar::Player4].texture = Textures::Standing4;
     data[MainChar::Player4].restTexture = Textures::Rest4;
@@ -468,15 +476,18 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player4].downTexture = Textures::Down4;
     data[MainChar::Player4].leftTexture = Textures::Left4;
     data[MainChar::Player4].rightTexture = Textures::Right4;
-    data[MainChar::Player4].pictureHeight = 54;
-    data[MainChar::Player4].pictureWidth = 160;
-    data[MainChar::Player4].numOfFrames = 3;
+    data[MainChar::Player4].pictureHeight = 57;
+    data[MainChar::Player4].pictureWidth = 272;
+    data[MainChar::Player4].numOfFrames = 4;
     data[MainChar::Player4].timeEachFrameInGame = 0.6;
     data[MainChar::Player4].timeEachFrameInMenu = 1;
     data[MainChar::Player4].scaling = 1.5;
     data[MainChar::Player4].name = "Player4";
+    data[MainChar::Player4].deltaLeftBound = 5;
+    data[MainChar::Player4].deltaWidthBound = 10;
 
-    data[MainChar::Player5].hitpoints = 100.f;
+    data[MainChar::Player5].hitpoints = 200.f;
+    data[MainChar::Player5].manapoints = 100.f;
     data[MainChar::Player5].speed = 250.f;
     data[MainChar::Player5].texture = Textures::Standing5;
     data[MainChar::Player5].restTexture = Textures::Rest5;
@@ -484,13 +495,15 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player5].downTexture = Textures::Down5;
     data[MainChar::Player5].leftTexture = Textures::Left5;
     data[MainChar::Player5].rightTexture = Textures::Right5;
-    data[MainChar::Player5].pictureHeight = 57;
-    data[MainChar::Player5].pictureWidth = 272;
-    data[MainChar::Player5].numOfFrames = 4;
+    data[MainChar::Player5].pictureHeight = 58;
+    data[MainChar::Player5].pictureWidth = 175;
+    data[MainChar::Player5].numOfFrames = 3;
     data[MainChar::Player5].timeEachFrameInGame = 0.6;
     data[MainChar::Player5].timeEachFrameInMenu = 1;
     data[MainChar::Player5].scaling = 1.5;
     data[MainChar::Player5].name = "Player5";
+    data[MainChar::Player5].deltaLeftBound = 5;
+    data[MainChar::Player5].deltaWidthBound = 10;
 
     return data;
 }
