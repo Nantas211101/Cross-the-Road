@@ -42,6 +42,10 @@ SoundPlayer::SoundPlayer()
     mSoundBuffers.load(SoundEffect::Tree, "Media/Sound/ObstacleSound/Tree.wav");
     mSoundBuffers.load(SoundEffect::Volcano, "Media/Sound/ObstacleSound/Volcano.wav");
     mSoundBuffers.load(SoundEffect::SnowMan, "Media/Sound/ObstacleSound/SnowMan.wav");
+
+    // Train
+    mSoundBuffers.load(SoundEffect::Train1, "Media/Sound/TrainSound/Train1.wav");
+    mSoundBuffers.load(SoundEffect::Train2, "Media/Sound/TrainSound/Train2.wav");
 }
 
 void SoundPlayer::play(SoundEffect::ID effect)

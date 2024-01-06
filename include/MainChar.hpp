@@ -32,6 +32,8 @@ private:
     void                makeStop();
     void                setInLane();
 
+    void                playAbilitySound(CommandQueue& commands);
+
     void                setOwnerShip(bool flag);
 
 public:

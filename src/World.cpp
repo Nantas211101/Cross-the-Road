@@ -4,7 +4,7 @@
 World::World(State::Context context)
 : mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 5000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
 , mSound(*context.sounds)
@@ -62,7 +62,7 @@ void World::update(sf::Time dt)
 
 	// Regular update step, adapt position
 	mSceneGraph.update(dt);
-	if(mainChar->getHitpoints() <= 0) {
+	if(mainChar->isDead()) {
 		// Gameover
 	}
 	adaptPlayerPosition();
@@ -104,6 +104,14 @@ void World::handleCollisions()
 	bool onRiver = false;
     sf::Time timeFromLastDamage = timeSinceLastDamage.getElapsedTime();
 	for(SceneNode::Pair pair : collisionPairs) {
+		if (matchesCategories(pair, Category::Player, Category::River)) {
+			auto* river = static_cast<River*>(pair.second);
+			sf::Time timeFromLastRiverSound = timeRiverSound.getElapsedTime();
+			if(timeFromLastRiverSound >= riverSoundGap) {
+				river->playLocalSound(soundCommandQueue);
+				timeRiverSound.restart();
+			}
+		}
 		if (matchesCategories(pair, Category::Player, Category::Log)) {
 			auto& log = static_cast<Log&>(*pair.second);
 			onRiver = false;
@@ -113,6 +121,7 @@ void World::handleCollisions()
 		}
 		else if (matchesCategories(pair, Category::Player, Category::River)) {
 			onRiver = true;
+			
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Lane)) {
 			onRiver = false;
@@ -146,11 +155,19 @@ void World::handleCollisions()
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Train)) {
 			auto& train = static_cast<Train&>(*pair.second);
-			//mainChar->damage(train.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				//mainChar->damage(train.getDamage());
+				train.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 		}
 	}
+	sf::Time timeFromLastRiverDamage = timeSinceLastDamageByRiver.getElapsedTime();
 	if(onRiver) {
-	// Game over
+		if(timeFromLastRiverDamage >= damageGapByRiver) {
+			mainChar->damage(5);
+			timeSinceLastDamageByRiver.restart();
+		}
 	}
 }
 
@@ -181,7 +198,7 @@ void World::buildScene(MainChar::Type id)
 	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSound));
 	mSceneGraph.attachChild(std::move(soundNode));
 
-	LaneFactoryTheme3 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 60; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;

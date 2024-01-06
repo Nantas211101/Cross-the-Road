@@ -8,6 +8,7 @@ class RiverTheme1 : public River {
     private:
         void buildLane();
         void updateCurrent(sf::Time dt);
+        sf::FloatRect getBoundingRect() const;
 
     private:
         std::vector<Log*> riverLog;

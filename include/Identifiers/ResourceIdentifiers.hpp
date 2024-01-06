@@ -303,6 +303,13 @@ namespace SoundEffect{
 		Tree,
 		Volcano,
 		SnowMan,
+
+		// Train
+		Train1,
+		Train2,
+
+		// Player
+		Ability,
 	};
 }
 

@@ -80,4 +80,8 @@ class World : private sf::NonCopyable
 
 		sf::Clock							timeSinceLastDamage;
 		const sf::Time						damageGap = sf::seconds(1);
+		sf::Clock							timeSinceLastDamageByRiver;
+		const sf::Time						damageGapByRiver = sf::seconds(0.1);
+		sf::Clock							timeRiverSound;
+		const sf::Time						riverSoundGap = sf::seconds(4);
 };

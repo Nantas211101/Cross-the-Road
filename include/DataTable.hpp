@@ -58,6 +58,7 @@ struct TrainData{
 	float speed;
 	Textures::ID texture;
 	sf::Vector2f scaling;
+	SoundEffect::ID collisionEffect;
 };
 
 struct LaneData {

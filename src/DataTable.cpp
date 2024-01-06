@@ -330,22 +330,27 @@ std::vector<TrainData> initializeTrainData(){
     data[Train::Train1].speed = 800.f;
     data[Train::Train1].texture = Textures::Train1;
     data[Train::Train1].scaling = sf::Vector2f(0.48, 0.48);
+    data[Train::Train1].collisionEffect = SoundEffect::Train2;
     
     data[Train::SnowTrain].speed = 1000.f;
     data[Train::SnowTrain].texture = Textures::SnowTrain;
     data[Train::SnowTrain].scaling = sf::Vector2f(0.5, 0.5);
+    data[Train::SnowTrain].collisionEffect = SoundEffect::Train2;
     
     data[Train::WoodTrain].speed = 800.f;
     data[Train::WoodTrain].texture = Textures::WoodTrain;
     data[Train::WoodTrain].scaling = sf::Vector2f(0.62, 0.53);
+    data[Train::WoodTrain].collisionEffect = SoundEffect::Train2;
 
     data[Train::LavaTrain].speed = 800.f;
     data[Train::LavaTrain].texture = Textures::LavaTrain;
     data[Train::LavaTrain].scaling = sf::Vector2f(0.85, 0.85);
+    data[Train::LavaTrain].collisionEffect = SoundEffect::Train1;
 
     data[Train::SantaTrain].speed = 800.f;
     data[Train::SantaTrain].texture = Textures::SantaTrain;
     data[Train::SantaTrain].scaling = sf::Vector2f(0.45, 0.45);
+    data[Train::SantaTrain].collisionEffect = SoundEffect::Train2;
 
     return data;
 }

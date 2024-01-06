@@ -1,6 +1,7 @@
 #include <MainChar.hpp>
 #include <TextureManipulate.hpp>
 #include <BitMaskingManipulate.hpp>
+#include <SoundNode.hpp>
 
 namespace {
     const std::vector<CharData> Table = initializeCharData();
@@ -302,6 +303,20 @@ int MainChar::getCurLane() {
 void MainChar::setInLane() {
     setPosition(getPosition().x, (*lanes)[curLane]->getPosition().y + 25);
     lastPosSinceMoving = getPosition();
+}
+
+void MainChar::playAbilitySound(CommandQueue& commands) {
+	sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect = SoundEffect::Ability;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
 }
 
 void MainChar::resetState() {
