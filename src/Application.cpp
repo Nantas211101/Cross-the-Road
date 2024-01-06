@@ -31,10 +31,6 @@ const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.png";
 const std::string Path_Font = "Media/Font/slkscr.ttf";
 const std::string Path_Input_Font = "Media/Font/Sansation.ttf";
 const std::string Path_ChooseCharScreen = "Media/Textures/State/ChooseCharScreen.png";
-const std::string Path_chickenMain = "Media/Textures/Player/Chicken.png";
-const std::string Path_penguinMain = "Media/Textures/Player/Penguin.png";
-const std::string Path_sheepMain = "Media/Textures/Player/Sheep.png";
-const std::string Path_mallardMain = "Media/Textures/Player/Mallard.png";
 const std::string Path_RightButton = "Media/Textures/Button/Right.png";
 const std::string Path_LeftButton = "Media/Textures/Button/Left.png";
 const std::string Path_Normal = "Media/Textures/Button/ButtonNormal.png";
@@ -102,7 +98,7 @@ Application::Application()
 , mMusic()
 , mSound()
 , theme(0)
-, limitLevel(4)
+, limitLevel(15)
 , curLevel(0)
 , mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel))
 , mStayText()
@@ -267,10 +263,6 @@ void Application::loadResources(){
     mTextures.load(Textures::TitleScreen, Path_TitleScreen);
     mTextures.load(Textures::ChooseCharScreen, Path_ChooseCharScreen);
     mTextures.load(Textures::MenuScreen, Path_MenuScreen);
-    mTextures.load(Textures::Chicken, Path_chickenMain);
-    mTextures.load(Textures::Penguin, Path_penguinMain);
-    mTextures.load(Textures::Sheep, Path_sheepMain);
-    mTextures.load(Textures::Mallard, Path_mallardMain);
     mTextures.load(Textures::RightButton, Path_RightButton);
     mTextures.load(Textures::LeftButton, Path_LeftButton);
     mTextures.load(Textures::ButtonNormal, Path_Normal);
@@ -287,7 +279,8 @@ void Application::loadResources(){
 
     // Player
     mTextures.load(Textures::HealthBar, "Media/Textures/Player/HealthBar.png");
-    mTextures.load(Textures::BoundHealthBar, "Media/Textures/Player/BoundHPBar.png");
+    mTextures.load(Textures::ManaBar, "Media/Textures/Player/ManaBar.png");
+    mTextures.load(Textures::BoundBar, "Media/Textures/Player/BoundHPBar.png");
 
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
@@ -304,6 +297,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::Down2, "Media/Textures/Player/Player2/Down.png");
 	mTextures.load(Textures::Left2, "Media/Textures/Player/Player2/Left.png");
 	mTextures.load(Textures::Right2, "Media/Textures/Player/Player2/Right.png");
+	mTextures.load(Textures::Healing, "Media/Textures/Player/Player2/Healing.png");
     
     // Player3
     mTextures.load(Textures::Standing3, "Media/Textures/Player/Player3/Standing.png");
@@ -312,6 +306,7 @@ void Application::loadResources(){
     mTextures.load(Textures::Down3, "Media/Textures/Player/Player3/Down.png");
     mTextures.load(Textures::Left3, "Media/Textures/Player/Player3/Left.png");
     mTextures.load(Textures::Right3, "Media/Textures/Player/Player3/Right.png");
+	mTextures.load(Textures::PowerShell, "Media/Textures/Player/Player3/PowerShell.png");
     
     // Player4
     mTextures.load(Textures::Standing4, "Media/Textures/Player/Player4/Standing.png");
@@ -347,6 +342,8 @@ void Application::loadResources(){
     mTextures.load(Textures::Monster1, "Media/Textures/Animal/Monster1.png");
     mTextures.load(Textures::Reindeer, "Media/Textures/Animal/Reindeer.png");
     mTextures.load(Textures::SnowBear, "Media/Textures/Animal/SnowBear.png");
+    mTextures.load(Textures::Penguin1, "Media/Textures/Animal/Penguin.png");
+    mTextures.load(Textures::Wolf, "Media/Textures/Animal/Wolf.png");
 
     mTextures.load(Textures::Traffic, "Media/Textures/Road/Traffic.png");
     mTextures.load(Textures::Truck, "Media/Textures/Vehicle/Truck.png");
@@ -363,7 +360,8 @@ void Application::loadResources(){
 	// River
 	mTextures.load(Textures::Log, "Media/Textures/River/Log.png");
 	mTextures.load(Textures::Log1, "Media/Textures/River/Log1.png");
-    mTextures.load(Textures::SnowLog, "Media/Textures/River/SnowLog.png");
+    mTextures.load(Textures::SnowLog1, "Media/Textures/River/SnowLog.png");
+    mTextures.load(Textures::SnowLog2, "Media/Textures/River/SnowLog.png");
     mTextures.load(Textures::River, "Media/Textures/River/River.png");
 	mTextures.load(Textures::LavaRiver, "Media/Textures/River/LavaRiver.png");
     mTextures.load(Textures::SnowRiver, "Media/Textures/River/SnowRiver.png");
@@ -387,6 +385,7 @@ void Application::loadResources(){
 	mTextures.load(Textures::Vocalno, "Media/Textures/Obstacle/Volcano.png");
 	mTextures.load(Textures::Fire, "Media/Textures/Obstacle/Fire.png");
     mTextures.load(Textures::SnowMan, "Media/Textures/Obstacle/SnowMan.png");
+    mTextures.load(Textures::Coin, "Media/Textures/Obstacle/Coin.png");
 	// Railway
 	mTextures.load(Textures::Railway, "Media/Textures/Railway/Railway.png");
 	mTextures.load(Textures::RailwayLight, "Media/Textures/Railway/RailwayLight.png");

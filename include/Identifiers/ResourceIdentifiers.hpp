@@ -17,7 +17,8 @@ namespace Textures
 		SnowRiver,
 		Log,
 		Log1,
-		SnowLog,
+		SnowLog1,
+		SnowLog2,
 		
 		// Ground
 		Ground,
@@ -37,6 +38,7 @@ namespace Textures
 		Vocalno,
 		Fire,
 		SnowMan,
+		Coin,
 		// Road
 		Road,
 		Road1,
@@ -55,6 +57,8 @@ namespace Textures
 		Monster1,
 		Reindeer,
 		SnowBear,
+		Penguin1,
+		Wolf,
 
 		Traffic,
         Truck,
@@ -105,7 +109,8 @@ namespace Textures
 
 		// Player
 		HealthBar,
-		BoundHealthBar,
+		ManaBar,
+		BoundBar,
 		
 		// Player1
 		Standing1,
@@ -122,6 +127,7 @@ namespace Textures
 		Down2,
 		Left2,
 		Right2,
+		Healing,
 
 		// Player3
 		Standing3,
@@ -130,6 +136,7 @@ namespace Textures
 		Down3,
 		Left3,
 		Right3,
+		PowerShell,
 		
 		// Player4
 		Standing4,
@@ -139,7 +146,7 @@ namespace Textures
 		Left4,
 		Right4,
 
-		// Player4
+		// Player5
 		Standing5,
 		Rest5,
 		Up5,
@@ -147,10 +154,6 @@ namespace Textures
 		Left5,
 		Right5,
 
-		Chicken,
-		Mallard,
-		Penguin,
-		Sheep,
 		none,
 
 		// Menu and State part
@@ -288,6 +291,42 @@ namespace SoundEffect{
 		TouchRiver,
 		TouchTree,
 		Button,
+
+		// River
+		River,
+		LavaRiver,
+
+		// Animal
+		Elephant,
+		Cow,
+		Dragon,
+		Rhino,
+		Monster,
+		Reindeer,
+		Bear,
+		SnowBear,
+
+		// Vehicle
+		Truck,
+		Car,
+		Ambulance,
+		PoliceCar,
+		OldCar,
+		IceCreamTruck,
+		SantaClaus,
+
+		// Obstacle
+		Rock,
+		Tree,
+		Volcano,
+		SnowMan,
+
+		// Train
+		Train1,
+		Train2,
+
+		// Player
+		Ability,
 	};
 }
 

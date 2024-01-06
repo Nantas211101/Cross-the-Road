@@ -15,7 +15,40 @@ SoundPlayer::SoundPlayer()
 , mSounds()
 {
     mSoundBuffers.load(SoundEffect::Button, "Media/Sound/Button.wav");
-    // .. will adding more
+    // River
+    mSoundBuffers.load(SoundEffect::River, "Media/Sound/RiverSound/River.wav");
+    mSoundBuffers.load(SoundEffect::LavaRiver, "Media/Sound/RiverSound/LavaRiver.wav");
+    
+    // Animal
+    mSoundBuffers.load(SoundEffect::Elephant, "Media/Sound/AnimalSound/Elephant.wav");
+    mSoundBuffers.load(SoundEffect::Cow, "Media/Sound/AnimalSound/Cow.wav");
+    mSoundBuffers.load(SoundEffect::Dragon, "Media/Sound/AnimalSound/Dragon.wav");
+    mSoundBuffers.load(SoundEffect::Rhino, "Media/Sound/AnimalSound/Rhino.wav");
+    mSoundBuffers.load(SoundEffect::Monster, "Media/Sound/AnimalSound/Monster.wav");
+    mSoundBuffers.load(SoundEffect::Reindeer, "Media/Sound/AnimalSound/Reindeer.wav");
+    mSoundBuffers.load(SoundEffect::Bear, "Media/Sound/AnimalSound/Bear.wav");
+
+    // Vehicle
+    mSoundBuffers.load(SoundEffect::Truck, "Media/Sound/VehicleSound/Truck.wav");
+    mSoundBuffers.load(SoundEffect::Car, "Media/Sound/VehicleSound/Car.wav");
+    mSoundBuffers.load(SoundEffect::Ambulance, "Media/Sound/VehicleSound/Ambulance.wav");
+    mSoundBuffers.load(SoundEffect::PoliceCar, "Media/Sound/VehicleSound/PoliceCar.wav");
+    mSoundBuffers.load(SoundEffect::OldCar, "Media/Sound/VehicleSound/OldCar.wav");
+    mSoundBuffers.load(SoundEffect::IceCreamTruck, "Media/Sound/VehicleSound/IceCreamTruck.wav");
+    mSoundBuffers.load(SoundEffect::SantaClaus, "Media/Sound/VehicleSound/SantaClaus.wav");
+
+    // Obstacle
+    mSoundBuffers.load(SoundEffect::Rock, "Media/Sound/ObstacleSound/Rock.wav");
+    mSoundBuffers.load(SoundEffect::Tree, "Media/Sound/ObstacleSound/Tree.wav");
+    mSoundBuffers.load(SoundEffect::Volcano, "Media/Sound/ObstacleSound/Volcano.wav");
+    mSoundBuffers.load(SoundEffect::SnowMan, "Media/Sound/ObstacleSound/SnowMan.wav");
+
+    // Train
+    mSoundBuffers.load(SoundEffect::Train1, "Media/Sound/TrainSound/Train1.wav");
+    mSoundBuffers.load(SoundEffect::Train2, "Media/Sound/TrainSound/Train2.wav");
+
+    // Player
+    mSoundBuffers.load(SoundEffect::Ability, "Media/Sound/CharacterSound/Ability.wav");
 }
 
 void SoundPlayer::play(SoundEffect::ID effect)

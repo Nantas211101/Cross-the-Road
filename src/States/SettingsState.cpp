@@ -43,6 +43,7 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 	addButtonLabel(Player::MoveRight, buttonHeight * 2 + pos.y / 10.f, "Right", context);
 	addButtonLabel(Player::MoveUp,    buttonHeight * 3 + pos.y / 10.f, "Up", context);
 	addButtonLabel(Player::MoveDown,  buttonHeight * 4 + pos.y / 10.f, "Down", context);
+	addButtonLabel(Player::UseAbility,  buttonHeight * 5 + pos.y / 10.f, "Ability", context);
 	mText.setFillColor(sf::Color::White);
 	mText.setPosition(pos.x / 2.f, pos.y / 10.f);
 	centerOrigin(mText);

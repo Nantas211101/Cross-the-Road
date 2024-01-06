@@ -13,8 +13,8 @@
 
 class Road : public Lane {
     public:
-        Road(TextureHolder* textureHolder, sf::Vector2f spawnPos);
-
+        Road(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty);
+        virtual void setLaneVelocity() = 0;
     private:
         virtual void updateCurrent(sf::Time dt) = 0;
 

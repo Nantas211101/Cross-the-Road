@@ -22,11 +22,13 @@ class Obstacle : public Entity {
             Volcano,
             Fire,
             SnowMan,
+            Coin,
             TypeCount
     };
 
     public:
         Obstacle(Type type, const TextureHolder& Texture);
+        void playLocalSound(CommandQueue& commands);
         virtual sf::FloatRect getBoundingRect() const;
         Type getType();
         virtual unsigned int getCategory() const;

@@ -18,12 +18,12 @@ class River : public Lane {
         };
 
     public:
-        River(TextureHolder* textureHolder, sf::Vector2f spawnPos);
+        River(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse);
+        virtual void playLocalSound(CommandQueue& commands);
 
     private:
         virtual void updateCurrent(sf::Time dt) = 0;
         unsigned int getCategory() const;
-        virtual sf::FloatRect getBoundingRect() const;
 
     protected:
         const int numOfLog = 10;
