@@ -3,14 +3,14 @@
 std::vector<LogData> initializeLogData() {
     std::vector<LogData> data(Log::TypeCount);
     data[Log::Log1].speed = 185.f;
-    data[Log::Log1].distanceBetweenLog = 380;
+    data[Log::Log1].distanceBetweenLog = 420;
     data[Log::Log1].texture = Textures::Log1;
     data[Log::Log1].scaling = sf::Vector2f(0.5, 0.6);
 
     data[Log::Log2].speed = 170.f;
-    data[Log::Log2].distanceBetweenLog = 530;
+    data[Log::Log2].distanceBetweenLog = 550;
     data[Log::Log2].texture = Textures::Log1;
-    data[Log::Log2].scaling = sf::Vector2f(0.6, 0.6);
+    data[Log::Log2].scaling = sf::Vector2f(0.8, 0.6);
 
     data[Log::SnowLog1].speed = 220.f;
     data[Log::SnowLog1].distanceBetweenLog = 470;
@@ -334,7 +334,7 @@ std::vector<VehicleData> initializeVehicleData(){
     data[Vehicle::YellowCar].scaling = sf::Vector2f(1.1,1.1);
     data[Vehicle::YellowCar].collisionEffect = SoundEffect::Car;
 
-    data[Vehicle::OldCar].dmg = 0;
+    data[Vehicle::OldCar].dmg = 10;
     data[Vehicle::OldCar].speed = 100.f;
     data[Vehicle::OldCar].distanceBetweenVehicle = 400;
     data[Vehicle::OldCar].texture = Textures::OldCar;
