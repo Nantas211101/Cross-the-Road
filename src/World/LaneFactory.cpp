@@ -37,7 +37,6 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::templateLane() {
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
     }
-    std::cerr << "TemplateLane\n";
     return randLanes;
 }
 

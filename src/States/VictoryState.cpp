@@ -26,6 +26,22 @@ VictoryState::VictoryState(StateStack& stack, Context context)
 , mVictorySprite()
 , mGUIContainer()
 {
+    // Win and increase the limit level
+
+    int& curLevel = *context.currentLevel;
+    int& limitLevel = *context.limitLevel;
+    int& theme = *context.theme;
+
+    limitLevel = std::max(limitLevel, curLevel + 1);
+    curLevel = std::min(curLevel + 1, MaxLevel);
+
+    if(curLevel > themeLimit[theme - 1])
+        ++theme;
+
+    setNewMask(limitLevel);
+
+    //
+
     mBackground.setSize(sf::Vector2f(context.window->getView().getSize()));
     mBackground.setFillColor(sf::Color(0, 0, 0, 200));
 
@@ -54,17 +70,6 @@ VictoryState::VictoryState(StateStack& stack, Context context)
     nextLevelButton->centerOrigin();
     nextLevelButton->setPosition(canvaPosition::NextLevelPos);
     nextLevelButton->setCallback([this](){
-        int& curLevel = *getContext().currentLevel;
-        int& limitLevel = *getContext().limitLevel;
-        int& theme = *getContext().theme;
-
-        curLevel = std::min(curLevel + 1, MaxLevel);
-
-        if(curLevel > themeLimit[theme - 1])
-            ++theme;
-
-        limitLevel = std::max(limitLevel, curLevel);
-
         requestStateClear();
         requestStackPush(States::Game);
     });
@@ -87,12 +92,16 @@ void VictoryState::draw()
 
 bool VictoryState::update(sf::Time dt)
 {
+    mElapsedTime += dt;
     mGUIContainer.update(dt);
     return false;
 }
 
 bool VictoryState::handleEvent(const sf::Event& event)
 {
+
+    if(mElapsedTime < sf::seconds(1.0))
+        return false;
     sf::RenderWindow& window = *getContext().window;
     mGUIContainer.handleRealTimeInput(window);
     mGUIContainer.handleEvent(event);
@@ -102,4 +111,9 @@ bool VictoryState::handleEvent(const sf::Event& event)
 void VictoryState::handleRealTimeInput()
 {
 
+}
+
+void VictoryState::setNewMask(int lv){
+    int newMask = convertFromLevelToMaskID(lv);
+    getContext().player->setMaskID(newMask);
 }

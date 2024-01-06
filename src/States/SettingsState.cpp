@@ -89,6 +89,7 @@ void SettingsState::draw()
 
 bool SettingsState::update(sf::Time dt)
 {
+	mElapsedTime += dt;
 	updateVolumeSetting(currentVolume, volumeRectangleHold, volumeLeftButtonPos, volumeRightButtonPos, mMusic);
 	updateVolumeSetting(currentSound, soundRectangleHold, soundLeftButtonPos, soundRightButtonPos, mSounds);
 	
@@ -97,6 +98,9 @@ bool SettingsState::update(sf::Time dt)
 
 bool SettingsState::handleEvent(const sf::Event& event)
 {
+	if(mElapsedTime < sf::seconds(1.0))
+		return false;
+
 	bool isKeyBinding = false;
 	
 	// Iterate through all key binding buttons to see if they are being pressed, waiting for the user to enter a key

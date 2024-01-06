@@ -48,3 +48,5 @@ class State{
         StateStack* mStack;
         Context mContext;
 };
+
+int convertFromLevelToMaskID(int Level);

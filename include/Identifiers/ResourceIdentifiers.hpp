@@ -245,6 +245,19 @@ namespace Textures
 		NormalPauseButton,
 		PressedPauseButton,
 
+		// Menu State
+		CreditButton,
+		ResetButton,
+
+		// Reset Buttons
+		Cancle,
+		Confirm,
+		ResettingSuccessfully,
+
+		// Reset Screen
+		ResetConfirm,
+		ResetSuccess,
+
 	};
 }
 namespace Fonts
@@ -264,6 +277,7 @@ namespace Music{
         GameTheme1,
         GameTheme2,
         GameTheme3,
+		CreditsTheme,
     };
 }
 

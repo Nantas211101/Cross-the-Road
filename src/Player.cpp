@@ -29,6 +29,7 @@ struct MainCharMover
 };
 
 Player::Player()
+: UID(0)
 {
 	// Set initial key bindings
 	mKeyBinding[sf::Keyboard::Left] = MoveLeft;

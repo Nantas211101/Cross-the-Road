@@ -42,6 +42,7 @@ PauseState::PauseState(StateStack &stack, Context context)
     resumeButton->setPosition(canvaPosition::ResumeButtonPos);
     resumeButton->setCallback([this](){
         requestStackPop();
+        requestStackPush(States::ReturnGame);
     });
 
     auto settingsButton = std::make_shared<GUI::Button>(context, Textures::PauseSettingsButton);
@@ -72,11 +73,14 @@ void PauseState::draw(){
 }
 
 bool PauseState::update(sf::Time dt){
+    mElapsedTime += dt;
     mGUIContainer.update(dt);
     return false;
 }
 
 bool PauseState::handleEvent(const sf::Event &event){
+    if(mElapsedTime < sf::seconds(1.0))
+        return false;
     sf::RenderWindow& window = *getContext().window;
     mGUIContainer.handleRealTimeInput(window);
     mGUIContainer.handleEvent(event);

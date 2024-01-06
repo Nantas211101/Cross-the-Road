@@ -15,6 +15,16 @@
 #include <ChooseWorldState.hpp>
 #include <ChooseLevelState.hpp>
 #include <VictoryState.hpp>
+#include <ReturnGameState.hpp>
+#include <CreditsState.hpp>
+#include <ResetConfirm.hpp>
+#include <ResetSuccess.hpp>
+
+#include <fstream>
+#include <exception>
+
+const std::string Path_SaveAccount = "PrivateInfo/AccountSaving.txt";
+const std::string tmp_Account = "PrivateInfo/TmpSaving.txt";
 
 const std::string Path_MenuScreen = "Media/Textures/State/MenuScreen.png";
 const std::string Path_TitleScreen = "Media/Textures/State/TitleScreen.png";
@@ -113,6 +123,60 @@ Application::Application()
 
 }
 
+Application::~Application(){
+    // Save User Info
+    int curUID = mPlayer.getUID();
+    if(curUID == 0)
+        return;
+    
+    // Read Part
+    std::ifstream fi(Path_SaveAccount);
+    if(!fi.is_open()){
+        // throw std::runtime_error("Application::~Application - Cannot open file " + Path_SaveAccount);
+        return;
+    }
+
+    std::ofstream tmpFo(tmp_Account);
+    if(!tmpFo.is_open()){
+        // throw std::runtime_error("Application::~Application - Cannot open file " + tmp_Account);
+        return;
+    }
+
+    int UID;
+    std::string username;
+    int passwordHash[5];
+    int lv;
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv){
+        if(UID == curUID)
+            lv = limitLevel;
+        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n";
+    }
+
+    fi.close();
+    tmpFo.close();
+
+    // Write Part
+    std::ifstream tmpFi(tmp_Account);
+    if(!tmpFi.is_open()){
+        // throw std::runtime_error("Application::~Application - Cannot open file " + tmp_Account);
+        return;
+    }
+
+    std::ofstream fo(Path_SaveAccount);
+    if(!fo.is_open()){
+        // throw std::runtime_error("Application::~Application - Cannot open file " + Path_SaveAccount);
+        return;
+    }
+
+    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv){
+        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n";
+    }
+
+    tmpFi.close();
+    fo.close();
+
+}
+
 void Application::registerStates(){
     mStateStack.registerState<TitleState>(States::Title);
     mStateStack.registerState<MenuState>(States::Menu);
@@ -128,6 +192,10 @@ void Application::registerStates(){
     mStateStack.registerState<ChooseWorldState>(States::ChooseWorldState);
     mStateStack.registerState<ChooseLevelState>(States::ChooseLevelState);
     mStateStack.registerState<VictoryState>(States::Victory);
+    mStateStack.registerState<ReturnGameState>(States::ReturnGame);
+    mStateStack.registerState<CreditsState>(States::Credits);
+    mStateStack.registerState<ResetConfirmState>(States::ResetConfirm);
+    mStateStack.registerState<ResetSuccessState>(States::ResetSuccess);
 }
 
 void Application::processInput(){
@@ -396,4 +464,18 @@ void Application::loadResources(){
     mTextures.load(Textures::PauseSettingsButton, Path_PauseSettingButton);
     mTextures.load(Textures::NormalPauseButton, Path_NormalPauseButton);
     mTextures.load(Textures::PressedPauseButton, Path_PressedPauseButton);
+
+    // Menu State Button
+    mTextures.load(Textures::CreditButton, "Media/Textures/Button/Credit.png");
+    mTextures.load(Textures::ResetButton, "Media/Textures/Button/Reset.png");
+
+    // Reset Buttons
+    mTextures.load(Textures::Cancle, "Media/Textures/Button/Resetting/Cancle.png");
+    mTextures.load(Textures::Confirm, "Media/Textures/Button/Resetting/Confirm.png");
+    mTextures.load(Textures::ResettingSuccessfully, "Media/Textures/Button/Resetting/ResettingSuccessfully.png");
+
+    // Reset Screen
+    mTextures.load(Textures::ResetConfirm, "Media/Textures/State/Reset/ResettingConfirm.png");
+    mTextures.load(Textures::ResetSuccess, "Media/Textures/State/Reset/ResettingSuccess.png");
+
 }

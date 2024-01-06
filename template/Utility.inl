@@ -5,3 +5,4 @@ std::string toString(const T& value)
     stream << value;
     return stream.str();
 }
+

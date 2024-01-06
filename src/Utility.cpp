@@ -119,6 +119,14 @@ std::string toString(sf::Keyboard::Key key)
 	return "";
 }
 
+int toInt(std::string str)
+{
+	std::stringstream ss(str);
+	int num;
+	ss >> num;
+	return num;
+}
+
 void centerOrigin(sf::Sprite& sprite)
 {
 	sf::FloatRect bounds = sprite.getLocalBounds();
