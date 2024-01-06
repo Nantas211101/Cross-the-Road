@@ -24,5 +24,7 @@ namespace Category {
 
 		// sound node
 		SoundEffect = 1 << 9,
+
+		Coin = 1 << 10,
 	};
 }

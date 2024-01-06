@@ -28,6 +28,10 @@ void Train::updateCurrent(sf::Time dt) {
     Entity::updateCurrent(dt);
 }
 
+int Train::getDamage(){
+    return 75;
+}
+
 sf::FloatRect Train::getBoundingRect() const {
     sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
     bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane);

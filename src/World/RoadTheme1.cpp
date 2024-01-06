@@ -173,7 +173,7 @@ void RoadTheme1::buildTraffic(){
     if(!this->isReverse()){
         traff->setPosition(600, 0);
     }else{
-         traff->setPosition(1900, 0);
+         traff->setPosition(2200, 0);
     }
     
     this->attachChild(std::move(traff));

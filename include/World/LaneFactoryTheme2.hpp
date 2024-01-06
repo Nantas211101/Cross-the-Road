@@ -17,7 +17,6 @@ private:
     void templateLevel3();
     void templateLevel4();
     void templateLevel5();
-    void templateLevel6();
 
 public:
     LaneFactoryTheme2(TextureHolder* textureHolder, sf::Vector2f startPos, int level);

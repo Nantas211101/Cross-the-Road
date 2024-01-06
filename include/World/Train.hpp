@@ -23,6 +23,7 @@ class Train : public Entity {
         virtual sf::FloatRect getBoundingRect() const;
         unsigned int getCategory() const;
         Type getType();
+        int getDamage();
 
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

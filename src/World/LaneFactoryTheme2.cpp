@@ -15,12 +15,10 @@ void LaneFactoryTheme2::templateStartLane(int num){
 }
 
 void LaneFactoryTheme2::templateFinishTheme(int num){
-    for(int i = 0; i < num; i++) {
-        std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, level));
-        lane->setPosition(startPos);
-        startPos.y -= Lane::distanceBetweenLane*7;
-        lanes.push_back(std::move(lane));
-    }
+    std::unique_ptr<Lane> lane(new FinishLane(textureHolder, startPos, level));
+    lane->setPosition(startPos);
+    startPos.y -= Lane::distanceBetweenLane*7;
+    lanes.push_back(std::move(lane));
 }
 
 void LaneFactoryTheme2::templateGround(int num) {
@@ -81,14 +79,15 @@ void LaneFactoryTheme2::templateRailway(int num) {
         lanes.push_back(std::move(lane));
     }
 }
-
+#include <iostream>
 void LaneFactoryTheme2::templateLevel1(){
+    std::cerr << "templateLevel1\n";
     std::vector<int> templates{1,2,3,4,5,6,7,8,23,24,25};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
     int randomTemplate;
-    for (int i=1; i<=10; i++){
+    for (int i=1; i<=7; i++){
         randomTemplate = dist(gen);
         callTemplateX(templates[randomTemplate]);
     }
@@ -100,7 +99,7 @@ void LaneFactoryTheme2::templateLevel2(){
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
     int randomTemplate;
-    for (int i=1; i<=12; i++){
+    for (int i=1; i<=8; i++){
         randomTemplate = dist(gen);
         callTemplateX(templates[randomTemplate]);
     }
@@ -112,7 +111,7 @@ void LaneFactoryTheme2::templateLevel3(){
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
     int randomTemplate;
-    for (int i=1; i<=14; i++){
+    for (int i=1; i<=10; i++){
         randomTemplate = dist(gen);
         callTemplateX(templates[randomTemplate]);
     }
@@ -124,7 +123,7 @@ void LaneFactoryTheme2::templateLevel4(){
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1); 
     int randomTemplate;
-    for (int i=1; i<=16; i++){
+    for (int i=1; i<=11; i++){
         randomTemplate = dist(gen);
         callTemplateX(randomTemplate);
     }
@@ -136,7 +135,7 @@ void LaneFactoryTheme2::templateLevel5(){
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);
     int randomTemplate;
-    for (int i=1; i<=18; i++){
+    for (int i=1; i<=13; i++){
         randomTemplate = dist(gen);
         callTemplateX(randomTemplate);
     }

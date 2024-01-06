@@ -4,7 +4,6 @@ namespace{
     std::vector<ObstacleData> Table = initializeObstacleData();  
 }
 
-
 Obstacle::Obstacle(Type type, const TextureHolder& texture) 
 : type(type)
 , sprite(texture.get(Table[type].texture)) {
@@ -38,6 +37,7 @@ Obstacle::Type Obstacle::getType() {
 }
 
 unsigned int Obstacle::getCategory() const {
+    if (type == Obstacle::Coin) return Category::Coin;
     return Category::Obstacle;
 }
 

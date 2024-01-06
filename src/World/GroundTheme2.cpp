@@ -65,28 +65,29 @@ void GroundTheme2::buildLane() {
         }
     }
     else{
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> dist(3, 7);
-        int numObstacles = dist(gen);
         Obstacle::Type kind;
-        int randObtacle = rand()%3;
-        switch (randObtacle) {
-            case 0:
-                kind = Obstacle::SnowMan;
-                break;
-            case 1:
-                kind = Obstacle::SnowTree;
-                break;
-            case 2:
-                kind = Obstacle::SnowTree1;
-                break;
-        }
-        for(int j = 0; j < numObstacles; j++) {
+        int tile = 0;
+        while (tile < 17) {
+            int randObtacle = rand()%4;
+            switch (randObtacle) {
+                case 0:
+                    kind = Obstacle::SnowMan;
+                    break;
+                case 1:
+                    kind = Obstacle::SnowTree1;
+                    break;
+                case 2:
+                    kind = Obstacle::SnowTree;
+                    break;
+                case 3:
+                    kind = Obstacle::Coin;
+                    break;               
+            }
             std::unique_ptr<Obstacle> obstacle(new Obstacle(kind, *textureHolder));
             obstacles.push_back(obstacle.get());
-            int randNum = rand() % 17;
-            obstacle->setPosition( randNum * 100 + 500,-15);
+            int randNum = rand() % 7 + 1;
+            tile += randNum; 
+            obstacle->setPosition( tile * distanceBetweenLane + 500,0);
             this->attachChild(std::move(obstacle));
         }
     }

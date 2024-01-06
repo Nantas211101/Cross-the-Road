@@ -6,7 +6,7 @@
 World::World(State::Context context)
 : mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 5000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 12000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
 , scrollDistance(0)
@@ -245,6 +245,7 @@ void World::updateHealthBar() {
 	mHealthDisplay->setString(std::to_string((int)curHP) + " HP");
 }
 
+#include <iostream>
 void World::buildMap(){
 	int theme = *mContext.theme;
 	int level = *mContext.currentLevel;
@@ -255,6 +256,7 @@ void World::buildMap(){
 			break;
 		case 2:
 			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme2(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));
+			std::cerr << theme << '\n';
 			break;
 		case 3:
 			laneFactory = std::move(std::unique_ptr<LaneFactory>(new LaneFactoryTheme3(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400), level)));

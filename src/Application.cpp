@@ -92,7 +92,7 @@ Application::Application()
 , mMusic()
 , mSound()
 , theme(0)
-, limitLevel(4)
+, limitLevel(15)
 , curLevel(0)
 , mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel))
 , mStayText()
@@ -297,7 +297,8 @@ void Application::loadResources(){
 	// River
 	mTextures.load(Textures::Log, "Media/Textures/River/Log.png");
 	mTextures.load(Textures::Log1, "Media/Textures/River/Log1.png");
-    mTextures.load(Textures::SnowLog, "Media/Textures/River/SnowLog.png");
+    mTextures.load(Textures::SnowLog1, "Media/Textures/River/SnowLog.png");
+    mTextures.load(Textures::SnowLog2, "Media/Textures/River/SnowLog.png");
     mTextures.load(Textures::River, "Media/Textures/River/River.png");
 	mTextures.load(Textures::LavaRiver, "Media/Textures/River/LavaRiver.png");
     mTextures.load(Textures::SnowRiver, "Media/Textures/River/SnowRiver.png");

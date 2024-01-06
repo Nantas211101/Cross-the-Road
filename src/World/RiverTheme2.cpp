@@ -37,18 +37,15 @@ void RiverTheme2::updateCurrent(sf::Time dt) {
 
 void RiverTheme2::buildLane() {
     int distance = 0;
-    int randomKindLog = 1 + rand() % 3;
+    int randomKindLog = rand() % 2;
     Log::Type kind;
-    switch(3) {
-    case 1:
-        kind = Log::Log1;
-        break;
-    case 2:
-        kind = Log::Log2;
-        break;
-    case 3:
-        kind = Log::SnowLog;
-        break;
+    switch(randomKindLog) {
+        case 0:
+            kind = Log::SnowLog1;
+            break;
+        case 1:
+            kind = Log::SnowLog2;
+            break;
     }
     int randSpawnPos = rand() % 200;
     for(int j = 0; j < numOfLog; j++) {

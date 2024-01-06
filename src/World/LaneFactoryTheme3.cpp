@@ -73,31 +73,31 @@ void LaneFactoryTheme3::templateRailway(int num) {
 }
 
 void LaneFactoryTheme3::templateLevel1(){
-    std::vector<int> templates{1,2,3,4,5,6,7,8,23,24,25};
+    std::vector<int> templates{1,2,3,4,5,6,7,8,9,10,17,18,23,24,25,39,40};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
     int randomTemplate;
-    for (int i=1; i<=10; i++){
+    for (int i=1; i<=11; i++){
         randomTemplate = dist(gen);
         callTemplateX(templates[randomTemplate]);
     }
 }
 
 void LaneFactoryTheme3::templateLevel2(){
-    std::vector<int> templates{1,2,4,5,6,7,8,9,10,11,12,14,15,16,18,23,24,25,26,27,31};
+    std::vector<int> templates{1,2,4,5,6,7,8,9,10,11,12,15,16,18,23,24,25,26,27,31,32,36,37,40};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
     int randomTemplate;
-    for (int i=1; i<=12; i++){
+    for (int i=1; i<=13; i++){
         randomTemplate = dist(gen);
         callTemplateX(templates[randomTemplate]);
     }
 }
 
 void LaneFactoryTheme3::templateLevel3(){
-    std::vector<int> templates{1,2,4,5,6,7,8,9,10,11,12,14,15,16,17,18,20,23,24,25,26,27,28,29,31,33,34,35};
+    std::vector<int> templates{4,5,6,7,8,9,10,11,12,15,16,17,18,20,23,24,25,26,28,29,31,33,34,35,36,37,38,39,40};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
@@ -109,24 +109,24 @@ void LaneFactoryTheme3::templateLevel3(){
 }
 
 void LaneFactoryTheme3::templateLevel4(){
-    std::vector<int> templates{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
+    std::vector<int> templates{4,5,6,7,8,9,10,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,39,40,36,37};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1); 
     int randomTemplate;
-    for (int i=1; i<=18; i++){
+    for (int i=1; i<=17; i++){
         randomTemplate = dist(gen);
         callTemplateX(randomTemplate);
     }
 }
 
 void LaneFactoryTheme3::templateLevel5(){
-    std::vector<int> templates{1,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
+    std::vector<int> templates{5,6,7,8,9,10,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,36,37,38,39,40,39,40};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);
     int randomTemplate;
-    for (int i=1; i<=25; i++){
+    for (int i=1; i<=22; i++){
         randomTemplate = dist(gen);
         callTemplateX(randomTemplate);
     }

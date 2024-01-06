@@ -65,14 +65,10 @@ void GroundTheme1::buildLane() {
         }
     }
     else{
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> dist(2, 5);
-        int numObstacles = dist(gen);
         Obstacle::Type kind;
         int tile = 0;
         while (tile < 17) {
-            int randObtacle = rand()%9;
+            int randObtacle = rand()%10;
             switch (randObtacle) {
                 case 0:
                     kind = Obstacle::Rock1;
@@ -100,7 +96,10 @@ void GroundTheme1::buildLane() {
                     break;
                 case 8:
                     kind = Obstacle::Coin;
-                    break;             
+                    break;
+                case 9:
+                    kind = Obstacle::Coin;
+                    break;                
             }
             std::unique_ptr<Obstacle> obstacle(new Obstacle(kind, *textureHolder));
             obstacles.push_back(obstacle.get());

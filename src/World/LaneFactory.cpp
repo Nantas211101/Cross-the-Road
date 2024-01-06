@@ -6,11 +6,15 @@ LaneFactory::LaneFactory(TextureHolder* textureHolder, sf::Vector2f startPos, in
 , startPos(startPos)
 , level(level)
 {}
-
+#include <iostream>
 std::vector<std::unique_ptr<Lane>> LaneFactory::templateLane() {
     lanes.clear();
     templateStartLane(3);
-    switch(level) {
+    int caseLevel = level;
+    while (caseLevel>5){
+        caseLevel -=5 ;
+    }
+    switch(caseLevel) {
     case 1:
         templateLevel1();
         break;
@@ -33,6 +37,7 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::templateLane() {
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
     }
+    std::cerr << "TemplateLane\n";
     return randLanes;
 }
 
@@ -123,14 +128,19 @@ void LaneFactory::templateLane14() {
 void LaneFactory::templateLane15() {
     templateGround(1);
     templateRoad(2);
+    templateGround(1);
 }
 void LaneFactory::templateLane16() {
-    templateRoad(2);
+    templateRiver(1);
+    templateRoad(3);
     templateGround(1);
 }
 //  __MEDIUM__:
 void LaneFactory::templateLane17() {
-    templateRoad(2);
+    templateGround(1);
+    templateRoad(3);
+    templateRiver(2);
+    templateGround(2);
 }
 void LaneFactory::templateLane18() {
     templateGround(2);
@@ -144,7 +154,9 @@ void LaneFactory::templateLane19() {
 }
 //  __HARD__:
 void LaneFactory::templateLane20() {
-    templateRoad(3);
+    templateGround(2);
+    templateRoad(4);
+    templateGround(1);
 }
 void LaneFactory::templateLane21() {
     templateGround(2);
@@ -153,7 +165,6 @@ void LaneFactory::templateLane21() {
     templateGround(1);
 }
 void LaneFactory::templateLane22() {
-    templateRoad(2);
     templateAnimalRoad(1);
     templateRoad(2);
     templateGround(1);
@@ -178,7 +189,7 @@ void LaneFactory::templateLane25() {
 //    __MEDIUM__:
 void LaneFactory::templateLane26() {
     templateGround(1);
-    templateRiver(3);
+    templateAnimalRoad(3);
     templateGround(1);
 }
 void LaneFactory::templateLane27() {
@@ -196,15 +207,18 @@ void LaneFactory::templateLane28() {
 void LaneFactory::templateLane29() {
     templateGround(1);
     templateRiver(3);
+    templateGround(2);
 }
 void LaneFactory::templateLane30() {
+    templateGround(2);
     templateRoad(2);
-    templateRiver(4);
+    templateRiver(2);
     templateGround(1);
 }
 void LaneFactory::templateLane31() {
     templateRiver(2);
     templateRoad(2);
+    templateRiver(1);
 }
 void LaneFactory::templateLane32() {
     templateRailway(1);
@@ -224,6 +238,33 @@ void LaneFactory::templateLane34() {
 }
 void LaneFactory::templateLane35() {
     templateRailway(2);
+    templateGround(2);
+}
+
+// TEMPLATE HARD FOR THEME 3
+void LaneFactory::templateLane36() {
+    templateRiver(1);
+    templateRoad(6);
+    templateGround(3);
+}
+void LaneFactory::templateLane37() {
+    templateRiver(5);
+    templateRoad(4);
+    templateGround(2);
+}
+void LaneFactory::templateLane38() {
+    templateGround(3);
+    templateRoad(10);
+    templateGround(3);
+}
+void LaneFactory::templateLane39() {
+    templateRiver(2);
+    templateRoad(5);
+    templateGround(2);
+}
+void LaneFactory::templateLane40() {
+    templateGround(2);
+    templateRoad(8);
     templateGround(2);
 }
 
@@ -333,6 +374,21 @@ void LaneFactory::callTemplateX(int x){
             break;
         case 35:
             templateLane35();
+            break;
+        case 36:
+            templateLane36();
+            break;
+        case 37:
+            templateLane37();
+            break;
+        case 38:
+            templateLane38();
+            break;
+        case 39:
+            templateLane39();
+            break;
+        case 40:
+            templateLane40();
             break;
         default:
             break;

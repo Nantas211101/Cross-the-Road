@@ -76,15 +76,26 @@ void GroundTheme3::buildLane() {
         }
     }
     else{
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> dist(3, 7);
-        int numObstacles = dist(gen);
-        for(int j = 0; j < numObstacles; j++) {
-            std::unique_ptr<Obstacle> obstacle(new Obstacle(Obstacle::Volcano, *textureHolder));
+        Obstacle::Type kind;
+        int tile = 0;
+        while (tile < 17) {
+            int randObtacle = rand()%3;
+            switch (randObtacle) {
+                case 0:
+                    kind = Obstacle::Volcano;
+                    break;
+                case 1:
+                    kind = Obstacle::Volcano;
+                    break;
+                case 2:
+                    kind = Obstacle::Coin;
+                    break;         
+            }
+            std::unique_ptr<Obstacle> obstacle(new Obstacle(kind, *textureHolder));
             obstacles.push_back(obstacle.get());
-            int randNum = rand() % 17;
-            obstacle->setPosition( randNum * 100 + 500 , 0 );
+            int randNum = rand() % 6 + 1;
+            tile += randNum; 
+            obstacle->setPosition( tile * distanceBetweenLane + 500,0);
             this->attachChild(std::move(obstacle));
         }
     }
