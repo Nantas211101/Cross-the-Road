@@ -15,16 +15,17 @@ namespace Category {
 
 		// Ground
 		Obstacle= 1 << 6,
+		Coin 	= 1 << 7,
 
 		// Railway
-		Train   = 1 << 7,
+		Train   = 1 << 8,
 
 		// lane -> Road, Ground
-		Lane	= 1 << 8,
+		Lane	= 1 << 9,
 
 		// sound node
-		SoundEffect = 1 << 9,
-
-		Coin = 1 << 10,
+		SoundEffect = 1 << 10,
+		
+		WinLane	= 1 << 11
 	};
 }

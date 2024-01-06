@@ -7,7 +7,9 @@ namespace{
 
 Obstacle::Obstacle(Type type, const TextureHolder& texture) 
 : type(type)
-, sprite(texture.get(Table[type].texture)) {
+, sprite(texture.get(Table[type].texture))
+, marked(false) 
+{
     sf::FloatRect bounds = sprite.getLocalBounds();
 	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
     sprite.scale(Table[type].scaling);
@@ -58,4 +60,12 @@ unsigned int Obstacle::getCategory() const {
 
 int Obstacle::getDamage() {
     return Table[type].dmg;
+}
+
+bool Obstacle::isDestroyed() const {
+    return marked;
+}
+
+void Obstacle::markedForRemoval() {
+    marked = true;
 }

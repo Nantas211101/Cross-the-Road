@@ -29,10 +29,18 @@ namespace sf
 class World : private sf::NonCopyable
 {
 	public:
+		enum InGameState {
+			Win,
+			Lose,
+			Playing,
+		};
+	public:
 		explicit		 					World(State::Context context);
 		void								update(sf::Time dt);
 		void								draw();
 		CommandQueue&						getCommandQueue();
+		InGameState							getInGameState();
+		int									getMoney();
 
 	private:
 		void								buildScene(MainChar::Type id);
@@ -45,6 +53,8 @@ class World : private sf::NonCopyable
 		void								updateMana(sf::Time dt);
 		void								buildMainChar();
 		void								updateSound();
+		void								buildMoneyInFo();
+		void								updateMoneyBar();
 
 	private:
 		enum Layer
@@ -55,6 +65,10 @@ class World : private sf::NonCopyable
 			LayerCount
 		};
 	private:
+		State::Context 						mContext;
+		InGameState							playingState;
+		int									money;
+
 		sf::RenderWindow&					mWindow;
 		sf::View							mWorldView;
 		sf::FloatRect						mWorldBounds;
@@ -76,6 +90,9 @@ class World : private sf::NonCopyable
 		std::vector<Lane*> 					lanes;
 		MainChar*							mainChar;
 
+		SpriteNode*							moneyBar;
+		TextNode*							moneyDisplay;
+
 		SpriteNode*							boundBar;
 		SpriteNode*							healthBar;
 		SpriteNode*							manaBar;
@@ -83,8 +100,6 @@ class World : private sf::NonCopyable
 		int									highestBound;
 		const sf::Time						timeEachAddMana = sf::seconds(0.2);
 		sf::Time							timeSinceLastAddMana;
-				
-		State::Context 						mContext;
 
 		sf::Clock							timeSinceLastDamage;
 		const sf::Time						damageGap = sf::seconds(1);

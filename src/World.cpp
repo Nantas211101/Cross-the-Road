@@ -9,7 +9,10 @@
 #include <memory>
 
 World::World(State::Context context)
-: mWindow(*context.window)
+: mContext(context)
+, playingState(InGameState::Playing)
+, money(0)
+, mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 12000)
 , mTextures(*context.textures)
@@ -21,11 +24,12 @@ World::World(State::Context context)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 , lanes()
 , mainChar(nullptr)
+, moneyBar(nullptr)
+, moneyDisplay(nullptr)
 , boundBar(nullptr)
 , healthBar(nullptr)
 , manaBar(nullptr)
 , mHealthDisplay(nullptr)
-, mContext(context)
 , timeSinceLastDamage()
 {
 	buildScene(context.player->getMainCharID());
@@ -33,11 +37,13 @@ World::World(State::Context context)
 	// Prepare the view
 	mWorldView.setCenter(mSpawnPosition);
 	buildHealthBar();
+	buildMoneyInFo();
 }
-
 
 void World::update(sf::Time dt)
 {
+	if(playingState == InGameState::Win || playingState == InGameState::Lose)
+		return;
 	// Scroll the world
 	scroll(dt);
 
@@ -72,12 +78,13 @@ void World::update(sf::Time dt)
 	// Regular update step, adapt position
 	mSceneGraph.update(dt);
 	if(mainChar->isDead()) {
-		// Gameover
+		playingState = InGameState::Lose;
 	}
 	adaptPlayerPosition();
 	updateHealthBar();
 	updateMana(dt);
 	updateSound();
+	updateMoneyBar();
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
@@ -131,17 +138,9 @@ void World::handleCollisions()
 		}
 	}
 	for(SceneNode::Pair pair : collisionPairs) {
-		if (matchesCategories(pair, Category::Player, Category::River)) {
-			auto* river = static_cast<River*>(pair.second);
-			sf::Time timeFromLastRiverSound = timeRiverSound.getElapsedTime();
-			if(timeFromLastRiverSound >= riverSoundGap) {
-				river->playLocalSound(soundCommandQueue);
-				timeRiverSound.restart();
-			}
-		}
 		if (matchesCategories(pair, Category::Player, Category::Obstacle)) {
-			auto& obstacle = static_cast<Obstacle&>(*pair.second);
 			if(timeFromLastDamage >= damageGap) {
+				auto& obstacle = static_cast<Obstacle&>(*pair.second);
 				mainChar->damage(obstacle.getDamage());
 				obstacle.playLocalSound(soundCommandQueue);
 				timeSinceLastDamage.restart();
@@ -150,28 +149,38 @@ void World::handleCollisions()
 			mainChar->stopMoving();
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Vehicle)) {
-			auto& vehicle = static_cast<Vehicle&>(*pair.second);
 			if(timeFromLastDamage >= damageGap) {
+				auto& vehicle = static_cast<Vehicle&>(*pair.second);
 				mainChar->damage(vehicle.getDamage());
 				vehicle.playLocalSound(soundCommandQueue);
 				timeSinceLastDamage.restart();
 			}
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Animal)) {
-			auto& animal = static_cast<Animal&>(*pair.second);
 			if(timeFromLastDamage >= damageGap) {
+				auto& animal = static_cast<Animal&>(*pair.second);
 				mainChar->damage(animal.getDamage());
 				animal.playLocalSound(soundCommandQueue);
 				timeSinceLastDamage.restart();
 			}
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Train)) {
-			auto& train = static_cast<Train&>(*pair.second);
 			if(timeFromLastDamage >= damageGap) {
-				//mainChar->damage(train.getDamage());
+				auto& train = static_cast<Train&>(*pair.second);
+				mainChar->damage(train.getDamage());
 				train.playLocalSound(soundCommandQueue);
 				timeSinceLastDamage.restart();
 			}
+		}
+		else if(matchesCategories(pair, Category::Player, Category::Coin)) {
+			++money;
+			auto& coin = static_cast<Obstacle&>(*pair.second);
+			coin.playLocalSound(soundCommandQueue);
+			coin.markedForRemoval();
+			mSceneLayers[Title]->removeWrecks();
+		}
+		else if(matchesCategories(pair, Category::Player, Category::WinLane)) {
+			playingState = InGameState::Win;
 		}
 	}
 	sf::Time timeFromLastRiverDamage = timeSinceLastDamageByRiver.getElapsedTime();
@@ -192,6 +201,14 @@ void World::draw()
 CommandQueue &World::getCommandQueue()
 {
     return mCommandQueue;
+}
+
+World::InGameState World::getInGameState() {
+    return playingState;
+}
+
+int World::getMoney() {
+    return money;
 }
 
 void World::buildScene(MainChar::Type id)
@@ -220,12 +237,12 @@ void World::adaptPlayerPosition() {
 		mainChar->setPosition(1, position.y);
 		mainChar->stopMoving();
 	}
-	else if(position.x >= viewBounds.left + viewBounds.width) {
-		mainChar->setPosition(viewBounds.left + viewBounds.width - 1, position.y);
+	else if(position.x >= viewBounds.left + viewBounds.width - 50) {
+		mainChar->setPosition(viewBounds.left + viewBounds.width - 51, position.y);
 		mainChar->stopMoving();
 	}
-	else if(position.y >= viewBounds.left + viewBounds.width) {
-		// Gameover
+	else if(position.y >= viewBounds.top + viewBounds.height) {
+		playingState = InGameState::Lose;
 	}
 	else if(position.y <= viewBounds.top) {
 		mainChar->backTolastPos();
@@ -363,4 +380,30 @@ void World::buildMainChar() {
 void World::updateSound() {
 	mSound.setListenerPosition(mainChar->getPosition());
 	mSound.removeStoppedSounds();
+}
+
+void World::buildMoneyInFo() {
+	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+	sf::Vector2f moneyBarPos(1419, viewBounds.top + 16);
+
+	std::unique_ptr<SpriteNode> moneybar(new SpriteNode(mTextures.get(Textures::MoneyBar)));
+	moneybar->setPosition(moneyBarPos);
+	moneyBar = moneybar.get();
+	mSceneLayers[AboveTitle]->attachChild(std::move(moneybar));
+
+	std::unique_ptr<TextNode> moneyInfo(new TextNode(mFonts, ""));
+	moneyInfo->setCharacterSize(35);
+	moneyInfo->setPosition(60, -18);
+	moneyInfo->setFillColor(sf::Color::Black);
+	moneyDisplay = moneyInfo.get();
+    moneyBar->attachChild(std::move(moneyInfo));
+	updateMoneyBar();
+}
+
+void World::updateMoneyBar() {
+	sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+	sf::Vector2f moneyBarPos(1419, viewBounds.top + 16);
+
+	moneyBar->setPosition(moneyBarPos);
+	moneyDisplay->setString(std::to_string(money));
 }
