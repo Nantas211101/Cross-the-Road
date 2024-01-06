@@ -1,7 +1,7 @@
 #include <MainChar1.hpp>
 
-MainChar1::MainChar1(TextureHolder& textures, int curLane, std::vector<Lane*>& lanes)
-: MainChar(MainChar::Player1, textures, curLane, lanes)
+MainChar1::MainChar1(TextureHolder& textures, CommandQueue& soundCommandQueue, int curLane, std::vector<Lane*>& lanes)
+: MainChar(MainChar::Player1, textures, soundCommandQueue, curLane, lanes)
 {}
 
 MainChar1::MainChar1(TextureHolder& textures, sf::Vector2f pos)

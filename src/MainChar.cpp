@@ -82,8 +82,9 @@ int IDToNum(MainChar::Type type){
     return MainChar::TypeCount;
 }
 
-MainChar::MainChar(Type type, TextureHolder& textures, int curLane, std::vector<Lane*>& lanes)
+MainChar::MainChar(Type type, TextureHolder& textures, CommandQueue& soundCommandQueue, int curLane, std::vector<Lane*>& lanes)
 : textureHolder(textures)
+, soundCommandQueue(&soundCommandQueue)
 , mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
@@ -137,6 +138,7 @@ MainChar::MainChar(Type type, TextureHolder& textures, int curLane, std::vector<
 
 MainChar::MainChar(Type type, TextureHolder& textures, sf::Vector2f pos)
 : textureHolder(textures)
+, soundCommandQueue(nullptr)
 , mType(type)
 , restAnimation(textures.get(Table[type].restTexture))
 , maxHP(Table[type].hitpoints)
@@ -325,6 +327,7 @@ bool MainChar::isStanding() {
 void MainChar::useAbility() {
     if(canUseAbility()) {
         mMP -= maxMP;
+        playAbilitySound(*soundCommandQueue);
     }
 }
 

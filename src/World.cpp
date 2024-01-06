@@ -112,14 +112,6 @@ void World::handleCollisions()
 	bool onRiver = false;
     sf::Time timeFromLastDamage = timeSinceLastDamage.getElapsedTime();
 	for(SceneNode::Pair pair : collisionPairs) {
-		if (matchesCategories(pair, Category::Player, Category::River)) {
-			auto* river = static_cast<River*>(pair.second);
-			sf::Time timeFromLastRiverSound = timeRiverSound.getElapsedTime();
-			if(timeFromLastRiverSound >= riverSoundGap) {
-				river->playLocalSound(soundCommandQueue);
-				timeRiverSound.restart();
-			}
-		}
 		if (matchesCategories(pair, Category::Player, Category::Log)) {
 			auto& log = static_cast<Log&>(*pair.second);
 			onRiver = false;
@@ -134,6 +126,16 @@ void World::handleCollisions()
 		else if(matchesCategories(pair, Category::Player, Category::Lane)) {
 			onRiver = false;
 			break;
+		}
+	}
+	for(SceneNode::Pair pair : collisionPairs) {
+		if (matchesCategories(pair, Category::Player, Category::River)) {
+			auto* river = static_cast<River*>(pair.second);
+			sf::Time timeFromLastRiverSound = timeRiverSound.getElapsedTime();
+			if(timeFromLastRiverSound >= riverSoundGap) {
+				river->playLocalSound(soundCommandQueue);
+				timeRiverSound.restart();
+			}
 		}
 		if (matchesCategories(pair, Category::Player, Category::Obstacle)) {
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
@@ -329,19 +331,19 @@ void World::buildMainChar() {
 	std::unique_ptr<MainChar> character;
 	auto id = mContext.player->getMainCharID();
 	if(id == MainChar::Type::Player1) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar1(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar1(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player2) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar2(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar2(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player3) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar3(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar3(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player4) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar4(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar4(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player5) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar5(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar5(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	mainChar = character.get();
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));

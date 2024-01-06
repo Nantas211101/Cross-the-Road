@@ -8,7 +8,7 @@ private:
     void updateCurrent(sf::Time dt);
 
 public:
-    MainChar2(TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
+    MainChar2(TextureHolder& textures, CommandQueue& soundCommandQueue, int curLane, std::vector<Lane*>& lanes);
     MainChar2(TextureHolder& textures, sf::Vector2f pos);
     void useAbility();
 

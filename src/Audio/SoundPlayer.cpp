@@ -46,6 +46,9 @@ SoundPlayer::SoundPlayer()
     // Train
     mSoundBuffers.load(SoundEffect::Train1, "Media/Sound/TrainSound/Train1.wav");
     mSoundBuffers.load(SoundEffect::Train2, "Media/Sound/TrainSound/Train2.wav");
+
+    // Player
+    mSoundBuffers.load(SoundEffect::Ability, "Media/Sound/CharacterSound/Ability.wav");
 }
 
 void SoundPlayer::play(SoundEffect::ID effect)
