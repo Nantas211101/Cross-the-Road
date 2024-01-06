@@ -35,6 +35,10 @@ void RiverTheme1::updateCurrent(sf::Time dt) {
     animation.setRepeating(true);
 }
 
+sf::FloatRect RiverTheme1::getBoundingRect() const {
+    return getWorldTransform().transformRect(animation.getGlobalBounds());
+}
+
 void RiverTheme1::buildLane() {
     int distance = 0;
     int randomKindLog = 1 + rand() % 2;

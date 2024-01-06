@@ -4,6 +4,7 @@
 #include <Animation.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <ResourceHolder.hpp>
+#include <CommandQueue.hpp>
 
 #include <SFML/Graphics.hpp>
 
@@ -31,6 +32,7 @@ public:
    virtual unsigned int getCategory() const;
    int getDamage();
    Type getType();
+   void playLocalSound(CommandQueue& commands);
     
 private:
    virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const;

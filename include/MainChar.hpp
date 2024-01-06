@@ -8,6 +8,7 @@
 #include <TextNode.hpp>
 #include <Lane.hpp>
 #include <DataTable.hpp>
+#include <CommandQueue.hpp>
 
 #include <string>
 
@@ -43,10 +44,12 @@ private:
     void                makeStop();
     void                setInLane();
 
+    void                playAbilitySound(CommandQueue& commands);
+
     void                setOwnerShip(bool flag);
 
 public:
-    explicit            MainChar(Type type, TextureHolder& textures, int curLane, std::vector<Lane*>& lanes);
+    explicit            MainChar(Type type, TextureHolder& textures, CommandQueue& soundCommandQueue, int curLane, std::vector<Lane*>& lanes);
     explicit            MainChar(Type type, TextureHolder& textures, sf::Vector2f pos);
     void                setTexture(Textures::ID id, const TextureHolder& textures);
 
@@ -87,6 +90,7 @@ public:
 
 private:
     TextureHolder& textureHolder;
+    CommandQueue* soundCommandQueue;
 
     enum State {
         Down,

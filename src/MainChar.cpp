@@ -1,6 +1,7 @@
 #include <MainChar.hpp>
 #include <TextureManipulate.hpp>
 #include <BitMaskingManipulate.hpp>
+#include <SoundNode.hpp>
 
 namespace {
     const std::vector<CharData> Table = initializeCharData();
@@ -81,8 +82,9 @@ int IDToNum(MainChar::Type type){
     return MainChar::TypeCount;
 }
 
-MainChar::MainChar(Type type, TextureHolder& textures, int curLane, std::vector<Lane*>& lanes)
+MainChar::MainChar(Type type, TextureHolder& textures, CommandQueue& soundCommandQueue, int curLane, std::vector<Lane*>& lanes)
 : textureHolder(textures)
+, soundCommandQueue(&soundCommandQueue)
 , mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
@@ -98,7 +100,6 @@ MainChar::MainChar(Type type, TextureHolder& textures, int curLane, std::vector<
 , mMP(0)
 , maxMP(Table[type].manapoints)
 , movingVelocity(Table[type].speed)
-, timeSinceLastDamage()
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -137,6 +138,7 @@ MainChar::MainChar(Type type, TextureHolder& textures, int curLane, std::vector<
 
 MainChar::MainChar(Type type, TextureHolder& textures, sf::Vector2f pos)
 : textureHolder(textures)
+, soundCommandQueue(nullptr)
 , mType(type)
 , restAnimation(textures.get(Table[type].restTexture))
 , maxHP(Table[type].hitpoints)
@@ -285,12 +287,8 @@ void MainChar::heal(int points) {
 
 void MainChar::damage(int points) {
 	assert(points >= 0);
-    sf::Time elapseTime = timeSinceLastDamage.getElapsedTime();
-    if(elapseTime >= damageGap) {
-	    mHP -= points;
-        mHP = std::max(mHP, 0);
-        timeSinceLastDamage.restart();
-    }
+    mHP -= points;
+    mHP = std::max(mHP, 0);
 }
 
 bool MainChar::isDead() const {
@@ -329,6 +327,7 @@ bool MainChar::isStanding() {
 void MainChar::useAbility() {
     if(canUseAbility()) {
         mMP -= maxMP;
+        playAbilitySound(*soundCommandQueue);
     }
 }
 
@@ -343,6 +342,20 @@ int MainChar::getCurLane() {
 void MainChar::setInLane() {
     setPosition(getPosition().x, (*lanes)[curLane]->getPosition().y + 25);
     lastPosSinceMoving = getPosition();
+}
+
+void MainChar::playAbilitySound(CommandQueue& commands) {
+	sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect = SoundEffect::Ability;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
 }
 
 void MainChar::resetState() {

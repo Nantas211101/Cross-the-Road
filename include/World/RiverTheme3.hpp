@@ -4,6 +4,7 @@
 class RiverTheme3 : public River {
     public:
         RiverTheme3(TextureHolder* textureHolder, sf::Vector2f spawnPos);
+        void playLocalSound(CommandQueue& commands);
 
     private:
         void buildLane();

@@ -3,6 +3,7 @@
 #include <DataTable.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <ResourceHolder.hpp>
+#include <CommandQueue.hpp>
 
 #include <SFML/Graphics.hpp>
 
@@ -28,6 +29,7 @@ public:
    virtual sf::FloatRect getBoundingRect() const;
    virtual unsigned int getCategory() const;
    int getDamage();
+   void playLocalSound(CommandQueue& commands);
 
 private:
    virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates state) const;

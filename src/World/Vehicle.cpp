@@ -1,5 +1,6 @@
 #include "SFML/Graphics/Rect.hpp"
 #include <Vehicle.hpp>
+#include <SoundNode.hpp>
 
 namespace{
     std::vector<VehicleData> Table = initializeVehicleData();  
@@ -34,4 +35,18 @@ void Vehicle::updateCurrent(sf::Time dt) {
 
 int Vehicle::getDamage(){
     return Table[type].dmg;
+}
+
+void Vehicle::playLocalSound(CommandQueue &commands) {
+	sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect = Table[type].collisionEffect;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
 }

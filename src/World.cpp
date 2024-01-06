@@ -9,9 +9,10 @@
 World::World(State::Context context)
 : mWindow(*context.window)
 , mWorldView(context.window->getDefaultView())
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 1000)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 5000)
 , mTextures(*context.textures)
 , mFonts(*context.fonts)
+, mSound(*context.sounds)
 , scrollDistance(0)
 , mSceneGraph()
 , mSceneLayers()
@@ -23,6 +24,7 @@ World::World(State::Context context)
 , manaBar(nullptr)
 , mHealthDisplay(nullptr)
 , mContext(context)
+, timeSinceLastDamage()
 {
 	buildScene(context.player->getMainCharID());
 	buildMainChar();
@@ -58,18 +60,22 @@ void World::update(sf::Time dt)
 			mCommandQueue.pop();
 		}
 	}
+	while(!soundCommandQueue.isEmpty()) {
+		mSceneGraph.onCommand(soundCommandQueue.pop(), dt);
+	}
 
 	// Collision detection and response (may destroy entities)
 	handleCollisions();
 
 	// Regular update step, adapt position
 	mSceneGraph.update(dt);
-	if(mainChar->getHitpoints() <= 0) {
+	if(mainChar->isDead()) {
 		// Gameover
 	}
 	adaptPlayerPosition();
 	updateHealthBar();
 	updateMana(dt);
+	updateSound();
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)
@@ -104,6 +110,7 @@ void World::handleCollisions()
 		mainChar->checkSceneCollision(*lanes[curLane - 1], collisionPairs);
 
 	bool onRiver = false;
+    sf::Time timeFromLastDamage = timeSinceLastDamage.getElapsedTime();
 	for(SceneNode::Pair pair : collisionPairs) {
 		if (matchesCategories(pair, Category::Player, Category::Log)) {
 			auto& log = static_cast<Log&>(*pair.second);
@@ -114,33 +121,63 @@ void World::handleCollisions()
 		}
 		else if (matchesCategories(pair, Category::Player, Category::River)) {
 			onRiver = true;
+			
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Lane)) {
 			onRiver = false;
 			break;
 		}
-
+	}
+	for(SceneNode::Pair pair : collisionPairs) {
+		if (matchesCategories(pair, Category::Player, Category::River)) {
+			auto* river = static_cast<River*>(pair.second);
+			sf::Time timeFromLastRiverSound = timeRiverSound.getElapsedTime();
+			if(timeFromLastRiverSound >= riverSoundGap) {
+				river->playLocalSound(soundCommandQueue);
+				timeRiverSound.restart();
+			}
+		}
 		if (matchesCategories(pair, Category::Player, Category::Obstacle)) {
 			auto& obstacle = static_cast<Obstacle&>(*pair.second);
-			mainChar->damage(obstacle.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				mainChar->damage(obstacle.getDamage());
+				obstacle.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 			mainChar->backTolastPos();
 			mainChar->stopMoving();
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Vehicle)) {
 			auto& vehicle = static_cast<Vehicle&>(*pair.second);
-			mainChar->damage(vehicle.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				mainChar->damage(vehicle.getDamage());
+				vehicle.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Animal)) {
 			auto& animal = static_cast<Animal&>(*pair.second);
-			mainChar->damage(animal.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				mainChar->damage(animal.getDamage());
+				animal.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 		}
 		else if(matchesCategories(pair, Category::Player, Category::Train)) {
 			auto& train = static_cast<Train&>(*pair.second);
-			//mainChar->damage(train.getDamage());
+			if(timeFromLastDamage >= damageGap) {
+				//mainChar->damage(train.getDamage());
+				train.playLocalSound(soundCommandQueue);
+				timeSinceLastDamage.restart();
+			}
 		}
 	}
+	sf::Time timeFromLastRiverDamage = timeSinceLastDamageByRiver.getElapsedTime();
 	if(onRiver) {
-	// Game over
+		if(timeFromLastRiverDamage >= damageGapByRiver) {
+			mainChar->damage(5);
+			timeSinceLastDamageByRiver.restart();
+		}
 	}
 }
 
@@ -167,7 +204,11 @@ void World::buildScene(MainChar::Type id)
 	}
 	mSceneLayers[Title]->setReverse();
 
-	LaneFactoryTheme2 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
+	// Add sound effect node
+	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSound));
+	mSceneGraph.attachChild(std::move(soundNode));
+
+	LaneFactoryTheme1 laneFactory(&mTextures, sf::Vector2f(-500, mWorldBounds.top + mWorldBounds.height - 400));
 	
 	for(int i = 0; i < 60; i++) {
 		std::vector<std::unique_ptr<Lane>> randLanes;
@@ -285,27 +326,30 @@ void World::updateMana(sf::Time dt) {
 	}
 }
 
-#include <iostream>
 void World::buildMainChar() {
 	playerLaneIndex = highestBound = 1;
 	std::unique_ptr<MainChar> character;
 	auto id = mContext.player->getMainCharID();
-	std::cerr << id << std::endl;
 	if(id == MainChar::Type::Player1) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar1(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar1(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player2) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar2(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar2(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player3) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar3(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar3(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player4) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar4(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar4(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	else if(id == MainChar::Type::Player5) {
-		character = std::move(std::unique_ptr<MainChar>(new MainChar5(mTextures, playerLaneIndex, lanes)));
+		character = std::move(std::unique_ptr<MainChar>(new MainChar5(mTextures, soundCommandQueue, playerLaneIndex, lanes)));
 	}
 	mainChar = character.get();
 	mSceneLayers[AboveTitle]->attachChild(std::move(character));
+}
+
+void World::updateSound() {
+	mSound.setListenerPosition(mainChar->getPosition());
+	mSound.removeStoppedSounds();
 }

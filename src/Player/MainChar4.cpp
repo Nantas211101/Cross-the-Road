@@ -1,7 +1,7 @@
 #include <MainChar4.hpp>
 
-MainChar4::MainChar4(TextureHolder &textures, int curLane, std::vector<Lane*>& lanes)
-: MainChar(MainChar::Player4, textures, curLane, lanes)
+MainChar4::MainChar4(TextureHolder &textures, CommandQueue& soundCommandQueue, int curLane, std::vector<Lane*>& lanes)
+: MainChar(MainChar::Player4, textures, soundCommandQueue, curLane, lanes)
 , isAttach(false)
 {}
 
