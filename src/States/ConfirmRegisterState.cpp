@@ -60,10 +60,14 @@ void ConfirmRegisterState::draw(){
 }
 
 bool ConfirmRegisterState::update(sf::Time dt){
+    mElapsedTime += dt;
     return false;
 }
 
 bool ConfirmRegisterState::handleEvent(const sf::Event &event){
+    if(mElapsedTime < sf::seconds(1.0))
+        return false;
+
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
     if(event.type == sf::Event::KeyPressed){

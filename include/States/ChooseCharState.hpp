@@ -72,6 +72,8 @@ private:
     int maskID;
     sf::Text uidDisplay;
     sf::Text ErrorText;
+    
+    sf::Time mElapsedTime;
 };
 
 // static bool isCharacterMove = false;

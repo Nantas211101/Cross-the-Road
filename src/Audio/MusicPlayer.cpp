@@ -8,6 +8,7 @@ MusicPlayer::MusicPlayer()
 {
     mFilenames[Music::MenuTheme] = "Media/Music/MenuTheme.ogg";
     mFilenames[Music::ChooseCharTheme] = "Media/Music/ChooseCharTheme.ogg";
+    mFilenames[Music::CreditsTheme] = "Media/Music/Aquatic_Main.ogg";
 }
 
 void MusicPlayer::play(Music::ID theme)

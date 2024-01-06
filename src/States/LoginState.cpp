@@ -9,6 +9,9 @@
 
 #include <fstream>
 
+// namespace lvOpen{
+//     const int lvOpenChar[]
+// }
 namespace canvaPosition{
     const sf::Vector2f usernamePos = sf::Vector2f(850, 435);
     const sf::Vector2f passwordPos = sf::Vector2f(850, 608);
@@ -117,12 +120,15 @@ void LoginState::draw()
 
 bool LoginState::update(sf::Time dt)
 {
+    mElapsedTime += dt;
     mGUIContainerInputButton.update(dt);
     return false;
 }
 
 bool LoginState::handleEvent(const sf::Event &event)
 {
+    if(mElapsedTime < sf::seconds(1.0))
+        return false;
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
     mGUIContainerInputButton.handleEvent(event);
@@ -173,17 +179,18 @@ void LoginState::loginSolver()
     int UID;
     std::string username;
     int* passwordHash = new int[5];
-    int mask;
+    int lv;
     bool ok = 0;
-    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> mask){
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv){
         if(username == mTextUsername){
             ok = 1;
             if(checkPassword(mTextPassword, passwordHash)){
                 setErrorText("Login success");
                 delete [] passwordHash;
                 fi.close();
-                getContext().player->setMaskID(mask);
+                getContext().player->setMaskID(convertFromLevelToMaskID(lv));
                 getContext().player->setUID(UID);
+                *getContext().limitLevel = lv;
                 requestStackPop();
                 requestStackPush(States::Menu);
                 // Login success

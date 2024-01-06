@@ -6,11 +6,12 @@
 #include <ResourceHolder.hpp>
 #include <StateIdentifiers.hpp>
 #include <SoundPlayer.hpp>
-
 class Application{
 
 public:
     Application();
+    ~Application();
+
     void run();
 
 private:

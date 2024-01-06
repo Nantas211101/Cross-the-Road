@@ -20,4 +20,5 @@ class PauseState : public State{
         sf::RectangleShape mBackground;
         sf::Sprite mPausedSprite;
         GUI::ContainerSet mGUIContainer;
+        sf::Time mElapsedTime;
 };

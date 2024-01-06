@@ -21,6 +21,7 @@ public:
 
 private:
     void buildScene();
+    void saveCurrentPlayerInfo();
 
 private: 
     enum Layer
@@ -35,4 +36,5 @@ private:
     sf::View                            mWorldView;
     sf::FloatRect                       mWorldBounds;
     GUI::ContainerSet			        mGUIContainer;
+    sf::Time                            mElapsedTime;
 };

@@ -168,12 +168,15 @@ void RegisterState::draw()
 
 bool RegisterState::update(sf::Time dt)
 {
+    mElapsedTime += dt;
     mGUIContainerInputButton.update(dt);
     return false;
 }
 
 bool RegisterState::handleEvent(const sf::Event &event)
 {
+    if(mElapsedTime < sf::seconds(1.0))
+        return false;
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
     mGUIContainerInputButton.handleEvent(event);

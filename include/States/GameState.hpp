@@ -26,4 +26,6 @@ class GameState : public State
 		GUI::ContainerSet	mGUIContainer;
 		GUI::Button::Ptr 	mPauseButton;
 		sf::RectangleShape 	mBackground;
+
+		sf::Time mElapsedTime;
 };

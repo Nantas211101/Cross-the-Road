@@ -42,6 +42,7 @@ void GameState::draw()
 
 bool GameState::update(sf::Time dt)
 {
+	mElapsedTime += dt;
 	mWorld.update(dt);
 
 	CommandQueue& commands = mWorld.getCommandQueue();
@@ -54,6 +55,8 @@ bool GameState::update(sf::Time dt)
 
 bool GameState::handleEvent(const sf::Event& event)
 {
+	if(mElapsedTime < sf::seconds(1.0))
+		return false;
 	// Game input handling
 	CommandQueue& commands = mWorld.getCommandQueue();
 	mPlayer.handleEvent(event, commands);

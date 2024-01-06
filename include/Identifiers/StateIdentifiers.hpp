@@ -18,5 +18,9 @@ namespace States{
         ChooseWorldState,
         ChooseLevelState,
         Victory,
+        ReturnGame,
+        Credits,
+        ResetConfirm,
+        ResetSuccess,
     };
 }

@@ -1,5 +1,11 @@
 #include "State.hpp"
 #include "StateStack.hpp"
+#include <BitMaskingManipulate.hpp>
+
+namespace LVTOMASK{
+    const int lvDEST[5] = {1, 4, 6, 11, 16};
+    const int maskGET[5] = {Mask(0), Mask(1), Mask(2), Mask(3), Mask(4)};
+}
 
 State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
                         Player& player, MusicPlayer& music, SoundPlayer& sound, int& Theme,
@@ -31,3 +37,12 @@ void State::requestStackPop() { mStack->popState(); }
 void State::requestStateClear() { mStack->clearStates(); }
 
 auto State::getContext() -> Context const { return mContext; }
+
+int convertFromLevelToMaskID(int Level)
+{
+    int res = 0;
+    for (int i = 0; i < 5; ++i)
+        if (Level >= LVTOMASK::lvDEST[i])
+            res |= LVTOMASK::maskGET[i];
+    return res;
+}

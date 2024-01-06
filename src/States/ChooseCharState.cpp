@@ -120,6 +120,8 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 	if(!isMove)
 		speedUp = startSpeedUp;
 
+	mElapsedTime += elapsedTime;
+
     impleChangeChar(elapsedTime);
 
 	sf::Vector2f position = mPlayer->getPosition();
@@ -157,6 +159,9 @@ void ChooseCharState::draw(){
 }
 
 bool ChooseCharState::handleEvent(const sf::Event &event){
+
+	if(mElapsedTime < sf::seconds(1.0))
+		return false;
 
     if(event.type == sf::Event::LostFocus)
         isFocus = false;
@@ -217,9 +222,9 @@ void ChooseCharState::handlePlayerInput(sf::Keyboard::Key key, bool isPressed){
 		}
 	}
 
-    if(isPressed && key == sf::Keyboard::Escape){
-        requestStackPush(States::Pause);
-    }
+    // if(isPressed && key == sf::Keyboard::Escape){
+    //     requestStackPush(States::Pause);
+    // }
 
 	if(!isPressed && isPressing && key == isChangeKey)
 		isPressing = 0;
@@ -297,6 +302,8 @@ void ChooseCharState::changeRight(sf::Time dt){
 	float tmp;
 	sf::Vector2f position = mPlayer->getPosition();
 	// mPlayer
+	// quang duong con lai / tong quang duong 
+
 	dist = position.x - mWorldBounds.left;
 	naturalDist = mSpawnPosition.x - mWorldBounds.left;
 	tmp = dist * 1.0 / naturalDist;

@@ -17,7 +17,11 @@ public:
     virtual void handleRealTimeInput();
 
 private:
+    void setNewMask(int lv);
+
+private:
     sf::RectangleShape mBackground;
     sf::Sprite mVictorySprite;
     GUI::Container mGUIContainer;
+    sf::Time mElapsedTime;
 };
