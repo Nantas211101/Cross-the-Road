@@ -23,10 +23,18 @@ bool Lane::isReverse() {
     return reverse;
 }
 
-void Lane::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+unsigned int Lane::getCategory() const {
+    return Category::Lane;
+}
+
+void Lane::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
+{
     target.draw(animation, states);
     target.draw(sprite, states);
-    
+}
+
+sf::FloatRect Lane::getBoundingRect() const {
+    return getWorldTransform().transformRect(sprite.getGlobalBounds());
 }
 
 sf::Vector2f Lane::transformVelocity(sf::Vector2f v){

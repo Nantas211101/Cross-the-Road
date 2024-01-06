@@ -20,6 +20,9 @@ struct MainCharMover
 		case Player::MoveRight:
 			mainChar.goRight();
 			break;
+		case Player::UseAbility:
+			mainChar.useAbility();
+			break;
 		}
 	}
 	Player::Action action;
@@ -32,6 +35,7 @@ Player::Player()
 	mKeyBinding[sf::Keyboard::Right] = MoveRight;
 	mKeyBinding[sf::Keyboard::Up] = MoveUp;
 	mKeyBinding[sf::Keyboard::Down] = MoveDown;
+	mKeyBinding[sf::Keyboard::Space] = UseAbility;
 
 	// Set initial action bindings
 	initializeActions();	
@@ -97,6 +101,7 @@ void Player::initializeActions()
 	mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(MoveRight));
 	mActionBinding[MoveUp].action    = derivedAction<MainChar>(MainCharMover(MoveUp));
 	mActionBinding[MoveDown].action  = derivedAction<MainChar>(MainCharMover(MoveDown));
+	mActionBinding[UseAbility].action = derivedAction<MainChar>(MainCharMover(UseAbility));
 
 	// mActionBinding[MoveLeft].action	 = derivedAction<MainChar>(MainCharMover(-playerSpeed, 0.f));
 	// mActionBinding[MoveRight].action = derivedAction<MainChar>(MainCharMover(+playerSpeed, 0.f));

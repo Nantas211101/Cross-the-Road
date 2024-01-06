@@ -1,6 +1,7 @@
 #include "Lane.hpp"
 #include "SFML/Graphics/Rect.hpp"
 #include <Animal.hpp>
+#include <SoundNode.hpp>
 
 namespace{
     std::vector<AnimalData> Table = initializeAnimalData();  
@@ -18,6 +19,20 @@ Animal::Animal(Type type, const TextureHolder& texture)
 
 Animal::Type Animal::getType(){
     return type;
+}
+
+void Animal::playLocalSound(CommandQueue& commands) {
+	sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect = Table[type].collisionEffect;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
 }
 
 unsigned int Animal::getCategory() const {

@@ -30,11 +30,13 @@ class Lane : public SceneNode {
         static const int distanceBetweenTile = 100;
         static const int widthOfLane = 2800;
         static const int maxLevel = 5;
+        virtual unsigned int getCategory() const;
         
     private:
         void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
         virtual void updateCurrent(sf::Time dt) = 0;
         virtual void buildLane() = 0;
+        virtual sf::FloatRect getBoundingRect() const;
 
     private:
         bool reverse;

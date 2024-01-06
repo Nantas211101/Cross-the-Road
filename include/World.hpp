@@ -12,6 +12,8 @@
 #include <ResourceHolder.hpp>
 #include <State.hpp>
 #include <SpriteNode.hpp>
+#include <SoundNode.hpp>
+#include <SoundPlayer.hpp>
 
 #include <random>
 #include <array>
@@ -39,7 +41,11 @@ class World : private sf::NonCopyable
 		void								scroll(sf::Time dt);
 		void								buildHealthBar();
 		void								updateHealthBar();
-		void								buildMap();
+		void								buildMap();	
+		void								updateMana(sf::Time dt);
+		void								buildMainChar();
+		void								updateSound();
+
 	private:
 		enum Layer
 		{
@@ -54,6 +60,8 @@ class World : private sf::NonCopyable
 		sf::FloatRect						mWorldBounds;
 		TextureHolder&						mTextures;
 		FontHolder&							mFonts;
+		SoundPlayer&						mSound;
+
 		const float							scrollSpeed = -200.f;
 		const float							scrollSpeedToPlayer = -50.f;
 		float								scrollDistance;
@@ -62,13 +70,26 @@ class World : private sf::NonCopyable
 		SceneNode							mSceneGraph;
 		std::array<SceneNode*, LayerCount>	mSceneLayers;
 		CommandQueue						mCommandQueue;
+		CommandQueue						soundCommandQueue;
 
 		sf::Vector2f						mSpawnPosition;
 		std::vector<Lane*> 					lanes;
 		MainChar*							mainChar;
 
-		SpriteNode*							boundHealthBar;
+		SpriteNode*							boundBar;
 		SpriteNode*							healthBar;
+		SpriteNode*							manaBar;
     	TextNode* 							mHealthDisplay;
+		int									highestBound;
+		const sf::Time						timeEachAddMana = sf::seconds(0.2);
+		sf::Time							timeSinceLastAddMana;
+				
 		State::Context 						mContext;
+
+		sf::Clock							timeSinceLastDamage;
+		const sf::Time						damageGap = sf::seconds(1);
+		sf::Clock							timeSinceLastDamageByRiver;
+		const sf::Time						damageGapByRiver = sf::seconds(0.1);
+		sf::Clock							timeRiverSound;
+		const sf::Time						riverSoundGap = sf::seconds(4);
 };

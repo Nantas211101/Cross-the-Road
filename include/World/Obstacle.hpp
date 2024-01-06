@@ -28,6 +28,7 @@ class Obstacle : public Entity {
 
     public:
         Obstacle(Type type, const TextureHolder& Texture);
+        void playLocalSound(CommandQueue& commands);
         virtual sf::FloatRect getBoundingRect() const;
         Type getType();
         virtual unsigned int getCategory() const;

@@ -1,4 +1,5 @@
 #include <RiverTheme3.hpp>
+#include <SoundNode.hpp>
 
 namespace {
     const std::vector<LogData> TableLog = initializeLogData();
@@ -68,4 +69,18 @@ void RiverTheme3::setLaneVelocity(){
     for (auto& it:riverLog){
         it->setVelocity(transformVelocity(it->getVelocity()));
     }
+}
+
+void RiverTheme3::playLocalSound(CommandQueue& commands) {
+	sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect = SoundEffect::LavaRiver;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
 }

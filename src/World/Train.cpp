@@ -1,4 +1,5 @@
 #include <Train.hpp>
+#include <SoundNode.hpp>
 
 namespace {
     const std::vector<TrainData> Table = initializeTrainData();
@@ -18,6 +19,20 @@ unsigned int Train::getCategory() const {
 
 Train::Type Train::getType() {
     return type;
+}
+
+void Train::playLocalSound(CommandQueue& commands) {
+	sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect = Table[type].collisionEffect;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
 }
 
 void Train::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {

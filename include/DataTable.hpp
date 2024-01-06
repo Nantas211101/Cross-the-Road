@@ -29,6 +29,7 @@ struct ObstacleData {
 	int pictureHeight;
 	int numOfFrames;
 	int deltaHeightBound;
+	SoundEffect::ID collisionEffect;
 };
 
 struct AnimalData {
@@ -44,6 +45,7 @@ struct AnimalData {
 	int deltaWidthBound;
 	int deltaHeightBound;
 	int deltaLeftBound;
+	SoundEffect::ID collisionEffect;
 };
 
 struct VehicleData {
@@ -52,12 +54,14 @@ struct VehicleData {
 	int distanceBetweenVehicle;
 	Textures::ID texture;
 	sf::Vector2f scaling;
+	SoundEffect::ID collisionEffect;
 };
 
 struct TrainData{
 	float speed;
 	Textures::ID texture;
 	sf::Vector2f scaling;
+	SoundEffect::ID collisionEffect;
 };
 
 struct LaneData {
@@ -73,6 +77,7 @@ struct DecoratorData {
 
 struct CharData {
     int hitpoints;
+	int manapoints;
     float speed;
     Textures::ID texture;
 	Textures::ID restTexture;
@@ -89,6 +94,9 @@ struct CharData {
 	static const int MaxSpeed = 300;
 	int scaling;
 	std::string name;
+
+	int deltaLeftBound = 0;
+	int deltaWidthBound = 0;
 };
 
 

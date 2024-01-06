@@ -1,6 +1,7 @@
 #include <MainChar.hpp>
 #include <TextureManipulate.hpp>
 #include <BitMaskingManipulate.hpp>
+#include <SoundNode.hpp>
 
 namespace {
     const std::vector<CharData> Table = initializeCharData();
@@ -81,8 +82,10 @@ int IDToNum(MainChar::Type type){
     return MainChar::TypeCount;
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::vector<Lane*>& lanes)
-: mType(type)
+MainChar::MainChar(Type type, TextureHolder& textures, CommandQueue& soundCommandQueue, int curLane, std::vector<Lane*>& lanes)
+: textureHolder(textures)
+, soundCommandQueue(&soundCommandQueue)
+, mType(type)
 , upAnimation(textures.get(Table[type].upTexture))
 , downAnimation(textures.get(Table[type].downTexture))
 , leftAnimation(textures.get(Table[type].leftTexture))
@@ -94,8 +97,9 @@ MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::v
 , curLane(curLane)
 , mHP(Table[type].hitpoints)
 , maxHP(Table[type].hitpoints)
+, mMP(0)
+, maxMP(Table[type].manapoints)
 , movingVelocity(Table[type].speed)
-, timeSinceLastDamage()
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -132,9 +136,14 @@ MainChar::MainChar(Type type, const TextureHolder& textures, int curLane, std::v
     rightAnimation.scale(Table[type].scaling, Table[type].scaling);
 }
 
-MainChar::MainChar(Type type, const TextureHolder& textures, sf::Vector2f pos)
-: mType(type)
+MainChar::MainChar(Type type, TextureHolder& textures, sf::Vector2f pos)
+: textureHolder(textures)
+, soundCommandQueue(nullptr)
+, mType(type)
 , restAnimation(textures.get(Table[type].restTexture))
+, maxHP(Table[type].hitpoints)
+, mMP(0)
+, maxMP(Table[type].manapoints)
 , state(State::Rest)
 , ownerFlag(true)
 {
@@ -241,7 +250,11 @@ unsigned int MainChar::getCategory() const
 }
 
 sf::FloatRect MainChar::getBoundingRect() const {
-    return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+    sf::FloatRect bound = getWorldTransform().transformRect(mSprite.getGlobalBounds());
+    bound.left += Table[mType].deltaLeftBound;
+    bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane - 25);
+    bound.width -= Table[mType].deltaWidthBound;
+    return bound;
 }
 
 int MainChar::getHitpoints() const {
@@ -252,19 +265,30 @@ int MainChar::getMaxHP() const {
     return maxHP;
 }
 
+int MainChar::getManaPoints() const {
+    return mMP;
+}
+
+int MainChar::getMaxMP() const {
+    return maxMP;
+}
+
+void MainChar::addMana(int points) {
+    assert(points > 0);
+    mMP += points;
+    mMP = std::min(maxMP, mMP);
+}
+
 void MainChar::heal(int points) {
-	assert(points > 0);
+    assert(points > 0);
 	mHP += points;
+    mHP = std::min(maxHP, mHP);
 }
 
 void MainChar::damage(int points) {
 	assert(points >= 0);
-    sf::Time elapseTime = timeSinceLastDamage.getElapsedTime();
-    if(elapseTime >= damageGap) {
-	    mHP -= points;
-        mHP = std::max(mHP, 0);
-        timeSinceLastDamage.restart();
-    }
+    mHP -= points;
+    mHP = std::max(mHP, 0);
 }
 
 bool MainChar::isDead() const {
@@ -300,6 +324,17 @@ bool MainChar::isStanding() {
     return state == State::Standing;
 }
 
+void MainChar::useAbility() {
+    if(canUseAbility()) {
+        mMP -= maxMP;
+        playAbilitySound(*soundCommandQueue);
+    }
+}
+
+bool MainChar::canUseAbility() {
+    return mMP == maxMP;
+}
+
 int MainChar::getCurLane() {
     return curLane;
 }
@@ -307,6 +342,20 @@ int MainChar::getCurLane() {
 void MainChar::setInLane() {
     setPosition(getPosition().x, (*lanes)[curLane]->getPosition().y + 25);
     lastPosSinceMoving = getPosition();
+}
+
+void MainChar::playAbilitySound(CommandQueue& commands) {
+	sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect = SoundEffect::Ability;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
 }
 
 void MainChar::resetState() {

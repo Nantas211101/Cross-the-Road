@@ -24,6 +24,7 @@ class Train : public Entity {
         unsigned int getCategory() const;
         Type getType();
         int getDamage();
+        void playLocalSound(CommandQueue& commands);
 
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

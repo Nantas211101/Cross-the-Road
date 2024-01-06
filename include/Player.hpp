@@ -21,6 +21,7 @@ public:
         MoveRight,
         MoveUp,
         MoveDown,
+        UseAbility,
         ActionCount
     };
 
