@@ -56,4 +56,6 @@ private:
 
     bool isFocusPassword;
     bool isFocusPasswordConfirm;
+
+    sf::Time mElapsedTime;
 };

@@ -23,4 +23,6 @@ private:
     sf::Sprite mBackgroundSprite;
     GUI::ContainerSet mGUIContainer;
     std::vector<sf::Sprite> mLevelSprite;
+
+    sf::Time mElapsedTime;
 };

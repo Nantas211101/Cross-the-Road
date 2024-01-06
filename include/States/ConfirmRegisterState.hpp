@@ -23,4 +23,5 @@ private:
     sf::RectangleShape mBackground;
 
     sf::Text mText;
+    sf::Time mElapsedTime;
 };

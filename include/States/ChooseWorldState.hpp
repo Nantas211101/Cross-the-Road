@@ -19,4 +19,6 @@ public:
 private:
     sf::Sprite mBackgroundSprite;
     GUI::Container mGUIContainer;
+
+    sf::Time mElapsedTime;
 };

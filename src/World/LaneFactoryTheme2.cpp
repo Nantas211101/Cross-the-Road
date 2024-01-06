@@ -81,7 +81,6 @@ void LaneFactoryTheme2::templateRailway(int num) {
 }
 #include <iostream>
 void LaneFactoryTheme2::templateLevel1(){
-    std::cerr << "templateLevel1\n";
     std::vector<int> templates{1,2,3,4,5,6,7,8,23,24,25};
     std::random_device rd;
     std::mt19937 gen(rd());

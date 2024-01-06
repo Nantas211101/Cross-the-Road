@@ -39,5 +39,6 @@ private:
     
     bool isFocus;
 
+    sf::Time mElapsedTime;
 
 };

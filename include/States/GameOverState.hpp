@@ -20,4 +20,6 @@ private:
     sf::RectangleShape mBackground;
     sf::Sprite mGameOverSprite;
     GUI::ContainerSet mGUIContainer;
+
+    sf::Time mElapsedTime;
 };

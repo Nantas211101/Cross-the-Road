@@ -2,7 +2,6 @@
 
 #include "State.hpp"
 #include "Player.hpp"
-// #include "GUI_Container.hpp"
 #include "GUI_ContainerSET.hpp"
 #include "GUI_Button.hpp"
 #include "GUI_Label.hpp"
@@ -56,5 +55,7 @@ class SettingsState : public State
 
 		sf::Vector2f										soundLeftButtonPos;
 		sf::Vector2f										soundRightButtonPos;								
+
+		sf::Time mElapsedTime;
 
 };

@@ -70,12 +70,15 @@ void ChooseWorldState::draw()
 
 bool ChooseWorldState::update(sf::Time dt)
 {
+    mElapsedTime += dt;
     mGUIContainer.update(dt);
     return true;
 }
 
 bool ChooseWorldState::handleEvent(const sf::Event& event)
 {
+    if(mElapsedTime < sf::seconds(1.0))
+        return false;
     sf::RenderWindow& window = *getContext().window;
     mGUIContainer.handleRealTimeInput(window);
     mGUIContainer.handleEvent(event);
