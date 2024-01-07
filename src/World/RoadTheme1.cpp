@@ -69,7 +69,7 @@ void RoadTheme1::generateAnimal(){
         break;
     }
     
-    std::uniform_int_distribution<int> dist2(0, 199);
+    std::uniform_int_distribution<int> dist2(-100, 500);
     int randSpawnPos = dist2(gen);
 
     for(int j = 0; j < numOfObject; j++) {
@@ -142,7 +142,7 @@ void RoadTheme1::generateVehicle(){
         break;
     }
 
-    std::uniform_int_distribution<int> dist1(0, 199);
+    std::uniform_int_distribution<int> dist1(-100, 500);
     int randSpawnPos = dist1(gen);
 
     for(int j = 0; j < numOfObject; j++) {
@@ -212,24 +212,24 @@ void RoadTheme1::updateCurrent(sf::Time dt){
             }
         }
         if(!this->isReverse() && vehicles[firstObjectIndex]->getPosition().x >= 0) {
-            vehicles[lastObjectIndex]->setPosition(-TableVehicle[vehicles[lastObjectIndex]->getType()].distanceBetweenVehicle, 50);
+            vehicles[lastObjectIndex]->setPosition(vehicles[firstObjectIndex]->getPosition().x-TableVehicle[vehicles[lastObjectIndex]->getType()].distanceBetweenVehicle, 50);
             firstObjectIndex = lastObjectIndex;
             lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
         }
         if(this->isReverse() && vehicles[lastObjectIndex]->getPosition().x <= 2500) {
-            vehicles[firstObjectIndex]->setPosition(TableVehicle[vehicles[firstObjectIndex]->getType()].distanceBetweenVehicle + 2500, 50);
+            vehicles[firstObjectIndex]->setPosition(TableVehicle[vehicles[firstObjectIndex]->getType()].distanceBetweenVehicle + vehicles[lastObjectIndex]->getPosition().x, 50);
             lastObjectIndex = firstObjectIndex;
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }
     }
     else{
         if(!this->isReverse() && animals[firstObjectIndex]->getPosition().x >= 0) {
-            animals[lastObjectIndex]->setPosition(-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, 0);
+            animals[lastObjectIndex]->setPosition(animals[firstObjectIndex]->getPosition().x-TableAnimal[animals[lastObjectIndex]->getType()].distanceBetweenAnimal, 0);
             firstObjectIndex = lastObjectIndex;
             lastObjectIndex = (lastObjectIndex + numOfObject - 1) % numOfObject;
         }
         if(this->isReverse() && animals[lastObjectIndex]->getPosition().x <= 2500) {
-            animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + 2500, 0);
+            animals[firstObjectIndex]->setPosition(TableAnimal[animals[firstObjectIndex]->getType()].distanceBetweenAnimal + animals[lastObjectIndex]->getPosition().x, 0);
             lastObjectIndex = firstObjectIndex;
             firstObjectIndex = (firstObjectIndex + 1) % numOfObject;
         }

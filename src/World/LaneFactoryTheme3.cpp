@@ -126,7 +126,7 @@ void LaneFactoryTheme3::templateLevel5(){
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);
     int randomTemplate;
-    for (int i=1; i<=22; i++){
+    for (int i=1; i<=4; i++){
         randomTemplate = dist(gen);
         callTemplateX(randomTemplate);
     }
