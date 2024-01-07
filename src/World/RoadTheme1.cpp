@@ -69,7 +69,7 @@ void RoadTheme1::generateAnimal(){
         break;
     }
     
-    std::uniform_int_distribution<int> dist2(-100, 500);
+    std::uniform_int_distribution<int> dist2(minCoefficientRandPos,maxCoefficientRandPos);
     int randSpawnPos = dist2(gen);
 
     for(int j = 0; j < numOfObject; j++) {
@@ -82,7 +82,7 @@ void RoadTheme1::generateAnimal(){
             animal->setVelocity(-1.0 * TableAnimal[kind].speed, 0);
             animal->scale(-TableAnimal[kind].scaling.x,TableAnimal[kind].scaling.y);
         }
-        animal->setPosition(randSpawnPos + distance, 0);
+        animal->setPosition(randSpawnPos*distanceBetweenStartPos + distance, 0);
         distance += TableAnimal[kind].distanceBetweenAnimal;
         animals.push_back(animal.get());
         this->attachChild(std::move(animal));
@@ -142,7 +142,7 @@ void RoadTheme1::generateVehicle(){
         break;
     }
 
-    std::uniform_int_distribution<int> dist1(-100, 500);
+    std::uniform_int_distribution<int> dist1(minCoefficientRandPos, maxCoefficientRandPos);
     int randSpawnPos = dist1(gen);
 
     for(int j = 0; j < numOfObject; j++) {
@@ -155,7 +155,7 @@ void RoadTheme1::generateVehicle(){
             vehicle->setVelocity(-1.0 * TableVehicle[kind].speed, 0);
             vehicle->scale(-TableVehicle[kind].scaling.x,TableVehicle[kind].scaling.y);
         }
-        vehicle->setPosition(randSpawnPos + distance, 50);
+        vehicle->setPosition(randSpawnPos*distanceBetweenStartPos + distance, 50);
         distance += TableVehicle[kind].distanceBetweenVehicle;
         vehicles.push_back(vehicle.get());
         this->attachChild(std::move(vehicle));

@@ -31,8 +31,8 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::templateLane() {
         templateLevel5();
         break;
     }
-    templateFinishLevel(1);
-    if (level == 5) templateFinishTheme(1);
+    if (caseLevel == 5) templateFinishTheme(1);
+    else templateFinishLevel(1); 
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));

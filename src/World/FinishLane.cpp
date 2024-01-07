@@ -34,6 +34,10 @@
     buildLane();
  }
 
+ unsigned int FinishLane::getCategory() const{
+    return Category::WinLane;
+ }
+
  void FinishLane::updateCurrent(sf::Time dt){}
 
  void FinishLane::buildLane() {

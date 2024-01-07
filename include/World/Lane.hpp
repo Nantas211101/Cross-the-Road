@@ -25,12 +25,15 @@ class Lane : public SceneNode {
         Lane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool reverse);
         bool isReverse();
         virtual void setLaneVelocity() = 0;
+        virtual unsigned int getCategory() const;
 
         static const int distanceBetweenLane = 100;
         static const int distanceBetweenTile = 100;
         static const int widthOfLane = 2800;
         static const int maxLevel = 5;
-        virtual unsigned int getCategory() const;
+        static const int distanceBetweenStartPos = 150;
+        static const int minCoefficientRandPos = -15;
+        static const int maxCoefficientRandPos = -1;
         
     private:
         void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -24,6 +24,7 @@ class River : public Lane {
     private:
         virtual void updateCurrent(sf::Time dt) = 0;
         unsigned int getCategory() const;
+        sf::FloatRect getBoundingRect() const;
 
     protected:
         const int numOfLog = 10;

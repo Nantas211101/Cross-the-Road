@@ -5,6 +5,7 @@
 #include <ResourceIdentifiers.hpp>
 #include <ResourceHolder.hpp>
 #include <Decorator.hpp>
+#include <Category.hpp>
 
 #include <vector>
 #include <random>
@@ -22,6 +23,7 @@ class FinishLane: public Lane{
         FinishLane(TextureHolder* textureHolder, sf::Vector2f spawnPos, int difficulty, bool isForcedLevel = 0);
         void setLaneVelocity(){}
         int getNum();
+        unsigned int getCategory() const;
     private:
         void buildLane();
         void updateCurrent(sf::Time dt);

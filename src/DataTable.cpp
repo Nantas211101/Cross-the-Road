@@ -176,8 +176,8 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Cow].duration = 1;
     data[Animal::Cow].collisionEffect = SoundEffect::Cow;
 
-    data[Animal::Small_Dragon].dmg = 30;
-    data[Animal::Small_Dragon].speed = 500.f;
+    data[Animal::Small_Dragon].dmg = 35;
+    data[Animal::Small_Dragon].speed = 600.f;
     data[Animal::Small_Dragon].distanceBetweenAnimal = 900;
     data[Animal::Small_Dragon].texture = Textures::Small_Dragon;
     data[Animal::Small_Dragon].scaling = sf::Vector2f(1.5, 1.5);
@@ -188,9 +188,9 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Small_Dragon].deltaHeightBound = 20;
     data[Animal::Small_Dragon].collisionEffect = SoundEffect::Dragon;
 
-    data[Animal::Green_Dragon].dmg = 35;
-    data[Animal::Green_Dragon].speed = 240.f;
-    data[Animal::Green_Dragon].distanceBetweenAnimal = 700;
+    data[Animal::Green_Dragon].dmg = 45;
+    data[Animal::Green_Dragon].speed = 280.f;
+    data[Animal::Green_Dragon].distanceBetweenAnimal = 670;
     data[Animal::Green_Dragon].texture = Textures::Green_Dragon;
     data[Animal::Green_Dragon].scaling = sf::Vector2f(1.42, 1.42);
     data[Animal::Green_Dragon].numOfFrames = 3;
@@ -202,9 +202,9 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Green_Dragon].deltaLeftBound = 10;
     data[Animal::Green_Dragon].collisionEffect = SoundEffect::Dragon;
 
-    data[Animal::Red_Dragon].dmg = 40;
-    data[Animal::Red_Dragon].speed = 270.f;
-    data[Animal::Red_Dragon].distanceBetweenAnimal = 700;
+    data[Animal::Red_Dragon].dmg = 45;
+    data[Animal::Red_Dragon].speed = 300.f;
+    data[Animal::Red_Dragon].distanceBetweenAnimal = 680;
     data[Animal::Red_Dragon].texture = Textures::Red_Dragon;
     data[Animal::Red_Dragon].scaling = sf::Vector2f(1.4, 1.3);
     data[Animal::Red_Dragon].numOfFrames = 3;
@@ -216,9 +216,9 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Red_Dragon].deltaLeftBound = 13;
     data[Animal::Red_Dragon].collisionEffect = SoundEffect::Dragon;
 
-    data[Animal::Blue_Twin_Head_Dragon].dmg = 45;
-    data[Animal::Blue_Twin_Head_Dragon].speed = 220.f;
-    data[Animal::Blue_Twin_Head_Dragon].distanceBetweenAnimal = 600;
+    data[Animal::Blue_Twin_Head_Dragon].dmg = 55;
+    data[Animal::Blue_Twin_Head_Dragon].speed = 280.f;
+    data[Animal::Blue_Twin_Head_Dragon].distanceBetweenAnimal = 570;
     data[Animal::Blue_Twin_Head_Dragon].texture = Textures::Blue_Twin_Head_Dragon;
     data[Animal::Blue_Twin_Head_Dragon].scaling = sf::Vector2f(1.315, 1.315);
     data[Animal::Blue_Twin_Head_Dragon].numOfFrames = 3;
@@ -231,7 +231,7 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Blue_Twin_Head_Dragon].collisionEffect = SoundEffect::Dragon;
 
     data[Animal::Monster1].dmg = 75;
-    data[Animal::Monster1].speed = 180.f;
+    data[Animal::Monster1].speed = 210.f;
     data[Animal::Monster1].distanceBetweenAnimal = 800;
     data[Animal::Monster1].texture = Textures::Monster1;
     data[Animal::Monster1].scaling = sf::Vector2f(0.4, 0.3);
@@ -270,7 +270,7 @@ std::vector<AnimalData> initializeAnimalData(){
 
     data[Animal::Penguin].dmg = 25;
     data[Animal::Penguin].speed = 160.f;
-    data[Animal::Penguin].distanceBetweenAnimal = 290;
+    data[Animal::Penguin].distanceBetweenAnimal = 300;
     data[Animal::Penguin].texture = Textures::Penguin1;
     data[Animal::Penguin].scaling = sf::Vector2f(0.13, 0.13);
     data[Animal::Penguin].numOfFrames = 6;
