@@ -52,6 +52,9 @@ SoundPlayer::SoundPlayer()
 
     // Player
     mSoundBuffers.load(SoundEffect::Ability, "Media/Sound/CharacterSound/Ability.wav");
+    mSoundBuffers.load(SoundEffect::MaleHurt, "Media/Sound/CharacterSound/MaleHurt.wav");
+    mSoundBuffers.load(SoundEffect::FemaleHurt, "Media/Sound/CharacterSound/FemaleHurt.wav");
+    mSoundBuffers.load(SoundEffect::CatHurt, "Media/Sound/CharacterSound/CatHurt.wav");
 }
 
 void SoundPlayer::play(SoundEffect::ID effect)

@@ -323,6 +323,7 @@ void Application::loadResources(){
     mTextures.load(Textures::ManaBar, "Media/Textures/Player/ManaBar.png");
     mTextures.load(Textures::BoundBar, "Media/Textures/Player/BoundHPBar.png");
     mTextures.load(Textures::MoneyBar, "Media/Textures/Player/MoneyBar.png");
+    mTextures.load(Textures::Blood, "Media/Textures/Player/Blood.png");
 
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
