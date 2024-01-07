@@ -108,6 +108,7 @@ namespace Textures
 		Gemstone3,
 
 		// Player
+		MoneyBar,
 		HealthBar,
 		ManaBar,
 		BoundBar,
@@ -258,6 +259,19 @@ namespace Textures
 		ResetConfirm,
 		ResetSuccess,
 
+		// Display Char State
+		PurchaseButton,
+
+		// Purchase Confirm State
+		PurchaseConfirmBG,
+		PurchaseConfirmButton,
+		PurchaseConfirmCancle,
+
+		// Purchase Success State
+		PurchaseSucessBG,
+		PurchaseFailBG,
+		OkayButton,
+
 	};
 }
 namespace Fonts
@@ -274,10 +288,21 @@ namespace Music{
 		None,
         MenuTheme,
         ChooseCharTheme,
-        GameTheme1,
-        GameTheme2,
-        GameTheme3,
+		
+		GameTheme1Main,
+		GameTheme1Win,
+		GameTheme1Lose,
+		
+		GameTheme2Main,
+		GameTheme2Win, 
+		GameTheme2Lose,
+		
+		GameTheme3Main,
+		GameTheme3Win,
+		GameTheme3Lose,
+
 		CreditsTheme,
+
     };
 }
 
@@ -305,6 +330,8 @@ namespace SoundEffect{
 		Reindeer,
 		Bear,
 		SnowBear,
+		Wolf,
+		Penguin,
 
 		// Vehicle
 		Truck,
@@ -320,6 +347,7 @@ namespace SoundEffect{
 		Tree,
 		Volcano,
 		SnowMan,
+		Coin,
 
 		// Train
 		Train1,

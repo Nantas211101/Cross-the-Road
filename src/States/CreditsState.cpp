@@ -39,7 +39,6 @@ const float add_y = 100;
 
 CreditsState::CreditsState(StateStack& stack, Context context)
 : State(stack, context)
-// , mBackground()
 , mWorldView(context.window->getDefaultView())
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y + 2000.f)
 // , mText(creditText, context.fonts->get(Fonts::Label), 75)

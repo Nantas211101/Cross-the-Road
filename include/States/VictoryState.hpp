@@ -24,4 +24,6 @@ private:
     sf::Sprite mVictorySprite;
     GUI::Container mGUIContainer;
     sf::Time mElapsedTime;
+
+    bool isEndGame;
 };

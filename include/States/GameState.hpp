@@ -28,4 +28,6 @@ class GameState : public State
 		sf::RectangleShape 	mBackground;
 
 		sf::Time mElapsedTime;
+
+		int mCurThemeID;
 };

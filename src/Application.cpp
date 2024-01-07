@@ -19,6 +19,8 @@
 #include <CreditsState.hpp>
 #include <ResetConfirm.hpp>
 #include <ResetSuccess.hpp>
+#include <PurchaseConfirm.hpp>
+#include <PurchaseResultState.hpp>
 
 #include <fstream>
 #include <exception>
@@ -98,9 +100,10 @@ Application::Application()
 , mMusic()
 , mSound()
 , theme(0)
-, limitLevel(15)
+, limitLevel(1)
 , curLevel(0)
-, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel))
+, curMoney(0)
+, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel, curMoney))
 , mStayText()
 , mStayUpdateTime()
 , mStayNumFrames(0){
@@ -117,8 +120,8 @@ Application::Application()
 
         registerStates();
         // start with the title state
-        mMusic.setVolume(10.f);
-        mSound.setVolume(50.f);
+        mMusic.setVolume(30.f);
+        mSound.setVolume(40.f);
         mStateStack.pushState(States::Title);
 
 }
@@ -146,10 +149,16 @@ Application::~Application(){
     std::string username;
     int passwordHash[5];
     int lv;
-    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv){
-        if(UID == curUID)
+    int money;
+    int mask;
+
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
+        if(UID == curUID){
             lv = limitLevel;
-        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n";
+            money = curMoney;
+            mask = mPlayer.getMaskID();
+        }
+        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
     }
 
     fi.close();
@@ -168,8 +177,8 @@ Application::~Application(){
         return;
     }
 
-    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv){
-        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n";
+    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
+        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
     }
 
     tmpFi.close();
@@ -196,6 +205,8 @@ void Application::registerStates(){
     mStateStack.registerState<CreditsState>(States::Credits);
     mStateStack.registerState<ResetConfirmState>(States::ResetConfirm);
     mStateStack.registerState<ResetSuccessState>(States::ResetSuccess);
+    mStateStack.registerState<PurchaseConfirmState>(States::PurchaseConfirm);
+    mStateStack.registerState<PurchaseResultState>(States::PurchaseResult);
 }
 
 void Application::processInput(){
@@ -210,6 +221,10 @@ void Application::processInput(){
 }
 
 void Application::update(sf::Time dt){
+    if(curMoney < 0)
+        curMoney = 0;
+    if(curMoney > 999)
+        curMoney = 999;
     mStateStack.update(dt);
 }
 
@@ -281,6 +296,7 @@ void Application::loadResources(){
     mTextures.load(Textures::HealthBar, "Media/Textures/Player/HealthBar.png");
     mTextures.load(Textures::ManaBar, "Media/Textures/Player/ManaBar.png");
     mTextures.load(Textures::BoundBar, "Media/Textures/Player/BoundHPBar.png");
+    mTextures.load(Textures::MoneyBar, "Media/Textures/Player/MoneyBar.png");
 
     // Player1
     mTextures.load(Textures::Standing1, "Media/Textures/Player/Player1/Standing.png");
@@ -478,4 +494,14 @@ void Application::loadResources(){
     mTextures.load(Textures::ResetConfirm, "Media/Textures/State/Reset/ResettingConfirm.png");
     mTextures.load(Textures::ResetSuccess, "Media/Textures/State/Reset/ResettingSuccess.png");
 
+    // Display Char State
+    mTextures.load(Textures::PurchaseButton, "Media/Textures/Button/DisplayState/Purchase.png");
+
+    mTextures.load(Textures::PurchaseConfirmBG, "Media/Textures/State/DisplayState/PurchaseConfirmBG.png");
+    mTextures.load(Textures::PurchaseConfirmButton, "Media/Textures/Button/DisplayState/Confirm.png");
+    mTextures.load(Textures::PurchaseConfirmCancle,"Media/Textures/Button/DisplayState/Cancel.png");
+
+    mTextures.load(Textures::PurchaseSucessBG, "Media/Textures/State/DisplayState/PurchaseSuccessBG.png");
+    mTextures.load(Textures::PurchaseFailBG, "Media/Textures/State/DisplayState/PurchaseFailBG.png");
+    mTextures.load(Textures::OkayButton, "Media/Textures/Button/DisplayState/Okay.png");
 }

@@ -6,9 +6,13 @@
 #include "GUI_Button.hpp"
 #include "SpriteNode.hpp"
 #include "DataTable.hpp"
+#include <GUI_Button.hpp>
 
 namespace canvaPosition{
     const sf::Vector2f StartPos = sf::Vector2f(850, 626);
+    const sf::Vector2f moneyBarPos = sf::Vector2f(1507, 46.5);
+    const sf::Vector2f moneyTextPos = sf::Vector2f(1491.5, 47);
+    const sf::Vector2f purchaseButtonPos = sf::Vector2f(407.5, 821);
 }
 
 const float speedx = 500.f;
@@ -35,7 +39,11 @@ DisplayCharState::DisplayCharState(StateStack &stack, Context context)
 , Speed(context.textures->get(Textures::Thunder))
 , HPText("HP", context.fonts->get(Fonts::Main), 50)
 , SpeedText("Speed", context.fonts->get(Fonts::Main), 50)
-, AbilityText("Ability: ???", context.fonts->get(Fonts::Main), 50)
+, AbilityText("Ability: ???", context.fonts->get(Fonts::Label), 50)
+, mGUIContainerSet()
+, mMoneyBar()
+, mMoneyText("", context.fonts->get(Fonts::Main), 35)
+, mElapsedTime(sf::Time::Zero)
 {   
     sf::Vector2f pos = context.window->getView().getSize();
     mBackground.setFillColor(sf::Color(255, 255, 255, 255));
@@ -84,14 +92,27 @@ DisplayCharState::DisplayCharState(StateStack &stack, Context context)
     speedBar.setPosition(speedRect.left, speedRect.top);
     speedBar.setSize({speedRect.width * speedPercentage, speedRect.height});
 
+    AbilityText.setString("Ability: " + Table[context.player->getMainCharID()].Ability);
     AbilityText.setFillColor(sf::Color::Black);
     centerOrigin(AbilityText);
     AbilityText.setPosition(speedRect.left + speedRect.width / 2.f, pos.y / 10.f * 7);
     
-    buildScene();
+    mMoneyBar.setTexture(context.textures->get(Textures::MoneyBar));
+    centerOrigin(mMoneyBar);
+    mMoneyBar.setPosition(canvaPosition::moneyBarPos);
+
+    mMoneyText.setFillColor(sf::Color::Black);
+    mMoneyText.setString(toString(*context.money));
+    centerOrigin(mMoneyText);
+    mMoneyText.setPosition(canvaPosition::moneyTextPos);
+
+    maskID = context.player->getMaskID();
+
+    buildScene(context);
 }
 
 bool DisplayCharState::update(sf::Time dt){
+    mElapsedTime += dt;
     sf::Vector2f position = mPlayer->getPosition();
     sf::Vector2f destination = mWorldView.getSize() / 4.f;
     if(position.x <= destination.x){
@@ -100,6 +121,7 @@ bool DisplayCharState::update(sf::Time dt){
     }
     mPlayer->setVelocity(speedMove);
     mSceneGraph.update(dt);
+    mGUIContainerSet.update(dt);
     return false;
 }
 
@@ -117,13 +139,23 @@ void DisplayCharState::draw(){
     mWindow.draw(SpeedText);
     mWindow.draw(AbilityText);
     mWindow.draw(mSceneGraph);
+    mWindow.draw(mMoneyBar);
+    mWindow.draw(mMoneyText);
+    mWindow.draw(mGUIContainerSet);
 }
 
 bool DisplayCharState::handleEvent(const sf::Event &event){
+    if(mElapsedTime < sf::seconds(0.4f))
+        return false;
+
     if(event.type == sf::Event::KeyPressed){
         if(event.key.code == sf::Keyboard::Escape)
             requestStackPop();
     }
+
+    sf::RenderWindow &mWindow = *getContext().window;
+    mGUIContainerSet.handleRealTimeInput(mWindow);
+    mGUIContainerSet.handleEvent(event);
     return false;
 }
 
@@ -131,7 +163,7 @@ void DisplayCharState::handleRealTimeInput(){
     return;
 }
 
-void DisplayCharState::buildScene(){
+void DisplayCharState::buildScene(Context context){
     for (std::size_t i = 0; i < LayerCount; ++i)
     {
         SceneNode::Ptr layer(new SceneNode());
@@ -139,11 +171,11 @@ void DisplayCharState::buildScene(){
 
         mSceneGraph.attachChild(std::move(layer));
     }
-    createMainChar();
+    createMainChar(context);
 }
 
-void DisplayCharState::createMainChar(){
-    std::unique_ptr<MainChar> leader(new MainChar(getContext().player->getMainCharID(), *getContext().textures, canvaPosition::StartPos));
+void DisplayCharState::createMainChar(Context context){
+    std::unique_ptr<MainChar> leader(new MainChar(context.player->getMainCharID(), *context.textures, canvaPosition::StartPos));
     mPlayer = leader.get();
     mPlayer->setVelocity(-speedx, 0);
     speedMove = mPlayer->getVelocity();
@@ -151,7 +183,7 @@ void DisplayCharState::createMainChar(){
     mPlayer->setScale(scaleCharacte, scaleCharacte);
     mSceneLayers[Moving]->attachChild(std::move(leader));
 
-    std::unique_ptr<TextNode> text(new TextNode(*getContext().fonts, Table[getContext().player->getMainCharID()].name));
+    std::unique_ptr<TextNode> text(new TextNode(*context.fonts, Table[context.player->getMainCharID()].name));
     mTextMove = text.get();
     mPlayer->attachChild(std::move(text));
     mTextMove->setRelativePosition({0, 0});
@@ -160,4 +192,27 @@ void DisplayCharState::createMainChar(){
     mTextMove->setScale(1/scaleCharacte, 1/scaleCharacte);
     mTextMove->setFillColor(sf::Color::Black);
 
+
+    if((mPlayer->getThisMaskID() | maskID) != maskID){
+        mPlayer->setOwnerFlag(false);
+        mTextMove->setString("???");
+
+        HPText.setString("???");
+        centerOrigin(HPText);
+        
+        SpeedText.setString("???");
+        centerOrigin(SpeedText);
+
+        AbilityText.setString("Ability: ???\n\nCost: " + toString(Table[context.player->getMainCharID()].price) + " coins");
+        centerOrigin(AbilityText);
+        
+        auto purchaseButton = std::make_shared<GUI::Button>(context, Textures::PurchaseButton);
+        purchaseButton->centerOrigin();
+        purchaseButton->setPosition(canvaPosition::purchaseButtonPos);
+        purchaseButton->setCallback([this, context](){
+            requestStackPush(States::PurchaseConfirm);
+        });
+
+        mGUIContainerSet.pack(purchaseButton);
+    }   
 }

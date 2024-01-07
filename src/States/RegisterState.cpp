@@ -175,7 +175,7 @@ bool RegisterState::update(sf::Time dt)
 
 bool RegisterState::handleEvent(const sf::Event &event)
 {
-    if(mElapsedTime < sf::seconds(1.0))
+    if(mElapsedTime < sf::seconds(0.4))
         return false;
     handleRealTimeInput();
     mGUIContainer.handleEvent(event);
@@ -346,6 +346,8 @@ void RegisterState::registerAccount()
     int UID = 0;
     std::string username;
     int* passwordHash = new int[5];
+    int lv;
+    int money;
     int mask;
 
     std::ifstream fin(Path_SaveAccount);
@@ -354,10 +356,10 @@ void RegisterState::registerAccount()
         return;
     }
 
-    while(fin >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> mask);
+    while(fin >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask);
 
     convertStringToHash(mTextPassword, passwordHash);
-    fout << UID + 1 << "\n" << mTextUsername << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << 1 << "\n";
+    fout << UID + 1 << "\n" << mTextUsername << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << 1 << "\n" << 0 << "\n" << 1 << "\n";
     
     fout.close();
     fin.close();
