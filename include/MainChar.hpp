@@ -9,6 +9,7 @@
 #include <Lane.hpp>
 #include <DataTable.hpp>
 #include <CommandQueue.hpp>
+#include <SpriteNode.hpp>
 
 #include <string>
 
@@ -45,6 +46,7 @@ private:
     void                setInLane();
 
     void                playAbilitySound(CommandQueue& commands);
+    void                playHurtSound(CommandQueue& commands);
 
     void                setOwnerShip(bool flag);
 
@@ -120,6 +122,9 @@ private:
     int mMP;
     const int maxMP;
     int movingVelocity;
+
+    SpriteNode* hurtEffect;
+    bool isAttach;
     sf::Clock timeSinceLastDamage;
     const sf::Time damageGap = sf::seconds(1);
 };
