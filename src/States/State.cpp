@@ -9,7 +9,9 @@ namespace LVTOMASK{
 
 State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
                         Player& player, MusicPlayer& music, SoundPlayer& sound, int& Theme,
-                        int& limitLevel, int& currentLevel, int& money)
+                        int& limitLevel, int& currentLevel, int& money, std::string& keyMoveUp,
+                        std::string& keyMoveDown, std::string& keyMoveLeft, std::string& keyMoveRight,
+                        std::string& keyUseAbility, int& currentMusicVolume, int& currentTotalVolume)
 : window(&window) // using & because the variable is a pointer (pointer
                     // save address)
 , textures(&textures)
@@ -21,6 +23,13 @@ State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontH
 , limitLevel(&limitLevel)
 , currentLevel(&currentLevel)
 , money(&money)
+, keyMoveUp(&keyMoveUp)
+, keyMoveDown(&keyMoveDown)
+, keyMoveLeft(&keyMoveLeft)
+, keyMoveRight(&keyMoveRight)
+, keyUseAbility(&keyUseAbility)
+, currentMusicVolume(&currentMusicVolume)
+, currentTotalVolume(&currentTotalVolume)
 {
     
 }

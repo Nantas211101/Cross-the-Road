@@ -75,6 +75,12 @@ bool GameState::update(sf::Time dt)
 		requestStackPush(States::GameOver);
 	}
 
+	if (curState == World::InGameState::Win){
+		getContext().music->play(GameThemeWinID[mCurThemeID], false);
+		*getContext().money += mWorld.getMoney();
+		requestStackPush(States::Victory);
+	}
+
 	mPauseButton->setPosition(getContext().window->getView().getCenter() + canvaPosition::PausePosAdding);
 	mGUIContainer.update(dt);
 	return true;
