@@ -112,6 +112,7 @@ namespace Textures
 		HealthBar,
 		ManaBar,
 		BoundBar,
+		Blood,
 		
 		// Player1
 		Standing1,
@@ -355,6 +356,9 @@ namespace SoundEffect{
 
 		// Player
 		Ability,
+		MaleHurt,
+		FemaleHurt,
+		CatHurt
 	};
 }
 

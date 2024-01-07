@@ -55,14 +55,6 @@ void World::update(sf::Time dt)
 	// Manipulating infinity scroll background.
 	sf::Vector2f ta =  mWorldView.getCenter();
 	sf::Vector2f viewSize = mWorldView.getSize();
-	// if(ta.y <= viewSize.y / 2){
-
-	// 	// keep the mplayer position while reset the scroll (to make it infinity)
-	// 	mWorldView.setCenter(mSpawnPosition);
-	// 	mainChar->resetState();
-	// 	scrollDistance = 0;
-	// 	playerLaneIndex = highestBound = 1;
-	// }
 
 	// Forward commands to scene graph, adapt velocity (scrolling, diagonal correction)
 	while (!mCommandQueue.isEmpty()){
@@ -191,7 +183,7 @@ void World::handleCollisions()
 	sf::Time timeFromLastRiverDamage = timeSinceLastDamageByRiver.getElapsedTime();
 	if(onRiver) {
 		if(timeFromLastRiverDamage >= damageGapByRiver) {
-			mainChar->damage(5);
+			mainChar->damage(15);
 			timeSinceLastDamageByRiver.restart();
 		}
 	}

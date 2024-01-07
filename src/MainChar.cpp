@@ -100,6 +100,7 @@ MainChar::MainChar(Type type, TextureHolder& textures, CommandQueue& soundComman
 , mMP(0)
 , maxMP(Table[type].manapoints)
 , movingVelocity(Table[type].speed)
+, hurtEffect(nullptr)
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -200,6 +201,13 @@ void MainChar::updateCurrent(sf::Time dt) {
     if(isStanding()) {
         setInLane();
     }
+    sf::Time timeFromLastDamage = timeSinceLastDamage.getElapsedTime();
+    if(isAttach && timeFromLastDamage >= damageGap) {
+        if(hurtEffect)
+            detachChild(*hurtEffect);
+        isAttach = false;
+        timeSinceLastDamage.restart();
+    }
     Entity::updateCurrent(dt);
 }
 
@@ -289,6 +297,16 @@ void MainChar::damage(int points) {
 	assert(points >= 0);
     mHP -= points;
     mHP = std::max(mHP, 0);
+    if(points > 0) {
+        playHurtSound(*soundCommandQueue);
+        if(!isAttach) {
+            std::unique_ptr<SpriteNode> hurt(new SpriteNode(textureHolder.get(Textures::Blood)));
+            hurtEffect = hurt.get();
+            attachChild(std::move(hurt));
+            isAttach = true;
+            timeSinceLastDamage.restart();
+        }
+    }
 }
 
 bool MainChar::isDead() const {
@@ -347,6 +365,33 @@ void MainChar::setInLane() {
 void MainChar::playAbilitySound(CommandQueue& commands) {
 	sf::Vector2f worldPosition = getWorldPosition();
 	SoundEffect::ID effect = SoundEffect::Ability;
+	Command command;
+	command.category = Category::SoundEffect;
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition] (SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
+}
+
+void MainChar::playHurtSound(CommandQueue &commands) {
+    sf::Vector2f worldPosition = getWorldPosition();
+	SoundEffect::ID effect;
+    switch(mType) {
+        case Player1:
+        case Player4:
+        case Player5:
+            effect = SoundEffect::MaleHurt;
+            break;
+        case Player2:
+            effect = SoundEffect::FemaleHurt;
+            break;
+        case Player3:
+            effect = SoundEffect::CatHurt;
+            break;
+    }
 	Command command;
 	command.category = Category::SoundEffect;
 	command.action = derivedAction<SoundNode>(
