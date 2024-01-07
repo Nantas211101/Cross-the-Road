@@ -17,6 +17,8 @@ namespace sf
 template <typename T>
 std::string toString(const T& value);
 
+sf::Keyboard::Key toKeyBoard(std::string keySt);
+
 // Convert enumerators to strings
 std::string toString(sf::Keyboard::Key key);
 

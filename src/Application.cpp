@@ -103,7 +103,14 @@ Application::Application()
 , limitLevel(1)
 , curLevel(0)
 , curMoney(0)
-, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel, curMoney))
+, keyMoveUp("Up")
+, keyMoveDown("Down")
+, keyMoveLeft("Left")
+, keyMoveRight("Right")
+, keyUseAbility("Space")
+, currentMusicVolume(70)
+, currentTotalVolume(70)
+, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mMusic, mSound, theme, limitLevel, curLevel, curMoney, keyMoveUp, keyMoveDown, keyMoveLeft, keyMoveRight, keyUseAbility, currentMusicVolume, currentTotalVolume))
 , mStayText()
 , mStayUpdateTime()
 , mStayNumFrames(0){
@@ -120,10 +127,15 @@ Application::Application()
 
         registerStates();
         // start with the title state
-        mMusic.setVolume(30.f);
-        mSound.setVolume(40.f);
-        mStateStack.pushState(States::Title);
+        mMusic.setVolume(currentMusicVolume);
+        mSound.setVolume(currentTotalVolume);
+        keyMoveUp = toString(mPlayer.getAssignedKey(Player::Action::MoveUp));
+        keyMoveDown = toString(mPlayer.getAssignedKey(Player::Action::MoveDown));
+        keyMoveLeft = toString(mPlayer.getAssignedKey(Player::Action::MoveLeft));
+        keyMoveRight = toString(mPlayer.getAssignedKey(Player::Action::MoveRight));
+        keyUseAbility = toString(mPlayer.getAssignedKey(Player::Action::UseAbility));
 
+        mStateStack.pushState(States::Title);
 }
 
 Application::~Application(){
@@ -151,14 +163,28 @@ Application::~Application(){
     int lv;
     int money;
     int mask;
+    std::string keyUp;
+    std::string keyDown;
+    std::string keyLeft;
+    std::string keyRight;
+    std::string keyAbility;
+    int curMusicVolume;
+    int curTotalVolume;
 
-    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask >> keyUp >> keyDown >> keyLeft >> keyRight >> keyAbility >> curMusicVolume >> curTotalVolume){
         if(UID == curUID){
             lv = limitLevel;
             money = curMoney;
             mask = mPlayer.getMaskID();
+            keyUp = toString(mPlayer.getAssignedKey(Player::Action::MoveUp));
+            keyDown = toString(mPlayer.getAssignedKey(Player::Action::MoveDown));
+            keyLeft = toString(mPlayer.getAssignedKey(Player::Action::MoveLeft));
+            keyRight = toString(mPlayer.getAssignedKey(Player::Action::MoveRight));
+            keyAbility = toString(mPlayer.getAssignedKey(Player::Action::UseAbility));
+            curMusicVolume = currentMusicVolume;
+            curTotalVolume = currentTotalVolume;
         }
-        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
+        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n" << keyUp << "\n" << keyDown << "\n" << keyLeft << "\n" << keyRight << "\n" << keyAbility << "\n" << curMusicVolume << "\n" << curTotalVolume << "\n";
     }
 
     fi.close();
@@ -177,8 +203,8 @@ Application::~Application(){
         return;
     }
 
-    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
-        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
+    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask >> keyUp >> keyDown >> keyLeft >> keyRight >> keyAbility >> curMusicVolume >> curTotalVolume){
+        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n" << keyUp << "\n" << keyDown << "\n" << keyLeft << "\n" << keyRight << "\n" << keyAbility << "\n" << curMusicVolume << "\n" << curTotalVolume << "\n";
     }
 
     tmpFi.close();

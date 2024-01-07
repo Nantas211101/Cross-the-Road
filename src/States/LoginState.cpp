@@ -6,6 +6,7 @@
 #include "GUI_Label.hpp"
 #include "GUI_StateButton.hpp"
 #include "HashTable.hpp"
+#include <Utility.hpp>
 
 #include <fstream>
 
@@ -182,18 +183,36 @@ void LoginState::loginSolver()
     int lv;
     int money;
     int mask;
+    std::string keyUp;
+    std::string keyDown;
+    std::string keyLeft;
+    std::string keyRight;
+    std::string keyAbility;
+    int curMusicVolume;
+    int curTotalVolume;
+
     bool ok = 0;
-    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask >> keyUp >> keyDown >> keyLeft >> keyRight >> keyAbility >> curMusicVolume >> curTotalVolume){
         if(username == mTextUsername){
             ok = 1;
             if(checkPassword(mTextPassword, passwordHash)){
                 setErrorText("Login success");
                 delete [] passwordHash;
                 fi.close();
+                
                 *getContext().limitLevel = lv;
                 *getContext().money = money;
                 getContext().player->setMaskID(mask);
                 getContext().player->setUID(UID);
+                getContext().player->assignKey(Player::Action::MoveUp, toKeyBoard(keyUp));
+                getContext().player->assignKey(Player::Action::MoveDown, toKeyBoard(keyDown));
+                getContext().player->assignKey(Player::Action::MoveLeft, toKeyBoard(keyLeft));
+                getContext().player->assignKey(Player::Action::MoveRight, toKeyBoard(keyRight));
+                getContext().player->assignKey(Player::Action::UseAbility, toKeyBoard(keyAbility));
+                *getContext().currentMusicVolume = curMusicVolume;
+                *getContext().currentTotalVolume = curTotalVolume;
+
+
                 requestStackPop();
                 requestStackPush(States::Menu);
                 // Login success

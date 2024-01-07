@@ -349,6 +349,13 @@ void RegisterState::registerAccount()
     int lv;
     int money;
     int mask;
+    std::string keyUp;
+    std::string keyDown;
+    std::string keyLeft;
+    std::string keyRight;
+    std::string keyAbility;
+    int curMusicVolume;
+    int curTotalVolume;
 
     std::ifstream fin(Path_SaveAccount);
     if(!fin.is_open()){
@@ -356,10 +363,10 @@ void RegisterState::registerAccount()
         return;
     }
 
-    while(fin >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask);
+    while(fin >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask >> keyUp >> keyDown >> keyLeft >> keyRight >> keyAbility >> curMusicVolume >> curTotalVolume);
 
     convertStringToHash(mTextPassword, passwordHash);
-    fout << UID + 1 << "\n" << mTextUsername << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << 1 << "\n" << 0 << "\n" << 1 << "\n";
+    fout << UID + 1 << "\n" << mTextUsername << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << 1 << "\n" << 0 << "\n" << 1 << "\n" << "Up" << "\n" << "Down" << "\n" << "Left" << "\n" << "Right" << "\n" << "Space" << "\n" << 70 << "\n" << 70 << "\n";
     
     fout.close();
     fin.close();
