@@ -74,6 +74,8 @@ private:
     sf::Text ErrorText;
     
     sf::Time mElapsedTime;
+    sf::Sprite mMoneyBar;
+    sf::Text mMoneyText;
 };
 
 // static bool isCharacterMove = false;

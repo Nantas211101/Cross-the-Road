@@ -107,7 +107,7 @@ bool MenuState::update(sf::Time dt)
 
 bool MenuState::handleEvent(const sf::Event& event)
 {
-    if(mElapsedTime < sf::seconds(1.0))
+    if(mElapsedTime < sf::seconds(0.4))
         return false;
     sf::RenderWindow &mWindow = *getContext().window;
 	mGUIContainer.handleRealTimeInput(mWindow);
@@ -157,10 +157,16 @@ void MenuState::saveCurrentPlayerInfo(){
     std::string username;
     int passwordHash[5];
     int lv;
-    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv){
-        if(UID == curUID)
+    int money;
+    int mask;
+
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
+        if(UID == curUID){
             lv = *getContext().limitLevel;
-        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n";
+            money = *getContext().money;
+            mask = getContext().player->getMaskID();
+        }
+        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
     }
 
     fi.close();
@@ -179,8 +185,8 @@ void MenuState::saveCurrentPlayerInfo(){
         return;
     }
 
-    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv){
-        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n";
+    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
+        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
     }
 
     tmpFi.close();

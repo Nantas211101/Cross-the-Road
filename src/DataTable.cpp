@@ -471,9 +471,11 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player1].timeEachFrameInGame = 0.6;
     data[MainChar::Player1].timeEachFrameInMenu = 1;
     data[MainChar::Player1].scaling = 1.5;
-    data[MainChar::Player1].name = "Player1";
+    data[MainChar::Player1].name = "RED";
     data[MainChar::Player1].deltaLeftBound = 10;
     data[MainChar::Player1].deltaWidthBound = 20;
+    data[MainChar::Player1].Ability = "No special ability.";
+    data[MainChar::Player1].price = 0;
 
     data[MainChar::Player2].hitpoints = 125.f;
     data[MainChar::Player2].manapoints = 100.f;
@@ -490,7 +492,9 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player2].timeEachFrameInGame = 0.6;
     data[MainChar::Player2].timeEachFrameInMenu = 1;
     data[MainChar::Player2].scaling = 1.5;
-    data[MainChar::Player2].name = "Player2";
+    data[MainChar::Player2].name = "NURSE";
+    data[MainChar::Player2].Ability = "Heal 20" + std::string("%") + " of\nyour max HP";
+    data[MainChar::Player2].price = 50;
 
     data[MainChar::Player3].hitpoints = 100.f;
     data[MainChar::Player3].manapoints = 100.f;
@@ -507,9 +511,11 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player3].timeEachFrameInGame = 0.6;    
     data[MainChar::Player3].timeEachFrameInMenu = 1;
     data[MainChar::Player3].scaling = 1.5;
-    data[MainChar::Player3].name = "Player3";
+    data[MainChar::Player3].name = "CAT GOD";
     data[MainChar::Player3].deltaLeftBound = 10;
     data[MainChar::Player3].deltaWidthBound = 20;
+    data[MainChar::Player3].Ability = "Invulnerable in\n3 seconds.";
+    data[MainChar::Player3].price = 100;
 
     data[MainChar::Player4].hitpoints = 150.f;
     data[MainChar::Player4].manapoints = 100.f;
@@ -526,9 +532,11 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player4].timeEachFrameInGame = 0.6;
     data[MainChar::Player4].timeEachFrameInMenu = 1;
     data[MainChar::Player4].scaling = 1.5;
-    data[MainChar::Player4].name = "Player4";
+    data[MainChar::Player4].name = "SPEEDSTER";
     data[MainChar::Player4].deltaLeftBound = 5;
     data[MainChar::Player4].deltaWidthBound = 10;
+    data[MainChar::Player4].Ability = "Accelerate your\nspeed in 5 seconds.";
+    data[MainChar::Player4].price = 200;
 
     data[MainChar::Player5].hitpoints = 200.f;
     data[MainChar::Player5].manapoints = 100.f;
@@ -545,9 +553,11 @@ std::vector<CharData> initializeCharData() {
     data[MainChar::Player5].timeEachFrameInGame = 0.6;
     data[MainChar::Player5].timeEachFrameInMenu = 1;
     data[MainChar::Player5].scaling = 1.5;
-    data[MainChar::Player5].name = "Player5";
+    data[MainChar::Player5].name = "GOD OF DESTRUCTION";
     data[MainChar::Player5].deltaLeftBound = 5;
     data[MainChar::Player5].deltaWidthBound = 10;
+    data[MainChar::Player5].Ability = "Invulnerable and\naccelerate your speed\nin 5 seconds.";
+    data[MainChar::Player5].price = 500;
 
     return data;
 }

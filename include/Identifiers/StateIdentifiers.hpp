@@ -22,5 +22,7 @@ namespace States{
         Credits,
         ResetConfirm,
         ResetSuccess,
+        PurchaseConfirm,
+        PurchaseResult,
     };
 }

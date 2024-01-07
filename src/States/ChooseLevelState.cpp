@@ -89,7 +89,7 @@ bool ChooseLevelState::update(sf::Time dt)
 
 bool ChooseLevelState::handleEvent(const sf::Event& event)
 {
-    if(mElapsedTime < sf::seconds(1.0))
+    if(mElapsedTime < sf::seconds(0.4))
         return false;
     sf::RenderWindow& window = *getContext().window;
     mGUIContainer.handleRealTimeInput(window);

@@ -17,7 +17,6 @@ private:
     void setNewText(const std::string& text, const int& cnt, const sf::Font& font, unsigned int size, const sf::Color& color = sf::Color::White);
 
 private:
-    // sf::RectangleShape  mBackground;
     sf::View            mWorldView;
     sf::FloatRect       mWorldBounds;
     std::vector<sf::Text> mTexts;

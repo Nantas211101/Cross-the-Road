@@ -16,6 +16,8 @@ namespace canvaPosition{
 	const sf::Vector2f chooseButtonPos = sf::Vector2f(850, 865);
 	const sf::Vector2f backButtonPos = sf::Vector2f(178.5, 95);
 	const sf::Vector2f displayCharButtonPos = sf::Vector2f(1180, 865);
+	const sf::Vector2f moneyBarPos = sf::Vector2f(1507, 46.5);
+	const sf::Vector2f moneyTextPos = sf::Vector2f(1491.5, 47);
 };
 
 const float scaleCharacter = 5.f;
@@ -43,6 +45,8 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 , maskID(0)
 , uidDisplay("", context.fonts->get(Fonts::Main), 25)
 , ErrorText("", context.fonts->get(Fonts::Main), 50)
+, mMoneyBar()
+, mMoneyText("", context.fonts->get(Fonts::Main), 35)
 {
     sf::Vector2f pos = context.window->getView().getSize();
 	
@@ -93,6 +97,15 @@ ChooseCharState::ChooseCharState(StateStack &stack, Context context)
 		requestStackPush(States::DisplayCharState);
 	});
 
+	mMoneyBar.setTexture(context.textures->get(Textures::MoneyBar));
+	centerOrigin(mMoneyBar);
+	mMoneyBar.setPosition(canvaPosition::moneyBarPos);
+
+	mMoneyText.setFillColor(sf::Color::Black);
+	mMoneyText.setString(toString(*context.money));
+	centerOrigin(mMoneyText);
+	mMoneyText.setPosition(canvaPosition::moneyTextPos);
+
 	maskID = context.player->getMaskID();
 	std::string tmp = toString(context.player->getUID());
 	while(tmp.size() < 7)
@@ -136,12 +149,25 @@ bool ChooseCharState::update(sf::Time elapsedTime){
 
 		mSceneLayers[Air]->detachChild(*mPlayer);
 		mPlayer = tmpPlayer;
-        // tmpPlayer = nullptr;
+        tmpPlayer = nullptr;
 		mPlayer->setPosition(mSpawnPosition.x, canvaPosition::leftButtonPos.y);
 		isMove = 0;
-		// speedUp = startSpeedUp;
 	}
 	
+	// if(isMove){
+	// 	// update OwnerFlag tmp	
+	// 	if(tmpPlayer != nullptr && (tmpPlayer->getThisMaskID() | maskID) != maskID)
+	// 		tmpPlayer->setOwnerFlag(false);
+	// 	else
+	// 		tmpPlayer->setOwnerFlag(true); 
+	// }
+
+	// // update OwnerFlag mPlayer
+	// if(mPlayer != nullptr && (mPlayer->getThisMaskID() | maskID) != maskID)
+	// 	mPlayer->setOwnerFlag(false);
+	// else
+	// 	mPlayer->setOwnerFlag(true); 
+
 	// Apply movements
 	mSceneGraph.update(elapsedTime);
     updateCharID();
@@ -156,11 +182,13 @@ void ChooseCharState::draw(){
 	mWindow.draw(mGUIContainerSet);
 	mWindow.draw(uidDisplay);
 	mWindow.draw(ErrorText);
+	mWindow.draw(mMoneyBar);
+	mWindow.draw(mMoneyText);
 }
 
 bool ChooseCharState::handleEvent(const sf::Event &event){
 
-	if(mElapsedTime < sf::seconds(1.0))
+	if(mElapsedTime < sf::seconds(0.4))
 		return false;
 
     if(event.type == sf::Event::LostFocus)
@@ -292,7 +320,6 @@ void ChooseCharState::impleChangeChar(sf::Time dt){
 	else{
 		mPlayer->setVelocity(speedMoving.x, mSpawnPosition.y - canvaPosition::leftButtonPos.y - 50.f);
 		tmpPlayer->setVelocity(speedMoving.x, canvaPosition::leftButtonPos.y - mSpawnPosition.y + 50.f);
-	
 	}
 }
 
