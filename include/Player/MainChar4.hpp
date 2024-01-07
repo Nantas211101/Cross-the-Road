@@ -13,7 +13,7 @@ public:
     void useAbility();
 
 private:
-    const int accelerateAmount = 100;
+    const int accelerateAmount = 150;
     
     SpriteNode* powerShell;
     bool isAttach;

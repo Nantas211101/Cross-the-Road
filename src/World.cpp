@@ -42,8 +42,13 @@ World::World(State::Context context)
 
 void World::update(sf::Time dt)
 {
-	if(playingState == InGameState::Win || playingState == InGameState::Lose)
+	if(playingState == InGameState::Win || playingState == InGameState::Lose) {
+		scrollSpeedToPlayer = -150;
+		scroll(dt);
+		updateHealthBar();
+		updateMoneyBar();
 		return;
+	}
 	// Scroll the world
 	scroll(dt);
 

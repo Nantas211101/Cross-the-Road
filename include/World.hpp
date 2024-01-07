@@ -77,7 +77,7 @@ class World : private sf::NonCopyable
 		SoundPlayer&						mSound;
 
 		const float							scrollSpeed = -200.f;
-		const float							scrollSpeedToPlayer = -50.f;
+		float								scrollSpeedToPlayer = -50.f;
 		float								scrollDistance;
 		int									playerLaneIndex;
 
