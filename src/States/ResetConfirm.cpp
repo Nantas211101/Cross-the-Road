@@ -61,4 +61,6 @@ bool ResetConfirmState::handleEvent(const sf::Event& event){
 void ResetConfirmState::resetCurrentPlayerInfo(){
     *getContext().limitLevel = 1;
     *getContext().currentLevel = 1;
+    *getContext().money = 0;
+    getContext().player->setMaskID(1);
 }

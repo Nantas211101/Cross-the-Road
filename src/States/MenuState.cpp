@@ -13,7 +13,7 @@ namespace canvaPosition{
     const sf::Vector2f logoutButtonPos = sf::Vector2f(177, 733);
     const sf::Vector2f exitButtonPos = sf::Vector2f(174, 850);
     const sf::Vector2f creditButtonPos = sf::Vector2f(1178, 836.5);
-    const sf::Vector2f resetButtonPos = sf::Vector2f(172.5, 92.5);
+    const sf::Vector2f resetButtonPos = sf::Vector2f(172.5, 192.5);
 }
 
 MenuState::MenuState(StateStack& stack, Context context)
@@ -159,14 +159,28 @@ void MenuState::saveCurrentPlayerInfo(){
     int lv;
     int money;
     int mask;
+    std::string keyUp;
+    std::string keyDown;
+    std::string keyLeft;
+    std::string keyRight;
+    std::string keyAbility;
+    int curMusicVolume;
+    int curTotalVolume;
 
-    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
+    while(fi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask >> keyUp >> keyDown >> keyLeft >> keyRight >> keyAbility >> curMusicVolume >> curTotalVolume){
         if(UID == curUID){
             lv = *getContext().limitLevel;
             money = *getContext().money;
             mask = getContext().player->getMaskID();
+            keyUp = toString(getContext().player->getAssignedKey(Player::Action::MoveUp));
+            keyDown = toString(getContext().player->getAssignedKey(Player::Action::MoveDown));
+            keyLeft = toString(getContext().player->getAssignedKey(Player::Action::MoveLeft));
+            keyRight = toString(getContext().player->getAssignedKey(Player::Action::MoveRight));
+            keyAbility = toString(getContext().player->getAssignedKey(Player::Action::UseAbility));
+            curMusicVolume = *getContext().currentMusicVolume;
+            curTotalVolume = *getContext().currentTotalVolume;
         }
-        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
+        tmpFo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n" << keyUp << "\n" << keyDown << "\n" << keyLeft << "\n" << keyRight << "\n" << keyAbility << "\n" << curMusicVolume << "\n" << curTotalVolume << "\n";
     }
 
     fi.close();
@@ -185,8 +199,8 @@ void MenuState::saveCurrentPlayerInfo(){
         return;
     }
 
-    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask){
-        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n";
+    while(tmpFi >> UID >> username >> passwordHash[0] >> passwordHash[1] >> passwordHash[2] >> passwordHash[3] >> passwordHash[4] >> lv >> money >> mask >> keyUp >> keyDown >> keyLeft >> keyRight >> keyAbility >> curMusicVolume >> curTotalVolume){
+        fo << UID << "\n" << username << "\n" << passwordHash[0] << " " << passwordHash[1] << " " << passwordHash[2] << " " << passwordHash[3] << " " << passwordHash[4] << "\n" << lv << "\n" << money << "\n" << mask << "\n" << keyUp << "\n" << keyDown << "\n" << keyLeft << "\n" << keyRight << "\n" << keyAbility << "\n" << curMusicVolume << "\n" << curTotalVolume << "\n";
     }
 
     tmpFi.close();

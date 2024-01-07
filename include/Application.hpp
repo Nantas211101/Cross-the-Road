@@ -39,6 +39,13 @@ private:
     int                     limitLevel;
     int                     curLevel;
     int                     curMoney;
+    std::string             keyMoveUp;
+    std::string             keyMoveDown;
+    std::string             keyMoveLeft;
+    std::string             keyMoveRight;
+    std::string             keyUseAbility;
+    int                     currentMusicVolume;
+    int                     currentTotalVolume;
     StateStack				mStateStack;
 
     sf::Text				mStayText;

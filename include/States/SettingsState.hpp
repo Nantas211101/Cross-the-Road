@@ -33,6 +33,8 @@ class SettingsState : public State
 		template <typename T>
 		void							updateVolumeSetting(int& currentAudio, std::vector<sf::RectangleShape>& rectangleHolder, sf::Vector2f leftButton, sf::Vector2f rightButton, T& audio);
 
+		void 							updateSettingPlayerInfo();
+
 	private:
         sf::RectangleShape                                  mBackground;
 		sf::Sprite											mBackgroundSprite;
