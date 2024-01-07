@@ -9,9 +9,21 @@ MusicPlayer::MusicPlayer()
     mFilenames[Music::MenuTheme] = "Media/Music/MenuTheme.ogg";
     mFilenames[Music::ChooseCharTheme] = "Media/Music/ChooseCharTheme.ogg";
     mFilenames[Music::CreditsTheme] = "Media/Music/Aquatic_Main.ogg";
+
+    mFilenames[Music::GameTheme1Main] = "Media/Music/Theme1/Neon_City_Main.ogg";
+    mFilenames[Music::GameTheme1Win] = "Media/Music/Theme1/Neon_City_Win.ogg";
+    mFilenames[Music::GameTheme1Lose] = "Media/Music/Theme1/Neon_City_Lose.ogg";
+
+    mFilenames[Music::GameTheme2Main] = "Media/Music/Theme2/Wintry_Embrace_Main.ogg";
+    mFilenames[Music::GameTheme2Win] = "Media/Music/Theme2/Wintry_Embrace_Win.ogg";
+    mFilenames[Music::GameTheme2Lose] = "Media/Music/Theme2/Wintry_Embrace_Lose.ogg";
+
+    mFilenames[Music::GameTheme3Main] = "Media/Music/Theme3/Volcanic_Main.ogg";
+    mFilenames[Music::GameTheme3Win] = "Media/Music/Theme3/Volcanic_Win.ogg";
+    mFilenames[Music::GameTheme3Lose] = "Media/Music/Theme3/Volcanic_Lose.ogg";
 }
 
-void MusicPlayer::play(Music::ID theme)
+void MusicPlayer::play(Music::ID theme, bool isLooped)
 {
     if(theme == mCurrentTheme)
         return;
@@ -24,7 +36,7 @@ void MusicPlayer::play(Music::ID theme)
         throw std::runtime_error("Music " + filename + " could not be loaded");
     
     mMusic.setVolume(mVolume);
-    mMusic.setLoop(true);
+    mMusic.setLoop(isLooped);
     mMusic.play();
 }
 

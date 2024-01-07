@@ -24,8 +24,8 @@ public:
 //     void endLeft();
 
 private:
-    void buildScene();
-    void createMainChar();
+    void buildScene(Context context);
+    void createMainChar(Context context);
 
 private:
     enum Layer
@@ -62,4 +62,11 @@ private:
 
     TextNode* mTextMove;
 
+    GUI::ContainerSet mGUIContainerSet;
+
+    sf::Sprite mMoneyBar;
+    sf::Text mMoneyText;
+
+    sf::Time mElapsedTime;
+    int maskID;
 };

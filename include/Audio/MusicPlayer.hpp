@@ -9,7 +9,7 @@ class MusicPlayer : private sf::NonCopyable
 	public:
 									MusicPlayer();
 
-		void						play(Music::ID theme);
+		void						play(Music::ID theme, bool isLooped = true);
 		void						stop();
 
 		void						setPaused(bool paused);

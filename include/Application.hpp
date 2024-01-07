@@ -38,6 +38,7 @@ private:
     int                     theme;
     int                     limitLevel;
     int                     curLevel;
+    int                     curMoney;
     StateStack				mStateStack;
 
     sf::Text				mStayText;

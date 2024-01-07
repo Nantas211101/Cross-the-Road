@@ -6,7 +6,7 @@
 namespace figmaPosition{
     const sf::Vector2f CancleButtonPos = sf::Vector2f(550.f, 809.f);
     const sf::Vector2f ConfirmButtonPos = sf::Vector2f(1150.f, 809.f);
-}
+};
 
 ResetConfirmState::ResetConfirmState(StateStack& stack, Context context)
 : State(stack, context)
@@ -50,7 +50,7 @@ bool ResetConfirmState::update(sf::Time dt){
 
 bool ResetConfirmState::handleEvent(const sf::Event& event){
 
-    if(mElapsedTime < sf::seconds(1.0))
+    if(mElapsedTime < sf::seconds(0.4))
         return false;
     sf::RenderWindow &mWindow = *getContext().window;
 	mGUIContainer.handleRealTimeInput(mWindow);

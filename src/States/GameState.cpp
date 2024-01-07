@@ -2,6 +2,23 @@
 
 #include <iostream>
 
+Music::ID GameThemeMainID[] = {
+	Music::GameTheme1Main,
+	Music::GameTheme2Main,
+	Music::GameTheme3Main,
+};
+
+Music::ID GameThemeWinID[] = {
+	Music::GameTheme1Win,
+	Music::GameTheme2Win,
+	Music::GameTheme3Win,
+};
+
+Music::ID GameThemeLoseID[] = {
+	Music::GameTheme1Lose,
+	Music::GameTheme2Lose,
+	Music::GameTheme3Lose,
+};
 namespace canvaPosition{
 	// from center
 	const sf::Vector2f PausePosAdding = sf::Vector2f(804.5, -428.5);
@@ -29,7 +46,10 @@ GameState::GameState(StateStack& stack, Context context)
 	mBackground.setPosition(context.window->getView().getCenter() + canvaPosition::PausePosAdding);
 
 	mGUIContainer.pack(pauseButton);
-	context.music->play(Music::ChooseCharTheme);
+	mCurThemeID = *context.theme - 1;
+
+	context.music->play(GameThemeMainID[mCurThemeID]);
+	// context.music->play(Music::ChooseCharTheme);
 }
 
 void GameState::draw()
@@ -48,6 +68,13 @@ bool GameState::update(sf::Time dt)
 	CommandQueue& commands = mWorld.getCommandQueue();
 	mPlayer.handleRealtimeInput(commands);
 
+	World::InGameState curState = mWorld.getInGameState();
+
+	if (curState == World::InGameState::Lose){
+		getContext().music->play(GameThemeLoseID[mCurThemeID], false);		
+		requestStackPush(States::GameOver);
+	}
+
 	mPauseButton->setPosition(getContext().window->getView().getCenter() + canvaPosition::PausePosAdding);
 	mGUIContainer.update(dt);
 	return true;
@@ -55,7 +82,7 @@ bool GameState::update(sf::Time dt)
 
 bool GameState::handleEvent(const sf::Event& event)
 {
-	if(mElapsedTime < sf::seconds(1.0))
+	if(mElapsedTime < sf::seconds(0.4))
 		return false;
 	// Game input handling
 	CommandQueue& commands = mWorld.getCommandQueue();

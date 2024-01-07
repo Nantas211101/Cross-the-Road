@@ -25,6 +25,7 @@ VictoryState::VictoryState(StateStack& stack, Context context)
 , mBackground()
 , mVictorySprite()
 , mGUIContainer()
+, isEndGame(false)
 {
     // Win and increase the limit level
 
@@ -33,6 +34,10 @@ VictoryState::VictoryState(StateStack& stack, Context context)
     int& theme = *context.theme;
 
     limitLevel = std::max(limitLevel, curLevel + 1);
+
+    if(curLevel + 1 > MaxLevel)
+        isEndGame = true;
+
     curLevel = std::min(curLevel + 1, MaxLevel);
 
     if(curLevel > themeLimit[theme - 1])
@@ -92,6 +97,11 @@ void VictoryState::draw()
 
 bool VictoryState::update(sf::Time dt)
 {
+    if(isEndGame){
+        requestStateClear();
+        requestStackPush(States::Credits);
+        isEndGame = 0;
+    }
     mElapsedTime += dt;
     mGUIContainer.update(dt);
     return false;
@@ -100,7 +110,7 @@ bool VictoryState::update(sf::Time dt)
 bool VictoryState::handleEvent(const sf::Event& event)
 {
 
-    if(mElapsedTime < sf::seconds(1.0))
+    if(mElapsedTime < sf::seconds(0.4))
         return false;
     sf::RenderWindow& window = *getContext().window;
     mGUIContainer.handleRealTimeInput(window);

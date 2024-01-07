@@ -9,7 +9,7 @@ namespace LVTOMASK{
 
 State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts,
                         Player& player, MusicPlayer& music, SoundPlayer& sound, int& Theme,
-                        int& limitLevel, int& currentLevel)
+                        int& limitLevel, int& currentLevel, int& money)
 : window(&window) // using & because the variable is a pointer (pointer
                     // save address)
 , textures(&textures)
@@ -20,6 +20,7 @@ State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontH
 , theme(&Theme)
 , limitLevel(&limitLevel)
 , currentLevel(&currentLevel)
+, money(&money)
 {
     
 }
