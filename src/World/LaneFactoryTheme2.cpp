@@ -105,7 +105,7 @@ void LaneFactoryTheme2::templateLevel2(){
 }
 
 void LaneFactoryTheme2::templateLevel3(){
-    std::vector<int> templates{1,2,4,5,6,7,8,9,10,11,12,14,15,16,17,18,20,23,24,25,26,27,28,29,31,33,34,35};
+    std::vector<int> templates{1,2,4,5,6,7,8,9,10,11,12,14,15,16,17,18,20,23,24,25,26,27,28,29,31,33,34,35,33,34,35};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);  
@@ -117,7 +117,7 @@ void LaneFactoryTheme2::templateLevel3(){
 }
 
 void LaneFactoryTheme2::templateLevel4(){
-    std::vector<int> templates{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
+    std::vector<int> templates{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,33,34,35,33,34,35};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1); 
@@ -129,7 +129,7 @@ void LaneFactoryTheme2::templateLevel4(){
 }
 
 void LaneFactoryTheme2::templateLevel5(){
-    std::vector<int> templates{1,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
+    std::vector<int> templates{1,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,33,34,35,33,34,35};
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(0,templates.size()-1);

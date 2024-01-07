@@ -92,7 +92,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::Ruin2].collisionEffect = SoundEffect::Rock;
 
 
-    data[Obstacle::Volcano].dmg = 5;
+    data[Obstacle::Volcano].dmg = 10;
     data[Obstacle::Volcano].speed = 0.f;
     data[Obstacle::Volcano].texture = Textures::Vocalno;
     data[Obstacle::Volcano].scaling = sf::Vector2f(0.35, 0.35);

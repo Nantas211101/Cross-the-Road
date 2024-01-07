@@ -60,7 +60,11 @@ void Railway::buildLane(){
     newTrain->setVelocity(1.0 * TableTrain[kind].speed, 0);
     newTrain->scale(TableTrain[kind].scaling);
 
-    newTrain->setPosition(-800,-30);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist2(-18,-8);
+    int randSpawnPos = dist2(gen);
+    newTrain->setPosition(randSpawnPos*150,-30);
     this->attachChild(std::move(newTrain));
 }
 
