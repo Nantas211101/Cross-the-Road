@@ -108,6 +108,7 @@ namespace Textures
 		Gemstone3,
 
 		// Player
+		MoneyBar,
 		HealthBar,
 		ManaBar,
 		BoundBar,
@@ -305,6 +306,8 @@ namespace SoundEffect{
 		Reindeer,
 		Bear,
 		SnowBear,
+		Wolf,
+		Penguin,
 
 		// Vehicle
 		Truck,
@@ -320,6 +323,7 @@ namespace SoundEffect{
 		Tree,
 		Volcano,
 		SnowMan,
+		Coin,
 
 		// Train
 		Train1,

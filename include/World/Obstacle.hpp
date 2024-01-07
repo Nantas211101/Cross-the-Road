@@ -33,6 +33,8 @@ class Obstacle : public Entity {
         Type getType();
         virtual unsigned int getCategory() const;
         int getDamage();
+		bool isDestroyed() const;
+        void markedForRemoval(); 
 
     private:
         virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -41,4 +43,5 @@ class Obstacle : public Entity {
     private:
         Type type;
         Animation sprite;
+        bool marked;
 };

@@ -27,6 +27,8 @@ SoundPlayer::SoundPlayer()
     mSoundBuffers.load(SoundEffect::Monster, "Media/Sound/AnimalSound/Monster.wav");
     mSoundBuffers.load(SoundEffect::Reindeer, "Media/Sound/AnimalSound/Reindeer.wav");
     mSoundBuffers.load(SoundEffect::Bear, "Media/Sound/AnimalSound/Bear.wav");
+    mSoundBuffers.load(SoundEffect::Penguin, "Media/Sound/AnimalSound/Penguin.wav");
+    mSoundBuffers.load(SoundEffect::Wolf, "Media/Sound/AnimalSound/Wolf.wav");
 
     // Vehicle
     mSoundBuffers.load(SoundEffect::Truck, "Media/Sound/VehicleSound/Truck.wav");
@@ -42,6 +44,7 @@ SoundPlayer::SoundPlayer()
     mSoundBuffers.load(SoundEffect::Tree, "Media/Sound/ObstacleSound/Tree.wav");
     mSoundBuffers.load(SoundEffect::Volcano, "Media/Sound/ObstacleSound/Volcano.wav");
     mSoundBuffers.load(SoundEffect::SnowMan, "Media/Sound/ObstacleSound/SnowMan.wav");
+    mSoundBuffers.load(SoundEffect::Coin, "Media/Sound/ObstacleSound/Coin.wav");
 
     // Train
     mSoundBuffers.load(SoundEffect::Train1, "Media/Sound/TrainSound/Train1.wav");

@@ -138,18 +138,20 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowMan].pictureWidth = 157;  
     data[Obstacle::SnowMan].pictureHeight = 176;
     data[Obstacle::SnowMan].deltaHeightBound = 15;
+    data[Obstacle::SnowMan].collisionEffect = SoundEffect::SnowMan;
 
-    data[Obstacle::Coin].dmg = 5;
+    data[Obstacle::Coin].dmg = 0;
     data[Obstacle::Coin].speed = 0.f;
     data[Obstacle::Coin].texture = Textures::Coin;
     data[Obstacle::Coin].scaling = sf::Vector2f(0.1, 0.1);
     data[Obstacle::Coin].numOfFrames = 6;
-    data[Obstacle::Coin].pictureWidth = 3878;   
+    data[Obstacle::Coin].pictureWidth = 3878;
     data[Obstacle::Coin].pictureHeight = 707;
     data[Obstacle::Coin].deltaHeightBound = 15;
-    data[Obstacle::SnowMan].collisionEffect = SoundEffect::SnowMan;
+    data[Obstacle::Coin].collisionEffect = SoundEffect::Coin;
     return data;
 }
+
 std::vector<AnimalData> initializeAnimalData(){
     std::vector<AnimalData> data(Animal::TypeCount);
     data[Animal::Elephant].dmg = 35;
@@ -273,9 +275,10 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Penguin].scaling = sf::Vector2f(0.13, 0.13);
     data[Animal::Penguin].numOfFrames = 6;
     data[Animal::Penguin].pictureWidth = 2909;
-    data[Animal::Penguin].pictureHeight = 485;  
+    data[Animal::Penguin].pictureHeight = 485; 
     data[Animal::Penguin].duration = 0.5;
     data[Animal::Penguin].deltaHeightBound = 0;
+    data[Animal::Penguin].collisionEffect = SoundEffect::Penguin;
 
     data[Animal::Wolf].dmg = 35;
     data[Animal::Wolf].speed = 300.f;
@@ -284,9 +287,10 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::Wolf].scaling = sf::Vector2f(0.1, 0.15);
     data[Animal::Wolf].numOfFrames = 8;
     data[Animal::Wolf].pictureWidth = 8823;
-    data[Animal::Wolf].pictureHeight = 556;  
+    data[Animal::Wolf].pictureHeight = 556;
     data[Animal::Wolf].duration = 0.5;
     data[Animal::Wolf].deltaHeightBound = 0;
+    data[Animal::Wolf].collisionEffect = SoundEffect::Wolf;
     return data;
 }
 
