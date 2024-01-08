@@ -14,6 +14,7 @@ void MainChar5::updateCurrent(sf::Time dt) {
     sf::Time timeSinceLastAbility = AbilityTime.getElapsedTime();
     if(isAttach && timeSinceLastAbility >= AbilityLength) {
         detachChild(*powerShell);
+        canHurt = true;
         isAttach = false;
         movingVelocity -= accelerateAmount;
         AbilityTime.restart();
@@ -27,6 +28,7 @@ void MainChar5::updateCurrent(sf::Time dt) {
 void MainChar5::useAbility() {
     if(canUseAbility()) {
         MainChar::useAbility();
+        canHurt = false;
 
         if(!isAttach) {
             std::unique_ptr<SpriteNode> shell(new SpriteNode(textureHolder.get(Textures::PowerShell)));

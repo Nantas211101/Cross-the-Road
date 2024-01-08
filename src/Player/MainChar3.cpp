@@ -14,6 +14,7 @@ void MainChar3::updateCurrent(sf::Time dt) {
     sf::Time timeSinceLastAbility = AbilityTime.getElapsedTime();
     if(isAttach && timeSinceLastAbility >= AbilityLength) {
         detachChild(*powerShell);
+        canHurt = true;
         isAttach = false;
         AbilityTime.restart();
     }
@@ -26,6 +27,8 @@ void MainChar3::updateCurrent(sf::Time dt) {
 void MainChar3::useAbility() {
     if(canUseAbility()) {
         MainChar::useAbility();
+        canHurt = false;
+        
         if(!isAttach) {
             std::unique_ptr<SpriteNode> shell(new SpriteNode(textureHolder.get(Textures::PowerShell)));
             powerShell = shell.get();
