@@ -122,7 +122,9 @@ void LaneFactory::templateLane13() {
 // TEMPLATE ROAD
 //    __EASY__:
 void LaneFactory::templateLane14() {
+    templateGround(1);
     templateRoad(1);
+    templateAnimalRoad(1);
 }
 void LaneFactory::templateLane15() {
     templateGround(1);
@@ -172,7 +174,10 @@ void LaneFactory::templateLane22() {
 // TEMPLATE RIVER
 //    __EASY__:
 void LaneFactory::templateLane23() {
+    templateGround(1);
     templateRiver(1);
+    templateAnimalRoad(1);
+    templateGround(1);
 }
 void LaneFactory::templateLane24() {
     templateGround(1);
@@ -233,6 +238,8 @@ void LaneFactory::templateLane33() {
 }
 void LaneFactory::templateLane34() {
     templateGround(1);
+    templateRailway(1);
+    templateRiver(1);
     templateRailway(1);
 }
 void LaneFactory::templateLane35() {

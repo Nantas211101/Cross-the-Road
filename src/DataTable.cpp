@@ -6,21 +6,29 @@ std::vector<LogData> initializeLogData() {
     data[Log::Log1].distanceBetweenLog = 420;
     data[Log::Log1].texture = Textures::Log1;
     data[Log::Log1].scaling = sf::Vector2f(0.5, 0.6);
+    data[Log::Log1].deltaWidthBound = 20;
+    data[Log::Log1].deltaLeftBound = 10;
 
     data[Log::Log2].speed = 170.f;
     data[Log::Log2].distanceBetweenLog = 550;
     data[Log::Log2].texture = Textures::Log1;
     data[Log::Log2].scaling = sf::Vector2f(0.8, 0.6);
+    data[Log::Log2].deltaWidthBound = 20;
+    data[Log::Log2].deltaLeftBound = 10;
 
     data[Log::SnowLog1].speed = 220.f;
     data[Log::SnowLog1].distanceBetweenLog = 470;
     data[Log::SnowLog1].texture = Textures::SnowLog1;
     data[Log::SnowLog1].scaling = sf::Vector2f(1.15, 1.0);
+    data[Log::SnowLog1].deltaWidthBound = 20;
+    data[Log::SnowLog1].deltaLeftBound = 10;
 
     data[Log::SnowLog2].speed = 200.f;
     data[Log::SnowLog2].distanceBetweenLog = 540;
     data[Log::SnowLog2].texture = Textures::SnowLog2;
     data[Log::SnowLog2].scaling = sf::Vector2f(1.25, 1.0);
+    data[Log::SnowLog2].deltaWidthBound = 20;
+    data[Log::SnowLog2].deltaLeftBound = 10;
 
     data[Log::Crocodile].speed = 60.f;
     data[Log::Crocodile].texture = Textures::Log;
@@ -118,6 +126,8 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree].pictureWidth = 338;   
     data[Obstacle::SnowTree].pictureHeight = 322;
     data[Obstacle::SnowTree].deltaHeightBound = 15;
+    data[Obstacle::SnowTree].deltaWidthBound = 25;
+    data[Obstacle::SnowTree].deltaLeftBound = 15;
     data[Obstacle::SnowTree].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::SnowTree1].dmg = 5;
@@ -128,6 +138,8 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree1].pictureWidth = 201;   
     data[Obstacle::SnowTree1].pictureHeight = 265;
     data[Obstacle::SnowTree1].deltaHeightBound = 15;
+    data[Obstacle::SnowTree1].deltaWidthBound = 22;
+    data[Obstacle::SnowTree1].deltaLeftBound = 12;
     data[Obstacle::SnowTree1].collisionEffect = SoundEffect::Tree;
 
     data[Obstacle::SnowMan].dmg = 5;
@@ -138,6 +150,8 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowMan].pictureWidth = 157;  
     data[Obstacle::SnowMan].pictureHeight = 176;
     data[Obstacle::SnowMan].deltaHeightBound = 15;
+    data[Obstacle::SnowMan].deltaWidthBound = 20;
+    data[Obstacle::SnowMan].deltaLeftBound = 10;
     data[Obstacle::SnowMan].collisionEffect = SoundEffect::SnowMan;
 
     data[Obstacle::Coin].dmg = 0;
@@ -266,6 +280,8 @@ std::vector<AnimalData> initializeAnimalData(){
     data[Animal::SnowBear].pictureHeight = 476;
     data[Animal::SnowBear].duration = 0.5;
     data[Animal::SnowBear].deltaHeightBound = 0;
+    data[Animal::SnowBear].deltaWidthBound = 25;
+    data[Animal::SnowBear].deltaLeftBound = 15;
     data[Animal::SnowBear].collisionEffect = SoundEffect::Bear;
 
     data[Animal::Penguin].dmg = 25;

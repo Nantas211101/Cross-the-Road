@@ -18,6 +18,8 @@ struct LogData {
 	int distanceBetweenLog;
 	Textures::ID texture;
 	sf::Vector2f scaling;
+	int deltaWidthBound;
+	int deltaLeftBound;
 };
 
 struct ObstacleData {
@@ -29,6 +31,8 @@ struct ObstacleData {
 	int pictureHeight;
 	int numOfFrames;
 	int deltaHeightBound;
+	int deltaWidthBound;
+	int deltaLeftBound;
 	SoundEffect::ID collisionEffect;
 };
 

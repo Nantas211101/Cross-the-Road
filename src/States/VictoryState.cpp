@@ -43,7 +43,7 @@ VictoryState::VictoryState(StateStack& stack, Context context)
     if(curLevel > themeLimit[theme - 1])
         ++theme;
 
-    setNewMask(limitLevel);
+    //setNewMask(limitLevel);
 
     //
 
