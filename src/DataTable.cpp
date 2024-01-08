@@ -142,7 +142,7 @@ std::vector<ObstacleData> initializeObstacleData() {
     data[Obstacle::SnowTree1].deltaLeftBound = 12;
     data[Obstacle::SnowTree1].collisionEffect = SoundEffect::Tree;
 
-    data[Obstacle::SnowMan].dmg = 5;
+    data[Obstacle::SnowMan].dmg = 0;
     data[Obstacle::SnowMan].speed = 0.f;
     data[Obstacle::SnowMan].texture = Textures::SnowMan;
     data[Obstacle::SnowMan].scaling = sf::Vector2f(0.52, 0.55);

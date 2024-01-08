@@ -18,6 +18,7 @@ public:
 
 private:
     void setNewMask(int lv);
+    void setNewLevel();
 
 private:
     sf::RectangleShape mBackground;

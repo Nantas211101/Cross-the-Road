@@ -63,4 +63,11 @@ void ResetConfirmState::resetCurrentPlayerInfo(){
     *getContext().currentLevel = 1;
     *getContext().money = 0;
     getContext().player->setMaskID(1);
+    *getContext().keyMoveUp = "Up";
+    *getContext().keyMoveDown = "Down";
+    *getContext().keyMoveLeft = "Left";
+    *getContext().keyMoveRight = "Right";
+    *getContext().keyUseAbility = "Space";
+    *getContext().currentMusicVolume = 70;
+    *getContext().currentTotalVolume = 70;
 }
