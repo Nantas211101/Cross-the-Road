@@ -101,6 +101,7 @@ MainChar::MainChar(Type type, TextureHolder& textures, CommandQueue& soundComman
 , maxMP(Table[type].manapoints)
 , movingVelocity(Table[type].speed)
 , hurtEffect(nullptr)
+, canHurt(true)
 {
     int frameWidth = Table[type].pictureWidth / Table[type].numOfFrames;
     int frameHeight = Table[type].pictureHeight;
@@ -202,10 +203,10 @@ void MainChar::updateCurrent(sf::Time dt) {
         setInLane();
     }
     sf::Time timeFromLastDamage = timeSinceLastDamage.getElapsedTime();
-    if(isAttach && timeFromLastDamage >= damageGap) {
+    if(isHurtAttach && timeFromLastDamage >= damageGap) {
         if(hurtEffect)
             detachChild(*hurtEffect);
-        isAttach = false;
+        isHurtAttach = false;
         timeSinceLastDamage.restart();
     }
     Entity::updateCurrent(dt);
@@ -297,13 +298,13 @@ void MainChar::damage(int points) {
 	assert(points >= 0);
     mHP -= points;
     mHP = std::max(mHP, 0);
-    if(points > 0) {
+    if(points > 0 && canHurt) {
         playHurtSound(*soundCommandQueue);
-        if(!isAttach) {
+        if(!isHurtAttach) {
             std::unique_ptr<SpriteNode> hurt(new SpriteNode(textureHolder.get(Textures::Blood)));
             hurtEffect = hurt.get();
             attachChild(std::move(hurt));
-            isAttach = true;
+            isHurtAttach = true;
             timeSinceLastDamage.restart();
         }
     }

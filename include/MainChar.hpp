@@ -124,10 +124,11 @@ private:
     int movingVelocity;
 
     SpriteNode* hurtEffect;
-    bool isAttach;
+    bool canHurt;
+    bool isHurtAttach;
     sf::Clock timeSinceLastDamage;
-    const sf::Time damageGap = sf::seconds(1);
+    const sf::Time damageGap = sf::seconds(0.95);
 };
 
 int convertToMaskID(MainChar::Type type);
-MainChar::Type changeTexture(MainChar::Type type, bool isLeft);  
+MainChar::Type changeTexture(MainChar::Type type, bool isLeft);

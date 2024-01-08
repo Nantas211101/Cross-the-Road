@@ -92,7 +92,8 @@ bool SettingsState::update(sf::Time dt)
 	mElapsedTime += dt;
 	updateVolumeSetting(currentVolume, volumeRectangleHold, volumeLeftButtonPos, volumeRightButtonPos, mMusic);
 	updateVolumeSetting(currentSound, soundRectangleHold, soundLeftButtonPos, soundRightButtonPos, mSounds);
-	
+	*getContext().currentMusicVolume = (currentVolume + 1) * 10;
+	*getContext().currentTotalVolume = (currentSound + 1) * 10;
 	return false;
 }
 

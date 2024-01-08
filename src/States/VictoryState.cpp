@@ -38,12 +38,7 @@ VictoryState::VictoryState(StateStack& stack, Context context)
     if(curLevel + 1 > MaxLevel)
         isEndGame = true;
 
-    curLevel = std::min(curLevel + 1, MaxLevel);
-
-    if(curLevel > themeLimit[theme - 1])
-        ++theme;
-
-    setNewMask(limitLevel);
+    //setNewMask(limitLevel);
 
     //
 
@@ -75,6 +70,7 @@ VictoryState::VictoryState(StateStack& stack, Context context)
     nextLevelButton->centerOrigin();
     nextLevelButton->setPosition(canvaPosition::NextLevelPos);
     nextLevelButton->setCallback([this](){
+        setNewLevel();
         requestStateClear();
         requestStackPush(States::Game);
     });
@@ -126,4 +122,13 @@ void VictoryState::handleRealTimeInput()
 void VictoryState::setNewMask(int lv){
     int newMask = convertFromLevelToMaskID(lv);
     getContext().player->setMaskID(newMask);
+}
+
+void VictoryState::setNewLevel(){
+    int &curLevel = *getContext().currentLevel;
+    int &theme = *getContext().theme;
+    curLevel = std::min(curLevel+1,MaxLevel);
+    if (curLevel > themeLimit[theme - 1]) theme++;
+
+
 }

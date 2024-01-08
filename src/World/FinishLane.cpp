@@ -20,11 +20,11 @@
             break;
         case FinishLane::Theme2:
             sprite.setTexture(textureHolder->get(Textures::FinishTheme2));
-            num = 8;
+            num = 7;
             break;
         case FinishLane::Theme3:
             sprite.setTexture(textureHolder->get(Textures::FinishTheme3));
-            num = 7;
+            num = 8;
             break;
     }
     sf::IntRect textureRect(0, 0, widthOfLane, distanceBetweenLane*num);
@@ -32,6 +32,10 @@
 	sprite.setOrigin(0, bounds.height - distanceBetweenLane);
     sprite.setTextureRect(textureRect);
     buildLane();
+ }
+
+ unsigned int FinishLane::getCategory() const{
+    return Category::WinLane;
  }
 
  void FinishLane::updateCurrent(sf::Time dt){}

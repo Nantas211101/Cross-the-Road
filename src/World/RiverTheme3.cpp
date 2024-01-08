@@ -48,14 +48,18 @@ void RiverTheme3::buildLane() {
         kind = Log::Log2;
         break;
     }
-    int randSpawnPos = rand() % 200;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist2(minCoefficientRandPos,maxCoefficientRandPos);
+    int randSpawnPos = dist2(gen);
+
     for(int j = 0; j < numOfLog; j++) {
         std::unique_ptr<Log> log(new Log(kind, *textureHolder));
         if(!this->isReverse())
             log->setVelocity(1.0 * TableLog[kind].speed, 0);
         else
             log->setVelocity(-1.0 * TableLog[kind].speed, 0);
-        log->setPosition(randSpawnPos + distance,25);
+        log->setPosition(randSpawnPos*distanceBetweenStartPos + distance,25);
         distance += TableLog[kind].distanceBetweenLog;
         riverLog.push_back(log.get());
         this->attachChild(std::move(log));

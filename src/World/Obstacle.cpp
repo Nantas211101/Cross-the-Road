@@ -46,6 +46,8 @@ sf::FloatRect Obstacle::getBoundingRect() const {
     sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
     bound.height = std::min(bound.height, (float)Lane::distanceBetweenLane);
     bound.top += Table[type].deltaHeightBound;
+    bound.left += Table[type].deltaLeftBound;
+    bound.width -= Table[type].deltaWidthBound;
     return bound;
 }
 

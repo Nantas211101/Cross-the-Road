@@ -21,3 +21,7 @@ void River::playLocalSound(CommandQueue& commands) {
 
 	commands.push(command);
 }
+
+sf::FloatRect River::getBoundingRect() const {
+    return getWorldTransform().transformRect(animation.getGlobalBounds());
+}

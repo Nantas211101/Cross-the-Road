@@ -19,6 +19,25 @@ Music::ID GameThemeLoseID[] = {
 	Music::GameTheme2Lose,
 	Music::GameTheme3Lose,
 };
+
+const int coinsGet[16] = {
+	5,
+	10,
+	15,
+	20,
+	30,
+	10,
+	15,
+	20,
+	30,
+	50,
+	15,
+	20,
+	25,
+	30,
+	100,
+};
+
 namespace canvaPosition{
 	// from center
 	const sf::Vector2f PausePosAdding = sf::Vector2f(804.5, -428.5);
@@ -31,6 +50,9 @@ GameState::GameState(StateStack& stack, Context context)
 , mGUIContainer()
 , mPauseButton(nullptr)
 , mBackground()
+, mElapsedTime(sf::Time::Zero)
+, mCurThemeID(0)
+, mTimeWin(sf::Time::Zero)
 {
 	auto pauseButton = std::make_shared<GUI::Button>(context, Textures::NormalPauseButton, Textures::NormalPauseButton, Textures::PressedPauseButton);
 	pauseButton->setPosition(context.window->getView().getCenter() + canvaPosition::PausePosAdding);
@@ -77,8 +99,16 @@ bool GameState::update(sf::Time dt)
 
 	if (curState == World::InGameState::Win){
 		getContext().music->play(GameThemeWinID[mCurThemeID], false);
-		*getContext().money += mWorld.getMoney();
-		requestStackPush(States::Victory);
+		mTimeWin += dt;
+		if (mTimeWin > sf::seconds(3)){
+			*getContext().money += mWorld.getMoney();
+			int curLevel = *getContext().currentLevel;
+			int limitLevel = *getContext().limitLevel;
+			if(curLevel == limitLevel){
+				*getContext().money += coinsGet[curLevel - 1];
+			}
+			requestStackPush(States::Victory);
+		}
 	}
 
 	mPauseButton->setPosition(getContext().window->getView().getCenter() + canvaPosition::PausePosAdding);

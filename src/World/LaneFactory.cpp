@@ -31,8 +31,8 @@ std::vector<std::unique_ptr<Lane>> LaneFactory::templateLane() {
         templateLevel5();
         break;
     }
-    templateFinishLevel(1);
-    if (level == 5) templateFinishTheme(1);
+    if (caseLevel == 5) templateFinishTheme(1);
+    else templateFinishLevel(1); 
     std::vector<std::unique_ptr<Lane>> randLanes;
     for(auto&x : lanes) {
         randLanes.push_back(std::move(x));
@@ -122,7 +122,9 @@ void LaneFactory::templateLane13() {
 // TEMPLATE ROAD
 //    __EASY__:
 void LaneFactory::templateLane14() {
+    templateGround(1);
     templateRoad(1);
+    templateAnimalRoad(1);
 }
 void LaneFactory::templateLane15() {
     templateGround(1);
@@ -172,7 +174,10 @@ void LaneFactory::templateLane22() {
 // TEMPLATE RIVER
 //    __EASY__:
 void LaneFactory::templateLane23() {
+    templateGround(1);
     templateRiver(1);
+    templateAnimalRoad(1);
+    templateGround(1);
 }
 void LaneFactory::templateLane24() {
     templateGround(1);
@@ -233,6 +238,8 @@ void LaneFactory::templateLane33() {
 }
 void LaneFactory::templateLane34() {
     templateGround(1);
+    templateRailway(1);
+    templateRiver(1);
     templateRailway(1);
 }
 void LaneFactory::templateLane35() {

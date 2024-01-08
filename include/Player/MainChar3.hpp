@@ -18,5 +18,5 @@ private:
     SpriteNode* powerShell;
     bool isAttach;
     sf::Clock AbilityTime;
-    const sf::Time AbilityLength = sf::seconds(5);
+    const sf::Time AbilityLength = sf::seconds(3);
 };

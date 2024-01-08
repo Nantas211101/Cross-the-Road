@@ -30,5 +30,7 @@ sf::FloatRect Log::getBoundingRect() const {
     sf::FloatRect bound = getWorldTransform().transformRect(sprite.getGlobalBounds());
     bound.height = (float)Lane::distanceBetweenLane;
     bound.top -= 25;
+    bound.left += Table[type].deltaLeftBound;
+    bound.width -= Table[type].deltaWidthBound;
     return bound;
 }
