@@ -69,7 +69,6 @@ GameState::GameState(StateStack& stack, Context context)
 
 	mGUIContainer.pack(pauseButton);
 	mCurThemeID = *context.theme - 1;
-	std::cerr << *getContext().currentLevel << "\n";
 
 	context.music->play(GameThemeMainID[mCurThemeID]);
 	// context.music->play(Music::ChooseCharTheme);
